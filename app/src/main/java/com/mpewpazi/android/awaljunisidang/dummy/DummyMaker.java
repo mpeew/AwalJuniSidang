@@ -2,6 +2,10 @@ package com.mpewpazi.android.awaljunisidang.dummy;
 
 import android.content.Context;
 
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
+import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.model.GalanganKapal;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.PeriodeSurvey;
@@ -27,6 +31,9 @@ public class DummyMaker {
     private List<GalanganKapal> mGalanganKapals;
     private List<SurveyAssignSurveyor> mSurveyAssignSurveyors;
 
+    private List<SingleForm> mGalpalForms;
+    private List<SingleForm> mKompalForms;
+
     public static DummyMaker get(Context context){
         if(sDummyMaker ==null){
             sDummyMaker =new DummyMaker(context);
@@ -42,7 +49,8 @@ public class DummyMaker {
         makePerusahaan();
         makeGalanganKapal();
 
-
+        makeGalpalForms();
+        makeKompalForms();
 
         mKualifikasiSurveys=new ArrayList<>();
         KualifikasiSurvey kualifikasiSurvey=new KualifikasiSurvey();
@@ -50,6 +58,7 @@ public class DummyMaker {
         kualifikasiSurvey.setPerusahaan(getPerusahaan(1));
         kualifikasiSurvey.setPeriodeSurvey(getPeriodeSurvey(2014));
         kualifikasiSurvey.setGalanganKapal(getGalanganKapal(1));
+        setKualifikasiSurveyForms(kualifikasiSurvey);
         mKualifikasiSurveys.add(kualifikasiSurvey);
 
         KualifikasiSurvey kualifikasiSurvey1=new KualifikasiSurvey();
@@ -57,6 +66,7 @@ public class DummyMaker {
         kualifikasiSurvey1.setPerusahaan(getPerusahaan(2));
         kualifikasiSurvey1.setPeriodeSurvey(getPeriodeSurvey(2014));
         kualifikasiSurvey1.setGalanganKapal(getGalanganKapal(1));
+        setKualifikasiSurveyForms(kualifikasiSurvey1);
         mKualifikasiSurveys.add(kualifikasiSurvey1);
 
         KualifikasiSurvey kualifikasiSurvey2=new KualifikasiSurvey();
@@ -64,6 +74,7 @@ public class DummyMaker {
         kualifikasiSurvey2.setPerusahaan(getPerusahaan(3));
         kualifikasiSurvey2.setPeriodeSurvey(getPeriodeSurvey(2014));
         kualifikasiSurvey2.setGalanganKapal(getGalanganKapal(1));
+        setKualifikasiSurveyForms(kualifikasiSurvey2);
         mKualifikasiSurveys.add(kualifikasiSurvey2);
 
 
@@ -202,5 +213,29 @@ public class DummyMaker {
 
     public List<SurveyAssignSurveyor> getSurveyAssignSurveyors() {
         return mSurveyAssignSurveyors;
+    }
+
+    //untuk mempersingkat doang setting setiap kualifikasi survey formnya
+    private void setKualifikasiSurveyForms(KualifikasiSurvey kualifikasiSurvey){
+        for(SingleForm singleForm:mGalpalForms){
+            singleForm.setKualifikasiSurvey(kualifikasiSurvey);
+        }
+        for(SingleForm singleForm:mKompalForms){
+            singleForm.setKualifikasiSurvey(kualifikasiSurvey);
+        }
+    }
+
+    private void makeGalpalForms(){
+        mGalpalForms=new ArrayList<>();
+        FormGalpal1 formGalpal1=new FormGalpal1();
+        FormGalpal3 formGalpal3=new FormGalpal3();
+        mGalpalForms.add(formGalpal1);
+        mGalpalForms.add(formGalpal3);
+    }
+
+    private void makeKompalForms(){
+        mKompalForms=new ArrayList<>();
+        FormGalpal4 formGalpal4=new FormGalpal4();
+        mKompalForms.add(formGalpal4);
     }
 }

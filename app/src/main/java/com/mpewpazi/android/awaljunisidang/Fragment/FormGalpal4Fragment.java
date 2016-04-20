@@ -13,12 +13,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
-import com.mpewpazi.android.awaljunisidang.database.FormGalpalDBHelper;
 
 
 import java.util.List;

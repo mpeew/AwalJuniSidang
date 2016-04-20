@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.MasterDataCreator;
