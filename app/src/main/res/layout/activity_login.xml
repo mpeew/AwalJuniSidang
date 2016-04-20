@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:gravity="center"
+              xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Button
+        android:id="@+id/user_perinurpazri_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="perinurpazri"/>
+
+    <Button
+        android:id="@+id/user_mpewpazi_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="mpewpazi"/>
+
+
+</LinearLayout>
