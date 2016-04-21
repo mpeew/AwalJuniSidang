@@ -2,6 +2,7 @@ package com.mpewpazi.android.awaljunisidang.Form;
 
 import android.support.v4.app.Fragment;
 
+import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal3Fragment;
 import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal4Fragment;
 
 /**

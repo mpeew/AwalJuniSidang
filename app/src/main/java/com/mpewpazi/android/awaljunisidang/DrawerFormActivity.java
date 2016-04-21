@@ -79,7 +79,7 @@ public class DrawerFormActivity extends ActionBarActivity {
         mGalpalForms= mDummyMaker.getGalpalForms(kualifikasiSurveyId);
         mKompalForms= mDummyMaker.getKompalForms(kualifikasiSurveyId);
 
-        Toast.makeText(this,String.valueOf(DummyMaker.mGalpalForms.get(1).getKualifikasiSurvey().getKualifikasiSurveyId()),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,String.valueOf(kualifikasiSurveyId),Toast.LENGTH_SHORT).show();
 
         mNamaFormList=new ArrayList<>();
         for(int i=0;i<mGalpalForms.size();i++){
@@ -100,8 +100,8 @@ public class DrawerFormActivity extends ActionBarActivity {
 
 
         //munculkan fragmen 0
-        Fragment fragment=new FormGalpal1Fragment();
-       // Fragment fragment=mFragmentList.get(0);
+       // Fragment fragment=new FormGalpal1Fragment();
+        Fragment fragment=mFragmentList.get(0);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
 
@@ -169,6 +169,9 @@ public class DrawerFormActivity extends ActionBarActivity {
                 break;
             case 1:
                 fragment = mFragmentList.get(1);
+                break;
+            case 2:
+                fragment = mFragmentList.get(2);
                 break;
 
 

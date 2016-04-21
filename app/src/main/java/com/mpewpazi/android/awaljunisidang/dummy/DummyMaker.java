@@ -21,6 +21,8 @@ import java.util.List;
  */
 public class DummyMaker {
     private Context mContext;
+    private int galpalSize=0;
+    private int kompalSize=0;
 
     private static DummyMaker sDummyMaker;
 
@@ -31,8 +33,8 @@ public class DummyMaker {
     private List<GalanganKapal> mGalanganKapals;
     private List<SurveyAssignSurveyor> mSurveyAssignSurveyors;
 
-    public static List<SingleForm> mGalpalForms;
-    public static List<SingleForm> mKompalForms;
+    private List<SingleForm> mGalpalForms;
+    private List<SingleForm> mKompalForms;
 
     public static DummyMaker get(Context context){
         if(sDummyMaker ==null){
@@ -43,9 +45,9 @@ public class DummyMaker {
 
     private DummyMaker(Context context){
         mContext=context.getApplicationContext();
+        mKompalForms=new ArrayList<>();
+        mGalpalForms=new ArrayList<>();
 
-        makeGalpalForms();
-        makeKompalForms();
 
         makeUser();
         makePeriodeSurvey();
@@ -93,7 +95,8 @@ public class DummyMaker {
         kualifikasiSurvey.setPerusahaan(getPerusahaan(1));
         kualifikasiSurvey.setPeriodeSurvey(getPeriodeSurvey(2014));
         kualifikasiSurvey.setGalanganKapal(getGalanganKapal(1));
-        setKualifikasiSurveyForms(kualifikasiSurvey);
+        makeGalpalForms(kualifikasiSurvey);
+        makeKompalForms(kualifikasiSurvey);
         mKualifikasiSurveys.add(kualifikasiSurvey);
 
         KualifikasiSurvey kualifikasiSurvey1=new KualifikasiSurvey();
@@ -101,7 +104,8 @@ public class DummyMaker {
         kualifikasiSurvey1.setPerusahaan(getPerusahaan(2));
         kualifikasiSurvey1.setPeriodeSurvey(getPeriodeSurvey(2014));
         kualifikasiSurvey1.setGalanganKapal(getGalanganKapal(1));
-        setKualifikasiSurveyForms(kualifikasiSurvey1);
+        makeGalpalForms(kualifikasiSurvey1);
+        makeKompalForms(kualifikasiSurvey1);
         mKualifikasiSurveys.add(kualifikasiSurvey1);
 
         KualifikasiSurvey kualifikasiSurvey2=new KualifikasiSurvey();
@@ -109,7 +113,8 @@ public class DummyMaker {
         kualifikasiSurvey2.setPerusahaan(getPerusahaan(3));
         kualifikasiSurvey2.setPeriodeSurvey(getPeriodeSurvey(2014));
         kualifikasiSurvey2.setGalanganKapal(getGalanganKapal(1));
-        setKualifikasiSurveyForms(kualifikasiSurvey2);
+        makeGalpalForms(kualifikasiSurvey2);
+        makeKompalForms(kualifikasiSurvey2);
         mKualifikasiSurveys.add(kualifikasiSurvey2);
 
         KualifikasiSurvey kualifikasiSurvey3=new KualifikasiSurvey();
@@ -117,7 +122,8 @@ public class DummyMaker {
         kualifikasiSurvey3.setPerusahaan(getPerusahaan(4));
         kualifikasiSurvey3.setPeriodeSurvey(getPeriodeSurvey(2014));
         kualifikasiSurvey3.setGalanganKapal(getGalanganKapal(1));
-        setKualifikasiSurveyForms(kualifikasiSurvey3);
+        makeGalpalForms(kualifikasiSurvey3);
+        makeKompalForms(kualifikasiSurvey3);
         mKualifikasiSurveys.add(kualifikasiSurvey3);
 
     }
@@ -248,21 +254,31 @@ public class DummyMaker {
 
 
 
-    private void makeGalpalForms(){
-        mGalpalForms=new ArrayList<>();
+    private void makeGalpalForms(KualifikasiSurvey kualifikasiSurvey){
         FormGalpal1 formGalpal1=new FormGalpal1();
         FormGalpal3 formGalpal3=new FormGalpal3();
         mGalpalForms.add(formGalpal1);
         mGalpalForms.add(formGalpal3);
+        for(int y=galpalSize;y<mGalpalForms.size();y++){
+            mGalpalForms.get(y).setKualifikasiSurvey(kualifikasiSurvey);
+        }
+        galpalSize=mGalpalForms.size();
+
+
+
     }
 
-    private void makeKompalForms(){
-        mKompalForms=new ArrayList<>();
+    private void makeKompalForms(KualifikasiSurvey kualifikasiSurvey){
         FormGalpal4 formGalpal4=new FormGalpal4();
         mKompalForms.add(formGalpal4);
+        for(int y=kompalSize;y<mKompalForms.size();y++){
+            mKompalForms.get(y).setKualifikasiSurvey(kualifikasiSurvey);
+        }
+        kompalSize=mKompalForms.size();
+
     }
 
-    //untuk mempersingkat doang setting setiap kualifikasi survey formnya
+  /*  //untuk mempersingkat doang setting setiap kualifikasi survey formnya
     private void setKualifikasiSurveyForms(KualifikasiSurvey kualifikasiSurvey){
         for(SingleForm singleForm:mGalpalForms){
             singleForm.setKualifikasiSurvey(kualifikasiSurvey);
@@ -270,7 +286,7 @@ public class DummyMaker {
         for(SingleForm singleForm:mKompalForms){
             singleForm.setKualifikasiSurvey(kualifikasiSurvey);
         }
-    }
+    }*/
 
     public List<SingleForm> getGalpalForms(int kualifikasiSurveyId) {
         List<SingleForm> galpalForms=new ArrayList<>();

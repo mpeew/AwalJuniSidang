@@ -2,6 +2,13 @@ package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -10,9 +17,12 @@ import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.MasterDataCreator;
+import com.mpewpazi.android.awaljunisidang.R;
+import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
 import com.mpewpazi.android.awaljunisidang.database.FormGalpalDBHelper;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.masterData.Propinsi;
+import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +57,7 @@ public class FormGalpal1Fragment extends Fragment  {
     private List<String> mPropinsiNames;
 
     private List<SingleForm> mGalpalForms;
+    private KualifikasiSurvey mKualifikasiSurvey;
 
     private FormGalpal1 mFormGalpal1;
 
@@ -66,6 +77,7 @@ public class FormGalpal1Fragment extends Fragment  {
         }
 
 
+        mKualifikasiSurvey=DummyMaker.get(getActivity()).getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
         mGalpalForms= DummyMaker.get(getActivity()).getGalpalForms(DrawerFormActivity.kualifikasiSurveyId);
         for(SingleForm singleForm:mGalpalForms){
             if(singleForm.getNamaForm().equals(NAMA_FORM)){
@@ -73,13 +85,13 @@ public class FormGalpal1Fragment extends Fragment  {
             }
         }
 
-      /*  mNamaPerusahaan=mSurvey.getNamaPerusahaan();
+        mNamaPerusahaan=mKualifikasiSurvey.getPerusahaan().getNamaPerusahaan();
 
 
 
        dbHelper=new FormGalpalDBHelper(getActivity());
 
-        if(dbHelper.checkIsDataAlreadyInDBorNot(mFormGalpal1.getId(), BaseDBHelper.FORM_GALPAL1_TABLE_NAME)) {
+       /* if(dbHelper.checkIsDataAlreadyInDBorNot(mFormGalpal1.getId(), BaseDBHelper.FORM_GALPAL1_TABLE_NAME)) {
             Cursor cursor = dbHelper.getDataForm(mFormGalpal1.getId(), BaseDBHelper.FORM_GALPAL1_TABLE_NAME);
 
             cursor.moveToNext();
@@ -103,7 +115,7 @@ public class FormGalpal1Fragment extends Fragment  {
             cursor.close();
 
 
-        }
+        }*/
 
 
 
@@ -139,7 +151,7 @@ public class FormGalpal1Fragment extends Fragment  {
         mPropinsiSpinner.setSelection(dataAdapter.getPosition(mFormGalpal1.getPropinsi()));
 
         //nama perusahaan di lock
-        mFormGalpal1.setNamaPerusahaan(mSurvey.getNamaPerusahaan());
+        mFormGalpal1.setNamaPerusahaan(mKualifikasiSurvey.getPerusahaan().getNamaPerusahaan());
 
 
         mNomorTeleponEditText.setText(mFormGalpal1.getNomorTelepon());
@@ -365,7 +377,7 @@ public class FormGalpal1Fragment extends Fragment  {
 
 
         mSubmitButton=(Button)rootView.findViewById(R.id.galpal1_btn_submit);
-        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+       /* mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -385,21 +397,12 @@ public class FormGalpal1Fragment extends Fragment  {
 
                 Toast.makeText(getContext(),"Berhasil ",Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
 
         return rootView;
     }
 
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String item=parent.getItemAtPosition(position).toString();
-        mFormGalpal1.setPropinsi(item);
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-*/
-    }
 }

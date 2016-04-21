@@ -10,6 +10,16 @@ import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal1Fragment;
 public class FormGalpal1 extends SingleForm {
 
 
+    private String namaPerusahaan;
+
+    public String getNamaPerusahaan() {
+        return namaPerusahaan;
+    }
+
+    public void setNamaPerusahaan(String namaPerusahaan) {
+        this.namaPerusahaan = namaPerusahaan;
+    }
+
     private int identitasPerusahaanId;
     private String statusKepemilikanUsaha;
     private String nomorTelepon;
