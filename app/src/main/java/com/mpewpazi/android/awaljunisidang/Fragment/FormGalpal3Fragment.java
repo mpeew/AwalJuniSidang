@@ -12,12 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
 import com.mpewpazi.android.awaljunisidang.database.FormGalpalDBHelper;
-
+import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 
 import java.util.List;
 
@@ -25,11 +27,11 @@ import java.util.List;
  * Created by mpewpazi on 3/27/16.
  */
 public class FormGalpal3Fragment extends Fragment {
-/*
+
     private final static String NAMA_FORM="Identitas Umum Galangan";
 
 
-    private Survey mSurvey;
+
     private String mNamaPerusahaan;
 
     private EditText mNamaGalanganEditText;
@@ -49,9 +51,11 @@ public class FormGalpal3Fragment extends Fragment {
     private EditText mEmailEditText;
     private Button mSubmitButton;
 
-    private List<SingleForm> mForms;
+    private List<SingleForm> mGalpalForms;
     private FormGalpal3 mFormGalpal3;
     private FormGalpalDBHelper dbHelper;
+
+    private KualifikasiSurvey mKualifikasiSurvey;
 
 
 
@@ -59,14 +63,20 @@ public class FormGalpal3Fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mSurvey=SurveyAssignation.get(getActivity()).getSurvey(DrawerFormActivity.surveyId);
-        mNamaPerusahaan=mSurvey.getNamaPerusahaan();
-        mFormGalpal3=mSurvey.getFormGalpal3();
+        mKualifikasiSurvey= DummyMaker.get(getActivity()).getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
+        mGalpalForms= DummyMaker.get(getActivity()).getGalpalForms(DrawerFormActivity.kualifikasiSurveyId);
+        for(SingleForm singleForm:mGalpalForms){
+            if(singleForm.getNamaForm().equals(NAMA_FORM)){
+                mFormGalpal3=(FormGalpal3)singleForm;
+            }
+        }
+
+        mNamaPerusahaan=mKualifikasiSurvey.getPerusahaan().getNamaPerusahaan();
 
         dbHelper=new FormGalpalDBHelper(getActivity());
 
-        if(dbHelper.checkIsDataAlreadyInDBorNot(mFormGalpal3.getId(), BaseDBHelper.FORM_GALPAL3_TABLE_NAME)) {
-            Cursor cursor = dbHelper.getDataForm(mFormGalpal3.getId(), BaseDBHelper.FORM_GALPAL3_TABLE_NAME);
+        if(dbHelper.checkIsDataAlreadyInDBorNot(mFormGalpal3.getIdentitasUmumGalanganId(), BaseDBHelper.FORM_GALPAL3_TABLE_NAME)) {
+            Cursor cursor = dbHelper.getDataForm(mFormGalpal3.getIdentitasUmumGalanganId(), BaseDBHelper.FORM_GALPAL3_TABLE_NAME);
 
             cursor.moveToNext();
             //mFormGalpal1.setId(cursor.getInt(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_ID)));
@@ -109,13 +119,13 @@ public class FormGalpal3Fragment extends Fragment {
         mKodePosEditText=(EditText)rootView.findViewById(R.id.kode_pos);
         mLongitudeEditText=(EditText)rootView.findViewById(R.id.long3);
         mLatitudeEditText=(EditText)rootView.findViewById(R.id.lat);
-        //mKategoriGalanganEditText=(Spinner)rootView.findViewById(R.id.kategori_galangan_spinner);
+       // mKategoriGalanganEditText=(Spinner)rootView.findViewById(R.id.kategori_galangan_spinner);
         mContactPersonEditText=(EditText)rootView.findViewById(R.id.contact_person);
         mNomorCpEditText=(EditText)rootView.findViewById(R.id.contact_person_no);
         mJabatanEditText=(EditText)rootView.findViewById(R.id.jabatan);
         mEmailEditText=(EditText)rootView.findViewById(R.id.alamat_email);
 
-        mFormGalpal3.setNamaPerusahaan(mSurvey.getNamaPerusahaan());
+        mFormGalpal3.setNamaPerusahaan(mKualifikasiSurvey.getPerusahaan().getNamaPerusahaan());
 
         mNamaGalanganEditText.setText(mFormGalpal3.getNamaGalangan());
         mNamaGalanganEditText.addTextChangedListener(new TextWatcher() {
@@ -280,7 +290,7 @@ public class FormGalpal3Fragment extends Fragment {
             }
         });
 
-       /* mKategoriGalanganEditText.setText(mFormGalpal3.getKategoriGalangan());
+       /*mKategoriGalanganEditText.setText(mFormGalpal3.getKategoriGalangan());
         mKategoriGalanganEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -296,7 +306,7 @@ public class FormGalpal3Fragment extends Fragment {
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
 
         mContactPersonEditText.setText(mFormGalpal3.getContactPerson());
         mContactPersonEditText.addTextChangedListener(new TextWatcher() {
@@ -380,14 +390,14 @@ public class FormGalpal3Fragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(dbHelper.checkIsDataAlreadyInDBorNot(mFormGalpal3.getId(), BaseDBHelper.FORM_GALPAL3_TABLE_NAME)) {
-                    dbHelper.updateFormGalpal3(mFormGalpal3.getId(), mFormGalpal3.getNamaPerusahaan(), mFormGalpal3.getNamaGalangan(),mFormGalpal3.getNomorDock(),
+                if(dbHelper.checkIsDataAlreadyInDBorNot(mFormGalpal3.getIdentitasUmumGalanganId(), BaseDBHelper.FORM_GALPAL3_TABLE_NAME)) {
+                    dbHelper.updateFormGalpal3(mFormGalpal3.getIdentitasUmumGalanganId(), mFormGalpal3.getNamaPerusahaan(), mFormGalpal3.getNamaGalangan(),mFormGalpal3.getNomorDock(),
                             mFormGalpal3.getNomorTelepon(), mFormGalpal3.getFax(), mFormGalpal3.getAlamat(),
                             mFormGalpal3.getKelurahan(), mFormGalpal3.getKecamatan(), mFormGalpal3.getPropinsi(), mFormGalpal3.getKebupaten_kota(),
                             mFormGalpal3.getKodePos(),  mFormGalpal3.getLongitude(),mFormGalpal3.getLatitude(), mFormGalpal3.getKategoriGalangan(),
                             mFormGalpal3.getContactPerson(), mFormGalpal3.getNomorCp(), mFormGalpal3.getJabatan(), mFormGalpal3.getEmail());
                 }else{
-                    dbHelper.insertFormGalpal3(mFormGalpal3.getId(), mFormGalpal3.getNamaPerusahaan(), mFormGalpal3.getNamaGalangan(), mFormGalpal3.getNomorDock(),
+                    dbHelper.insertFormGalpal3(mFormGalpal3.getIdentitasUmumGalanganId(), mFormGalpal3.getNamaPerusahaan(), mFormGalpal3.getNamaGalangan(), mFormGalpal3.getNomorDock(),
                             mFormGalpal3.getNomorTelepon(), mFormGalpal3.getFax(), mFormGalpal3.getAlamat(),
                             mFormGalpal3.getKelurahan(), mFormGalpal3.getKecamatan(), mFormGalpal3.getPropinsi(), mFormGalpal3.getKebupaten_kota(),
                             mFormGalpal3.getKodePos(), mFormGalpal3.getLongitude(), mFormGalpal3.getLatitude(), mFormGalpal3.getKategoriGalangan(),
@@ -401,5 +411,5 @@ public class FormGalpal3Fragment extends Fragment {
 
         return rootView;
     }
-*/
+
 }

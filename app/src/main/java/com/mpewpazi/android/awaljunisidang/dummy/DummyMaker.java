@@ -95,8 +95,8 @@ public class DummyMaker {
         kualifikasiSurvey.setPerusahaan(getPerusahaan(1));
         kualifikasiSurvey.setPeriodeSurvey(getPeriodeSurvey(2014));
         kualifikasiSurvey.setGalanganKapal(getGalanganKapal(1));
-        makeGalpalForms(kualifikasiSurvey);
-        makeKompalForms(kualifikasiSurvey);
+        makeGalpalForms(kualifikasiSurvey,1);
+        makeKompalForms(kualifikasiSurvey,1);
         mKualifikasiSurveys.add(kualifikasiSurvey);
 
         KualifikasiSurvey kualifikasiSurvey1=new KualifikasiSurvey();
@@ -104,8 +104,8 @@ public class DummyMaker {
         kualifikasiSurvey1.setPerusahaan(getPerusahaan(2));
         kualifikasiSurvey1.setPeriodeSurvey(getPeriodeSurvey(2014));
         kualifikasiSurvey1.setGalanganKapal(getGalanganKapal(1));
-        makeGalpalForms(kualifikasiSurvey1);
-        makeKompalForms(kualifikasiSurvey1);
+        makeGalpalForms(kualifikasiSurvey1,2);
+        makeKompalForms(kualifikasiSurvey1,2);
         mKualifikasiSurveys.add(kualifikasiSurvey1);
 
         KualifikasiSurvey kualifikasiSurvey2=new KualifikasiSurvey();
@@ -113,8 +113,8 @@ public class DummyMaker {
         kualifikasiSurvey2.setPerusahaan(getPerusahaan(3));
         kualifikasiSurvey2.setPeriodeSurvey(getPeriodeSurvey(2014));
         kualifikasiSurvey2.setGalanganKapal(getGalanganKapal(1));
-        makeGalpalForms(kualifikasiSurvey2);
-        makeKompalForms(kualifikasiSurvey2);
+        makeGalpalForms(kualifikasiSurvey2,3);
+        makeKompalForms(kualifikasiSurvey2,3);
         mKualifikasiSurveys.add(kualifikasiSurvey2);
 
         KualifikasiSurvey kualifikasiSurvey3=new KualifikasiSurvey();
@@ -122,8 +122,8 @@ public class DummyMaker {
         kualifikasiSurvey3.setPerusahaan(getPerusahaan(4));
         kualifikasiSurvey3.setPeriodeSurvey(getPeriodeSurvey(2014));
         kualifikasiSurvey3.setGalanganKapal(getGalanganKapal(1));
-        makeGalpalForms(kualifikasiSurvey3);
-        makeKompalForms(kualifikasiSurvey3);
+        makeGalpalForms(kualifikasiSurvey3,4);
+        makeKompalForms(kualifikasiSurvey3,4);
         mKualifikasiSurveys.add(kualifikasiSurvey3);
 
     }
@@ -254,9 +254,11 @@ public class DummyMaker {
 
 
 
-    private void makeGalpalForms(KualifikasiSurvey kualifikasiSurvey){
+    private void makeGalpalForms(KualifikasiSurvey kualifikasiSurvey,int id){
         FormGalpal1 formGalpal1=new FormGalpal1();
+        formGalpal1.setIdentitasPerusahaanId(id);
         FormGalpal3 formGalpal3=new FormGalpal3();
+        formGalpal3.setIdentitasUmumGalanganId(id);
         mGalpalForms.add(formGalpal1);
         mGalpalForms.add(formGalpal3);
         for(int y=galpalSize;y<mGalpalForms.size();y++){
@@ -268,8 +270,9 @@ public class DummyMaker {
 
     }
 
-    private void makeKompalForms(KualifikasiSurvey kualifikasiSurvey){
+    private void makeKompalForms(KualifikasiSurvey kualifikasiSurvey,int id){
         FormGalpal4 formGalpal4=new FormGalpal4();
+        formGalpal4.setTinjauanWilayahMaritimId(id);
         mKompalForms.add(formGalpal4);
         for(int y=kompalSize;y<mKompalForms.size();y++){
             mKompalForms.get(y).setKualifikasiSurvey(kualifikasiSurvey);

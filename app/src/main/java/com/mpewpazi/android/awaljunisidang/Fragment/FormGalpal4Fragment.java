@@ -1,12 +1,34 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
+import android.database.Cursor;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
+import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
+import com.mpewpazi.android.awaljunisidang.R;
+import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
+import com.mpewpazi.android.awaljunisidang.database.FormKompalDBHelper;
+import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
+
+import java.util.List;
 
 /**
  * Created by mpewpazi on 3/27/16.
  */
 public class FormGalpal4Fragment extends Fragment {
-  /*  private final String NAMA_FORM="Tinjauan Wilayah Maritim";
+    private final String NAMA_FORM="Tinjauan Wilayah Maritim";
 
     private Spinner mJarakKedalamanSpinner;
     private Spinner mAirPelayaranSpinner;
@@ -28,9 +50,9 @@ public class FormGalpal4Fragment extends Fragment {
     private Spinner mRutrwSpinner;
     private Button mSubmitButton;
 
-    private Survey mSurvey;
-    private List<SingleForm> mForms;
-    private FormKompal1 mFormKompal1;
+    private KualifikasiSurvey mKualifikasiSurvey;
+    private List<SingleForm> mKompalForms;
+    private FormGalpal4 mFormGalpal4;
 
     private FormKompalDBHelper dbHelper;
 
@@ -39,36 +61,41 @@ public class FormGalpal4Fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mSurvey=SurveyAssignation.get(getActivity()).getSurvey(DrawerFormActivity.surveyId);
-        mFormKompal1=mSurvey.getFormKompal1();
+        mKualifikasiSurvey= DummyMaker.get(getActivity()).getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
+        mKompalForms= DummyMaker.get(getActivity()).getKompalForms(DrawerFormActivity.kualifikasiSurveyId);
+        for(SingleForm singleForm:mKompalForms){
+            if(singleForm.getNamaForm().equals(NAMA_FORM)){
+                mFormGalpal4=(FormGalpal4)singleForm;
+            }
+        }
 
         dbHelper=new FormKompalDBHelper(getActivity());
 
-        if(dbHelper.checkIsDataAlreadyInDBorNot(mFormKompal1.getId(), BaseDBHelper.FORM_KOMPAL1_TABLE_NAME)) {
-            Cursor cursor = dbHelper.getDataForm(mFormKompal1.getId(), BaseDBHelper.FORM_KOMPAL1_TABLE_NAME);
+        if(dbHelper.checkIsDataAlreadyInDBorNot(mFormGalpal4.getTinjauanWilayahMaritimId(), BaseDBHelper.FORM_KOMPAL1_TABLE_NAME)) {
+            Cursor cursor = dbHelper.getDataForm(mFormGalpal4.getTinjauanWilayahMaritimId(), BaseDBHelper.FORM_KOMPAL1_TABLE_NAME);
 
             cursor.moveToNext();
             //mFormGalpal1.setId(cursor.getInt(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_ID)));
 
 
-            mFormKompal1.setJarakKedalaman(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_JARAK_KEDALAMAN)));
-            mFormKompal1.setAirPelayaran(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_AIR_PELAYARAN)));
-            mFormKompal1.setPasangSurut(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_PASANG_SURUT)));
-            mFormKompal1.setArus(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_ARUS)));
-            mFormKompal1.setGelombang(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_GELOMBANG)));
-            mFormKompal1.setPanjangWaterfront(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_PANJANG_WATERFRONT)));
-            mFormKompal1.setLuasLahan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_LUAS_LAHAN)));
-            mFormKompal1.setKetersediaanLahan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_KETERSEDIAAN_LAHAN)));
-            mFormKompal1.setLahanProduktif(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_LAHAN_PRODUKTIF)));
-            mFormKompal1.setLahanPemukiman(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_LAHAN_PEMUKIMAN)));
-            mFormKompal1.setDayaDukung(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_DAYA_DUKUNG)));
-            mFormKompal1.setKelandaian(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_KELANDAIAAN)));
-            mFormKompal1.setDekatJalan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_DEKAT_JALAN)));
-            mFormKompal1.setKota(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_KOTA)));
-            mFormKompal1.setInterkoneksiAngkutan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_INTERKONEKSI_ANGKUTAN)));
-            mFormKompal1.setNilaiEkonomi(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_NILAI_EKONOMI)));
-            mFormKompal1.setPerkembanganWilayah(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_PERKEMBANGAN_WILAYAH)));
-            mFormKompal1.setRutrw(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_RUTWR)));
+            mFormGalpal4.setJarakKedalaman(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_JARAK_KEDALAMAN)));
+            mFormGalpal4.setAirPelayaran(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_AIR_PELAYARAN)));
+            mFormGalpal4.setPasangSurut(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_PASANG_SURUT)));
+            mFormGalpal4.setArus(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_ARUS)));
+            mFormGalpal4.setGelombang(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_GELOMBANG)));
+            mFormGalpal4.setPanjangWaterfront(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_PANJANG_WATERFRONT)));
+            mFormGalpal4.setLuasLahan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_LUAS_LAHAN)));
+            mFormGalpal4.setKetersediaanLahan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_KETERSEDIAAN_LAHAN)));
+            mFormGalpal4.setLahanProduktif(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_LAHAN_PRODUKTIF)));
+            mFormGalpal4.setLahanPemukiman(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_LAHAN_PEMUKIMAN)));
+            mFormGalpal4.setDayaDukung(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_DAYA_DUKUNG)));
+            mFormGalpal4.setKelandaian(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_KELANDAIAAN)));
+            mFormGalpal4.setDekatJalan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_DEKAT_JALAN)));
+            mFormGalpal4.setKota(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_KOTA)));
+            mFormGalpal4.setInterkoneksiAngkutan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_INTERKONEKSI_ANGKUTAN)));
+            mFormGalpal4.setNilaiEkonomi(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_NILAI_EKONOMI)));
+            mFormGalpal4.setPerkembanganWilayah(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_PERKEMBANGAN_WILAYAH)));
+            mFormGalpal4.setRutrw(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_KOMPAL1_COLUMN_RUTWR)));
 
             cursor.close();
 
@@ -84,7 +111,7 @@ public class FormGalpal4Fragment extends Fragment {
 
 
 
-        View rootView = inflater.inflate(R.layout.fragment_form_kompal1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_form_galpal4, container, false);
 
         mJarakKedalamanSpinner=(Spinner)rootView.findViewById(R.id.kompal1_jarak_kedalaman_spinner);
         mAirPelayaranSpinner=(Spinner)rootView.findViewById(R.id.kompal1_air_pelayaran_spinner);
@@ -107,7 +134,7 @@ public class FormGalpal4Fragment extends Fragment {
         mSubmitButton=(Button)rootView.findViewById(R.id.kompal1_btn_submit);
 
 
-        mPanjangWaterfrontEditText.setText(mFormKompal1.getPanjangWaterfront());
+        mPanjangWaterfrontEditText.setText(mFormGalpal4.getPanjangWaterfront());
         mPanjangWaterfrontEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -116,7 +143,7 @@ public class FormGalpal4Fragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal1.setPanjangWaterfront(s.toString());
+                mFormGalpal4.setPanjangWaterfront(s.toString());
             }
 
             @Override
@@ -125,7 +152,7 @@ public class FormGalpal4Fragment extends Fragment {
             }
         });
 
-        mLuasLahanEditText.setText(mFormKompal1.getLuasLahan());
+        mLuasLahanEditText.setText(mFormGalpal4.getLuasLahan());
         mLuasLahanEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -134,7 +161,7 @@ public class FormGalpal4Fragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal1.setLuasLahan(s.toString());
+                mFormGalpal4.setLuasLahan(s.toString());
             }
 
             @Override
@@ -146,18 +173,18 @@ public class FormGalpal4Fragment extends Fragment {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(dbHelper.checkIsDataAlreadyInDBorNot(mFormKompal1.getId(),BaseDBHelper.FORM_KOMPAL1_TABLE_NAME)) {
-                    dbHelper.updateFormKompal1(mFormKompal1.getId(),mFormKompal1.getJarakKedalaman(),mFormKompal1.getAirPelayaran(),mFormKompal1.getPasangSurut(),
-                            mFormKompal1.getArus(),mFormKompal1.getGelombang(),mFormKompal1.getPanjangWaterfront(),mFormKompal1.getLuasLahan(),
-                            mFormKompal1.getKetersediaanLahan(),mFormKompal1.getLahanProduktif(),mFormKompal1.getLahanPemukiman(),mFormKompal1.getDayaDukung(),
-                            mFormKompal1.getKelandaian(),mFormKompal1.getDekatJalan(),mFormKompal1.getKota(),mFormKompal1.getInterkoneksiAngkutan(),mFormKompal1.getNilaiEkonomi(),
-                            mFormKompal1.getPerkembanganWilayah(),mFormKompal1.getRutrw());
+                if(dbHelper.checkIsDataAlreadyInDBorNot(mFormGalpal4.getTinjauanWilayahMaritimId(),BaseDBHelper.FORM_KOMPAL1_TABLE_NAME)) {
+                    dbHelper.updateFormKompal1(mFormGalpal4.getTinjauanWilayahMaritimId(),mFormGalpal4.getJarakKedalaman(),mFormGalpal4.getAirPelayaran(),mFormGalpal4.getPasangSurut(),
+                            mFormGalpal4.getArus(),mFormGalpal4.getGelombang(),mFormGalpal4.getPanjangWaterfront(),mFormGalpal4.getLuasLahan(),
+                            mFormGalpal4.getKetersediaanLahan(),mFormGalpal4.getLahanProduktif(),mFormGalpal4.getLahanPemukiman(),mFormGalpal4.getDayaDukung(),
+                            mFormGalpal4.getKelandaian(),mFormGalpal4.getDekatJalan(),mFormGalpal4.getKota(),mFormGalpal4.getInterkoneksiAngkutan(),mFormGalpal4.getNilaiEkonomi(),
+                            mFormGalpal4.getPerkembanganWilayah(),mFormGalpal4.getRutrw());
                 }else{
-                    dbHelper.insertFormKompal1(mFormKompal1.getId(), mFormKompal1.getJarakKedalaman(), mFormKompal1.getAirPelayaran(), mFormKompal1.getPasangSurut(),
-                            mFormKompal1.getArus(), mFormKompal1.getGelombang(), mFormKompal1.getPanjangWaterfront(), mFormKompal1.getLuasLahan(),
-                            mFormKompal1.getKetersediaanLahan(), mFormKompal1.getLahanProduktif(), mFormKompal1.getLahanPemukiman(), mFormKompal1.getDayaDukung(),
-                            mFormKompal1.getKelandaian(), mFormKompal1.getDekatJalan(), mFormKompal1.getKota(), mFormKompal1.getInterkoneksiAngkutan(), mFormKompal1.getNilaiEkonomi(),
-                            mFormKompal1.getPerkembanganWilayah(),mFormKompal1.getRutrw());
+                    dbHelper.insertFormKompal1(mFormGalpal4.getTinjauanWilayahMaritimId(), mFormGalpal4.getJarakKedalaman(), mFormGalpal4.getAirPelayaran(), mFormGalpal4.getPasangSurut(),
+                            mFormGalpal4.getArus(), mFormGalpal4.getGelombang(), mFormGalpal4.getPanjangWaterfront(), mFormGalpal4.getLuasLahan(),
+                            mFormGalpal4.getKetersediaanLahan(), mFormGalpal4.getLahanProduktif(), mFormGalpal4.getLahanPemukiman(), mFormGalpal4.getDayaDukung(),
+                            mFormGalpal4.getKelandaian(), mFormGalpal4.getDekatJalan(), mFormGalpal4.getKota(), mFormGalpal4.getInterkoneksiAngkutan(), mFormGalpal4.getNilaiEkonomi(),
+                            mFormGalpal4.getPerkembanganWilayah(),mFormGalpal4.getRutrw());
                 }
 
                 Toast.makeText(getContext(), "Berhasil ", Toast.LENGTH_SHORT).show();
@@ -166,5 +193,5 @@ public class FormGalpal4Fragment extends Fragment {
 
 
         return rootView;
-    }*/
+    }
 }

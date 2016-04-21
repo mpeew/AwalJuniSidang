@@ -1,5 +1,6 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -7,11 +8,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
@@ -91,31 +92,31 @@ public class FormGalpal1Fragment extends Fragment  {
 
        dbHelper=new FormGalpalDBHelper(getActivity());
 
-       /* if(dbHelper.checkIsDataAlreadyInDBorNot(mFormGalpal1.getId(), BaseDBHelper.FORM_GALPAL1_TABLE_NAME)) {
-            Cursor cursor = dbHelper.getDataForm(mFormGalpal1.getId(), BaseDBHelper.FORM_GALPAL1_TABLE_NAME);
+       if(dbHelper.checkIsDataAlreadyInDBorNot(mFormGalpal1.getIdentitasPerusahaanId(), BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_TABLE_NAME)) {
+            Cursor cursor = dbHelper.getDataForm(mFormGalpal1.getIdentitasPerusahaanId(), BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_TABLE_NAME);
 
             cursor.moveToNext();
-            //mFormGalpal1.setId(cursor.getInt(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_ID)));
+            //mFormGalpal1.setId(cursor.getInt(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID)));
 
 
-            mFormGalpal1.setNomorTelepon(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_NOMOR_TELEPON)));
-            mFormGalpal1.setFax(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_FAX)));
-            mFormGalpal1.setAlamat(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_ALAMAT)));
-            mFormGalpal1.setKelurahan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_KELURAHAN)));
-            mFormGalpal1.setKecamatan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_KECAMATAN)));
-            mFormGalpal1.setPropinsi(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_PROPINSI)));
-            mFormGalpal1.setKebupaten_kota(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_KABUPATEN)));
-            mFormGalpal1.setKodePos(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_KODE_POS)));
-            mFormGalpal1.setAnggotaAsosiasi(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_ANGGOTA_ASOSIASI)));
-            mFormGalpal1.setKategoriPerusahaan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_KATEGORI_PERUSAHAAN)));
-            mFormGalpal1.setContactPerson(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_CP)));
-            mFormGalpal1.setNomorCp(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_NO_CP)));
-            mFormGalpal1.setJabatan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_JABATAN)));
-            mFormGalpal1.setEmail(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_GALPAL1_COLUMN_EMAIL_CP)));
+            mFormGalpal1.setNomorTelepon(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_TELEPON_PERUSAHAAN)));
+            mFormGalpal1.setFax(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_FAX_PERUSAHAAN)));
+            mFormGalpal1.setAlamat(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_ALAMAT_PERUSAHAAN)));
+            mFormGalpal1.setKelurahan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_KELURAHAN_PERUSAHAAN)));
+            mFormGalpal1.setKecamatan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_KECAMATAN_PERUSAHAAN)));
+            mFormGalpal1.setPropinsi(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PROPINSI_PERUSAHAAN)));
+            mFormGalpal1.setKebupaten_kota(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_KABUPATEN_PERUSAHAAN)));
+            mFormGalpal1.setKodePos(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_KODE_POS_PERUSAHAAN)));
+            mFormGalpal1.setAnggotaAsosiasi(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_ANGGOTA_ASOSIASI)));
+            mFormGalpal1.setKategoriPerusahaan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_KATEGORI_PERUSAHAAN)));
+            mFormGalpal1.setContactPerson(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_NAMA)));
+            mFormGalpal1.setNomorCp(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_NO)));
+            mFormGalpal1.setJabatan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_JABATAN)));
+            mFormGalpal1.setEmail(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_EMAIL)));
             cursor.close();
 
 
-        }*/
+        }
 
 
 
@@ -377,27 +378,27 @@ public class FormGalpal1Fragment extends Fragment  {
 
 
         mSubmitButton=(Button)rootView.findViewById(R.id.galpal1_btn_submit);
-       /* mSubmitButton.setOnClickListener(new View.OnClickListener() {
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(dbHelper.checkIsDataAlreadyInDBorNot(mFormGalpal1.getId(),BaseDBHelper.FORM_GALPAL1_TABLE_NAME)) {
-                    dbHelper.updateFormGalpal1(mFormGalpal1.getId(),mFormGalpal1.getNamaPerusahaan(), mFormGalpal1.getStatusKepemilikanUsaha(),
+                if(dbHelper.checkIsDataAlreadyInDBorNot(mFormGalpal1.getIdentitasPerusahaanId(),BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_TABLE_NAME)) {
+                    dbHelper.updateFormIdentitasPerusahaan(mFormGalpal1.getIdentitasPerusahaanId(),mFormGalpal1.getKualifikasiSurvey().getPerusahaan().getId(),mFormGalpal1.getKualifikasiSurvey().getKualifikasiSurveyId(), mFormGalpal1.getStatusKepemilikanUsaha(),
                             mFormGalpal1.getNomorTelepon(), mFormGalpal1.getFax(), mFormGalpal1.getAlamat(),
-                            mFormGalpal1.getKelurahan(), mFormGalpal1.getKecamatan(), mFormGalpal1.getPropinsi(), mFormGalpal1.getKebupaten_kota(),
+                            mFormGalpal1.getKelurahan(), mFormGalpal1.getKecamatan(), 1, 2,
                             mFormGalpal1.getKodePos(), mFormGalpal1.getAnggotaAsosiasi(), mFormGalpal1.getKategoriPerusahaan(),
-                            mFormGalpal1.getContactPerson(), mFormGalpal1.getNomorCp(), mFormGalpal1.getJabatan(), mFormGalpal1.getEmail());
+                            mFormGalpal1.getContactPerson(), mFormGalpal1.getNomorCp(), mFormGalpal1.getJabatan(), mFormGalpal1.getEmail(),mFormGalpal1.getWebsite());
                 }else{
-                    dbHelper.insertFormGalpal1(mFormGalpal1.getId(), mFormGalpal1.getNamaPerusahaan(), mFormGalpal1.getStatusKepemilikanUsaha(),
+                    dbHelper.insertFormIdentitasPerusahaan(mFormGalpal1.getIdentitasPerusahaanId(),mFormGalpal1.getKualifikasiSurvey().getPerusahaan().getId(),mFormGalpal1.getKualifikasiSurvey().getKualifikasiSurveyId(), mFormGalpal1.getStatusKepemilikanUsaha(),
                             mFormGalpal1.getNomorTelepon(), mFormGalpal1.getFax(), mFormGalpal1.getAlamat(),
-                            mFormGalpal1.getKelurahan(), mFormGalpal1.getKecamatan(), mFormGalpal1.getPropinsi(), mFormGalpal1.getKebupaten_kota(),
+                            mFormGalpal1.getKelurahan(), mFormGalpal1.getKecamatan(), 1, 2,
                             mFormGalpal1.getKodePos(), mFormGalpal1.getAnggotaAsosiasi(), mFormGalpal1.getKategoriPerusahaan(),
-                            mFormGalpal1.getContactPerson(), mFormGalpal1.getNomorCp(), mFormGalpal1.getJabatan(), mFormGalpal1.getEmail());
+                            mFormGalpal1.getContactPerson(), mFormGalpal1.getNomorCp(), mFormGalpal1.getJabatan(), mFormGalpal1.getEmail(),mFormGalpal1.getWebsite());
                 }
 
-                Toast.makeText(getContext(),"Berhasil ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Berhasil ", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
 
 
         return rootView;

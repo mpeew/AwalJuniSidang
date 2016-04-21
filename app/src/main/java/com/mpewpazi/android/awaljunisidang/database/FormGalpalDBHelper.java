@@ -16,65 +16,71 @@ public class FormGalpalDBHelper extends BaseDBHelper {
 
     //FORM GALPAL 1 OPERATION ----------------------------------------------------------------------------------
 
-    public boolean insertFormGalpal1  (int id,String namaPerusahaan, String statusKepemilikanUsaha,
+    public boolean insertFormIdentitasPerusahaan  (int id,int idPerusahaan,int idKualifikasiSurvey, String statusKepemilikanUsaha,
                                        String nomorTelepon, String fax,String alamat,
-                                       String kelurahan, String kecamatan, String propinsi,
-                                       String kabupaten, String kodePos, String anggotaAsosiasi,
+                                       String kelurahan, String kecamatan, int propinsi,
+                                       int kabupaten, String kodePos, String anggotaAsosiasi,
                                        String kategoriPerusahaan, String contactPerson, String nomorCP,
-                                       String jabatan, String emailCp)
+                                       String jabatan, String emailCp, String website)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(FORM_GALPAL1_COLUMN_ID, id);
-        contentValues.put(FORM_GALPAL1_COLUMN_NAMA_PERUSAHAAN, namaPerusahaan);
-        contentValues.put(FORM_GALPAL1_COLUMN_STATUS_KEPEMILIKAN_USAHA, statusKepemilikanUsaha);
-        contentValues.put(FORM_GALPAL1_COLUMN_NOMOR_TELEPON, nomorTelepon);
-        contentValues.put(FORM_GALPAL1_COLUMN_FAX, fax);
-        contentValues.put(FORM_GALPAL1_COLUMN_ALAMAT, alamat);
-        contentValues.put(FORM_GALPAL1_COLUMN_KELURAHAN, kelurahan);
-        contentValues.put(FORM_GALPAL1_COLUMN_KECAMATAN, kecamatan);
-        contentValues.put(FORM_GALPAL1_COLUMN_PROPINSI, propinsi);
-        contentValues.put(FORM_GALPAL1_COLUMN_KABUPATEN, kabupaten);
-        contentValues.put(FORM_GALPAL1_COLUMN_KODE_POS, kodePos);
-        contentValues.put(FORM_GALPAL1_COLUMN_ANGGOTA_ASOSIASI, anggotaAsosiasi);
-        contentValues.put(FORM_GALPAL1_COLUMN_KATEGORI_PERUSAHAAN, kategoriPerusahaan);
-        contentValues.put(FORM_GALPAL1_COLUMN_CP, contactPerson);
-        contentValues.put(FORM_GALPAL1_COLUMN_NO_CP, nomorCP);
-        contentValues.put(FORM_GALPAL1_COLUMN_JABATAN, jabatan);
-        contentValues.put(FORM_GALPAL1_COLUMN_EMAIL_CP, emailCp);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PERUSAHAAN_IDENTITAS, id);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PERUSAHAAN, idPerusahaan);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_KUALIFIKASI_SURVEY, idKualifikasiSurvey);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_STATUS_KEPEMILIKAN_USAHA, statusKepemilikanUsaha);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_TELEPON_PERUSAHAAN, nomorTelepon);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_FAX_PERUSAHAAN, fax);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ALAMAT_PERUSAHAAN, alamat);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_KELURAHAN_PERUSAHAAN, kelurahan);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_KECAMATAN_PERUSAHAAN, kecamatan);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PROPINSI_PERUSAHAAN, propinsi);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_KABUPATEN_PERUSAHAAN, kabupaten);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_KODE_POS_PERUSAHAAN, kodePos);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ANGGOTA_ASOSIASI, anggotaAsosiasi);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_KATEGORI_PERUSAHAAN, kategoriPerusahaan);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_NAMA, contactPerson);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_NO, nomorCP);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_JABATAN, jabatan);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_EMAIL, emailCp);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_WEBSITE, website);
 
-        db.insert(FORM_GALPAL1_TABLE_NAME, null, contentValues);
+        db.insert(FORM_PERUSAHAAN_IDENTITAS_TABLE_NAME, null, contentValues);
         return true;
     }
 
 
 
-    public boolean updateFormGalpal1 (Integer id, String namaPerusahaan, String statusKepemilikanUsaha,
-                                  String nomorTelepon, String fax,String alamat,
-                                  String kelurahan, String kecamatan, String propinsi,
-                                  String kabupaten, String kodePos, String anggotaAsosiasi,
-                                  String kategoriPerusahaan, String contactPerson, String nomorCP,
-                                  String jabatan, String emailCp)
+    public boolean updateFormIdentitasPerusahaan (int id,int idPerusahaan,int idKualifikasiSurvey, String statusKepemilikanUsaha,
+                                                  String nomorTelepon, String fax,String alamat,
+                                                  String kelurahan, String kecamatan, int propinsi,
+                                                  int kabupaten, String kodePos, String anggotaAsosiasi,
+                                                  String kategoriPerusahaan, String contactPerson, String nomorCP,
+                                                  String jabatan, String emailCp, String website)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(FORM_GALPAL1_COLUMN_NAMA_PERUSAHAAN, namaPerusahaan);
-        contentValues.put(FORM_GALPAL1_COLUMN_STATUS_KEPEMILIKAN_USAHA, statusKepemilikanUsaha);
-        contentValues.put(FORM_GALPAL1_COLUMN_NOMOR_TELEPON, nomorTelepon);
-        contentValues.put(FORM_GALPAL1_COLUMN_FAX, fax);
-        contentValues.put(FORM_GALPAL1_COLUMN_ALAMAT, alamat);
-        contentValues.put(FORM_GALPAL1_COLUMN_KELURAHAN, kelurahan);
-        contentValues.put(FORM_GALPAL1_COLUMN_KECAMATAN, kecamatan);
-        contentValues.put(FORM_GALPAL1_COLUMN_PROPINSI, propinsi);
-        contentValues.put(FORM_GALPAL1_COLUMN_KABUPATEN, kabupaten);
-        contentValues.put(FORM_GALPAL1_COLUMN_KODE_POS, kodePos);
-        contentValues.put(FORM_GALPAL1_COLUMN_ANGGOTA_ASOSIASI, anggotaAsosiasi);
-        contentValues.put(FORM_GALPAL1_COLUMN_KATEGORI_PERUSAHAAN, kategoriPerusahaan);
-        contentValues.put(FORM_GALPAL1_COLUMN_CP, contactPerson);
-        contentValues.put(FORM_GALPAL1_COLUMN_NO_CP, nomorCP);
-        contentValues.put(FORM_GALPAL1_COLUMN_JABATAN, jabatan);
-        contentValues.put(FORM_GALPAL1_COLUMN_EMAIL_CP, emailCp);
-        db.update(FORM_GALPAL1_TABLE_NAME, contentValues, "id = ? ", new String[] { Integer.toString(id) } );
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PERUSAHAAN_IDENTITAS, id);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PERUSAHAAN, idPerusahaan);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_KUALIFIKASI_SURVEY, idKualifikasiSurvey);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_STATUS_KEPEMILIKAN_USAHA, statusKepemilikanUsaha);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_TELEPON_PERUSAHAAN, nomorTelepon);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_FAX_PERUSAHAAN, fax);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ALAMAT_PERUSAHAAN, alamat);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_KELURAHAN_PERUSAHAAN, kelurahan);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_KECAMATAN_PERUSAHAAN, kecamatan);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PROPINSI_PERUSAHAAN, propinsi);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_KABUPATEN_PERUSAHAAN, kabupaten);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_KODE_POS_PERUSAHAAN, kodePos);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_ANGGOTA_ASOSIASI, anggotaAsosiasi);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_KATEGORI_PERUSAHAAN, kategoriPerusahaan);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_NAMA, contactPerson);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_NO, nomorCP);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_JABATAN, jabatan);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_EMAIL, emailCp);
+        contentValues.put(FORM_PERUSAHAAN_IDENTITAS_COLUMN_WEBSITE, website);
+
+        db.update(FORM_PERUSAHAAN_IDENTITAS_TABLE_NAME, contentValues, "id = ? ", new String[] { Integer.toString(id) } );
         return true;
     }
 
