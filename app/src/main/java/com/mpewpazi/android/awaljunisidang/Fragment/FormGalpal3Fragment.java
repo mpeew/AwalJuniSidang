@@ -25,7 +25,7 @@ import java.util.List;
  * Created by mpewpazi on 3/27/16.
  */
 public class FormGalpal3Fragment extends Fragment {
-
+/*
     private final static String NAMA_FORM="Identitas Umum Galangan";
 
 
@@ -296,7 +296,7 @@ public class FormGalpal3Fragment extends Fragment {
             public void afterTextChanged(Editable s) {
 
             }
-        });*/
+        });
 
         mContactPersonEditText.setText(mFormGalpal3.getContactPerson());
         mContactPersonEditText.addTextChangedListener(new TextWatcher() {
@@ -401,4 +401,5 @@ public class FormGalpal3Fragment extends Fragment {
 
         return rootView;
     }
+*/
 }

@@ -1,30 +1,12 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
-import android.database.Cursor;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
-
-import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
-
-
-import java.util.List;
 
 /**
  * Created by mpewpazi on 3/27/16.
  */
 public class FormGalpal4Fragment extends Fragment {
-    private final String NAMA_FORM="Tinjauan Wilayah Maritim";
+  /*  private final String NAMA_FORM="Tinjauan Wilayah Maritim";
 
     private Spinner mJarakKedalamanSpinner;
     private Spinner mAirPelayaranSpinner;
@@ -184,5 +166,5 @@ public class FormGalpal4Fragment extends Fragment {
 
 
         return rootView;
-    }
+    }*/
 }

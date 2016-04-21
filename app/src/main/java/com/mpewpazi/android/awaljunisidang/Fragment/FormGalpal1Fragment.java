@@ -1,26 +1,17 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.MasterDataCreator;
-import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
 import com.mpewpazi.android.awaljunisidang.database.FormGalpalDBHelper;
+import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.masterData.Propinsi;
 
 import java.util.ArrayList;
@@ -29,7 +20,7 @@ import java.util.List;
 /**
  * Created by mpewpazi on 3/27/16.
  */
-public class FormGalpal1Fragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class FormGalpal1Fragment extends Fragment  {
 
     private static final String NAMA_FORM="Identitas Umum Perusahaan";
 
@@ -50,12 +41,13 @@ public class FormGalpal1Fragment extends Fragment implements AdapterView.OnItemS
 
     private Button mSubmitButton;
 
-    private Survey mSurvey;
+
 
     private List<Propinsi> mPropinsis;
     private List<String> mPropinsiNames;
 
-    private List<SingleForm> mForms;
+    private List<SingleForm> mGalpalForms;
+
     private FormGalpal1 mFormGalpal1;
 
     private FormGalpalDBHelper dbHelper;
@@ -74,11 +66,15 @@ public class FormGalpal1Fragment extends Fragment implements AdapterView.OnItemS
         }
 
 
+        mGalpalForms= DummyMaker.get(getActivity()).getGalpalForms(DrawerFormActivity.kualifikasiSurveyId);
+        for(SingleForm singleForm:mGalpalForms){
+            if(singleForm.getNamaForm().equals(NAMA_FORM)){
+                mFormGalpal1=(FormGalpal1)singleForm;
+            }
+        }
 
+      /*  mNamaPerusahaan=mSurvey.getNamaPerusahaan();
 
-        mSurvey=SurveyAssignation.get(getActivity()).getSurvey(DrawerFormActivity.surveyId);
-        mNamaPerusahaan=mSurvey.getNamaPerusahaan();
-        mFormGalpal1=mSurvey.getFormGalpal1();
 
 
        dbHelper=new FormGalpalDBHelper(getActivity());
@@ -404,6 +400,6 @@ public class FormGalpal1Fragment extends Fragment implements AdapterView.OnItemS
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+*/
     }
 }

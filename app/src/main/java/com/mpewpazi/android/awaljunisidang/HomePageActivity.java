@@ -15,7 +15,6 @@ import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.SurveyAssignSurveyor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
@@ -40,14 +39,8 @@ public class HomePageActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mDummyMaker=DummyMaker.get(this);
-        mSurveyAssignSurveyors=mDummyMaker.getSurveyAssignSurveyors();
-        mKualifikasiSurveys=new ArrayList<>();
-        for(SurveyAssignSurveyor surveyAssignSurveyor:mSurveyAssignSurveyors){
+        mKualifikasiSurveys=mDummyMaker.getKualifikasiSurveys(userId);
 
-            if(surveyAssignSurveyor.getUser().getUserId().equals(userId)){
-                mKualifikasiSurveys.add(surveyAssignSurveyor.getKualifikasiSurvey());
-            }
-        }
 
         mKualifikasiSurveyAdapter=new KualifikasiSurveyAdapter(mKualifikasiSurveys);
         mRecyclerView.setAdapter(mKualifikasiSurveyAdapter);

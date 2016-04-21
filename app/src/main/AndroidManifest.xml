@@ -18,6 +18,8 @@
 
         <activity android:name=".HomePageActivity">
         </activity>
+        <activity android:name=".DrawerFormActivity">
+        </activity>
     </application>
 
 </manifest>

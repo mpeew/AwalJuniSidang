@@ -17,14 +17,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
+import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal1Fragment;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
-import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
-import com.mpewpazi.android.awaljunisidang.database.FormGalpalDBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class DrawerFormActivity extends ActionBarActivity {
 
@@ -39,12 +37,17 @@ public class DrawerFormActivity extends ActionBarActivity {
 
     private KualifikasiSurvey mKualifikasiSurvey;
 
-    private List<SingleForm> mFormList;
+
     private List<String> mNamaFormList;
     private List<Fragment> mFragmentList;
 
 
     public static int kualifikasiSurveyId;
+
+    private DummyMaker mDummyMaker;
+
+    private List<SingleForm> mGalpalForms;
+    private List<SingleForm> mKompalForms;
 
 
     //array adapter untuk list item di drawer
@@ -58,44 +61,47 @@ public class DrawerFormActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FormGalpalDBHelper dbHelper=new FormGalpalDBHelper(this);
-        int x=dbHelper.numberOfRows(BaseDBHelper.FORM_GALPAL1_TABLE_NAME);
+        //FormGalpalDBHelper dbHelper=new FormGalpalDBHelper(this);
+        //int x=dbHelper.numberOfRows(BaseDBHelper.FORM_GALPAL1_TABLE_NAME);
 
-        Toast.makeText(this,String.valueOf(x),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,String.valueOf(x),Toast.LENGTH_SHORT).show();
 
 
         //ambil extra
         kualifikasiSurveyId=getIntent().getIntExtra(EXTRA_ID_SURVEY,0);
 
+        mDummyMaker=DummyMaker.get(this);
+        mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(kualifikasiSurveyId);
+
+
+
         //cari data dari dari surveyAssignation sesuai dengan id yang dari extra
-        mKualifikasiSurvey= DummyMaker.get(this).getKualifikasiSurvey(kualifikasiSurveyId);
+        mGalpalForms= mDummyMaker.getGalpalForms(kualifikasiSurveyId);
+        mKompalForms= mDummyMaker.getKompalForms(kualifikasiSurveyId);
 
-        //untuk menampung forms forms
-        mFormList=new ArrayList<>();
+        Toast.makeText(this,String.valueOf(DummyMaker.mGalpalForms.get(1).getKualifikasiSurvey().getKualifikasiSurveyId()),Toast.LENGTH_SHORT).show();
 
-        //liat kelas KualifikasiSurvey assignation disitu kita create instance form form
-      /*  if(mKualifikasiSurvey.getGalpalForms()==null){
-            mFormList=mKualifikasiSurvey.getKompalForms();
-
-        }else{
-            mFormList=mKualifikasiSurvey.getGalpalForms();
-        }*/
-
-        //nama nama form dimasukan kedalam list untuk dimunculkan dalam drawer
         mNamaFormList=new ArrayList<>();
-        for(int i=0;i<mFormList.size();i++){
-            mNamaFormList.add(mFormList.get(i).getNamaForm());
+        for(int i=0;i<mGalpalForms.size();i++){
+            mNamaFormList.add(mGalpalForms.get(i).getNamaForm());
+        }
+        for(int i=0;i<mKompalForms.size();i++){
+            mNamaFormList.add(mKompalForms.get(i).getNamaForm());
         }
 
         // fragmen dimasukan kedalam list untuk dimunculkan dilayar
         mFragmentList=new ArrayList<>();
-        for(int i=0;i<mFormList.size();i++){
-            mFragmentList.add(mFormList.get(i).getFragment());
+        for(int i=0;i<mGalpalForms.size();i++){
+            mFragmentList.add(mGalpalForms.get(i).getFragment());
+        }
+        for(int i=0;i<mKompalForms.size();i++){
+            mFragmentList.add(mKompalForms.get(i).getFragment());
         }
 
 
         //munculkan fragmen 0
-        Fragment fragment=mFragmentList.get(0);
+        Fragment fragment=new FormGalpal1Fragment();
+       // Fragment fragment=mFragmentList.get(0);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
 
@@ -109,7 +115,7 @@ public class DrawerFormActivity extends ActionBarActivity {
         setupDrawer();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(mKualifikasiSurvey.getNamaPerusahaan());
+        getSupportActionBar().setTitle(mKualifikasiSurvey.getPerusahaan().getNamaPerusahaan());
         //getSupportActionBar().setHomeButtonEnabled(true);
 
 
@@ -128,14 +134,14 @@ public class DrawerFormActivity extends ActionBarActivity {
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle(mKualifikasiSurvey.getJenisObjekSurvey());
+               // getSupportActionBar().setTitle(mKualifikasiSurvey.getJenisObjekSurvey());
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(mKualifikasiSurvey.getNamaPerusahaan());
+                getSupportActionBar().setTitle(mKualifikasiSurvey.getPerusahaan().getNamaPerusahaan());
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };

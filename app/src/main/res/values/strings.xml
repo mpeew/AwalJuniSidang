@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">AwalJuniSidang</string>
+    <string name="app_name">KEMENPERIN</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="coba_spinner">
+        <item>Pilih</item>
+        <item>Pilih 1</item>
+    </string-array>
+
+    <string name="submit">Submit</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

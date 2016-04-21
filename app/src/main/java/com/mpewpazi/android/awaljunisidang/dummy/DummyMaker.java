@@ -31,8 +31,8 @@ public class DummyMaker {
     private List<GalanganKapal> mGalanganKapals;
     private List<SurveyAssignSurveyor> mSurveyAssignSurveyors;
 
-    private List<SingleForm> mGalpalForms;
-    private List<SingleForm> mKompalForms;
+    public static List<SingleForm> mGalpalForms;
+    public static List<SingleForm> mKompalForms;
 
     public static DummyMaker get(Context context){
         if(sDummyMaker ==null){
@@ -44,14 +44,49 @@ public class DummyMaker {
     private DummyMaker(Context context){
         mContext=context.getApplicationContext();
 
+        makeGalpalForms();
+        makeKompalForms();
+
         makeUser();
         makePeriodeSurvey();
         makePerusahaan();
         makeGalanganKapal();
 
-        makeGalpalForms();
-        makeKompalForms();
+        makeKualifikasiSurvey();
+        makeSurveyAssignSurveyor();
 
+
+
+    }
+
+    private void makeSurveyAssignSurveyor() {
+        mSurveyAssignSurveyors=new ArrayList<>();
+        SurveyAssignSurveyor surveyAssignSurveyor=new SurveyAssignSurveyor();
+        surveyAssignSurveyor.setSurveyAssignSurveyorId(1);
+        surveyAssignSurveyor.setUser(getUser("mpewpazi"));
+        surveyAssignSurveyor.setKualifikasiSurvey(getKualifikasiSurvey(1));
+        mSurveyAssignSurveyors.add(surveyAssignSurveyor);
+
+        SurveyAssignSurveyor surveyAssignSurveyor1=new SurveyAssignSurveyor();
+        surveyAssignSurveyor1.setSurveyAssignSurveyorId(2);
+        surveyAssignSurveyor1.setUser(getUser("perinurpazri"));
+        surveyAssignSurveyor1.setKualifikasiSurvey(getKualifikasiSurvey(2));
+        mSurveyAssignSurveyors.add(surveyAssignSurveyor1);
+
+        SurveyAssignSurveyor surveyAssignSurveyor2=new SurveyAssignSurveyor();
+        surveyAssignSurveyor2.setSurveyAssignSurveyorId(3);
+        surveyAssignSurveyor2.setUser(getUser("perinurpazri"));
+        surveyAssignSurveyor2.setKualifikasiSurvey(getKualifikasiSurvey(3));
+        mSurveyAssignSurveyors.add(surveyAssignSurveyor2);
+
+        SurveyAssignSurveyor surveyAssignSurveyor3=new SurveyAssignSurveyor();
+        surveyAssignSurveyor3.setSurveyAssignSurveyorId(4);
+        surveyAssignSurveyor3.setUser(getUser("mpewpazi"));
+        surveyAssignSurveyor3.setKualifikasiSurvey(getKualifikasiSurvey(4));
+        mSurveyAssignSurveyors.add(surveyAssignSurveyor3);
+    }
+
+    private void makeKualifikasiSurvey() {
         mKualifikasiSurveys=new ArrayList<>();
         KualifikasiSurvey kualifikasiSurvey=new KualifikasiSurvey();
         kualifikasiSurvey.setKualifikasiSurveyId(1);
@@ -77,32 +112,15 @@ public class DummyMaker {
         setKualifikasiSurveyForms(kualifikasiSurvey2);
         mKualifikasiSurveys.add(kualifikasiSurvey2);
 
-
-
-
-        mSurveyAssignSurveyors=new ArrayList<>();
-        SurveyAssignSurveyor surveyAssignSurveyor=new SurveyAssignSurveyor();
-        surveyAssignSurveyor.setSurveyAssignSurveyorId(1);
-        surveyAssignSurveyor.setUser(getUser("mpewpazi"));
-        surveyAssignSurveyor.setKualifikasiSurvey(getKualifikasiSurvey(1));
-        mSurveyAssignSurveyors.add(surveyAssignSurveyor);
-
-        SurveyAssignSurveyor surveyAssignSurveyor1=new SurveyAssignSurveyor();
-        surveyAssignSurveyor1.setSurveyAssignSurveyorId(2);
-        surveyAssignSurveyor1.setUser(getUser("perinurpazri"));
-        surveyAssignSurveyor1.setKualifikasiSurvey(getKualifikasiSurvey(2));
-        mSurveyAssignSurveyors.add(surveyAssignSurveyor1);
-
-        SurveyAssignSurveyor surveyAssignSurveyor2=new SurveyAssignSurveyor();
-        surveyAssignSurveyor2.setSurveyAssignSurveyorId(3);
-        surveyAssignSurveyor2.setUser(getUser("perinurpazri"));
-        surveyAssignSurveyor2.setKualifikasiSurvey(getKualifikasiSurvey(3));
-        mSurveyAssignSurveyors.add(surveyAssignSurveyor2);
-
-
+        KualifikasiSurvey kualifikasiSurvey3=new KualifikasiSurvey();
+        kualifikasiSurvey3.setKualifikasiSurveyId(4);
+        kualifikasiSurvey3.setPerusahaan(getPerusahaan(4));
+        kualifikasiSurvey3.setPeriodeSurvey(getPeriodeSurvey(2014));
+        kualifikasiSurvey3.setGalanganKapal(getGalanganKapal(1));
+        setKualifikasiSurveyForms(kualifikasiSurvey3);
+        mKualifikasiSurveys.add(kualifikasiSurvey3);
 
     }
-
 
 
     private void makeUser(){
@@ -113,8 +131,8 @@ public class DummyMaker {
         mUsers.add(user);
 
         User user1=new User();
-        user.setUserId("perinurpazri");
-        user.setFullName("Mpew Nurpazri");
+        user1.setUserId("perinurpazri");
+        user1.setFullName("Mpew Nurpazri");
         mUsers.add(user1);
     }
 
@@ -149,6 +167,13 @@ public class DummyMaker {
         perusahaan3.setIndustri("Galangan Kapal");
         perusahaan3.setActive(1);
         mPerusahaans.add(perusahaan3);
+
+        Perusahaan perusahaan4=new Perusahaan();
+        perusahaan4.setId(4);
+        perusahaan4.setNamaPerusahaan("PT ASFP");
+        perusahaan4.setIndustri("Galangan Kapal");
+        perusahaan4.setActive(1);
+        mPerusahaans.add(perusahaan4);
     }
 
     private void makeGalanganKapal(){
@@ -207,23 +232,21 @@ public class DummyMaker {
         return null;
     }
 
-    public List<KualifikasiSurvey> getKualifikasiSurveys(){
-        return mKualifikasiSurveys;
+    public List<KualifikasiSurvey> getKualifikasiSurveys(String usernameId){
+        List<KualifikasiSurvey> kualifikasiSurveys=new ArrayList<>();
+        for(SurveyAssignSurveyor surveyAssignSurveyor:mSurveyAssignSurveyors){
+            if(surveyAssignSurveyor.getUser().getUserId().equals(usernameId)){
+                kualifikasiSurveys.add(surveyAssignSurveyor.getKualifikasiSurvey());
+            }
+        }
+        return kualifikasiSurveys;
     }
 
     public List<SurveyAssignSurveyor> getSurveyAssignSurveyors() {
         return mSurveyAssignSurveyors;
     }
 
-    //untuk mempersingkat doang setting setiap kualifikasi survey formnya
-    private void setKualifikasiSurveyForms(KualifikasiSurvey kualifikasiSurvey){
-        for(SingleForm singleForm:mGalpalForms){
-            singleForm.setKualifikasiSurvey(kualifikasiSurvey);
-        }
-        for(SingleForm singleForm:mKompalForms){
-            singleForm.setKualifikasiSurvey(kualifikasiSurvey);
-        }
-    }
+
 
     private void makeGalpalForms(){
         mGalpalForms=new ArrayList<>();
@@ -237,5 +260,35 @@ public class DummyMaker {
         mKompalForms=new ArrayList<>();
         FormGalpal4 formGalpal4=new FormGalpal4();
         mKompalForms.add(formGalpal4);
+    }
+
+    //untuk mempersingkat doang setting setiap kualifikasi survey formnya
+    private void setKualifikasiSurveyForms(KualifikasiSurvey kualifikasiSurvey){
+        for(SingleForm singleForm:mGalpalForms){
+            singleForm.setKualifikasiSurvey(kualifikasiSurvey);
+        }
+        for(SingleForm singleForm:mKompalForms){
+            singleForm.setKualifikasiSurvey(kualifikasiSurvey);
+        }
+    }
+
+    public List<SingleForm> getGalpalForms(int kualifikasiSurveyId) {
+        List<SingleForm> galpalForms=new ArrayList<>();
+        for(SingleForm singleForm:mGalpalForms){
+            if(singleForm.getKualifikasiSurvey().getKualifikasiSurveyId()==kualifikasiSurveyId){
+                galpalForms.add(singleForm);
+            }
+        }
+        return galpalForms;
+    }
+
+    public List<SingleForm> getKompalForms(int kualifikasiSurveyId) {
+        List<SingleForm> kompalForms=new ArrayList<>();
+        for(SingleForm singleForm:mKompalForms){
+            if(singleForm.getKualifikasiSurvey().getKualifikasiSurveyId()==kualifikasiSurveyId){
+                kompalForms.add(singleForm);
+            }
+        }
+        return kompalForms;
     }
 }
