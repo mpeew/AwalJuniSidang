@@ -2,12 +2,15 @@ package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +51,9 @@ public class FormGalpal1Fragment extends Fragment  {
     private EditText mNomorCpEditText;
     private EditText mJabatanEditText;
     private EditText mEmailEditText;
+    private TextInputLayout mEmailInputLayout;
+    private EditText mWebsiteEditText;
+
     private Spinner mPropinsiSpinner;
 
     private Button mSubmitButton;
@@ -113,6 +119,7 @@ public class FormGalpal1Fragment extends Fragment  {
             mFormGalpal1.setNomorCp(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_NO)));
             mFormGalpal1.setJabatan(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_JABATAN)));
             mFormGalpal1.setEmail(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_EMAIL)));
+            mFormGalpal1.setWebsite(cursor.getString(cursor.getColumnIndex(BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_COLUMN_WEBSITE)));
             cursor.close();
 
 
@@ -142,7 +149,9 @@ public class FormGalpal1Fragment extends Fragment  {
         mNomorCpEditText=(EditText)rootView.findViewById(R.id.galpal1_contact_person_no);
         mJabatanEditText=(EditText)rootView.findViewById(R.id.galpal1_jabatan);
         mEmailEditText=(EditText)rootView.findViewById(R.id.galpal1_alamat_email);
+        mEmailInputLayout=(TextInputLayout)rootView.findViewById(R.id.galpal1_alamat_email_layout);
         mPropinsiSpinner=(Spinner)rootView.findViewById(R.id.galpal1_propinsi_spinner);
+        mWebsiteEditText=(EditText)rootView.findViewById(R.id.galpal1_website);
 
         // setting spinner propinsi
 
@@ -368,6 +377,25 @@ public class FormGalpal1Fragment extends Fragment  {
 
             @Override
             public void afterTextChanged(Editable s) {
+                validateEmail();
+
+            }
+        });
+
+        mWebsiteEditText.setText(mFormGalpal1.getWebsite());
+        mWebsiteEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mFormGalpal1.setWebsite(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
 
             }
         });
@@ -381,6 +409,11 @@ public class FormGalpal1Fragment extends Fragment  {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!validateEmail()) {
+                    Toast.makeText(getContext(),"Terdapat data yang tidak valid ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if(dbHelper.checkIsDataAlreadyInDBorNot(mFormGalpal1.getIdentitasPerusahaanId(),BaseDBHelper.FORM_PERUSAHAAN_IDENTITAS_TABLE_NAME)) {
                     dbHelper.updateFormIdentitasPerusahaan(mFormGalpal1.getIdentitasPerusahaanId(),mFormGalpal1.getKualifikasiSurvey().getPerusahaan().getId(),mFormGalpal1.getKualifikasiSurvey().getKualifikasiSurveyId(), mFormGalpal1.getStatusKepemilikanUsaha(),
@@ -402,6 +435,30 @@ public class FormGalpal1Fragment extends Fragment  {
 
 
         return rootView;
+    }
+
+    private boolean validateEmail() {
+        String email = mEmailEditText.getText().toString().trim();
+
+        if (email.isEmpty() || !isValidEmail(email)) {
+            mEmailInputLayout.setError("Masukan email yang valid");
+            requestFocus(mEmailEditText);
+            return false;
+        } else {
+            mEmailInputLayout.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private static boolean isValidEmail(String email) {
+        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
     }
 
 

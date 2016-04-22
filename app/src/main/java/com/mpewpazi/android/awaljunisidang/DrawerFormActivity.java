@@ -17,7 +17,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal1Fragment;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 
@@ -172,6 +171,9 @@ public class DrawerFormActivity extends ActionBarActivity {
                 break;
             case 2:
                 fragment = mFragmentList.get(2);
+                break;
+            case 3:
+                fragment = mFragmentList.get(3);
                 break;
 
 

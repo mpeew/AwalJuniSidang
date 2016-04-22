@@ -5,6 +5,7 @@ import android.content.Context;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.model.GalanganKapal;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
@@ -259,8 +260,11 @@ public class DummyMaker {
         formGalpal1.setIdentitasPerusahaanId(id);
         FormGalpal3 formGalpal3=new FormGalpal3();
         formGalpal3.setIdentitasUmumGalanganId(id);
+        FormGalpal6 formGalpal6=new FormGalpal6();
+        formGalpal6.setId(id);
         mGalpalForms.add(formGalpal1);
         mGalpalForms.add(formGalpal3);
+        mGalpalForms.add(formGalpal6);
         for(int y=galpalSize;y<mGalpalForms.size();y++){
             mGalpalForms.get(y).setKualifikasiSurvey(kualifikasiSurvey);
         }
