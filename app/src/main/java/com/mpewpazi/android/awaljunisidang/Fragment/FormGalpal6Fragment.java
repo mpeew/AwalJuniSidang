@@ -58,7 +58,10 @@ public class FormGalpal6Fragment extends Fragment {
                 mFormGalpal6=(FormGalpal6)singleForm;
             }
         }
+
+        DummyMaker.get(getActivity()).addGalpalForm(mFormGalpal6);
     }
+
 
     @Nullable
     @Override

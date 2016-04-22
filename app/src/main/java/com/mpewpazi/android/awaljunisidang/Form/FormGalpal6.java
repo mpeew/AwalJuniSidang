@@ -1,14 +1,13 @@
 package com.mpewpazi.android.awaljunisidang.Form;
 
-import android.support.v4.app.Fragment;
-
-import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal6Fragment;
+import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 
 /**
  * Created by mpewpazi on 4/18/16.
  */
-public class FormGalpal6 extends SingleForm {
+public class FormGalpal6  {
     private int id;
+    private KualifikasiSurvey kualifikasiSurvey;
     private String jenisMesin;
     private int tahunPembuatan;
     private String merek;
@@ -20,15 +19,7 @@ public class FormGalpal6 extends SingleForm {
     private String lokasi;
     private String status;
 
-    @Override
-    public String getNamaForm() {
-        return "Peralatan Ruang Kerja Luar Ruang Cranes";
-    }
 
-    @Override
-    public Fragment getFragment() {
-        return new FormGalpal6Fragment();
-    }
 
     public int getId() {
         return id;
@@ -36,6 +27,14 @@ public class FormGalpal6 extends SingleForm {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public KualifikasiSurvey getKualifikasiSurvey() {
+        return kualifikasiSurvey;
+    }
+
+    public void setKualifikasiSurvey(KualifikasiSurvey kualifikasiSurvey) {
+        this.kualifikasiSurvey = kualifikasiSurvey;
     }
 
     public String getJenisMesin() {
