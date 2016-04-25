@@ -2,7 +2,7 @@ package com.mpewpazi.android.awaljunisidang.Form;
 
 import android.support.v4.app.Fragment;
 
-import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal6Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal6Fragment;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 
 import java.util.ArrayList;
@@ -19,6 +19,12 @@ public class FormGalpal6List extends SingleForm {
         for(int y=0;y<mFormGalpal6s.size();y++){
             mFormGalpal6s.get(y).setKualifikasiSurvey(kualifikasiSurvey);
         }
+        mKualifikasiSurvey=kualifikasiSurvey;
+    }
+
+    @Override
+    public KualifikasiSurvey getKualifikasiSurvey() {
+        return super.getKualifikasiSurvey();
     }
 
     @Override
@@ -28,14 +34,14 @@ public class FormGalpal6List extends SingleForm {
 
     @Override
     public Fragment getFragment() {
-        return new FormGalpal6Fragment();
+        return new ListFormGalpal6Fragment();
     }
 
     public List<FormGalpal6> getFormGalpal6s() {
         return mFormGalpal6s;
     }
 
-    public void setFormGalpal6s(List<FormGalpal6> formGalpal6s) {
-        mFormGalpal6s = formGalpal6s;
+    public void addFormGalpal6(FormGalpal6 formGalpal6) {
+        mFormGalpal6s.add(formGalpal6);
     }
 }

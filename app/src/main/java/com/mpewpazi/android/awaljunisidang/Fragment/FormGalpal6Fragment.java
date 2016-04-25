@@ -1,29 +1,11 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-
-import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
-import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
-import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
-
-import java.util.List;
 
 /**
  * Created by mpewpazi on 4/18/16.
  */
-public class FormGalpal6Fragment extends Fragment {
+public class FormGalpal6Fragment extends Fragment {/*
     private final static String NAMA_FORM="Peralatan Ruang Kerja Luar Ruang Cranes";
 
     private EditText mJenisMesinEditText;
@@ -273,5 +255,5 @@ public class FormGalpal6Fragment extends Fragment {
 
 
         return rootView;
-    }
+    }*/
 }

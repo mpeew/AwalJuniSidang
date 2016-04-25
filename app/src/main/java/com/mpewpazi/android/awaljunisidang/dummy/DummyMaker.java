@@ -261,11 +261,15 @@ public class DummyMaker {
         formGalpal1.setIdentitasPerusahaanId(id);
         FormGalpal3 formGalpal3=new FormGalpal3();
         formGalpal3.setIdentitasUmumGalanganId(id);
-        FormGalpal6List formGalpal6=new FormGalpal6List();
-        formGalpal6.setId(id);
+        FormGalpal6List formGalpal6List=new FormGalpal6List();
+        FormGalpal6 formGalpal6=new FormGalpal6();
+        formGalpal6.setId(1);
+        formGalpal6.setJenisMesin("inas nisrina");
+        formGalpal6.setTahunPembuatan(1994);
+        formGalpal6List.addFormGalpal6(formGalpal6);
         mGalpalForms.add(formGalpal1);
         mGalpalForms.add(formGalpal3);
-        mGalpalForms.add(formGalpal6);
+        mGalpalForms.add(formGalpal6List);
         for(int y=galpalSize;y<mGalpalForms.size();y++){
             mGalpalForms.get(y).setKualifikasiSurvey(kualifikasiSurvey);
         }
