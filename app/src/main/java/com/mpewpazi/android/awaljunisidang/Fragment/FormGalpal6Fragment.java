@@ -1,12 +1,33 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6List;
+import com.mpewpazi.android.awaljunisidang.R;
+import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by mpewpazi on 4/18/16.
  */
-public class FormGalpal6Fragment extends Fragment {/*
+public class FormGalpal6Fragment extends Fragment {
     private final static String NAMA_FORM="Peralatan Ruang Kerja Luar Ruang Cranes";
+    private static final String ARG_FORMGALPAL6_ID="formgalpal6_id";
+    private static final String ARG_FORMGALPAL6_KUALIFIKASI_SURVEY_ID="formgalpal6_kualifikasi_id";
 
     private EditText mJenisMesinEditText;
     private EditText mTahunPembuatanEditText;
@@ -20,28 +41,49 @@ public class FormGalpal6Fragment extends Fragment {/*
     private EditText mKapasitasTerpakaiEditText;
 
     private Button mSubmitButton;
+    private FormGalpal6List mFormGalpal6List;
+    private List<FormGalpal6> mFormGalpal6s;
     private FormGalpal6 mFormGalpal6;
 
     private KualifikasiSurvey mKualifikasiSurvey;
-    private List<SingleForm> mGalpalForms;
 
 
+
+
+    public static FormGalpal6Fragment newInstance(UUID id, int kualifikasiSurveyId){
+        //bundle itu berisi key-value fair seperti intent
+
+        //bundle tidak jauh seperti intent penggunannya
+        Bundle args=new Bundle();
+        args.putSerializable(ARG_FORMGALPAL6_ID, id);
+        args.putInt(ARG_FORMGALPAL6_KUALIFIKASI_SURVEY_ID, kualifikasiSurveyId);
+
+        FormGalpal6Fragment fragment=new FormGalpal6Fragment();
+        fragment.setArguments(args);
+
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //sementara
+        int kualifikasiSurveyId=getArguments().getInt(ARG_FORMGALPAL6_KUALIFIKASI_SURVEY_ID);
+        UUID formGalpal6Id=(UUID)getArguments().getSerializable(ARG_FORMGALPAL6_ID);
 
         mKualifikasiSurvey= DummyMaker.get(getActivity()).getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
-        mGalpalForms= DummyMaker.get(getActivity()).getGalpalForms(DrawerFormActivity.kualifikasiSurveyId);
-        for(SingleForm singleForm:mGalpalForms){
-            if(singleForm.getNamaForm().equals(NAMA_FORM)){
-                mFormGalpal6=(FormGalpal6)singleForm;
+        mFormGalpal6List=(FormGalpal6List) DummyMaker.get(getActivity()).
+                getGalpalForm(DrawerFormActivity.kualifikasiSurveyId,NAMA_FORM);
+
+        mFormGalpal6s=mFormGalpal6List.getFormGalpal6s();
+        for(FormGalpal6 formGalpal6:mFormGalpal6s){
+            if(formGalpal6.getUUID().equals(formGalpal6Id)){
+                mFormGalpal6=formGalpal6;
+                return;
             }
         }
 
-        DummyMaker.get(getActivity()).addGalpalForm(mFormGalpal6);
     }
 
 
@@ -255,5 +297,5 @@ public class FormGalpal6Fragment extends Fragment {/*
 
 
         return rootView;
-    }*/
+    }
 }

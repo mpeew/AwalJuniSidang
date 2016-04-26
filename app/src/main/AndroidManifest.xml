@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".DrawerFormActivity">
         </activity>
+        <activity android:name=".FormGalpal6PagerActivity">
+        </activity>
     </application>
 
 </manifest>

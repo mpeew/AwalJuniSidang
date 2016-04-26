@@ -85,12 +85,9 @@ public class FormGalpal1Fragment extends Fragment  {
 
 
         mKualifikasiSurvey=DummyMaker.get(getActivity()).getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
-        mGalpalForms= DummyMaker.get(getActivity()).getGalpalForms(DrawerFormActivity.kualifikasiSurveyId);
-        for(SingleForm singleForm:mGalpalForms){
-            if(singleForm.getNamaForm().equals(NAMA_FORM)){
-                mFormGalpal1=(FormGalpal1)singleForm;
-            }
-        }
+        mFormGalpal1=(FormGalpal1) DummyMaker.get(getActivity()).
+                getGalpalForm(DrawerFormActivity.kualifikasiSurveyId,NAMA_FORM);
+
 
         mNamaPerusahaan=mKualifikasiSurvey.getPerusahaan().getNamaPerusahaan();
 
@@ -460,6 +457,8 @@ public class FormGalpal1Fragment extends Fragment  {
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
+
+
 
 
 

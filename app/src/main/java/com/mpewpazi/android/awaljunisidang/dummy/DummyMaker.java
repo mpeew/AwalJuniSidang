@@ -262,11 +262,19 @@ public class DummyMaker {
         FormGalpal3 formGalpal3=new FormGalpal3();
         formGalpal3.setIdentitasUmumGalanganId(id);
         FormGalpal6List formGalpal6List=new FormGalpal6List();
+
         FormGalpal6 formGalpal6=new FormGalpal6();
         formGalpal6.setId(1);
-        formGalpal6.setJenisMesin("inas nisrina");
+        formGalpal6.setJenisMesin("Mesin Gergaji");
         formGalpal6.setTahunPembuatan(1994);
-        formGalpal6List.addFormGalpal6(formGalpal6);
+
+        FormGalpal6 formGalpal61=new FormGalpal6();
+        formGalpal61.setId(2);
+        formGalpal61.setJenisMesin("Mesin Bla");
+        formGalpal61.setTahunPembuatan(1994);
+
+        formGalpal6List.addFormGalpal6(formGalpal61,kualifikasiSurvey);
+        formGalpal6List.addFormGalpal6(formGalpal6,kualifikasiSurvey);
         mGalpalForms.add(formGalpal1);
         mGalpalForms.add(formGalpal3);
         mGalpalForms.add(formGalpal6List);
@@ -306,6 +314,7 @@ public class DummyMaker {
                 galpalForms.add(singleForm);
             }
         }
+
         return galpalForms;
     }
 
@@ -317,5 +326,25 @@ public class DummyMaker {
             }
         }
         return kompalForms;
+    }
+
+    public SingleForm getGalpalForm(int kualifikasiSurveyId,String namaForm){
+        for(SingleForm singleForm:mGalpalForms){
+            if(singleForm.getKualifikasiSurvey().getKualifikasiSurveyId()==kualifikasiSurveyId &&
+                    singleForm.getNamaForm().equals(namaForm)){
+                return singleForm;
+            }
+        }
+        return null;
+    }
+
+    public SingleForm getKompalForm(int kualifikasiSurveyId,String namaForm){
+        for(SingleForm singleForm:mKompalForms){
+            if(singleForm.getKualifikasiSurvey().getKualifikasiSurveyId()==kualifikasiSurveyId &&
+                    singleForm.getNamaForm().equals(namaForm)){
+                return singleForm;
+            }
+        }
+        return null;
     }
 }

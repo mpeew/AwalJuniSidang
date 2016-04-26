@@ -22,6 +22,8 @@ public class FormGalpal6List extends SingleForm {
         mKualifikasiSurvey=kualifikasiSurvey;
     }
 
+
+
     @Override
     public KualifikasiSurvey getKualifikasiSurvey() {
         return super.getKualifikasiSurvey();
@@ -41,7 +43,8 @@ public class FormGalpal6List extends SingleForm {
         return mFormGalpal6s;
     }
 
-    public void addFormGalpal6(FormGalpal6 formGalpal6) {
+    public void addFormGalpal6(FormGalpal6 formGalpal6,KualifikasiSurvey kualifikasiSurvey) {
+        formGalpal6.setKualifikasiSurvey(kualifikasiSurvey);
         mFormGalpal6s.add(formGalpal6);
     }
 }

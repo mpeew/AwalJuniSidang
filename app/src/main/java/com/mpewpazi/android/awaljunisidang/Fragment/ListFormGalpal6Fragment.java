@@ -1,11 +1,15 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -13,7 +17,7 @@ import android.widget.TextView;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6List;
-import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
+import com.mpewpazi.android.awaljunisidang.FormGalpal6PagerActivity;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 
@@ -24,8 +28,10 @@ import java.util.List;
  */
 public class ListFormGalpal6Fragment extends Fragment {
     private final static String NAMA_FORM="Peralatan Ruang Kerja Luar Ruang Cranes";
+    private final static String EXTRA_KUALIFIKASISURVEY_FORMGALPAL6="extra_kualifikasisurvey_form_galpal6";
+    private final static String EXTRA_ID_FORMGALPAL6="extra_id_form_galpal6";
 
-    private List<SingleForm> mGalpalForms;
+
     private List<FormGalpal6> mFormGalpal6s;
 
     private FormGalpal6List mFormGalpal6List;
@@ -67,12 +73,8 @@ public class ListFormGalpal6Fragment extends Fragment {
     }
 
     private void updateUI() {
-        mGalpalForms= DummyMaker.get(getActivity()).getGalpalForms(DrawerFormActivity.kualifikasiSurveyId);
-        for(SingleForm singleForm:mGalpalForms){
-            if(singleForm.getNamaForm().equals(NAMA_FORM)){
-                mFormGalpal6List=(FormGalpal6List) singleForm;
-            }
-        }
+        mFormGalpal6List=(FormGalpal6List) DummyMaker.get(getActivity()).
+                getGalpalForm(DrawerFormActivity.kualifikasiSurveyId,NAMA_FORM);
 
         mFormGalpal6s=mFormGalpal6List.getFormGalpal6s();
 
@@ -116,8 +118,10 @@ public class ListFormGalpal6Fragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-           // Intent intent = FormGalpal6PagerActivity.newIntent(getActivity(), mFormGalpal6.getId());
-           // startActivity(intent);
+              Intent intent=new Intent(getActivity(),FormGalpal6PagerActivity.class);
+              intent.putExtra(EXTRA_ID_FORMGALPAL6,mFormGalpal6.getUUID());
+              intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMGALPAL6,mFormGalpal6.getKualifikasiSurvey().getKualifikasiSurveyId());
+              startActivity(intent);
         }
     }
 
@@ -149,6 +153,30 @@ public class ListFormGalpal6Fragment extends Fragment {
 
         public void setData(List<FormGalpal6> formGalpal6s){
             mFormGalpal6s=formGalpal6s;
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_form_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_item_new_crime:
+                FormGalpal6 formGalpal6=new FormGalpal6();
+                mFormGalpal6List=(FormGalpal6List) DummyMaker.get(getActivity()).
+                        getGalpalForm(DrawerFormActivity.kualifikasiSurveyId,NAMA_FORM);
+                mFormGalpal6List.addFormGalpal6(formGalpal6,DummyMaker.get(getActivity()).getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId));
+                Intent intent=new Intent(getActivity(),FormGalpal6PagerActivity.class);
+                intent.putExtra(EXTRA_ID_FORMGALPAL6,formGalpal6.getUUID());
+                //intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMGALPAL6,mFormGalpal6.getKualifikasiSurvey().getKualifikasiSurveyId());
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

@@ -2,10 +2,13 @@ package com.mpewpazi.android.awaljunisidang.Form;
 
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 
+import java.util.UUID;
+
 /**
  * Created by mpewpazi on 4/18/16.
  */
 public class FormGalpal6  {
+    private UUID mUUID;
     private int id;
     private KualifikasiSurvey kualifikasiSurvey;
     private String jenisMesin;
@@ -19,7 +22,13 @@ public class FormGalpal6  {
     private String lokasi;
     private String status;
 
+    public  FormGalpal6(){
+        mUUID=UUID.randomUUID();
+    }
 
+    public UUID getUUID() {
+        return mUUID;
+    }
 
     public int getId() {
         return id;
