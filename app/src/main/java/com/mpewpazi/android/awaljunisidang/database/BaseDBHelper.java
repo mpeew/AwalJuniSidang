@@ -1,10 +1,10 @@
 package com.mpewpazi.android.awaljunisidang.database;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.*;
 
 /**
  * Created by mpewpazi on 4/8/16.
@@ -12,64 +12,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class BaseDBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "shipyard.db";
-
-    public static final String FORM_UMUM_COLUMN_LONGITUDE="longitude";
-    public static final String FORM_UMUM_COLUMN_LATITUDE="latitude";
-    public static final String FORM_UMUM_COLUMN_LINTANG="lintang";
-    public static final String FORM_UMUM_COLUMN_LINTANG_DERAJAT="lintang_derajat";
-    public static final String FORM_UMUM_COLUMN_LINTANG_MENIT="lintang_menit";
-    public static final String FORM_UMUM_COLUMN_LINTANG_DETIK="lintang_Detik";
-    public static final String FORM_UMUM_COLUMN_BUJUR="bujur";
-    public static final String FORM_UMUM_COLUMN_BUJUR_DERAJAT="bujur_derajat";
-    public static final String FORM_UMUM_COLUMN_BUJUR_MENIT="lintang_bujur";
-    public static final String FORM_UMUM_COLUMN_BUJUR_DETIK="bujur_detik";
-    public static final String FORM_UMUM_COLUMN_CREATED_DATE = "created_date";
-    public static final String FORM_UMUM_COLUMN_CREATED_USER = "created_user";
-    public static final String FORM_UMUM_COLUMN_CREATED_IP_ADDRESS = "created_ip_address";
-    public static final String FORM_UMUM_COLUMN_MODIFIED_DATE = "modified_date";
-    public static final String FORM_UMUM_COLUMN_MODIFIED_USER = "modified_user";
-    public static final String FORM_UMUM_COLUMN_MODIFIED_IP_ADDRESS = "modified_ip_address";
-
-
-
-
-    //FORM GALPAL 1 TABEL
-    public static final String FORM_PERUSAHAAN_IDENTITAS_TABLE_NAME = "perusahaan_identitas";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PERUSAHAAN_IDENTITAS = "id";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PERUSAHAAN = "id_perusahaan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_KUALIFIKASI_SURVEY = "id_kualifikasi_survey";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_ALAMAT_PERUSAHAAN = "alamat_perusahaan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_JALAN_DESA_PERUSAHAAN="jalan_desa_perusahaan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_KELURAHAN_PERUSAHAAN="kelurahan_perusahaan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_KECAMATAN_PERUSAHAAN="kecamatan_perusahaan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_KABUPATEN_PERUSAHAAN="id_kabupaten_perusahaan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PROPINSI_PERUSAHAAN="id_propinsi_perusahaan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_TELEPON_PERUSAHAAN = "telepon_perusahaan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_FAX_PERUSAHAAN = "fax_perusahaan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_KODE_POS_PERUSAHAAN="kode_pos_perusahaan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_ALAMAT_PABRIK="alamat_pabrik";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_JALAN_DESA_PABRIK="jalan_desa_pabrik";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_KELURAHAN_PABRIK="kelurahan_pabrik";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_KECAMATAN_PABRIK="kecamatan_pabrik";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_KABUPATEN_PABRIK="kabupaten_pabrik";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PROPINSI_PABRIK="propinsi_pabrik";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_TELEPON_PABRIK="telepon_pabrik";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_FAX_PABRIK = "fax_pabrik";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_KODE_POS_PABRIK="kode_pos_pabrik";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_MST_LOKASI_PABRIK="id_mst_lokasi_pabrik";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_LAHAN_PERUNTUKAN="lahan_peruntukan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_LUAS_TANAH_PABRIK="luas_tanah_pabrik";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_NPWP="NPWP";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_NAMA_PIMPINAN="nama_pimpinan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_STATUS_KEPEMILIKAN_USAHA = "status_kepemilikan_usaha";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_KATEGORI_PERUSAHAAN="kategori_perusahaan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_ANGGOTA_ASOSIASI="anggota_asosiasi";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_WEBSITE="website";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_NAMA="cp_nama";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_NO="cp_no";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_JABATAN="cp_jabatan";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_EMAIL="cp_email";
-    public static final String FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_MST_JENIS_INDUSTRI="id_mst_jenis_industri";
 
 
     //FORM GALPAL3 TABEL
@@ -154,64 +96,113 @@ public class BaseDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
 
-        //create tabel formgalapal1
+        //create tabel user
         db.execSQL(
-                "create table "+FORM_PERUSAHAAN_IDENTITAS_TABLE_NAME+
-                        "("+FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PERUSAHAAN_IDENTITAS+" integer primary key ," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PERUSAHAAN +" integer," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_KUALIFIKASI_SURVEY +" integer," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_ALAMAT_PERUSAHAAN +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_JALAN_DESA_PERUSAHAAN +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_KELURAHAN_PERUSAHAAN +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_KECAMATAN_PERUSAHAAN +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_KABUPATEN_PERUSAHAAN +" integer," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PROPINSI_PERUSAHAAN +" integer," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_TELEPON_PERUSAHAAN +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_FAX_PERUSAHAAN +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_KODE_POS_PERUSAHAAN +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_ALAMAT_PABRIK +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_JALAN_DESA_PABRIK +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_KELURAHAN_PABRIK +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_KECAMATAN_PABRIK +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_KABUPATEN_PABRIK +" integer," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_PROPINSI_PABRIK +" integer," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_TELEPON_PABRIK +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_FAX_PABRIK +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_KODE_POS_PABRIK +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_MST_LOKASI_PABRIK +" integer," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_LAHAN_PERUNTUKAN +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_LUAS_TANAH_PABRIK +" integer," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_NPWP +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_NAMA_PIMPINAN +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_STATUS_KEPEMILIKAN_USAHA +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_KATEGORI_PERUSAHAAN +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_ANGGOTA_ASOSIASI +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_WEBSITE +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_NAMA +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_NO +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_JABATAN +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_CP_EMAIL +" text," +
-                        FORM_PERUSAHAAN_IDENTITAS_COLUMN_ID_MST_JENIS_INDUSTRI +" integer," +
-                        FORM_UMUM_COLUMN_LONGITUDE +" text," +
-                        FORM_UMUM_COLUMN_LATITUDE +" text," +
-                        FORM_UMUM_COLUMN_LINTANG +" text," +
-                        FORM_UMUM_COLUMN_LINTANG_DERAJAT +" integer," +
-                        FORM_UMUM_COLUMN_LINTANG_MENIT +" integer," +
-                        FORM_UMUM_COLUMN_LINTANG_DETIK +" real," +
-                        FORM_UMUM_COLUMN_BUJUR +" text," +
-                        FORM_UMUM_COLUMN_BUJUR_DERAJAT +" integer," +
-                        FORM_UMUM_COLUMN_BUJUR_MENIT +" int," +
-                        FORM_UMUM_COLUMN_BUJUR_DETIK +" real," +
-                        FORM_UMUM_COLUMN_CREATED_DATE +" numeric," +
-                        FORM_UMUM_COLUMN_CREATED_USER +" text," +
-                        FORM_UMUM_COLUMN_CREATED_IP_ADDRESS +" text," +
-                        FORM_UMUM_COLUMN_MODIFIED_DATE +" numeric," +
-                        FORM_UMUM_COLUMN_MODIFIED_USER +" text," +
-                        FORM_UMUM_COLUMN_MODIFIED_IP_ADDRESS +" text)"
+                "create table "+ UserTable.NAME+
+                        "("+UserTable.Cols.USERID+" integer primary key ," +
+                        UserTable.Cols.CODE_ID +", " +
+                        UserTable.Cols.TYPE +", " +
+                        UserTable.Cols.FULL_NAME +", " +
+                        UserTable.Cols.COMPANY_NAME +", " +
+                        UserTable.Cols.EMAIL +", " +
+                        UserTable.Cols.PASSWORD +", " +
+                        UserTable.Cols.SECURITY_CODE +" )"
+        );
+
+        //create tabel survey assign surveyor
+        db.execSQL(
+                "create table "+ SurveyAssignSurveyorTable.NAME+
+                        "("+SurveyAssignSurveyorTable.Cols.ID_SURVEY_ASSIGN_SURVEYOR+" integer primary key ," +
+                        SurveyAssignSurveyorTable.Cols.ID_KUALIFIKASI_SURVEY +", " +
+                        SurveyAssignSurveyorTable.Cols.USERID +", " +
+                        SurveyAssignSurveyorTable.Cols.ASSIGN_DATE +", " +
+                        SurveyAssignSurveyorTable.Cols.ASSIGN_BY +" )"
+        );
+
+        //create tabel periode
+        db.execSQL(
+                "create table "+ PeriodeSurveyTable.NAME+
+                        "("+PeriodeSurveyTable.Cols.ID_PERIODE+" integer primary key ," +
+                        PeriodeSurveyTable.Cols.TAHUN_KUALIFIKASI +", " +
+                        PeriodeSurveyTable.Cols.IS_ACTIVE_PERIOD +", " +
+                        PeriodeSurveyTable.Cols.IS_DONE +", " +
+                        PeriodeSurveyTable.Cols.KETERANGAN +" )"
+        );
+        //create tabel perusahaan
+        db.execSQL(
+                "create table "+ PerusahaanTable.NAME+
+                        "("+PerusahaanTable.Cols.ID_PERUSAHAAN+" integer primary key ," +
+                        PerusahaanTable.Cols.NAMA_PERUSAHAAN +", " +
+                        PerusahaanTable.Cols.INDUSTRI +", " +
+                        PerusahaanTable.Cols.IS_ACTIV +" )"
+        );
+        //create tabel kualifikasi survey
+        db.execSQL(
+                "create table "+ KualifikasiSurveyTable.NAME+
+                        "("+KualifikasiSurveyTable.Cols.ID_KUALIFIKASI_SURVEY+" integer primary key ," +
+                        KualifikasiSurveyTable.Cols.ID_PERUSAHAAN +", " +
+                        KualifikasiSurveyTable.Cols.ID_PERIODE +", " +
+                        KualifikasiSurveyTable.Cols.ID_GALANGAN_KAPAL +" )"
+        );
+
+        //create tabel Identitas Perusahaan
+        db.execSQL(
+                "create table "+ PerusahaanIdentitasTable.NAME+
+                        "("+PerusahaanIdentitasTable.Cols.ID_PERUSAHAAN_IDENTITAS+" integer primary key ," +
+                        PerusahaanIdentitasTable.Cols.ID_PERUSAHAAN +" integer," +
+                        PerusahaanIdentitasTable.Cols.ID_KUALIFIKASI_SURVEY +" integer," +
+                        PerusahaanIdentitasTable.Cols.ALAMAT_PERUSAHAAN +" text," +
+                        PerusahaanIdentitasTable.Cols.JALAN_DESA_PERUSAHAAN +" text," +
+                        PerusahaanIdentitasTable.Cols.KELURAHAN_PERUSAHAAN +" text," +
+                        PerusahaanIdentitasTable.Cols.KECAMATAN_PERUSAHAAN +" text," +
+                        PerusahaanIdentitasTable.Cols.ID_KABUPATEN_PERUSAHAAN +" integer," +
+                        PerusahaanIdentitasTable.Cols.ID_PROPINSI_PERUSAHAAN +" integer," +
+                        PerusahaanIdentitasTable.Cols.TELEPON_PERUSAHAAN +" text," +
+                        PerusahaanIdentitasTable.Cols.FAX_PERUSAHAAN +" text," +
+                        PerusahaanIdentitasTable.Cols.KODE_POS_PERUSAHAAN +" text," +
+                        PerusahaanIdentitasTable.Cols.ALAMAT_PABRIK +" text," +
+                        PerusahaanIdentitasTable.Cols.JALAN_DESA_PABRIK +" text," +
+                        PerusahaanIdentitasTable.Cols.KELURAHAN_PABRIK +" text," +
+                        PerusahaanIdentitasTable.Cols.KECAMATAN_PABRIK +" text," +
+                        PerusahaanIdentitasTable.Cols.ID_KABUPATEN_PABRIK +" integer," +
+                        PerusahaanIdentitasTable.Cols.ID_PROPINSI_PABRIK +" integer," +
+                        PerusahaanIdentitasTable.Cols.TELEPON_PABRIK +" text," +
+                        PerusahaanIdentitasTable.Cols.FAX_PABRIK +" text," +
+                        PerusahaanIdentitasTable.Cols.KODE_POS_PABRIK +" text," +
+                        PerusahaanIdentitasTable.Cols.ID_MST_LOKASI_PABRIK +" integer," +
+                        PerusahaanIdentitasTable.Cols.LAHAN_PERUNTUKAN +" text," +
+                        PerusahaanIdentitasTable.Cols.LUAS_TANAH_PABRIK +" integer," +
+                        PerusahaanIdentitasTable.Cols.NPWP +" text," +
+                        PerusahaanIdentitasTable.Cols.NAMA_PIMPINAN +" text," +
+                        PerusahaanIdentitasTable.Cols.STATUS_KEPEMILIKAN_USAHA +" text," +
+                        PerusahaanIdentitasTable.Cols.KATEGORI_PERUSAHAAN +" text," +
+                        PerusahaanIdentitasTable.Cols.ANGGOTA_ASOSIASI +" text," +
+                        PerusahaanIdentitasTable.Cols.WEBSITE +" text," +
+                        PerusahaanIdentitasTable.Cols.CP_NAMA +" text," +
+                        PerusahaanIdentitasTable.Cols.CP_NO +" text," +
+                        PerusahaanIdentitasTable.Cols.CP_JABATAN +" text," +
+                        PerusahaanIdentitasTable.Cols.CP_EMAIL +" text," +
+                        PerusahaanIdentitasTable.Cols.ID_MST_JENIS_INDUSTRI +" integer," +
+                        PerusahaanIdentitasTable.Cols.LONGITUDE +" text," +
+                        PerusahaanIdentitasTable.Cols.LATITUDE +" text," +
+                        PerusahaanIdentitasTable.Cols.LINTANG +" text," +
+                        PerusahaanIdentitasTable.Cols.LINTANG_DERAJAT +" integer," +
+                        PerusahaanIdentitasTable.Cols.LINTANG_MENIT +" integer," +
+                        PerusahaanIdentitasTable.Cols.LINTANG_DETIK +" real," +
+                        PerusahaanIdentitasTable.Cols.BUJUR +" text," +
+                        PerusahaanIdentitasTable.Cols.BUJUR_DERAJAT +" integer," +
+                        PerusahaanIdentitasTable.Cols.BUJUR_MENIT +" int," +
+                        PerusahaanIdentitasTable.Cols.BUJUR_DETIK +" real," +
+                        PerusahaanIdentitasTable.Cols.CREATED_DATE +" numeric," +
+                        PerusahaanIdentitasTable.Cols.CREATED_USER +" text," +
+                        PerusahaanIdentitasTable.Cols.CREATED_IP_ADDRESS +" text," +
+                        PerusahaanIdentitasTable.Cols.MODIFIED_DATE +" numeric," +
+                        PerusahaanIdentitasTable.Cols.MODIFIED_USER +" text," +
+                        PerusahaanIdentitasTable.Cols.MODIFIED_IP_ADDRESS +" text)"
         );
 
 
-        //create tabel formgalpal3
+        /*//create tabel formgalpal3
         db.execSQL(
                 "create table "+FORM_GALPAL3_TABLE_NAME+
                         "("+FORM_GALPAL3_COLUMN_ID+" integer primary key ," +
@@ -286,48 +277,15 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FORM_KOMPAL2_COLUMN_BAHAN_BAKU + " text," +
                         FORM_KOMPAL2_COLUMN_MESIN_SISTEM_ELEKTRIKAL + " text," +
                         FORM_KOMPAL2_COLUMN_PERLENGKAPAN_KAPAL + " text)"
-        );
+        );*/
 
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
-        db.execSQL("DROP TABLE IF EXISTS "+FORM_PERUSAHAAN_IDENTITAS_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS "+FORM_GALPAL3_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS "+FORM_KOMPAL1_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS "+FORM_KOMPAL2_TABLE_NAME);
-        onCreate(db);
-    }
-
-    public Cursor getDataForm(int id, String tableName){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+tableName+" where id="+id+"", null );
-        return res;
 
     }
 
-    public boolean checkIsDataAlreadyInDBorNot(int id, String tableName) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+tableName+" where id="+id+"", null );
-        if(res.getCount() <= 0){
-            return false;
-        }
-        return true;
-    }
 
-    public int numberOfRows(String tableName){
-        SQLiteDatabase db = this.getReadableDatabase();
-        int numRows = (int) DatabaseUtils.queryNumEntries(db, tableName);
-        return numRows;
-    }
-
-    public Integer deleteFormGalpal1 (Integer id, String tableName)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(tableName,
-                "id = ? ",
-                new String[] { Integer.toString(id) });
-    }
 }

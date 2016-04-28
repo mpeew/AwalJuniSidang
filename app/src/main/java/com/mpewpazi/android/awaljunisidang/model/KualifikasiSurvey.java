@@ -5,9 +5,9 @@ package com.mpewpazi.android.awaljunisidang.model;
  */
 public class KualifikasiSurvey {
     private int kualifikasiSurveyId;
-    private Perusahaan perusahaan;
-    private PeriodeSurvey periodeSurvey;
-    private GalanganKapal galanganKapal;
+    private int perusahaanId;
+    private int periodeSurveyId;
+    private int galanganKapalId;
 
     public int getKualifikasiSurveyId() {
         return kualifikasiSurveyId;
@@ -17,27 +17,27 @@ public class KualifikasiSurvey {
         this.kualifikasiSurveyId = kualifikasiSurveyId;
     }
 
-    public Perusahaan getPerusahaan() {
-        return perusahaan;
+    public int getPerusahaanId() {
+        return perusahaanId;
     }
 
-    public void setPerusahaan(Perusahaan perusahaan) {
-        this.perusahaan = perusahaan;
+    public void setPerusahaanId(int perusahaanId) {
+        this.perusahaanId = perusahaanId;
     }
 
-    public PeriodeSurvey getPeriodeSurvey() {
-        return periodeSurvey;
+    public int getPeriodeSurveyId() {
+        return periodeSurveyId;
     }
 
-    public void setPeriodeSurvey(PeriodeSurvey periodeSurvey) {
-        this.periodeSurvey = periodeSurvey;
+    public void setPeriodeSurveyId(int periodeSurveyId) {
+        this.periodeSurveyId = periodeSurveyId;
     }
 
-    public GalanganKapal getGalanganKapal() {
-        return galanganKapal;
+    public int getGalanganKapalId() {
+        return galanganKapalId;
     }
 
-    public void setGalanganKapal(GalanganKapal galanganKapal) {
-        this.galanganKapal = galanganKapal;
+    public void setGalanganKapalId(int galanganKapalId) {
+        this.galanganKapalId = galanganKapalId;
     }
 }

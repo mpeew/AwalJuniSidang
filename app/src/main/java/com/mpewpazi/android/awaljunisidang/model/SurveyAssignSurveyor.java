@@ -7,10 +7,10 @@ import java.util.Date;
  */
 public class SurveyAssignSurveyor {
     private int surveyAssignSurveyorId;
-    private KualifikasiSurvey kualifikasiSurvey;
-    private User user;
+    private int kualifikasiSurveyId;
+    private String userId;
     private Date assignDate;
-    private User assignBy;
+    private int assignByUserId;
 
     public int getSurveyAssignSurveyorId() {
         return surveyAssignSurveyorId;
@@ -20,20 +20,20 @@ public class SurveyAssignSurveyor {
         this.surveyAssignSurveyorId = surveyAssignSurveyorId;
     }
 
-    public KualifikasiSurvey getKualifikasiSurvey() {
-        return kualifikasiSurvey;
+    public int getKualifikasiSurveyId() {
+        return kualifikasiSurveyId;
     }
 
-    public void setKualifikasiSurvey(KualifikasiSurvey kualifikasiSurvey) {
-        this.kualifikasiSurvey = kualifikasiSurvey;
+    public void setKualifikasiSurveyId(int kualifikasiSurveyId) {
+        this.kualifikasiSurveyId = kualifikasiSurveyId;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Date getAssignDate() {
@@ -44,11 +44,11 @@ public class SurveyAssignSurveyor {
         this.assignDate = assignDate;
     }
 
-    public User getAssignBy() {
-        return assignBy;
+    public int getAssignByUserId() {
+        return assignByUserId;
     }
 
-    public void setAssignBy(User assignBy) {
-        this.assignBy = assignBy;
+    public void setAssignByUserId(int assignByUserId) {
+        this.assignByUserId = assignByUserId;
     }
 }

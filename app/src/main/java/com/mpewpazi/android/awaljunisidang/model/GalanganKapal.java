@@ -11,7 +11,7 @@ public class GalanganKapal {
     private String kategoriGalangan;
     private int isNewBuilding;
     private int isRepair;
-    private KualifikasiSurvey kualifikasiSurvey;
+    private int kualifikasiSurveyId;
     //private Perusahaan perusahaan;
     private String nomorDock;
     private String alamatGalangan;
@@ -83,12 +83,12 @@ public class GalanganKapal {
         this.isRepair = isRepair;
     }
 
-    public KualifikasiSurvey getKualifikasiSurvey() {
-        return kualifikasiSurvey;
+    public int getKualifikasiSurveyId() {
+        return kualifikasiSurveyId;
     }
 
-    public void setKualifikasiSurvey(KualifikasiSurvey kualifikasiSurvey) {
-        this.kualifikasiSurvey = kualifikasiSurvey;
+    public void setKualifikasiSurveyId(int kualifikasiSurveyId) {
+        this.kualifikasiSurveyId = kualifikasiSurveyId;
     }
 
     public String getNomorDock() {

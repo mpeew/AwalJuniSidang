@@ -1,6 +1,9 @@
 package com.mpewpazi.android.awaljunisidang.dummy;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
@@ -8,6 +11,9 @@ import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6List;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
+import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
+import com.mpewpazi.android.awaljunisidang.database.CursorWrapperGal;
+import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.model.GalanganKapal;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.PeriodeSurvey;
@@ -17,6 +23,9 @@ import com.mpewpazi.android.awaljunisidang.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.*;
 
 /**
  * Created by mpewpazi on 4/19/16.
@@ -26,17 +35,11 @@ public class DummyMaker {
     private int galpalSize=0;
     private int kompalSize=0;
 
+    private SQLiteDatabase mDatabase;
+
     private static DummyMaker sDummyMaker;
 
-    private List<KualifikasiSurvey> mKualifikasiSurveys;
-    private List<User> mUsers;
-    private List<PeriodeSurvey> mPeriodeSurveys;
-    private List<Perusahaan> mPerusahaans;
-    private List<GalanganKapal> mGalanganKapals;
-    private List<SurveyAssignSurveyor> mSurveyAssignSurveyors;
 
-    private List<SingleForm> mGalpalForms;
-    private List<SingleForm> mKompalForms;
 
     public static DummyMaker get(Context context){
         if(sDummyMaker ==null){
@@ -47,8 +50,9 @@ public class DummyMaker {
 
     private DummyMaker(Context context){
         mContext=context.getApplicationContext();
-        mKompalForms=new ArrayList<>();
-        mGalpalForms=new ArrayList<>();
+        mDatabase=new BaseDBHelper(mContext).getWritableDatabase();
+
+
 
 
         makeUser();
@@ -62,6 +66,181 @@ public class DummyMaker {
 
 
     }
+
+    public Perusahaan getPerusahaan(int idPerusahaan){
+        CursorWrapperGal cursor=query(PerusahaanTable.NAME,PerusahaanTable.Cols.ID_PERUSAHAAN+ "=?",
+                new String[] {String.valueOf(idPerusahaan)});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getPerusahaan();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public PeriodeSurvey getPeriodeSurvey(int idPeriode){
+        CursorWrapperGal cursor=query(PeriodeSurveyTable.NAME,PeriodeSurveyTable.Cols.ID_PERIODE+ "=?",
+                new String[] {String.valueOf(idPeriode)});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getPeriodeSurvey();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public User getUser(String userId){
+        CursorWrapperGal cursor=query(UserTable.NAME,UserTable.Cols.USERID+ "=?",
+                new String[] {userId});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getUser();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public SurveyAssignSurveyor getSurveyAssignSurveyor(int idSurveyAssign){
+        CursorWrapperGal cursor=query(SurveyAssignSurveyorTable.NAME,SurveyAssignSurveyorTable.Cols.ID_SURVEY_ASSIGN_SURVEYOR+ "=?",
+                new String[] {String.valueOf(idSurveyAssign)});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getSurveyAssignSurveyor();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public List<SurveyAssignSurveyor> getSurveyAssignSurveyors(){
+        List<SurveyAssignSurveyor> surveyAssignSurveyors=new ArrayList<>();
+        CursorWrapperGal cursor=query(SurveyAssignSurveyorTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                surveyAssignSurveyors.add(cursor.getSurveyAssignSurveyor());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return surveyAssignSurveyors;
+    }
+
+    //untuk get yang memiliki user id tertentu
+    public List<SurveyAssignSurveyor> getSurveyAssignSurveyors(String userid){
+        List<SurveyAssignSurveyor> surveyAssignSurveyors=new ArrayList<>();
+        CursorWrapperGal cursor=query(SurveyAssignSurveyorTable.NAME,SurveyAssignSurveyorTable.Cols.USERID+ "=?",
+                new String[] {String.valueOf(userid)});
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                surveyAssignSurveyors.add(cursor.getSurveyAssignSurveyor());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return surveyAssignSurveyors;
+    }
+
+
+
+    public KualifikasiSurvey getKualifikasiSurvey(int idKualifikasi){
+        CursorWrapperGal cursor=query(KualifikasiSurveyTable.NAME,KualifikasiSurveyTable.Cols.ID_KUALIFIKASI_SURVEY+ "=?",
+                new String[] {String.valueOf(idKualifikasi)});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getKualifikasiSurvey();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public List<KualifikasiSurvey> getKualifikasiSurveys(){
+        List<KualifikasiSurvey> kualifikasiSurveys=new ArrayList<>();
+        CursorWrapperGal cursor=query(KualifikasiSurveyTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                kualifikasiSurveys.add(cursor.getKualifikasiSurvey());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return kualifikasiSurveys;
+
+    }
+
+    //memunculkan kualifikasi survey yang hanya bersangkutan dengan userId
+    public List<KualifikasiSurvey> getKualifikasiSurveys(String usernameId){
+        List<KualifikasiSurvey> kualifikasiSurveys=new ArrayList<>();
+        List<SurveyAssignSurveyor> surveyAssignSurveyors=getSurveyAssignSurveyors(usernameId);
+        for(SurveyAssignSurveyor surveyAssignSurveyor:surveyAssignSurveyors){
+            if(surveyAssignSurveyor.getUserId().equals(usernameId)){
+                kualifikasiSurveys.add(getKualifikasiSurvey(surveyAssignSurveyor.
+                        getKualifikasiSurveyId()));
+            }
+        }
+        return kualifikasiSurveys;
+    }
+
+    public FormGalpal1 getFormGalpal1(int idKualifikasiSurvey){
+        CursorWrapperGal cursor=query(PerusahaanIdentitasTable.NAME,PerusahaanIdentitasTable.Cols.ID_KUALIFIKASI_SURVEY+ "=?",
+                new String[] {String.valueOf(idKualifikasiSurvey)});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getFormGalpal1();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public List<SingleForm> getGalpalForms(int kualifikasiSurveyId) {
+        List<SingleForm> galpalForms=new ArrayList<>();
+        galpalForms.add(getFormGalpal1(kualifikasiSurveyId));
+
+        return galpalForms;
+    }
+    public List<SingleForm> getKompalForms(int kualifikasiSurveyId) {
+        List<SingleForm> kompalForms=new ArrayList<>();
+        //belum ada
+        return kompalForms;
+    }
+
+
+    /*public GalanganKapal getGalanganKapal(int id){
+        for (GalanganKapal galanganKapal:mGalanganKapals){
+            if(galanganKapal.getGalanganKapalId()==id){
+                return galanganKapal;
+            }
+        }
+        return null;
+    }*/
 
     private void makeSurveyAssignSurveyor() {
         mSurveyAssignSurveyors=new ArrayList<>();
@@ -193,66 +372,11 @@ public class DummyMaker {
 
     }
 
-    public Perusahaan getPerusahaan(int id){
-        for(Perusahaan perusahaan:mPerusahaans){
-            if(perusahaan.getId()==id){
-                return perusahaan;
-            }
-        }
 
-        return null;
-    }
 
-    public PeriodeSurvey getPeriodeSurvey(int id){
-        for(PeriodeSurvey periodeSurvey:mPeriodeSurveys){
-            if(periodeSurvey.getPeriodeSurveyId()==id){
-                return periodeSurvey;
-            }
-        }
 
-        return null;
-    }
 
-    public User getUser(String id){
-        for(User user:mUsers){
-            if(user.getUserId().equals(id)){
-                return user;
-            }
-        }
-        return null;
-    }
 
-    public GalanganKapal getGalanganKapal(int id){
-        for (GalanganKapal galanganKapal:mGalanganKapals){
-            if(galanganKapal.getGalanganKapalId()==id){
-                return galanganKapal;
-            }
-        }
-        return null;
-    }
-
-    public KualifikasiSurvey getKualifikasiSurvey(int id){
-        for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys){
-            if(kualifikasiSurvey.getKualifikasiSurveyId()==id){
-                return kualifikasiSurvey;
-            }
-        }
-        return null;
-    }
-
-    public List<KualifikasiSurvey> getKualifikasiSurveys(String usernameId){
-        List<KualifikasiSurvey> kualifikasiSurveys=new ArrayList<>();
-        for(SurveyAssignSurveyor surveyAssignSurveyor:mSurveyAssignSurveyors){
-            if(surveyAssignSurveyor.getUser().getUserId().equals(usernameId)){
-                kualifikasiSurveys.add(surveyAssignSurveyor.getKualifikasiSurvey());
-            }
-        }
-        return kualifikasiSurveys;
-    }
-
-    public List<SurveyAssignSurveyor> getSurveyAssignSurveyors() {
-        return mSurveyAssignSurveyors;
-    }
 
 
 
@@ -298,53 +422,107 @@ public class DummyMaker {
 
     }
 
-    public void addGalpalForm(SingleForm form){
-        mGalpalForms.add(form);
+
+
+
+
+    private static ContentValues getUserContentValues(User user){
+        ContentValues values=new ContentValues();
+        values.put(UserTable.Cols.USERID, user.getUserId());
+        values.put(UserTable.Cols.CODE_ID,user.getCodeId());
+        values.put(UserTable.Cols.TYPE,user.getType());
+        values.put(UserTable.Cols.FULL_NAME, user.getFullName());
+        values.put(UserTable.Cols.COMPANY_NAME, user.getCompanyName());
+        values.put(UserTable.Cols.EMAIL, user.getEmail());
+        values.put(UserTable.Cols.PASSWORD, user.getPassword());
+        values.put(UserTable.Cols.SECURITY_CODE, user.getSecurityCode());
+
+        return values;
     }
 
-    public void addKompalForm(SingleForm form){
-        mKompalForms.add(form);
+    private static ContentValues getSurveyAssignSurveyorContentValues(SurveyAssignSurveyor surveyAssignSurveyor){
+        ContentValues values=new ContentValues();
+        values.put(SurveyAssignSurveyorTable.Cols.ID_SURVEY_ASSIGN_SURVEYOR, surveyAssignSurveyor.getKualifikasiSurveyId());
+        values.put(SurveyAssignSurveyorTable.Cols.ID_KUALIFIKASI_SURVEY, surveyAssignSurveyor.getKualifikasiSurveyId());
+        values.put(SurveyAssignSurveyorTable.Cols.USERID, surveyAssignSurveyor.getUserId());
+        values.put(SurveyAssignSurveyorTable.Cols.ASSIGN_DATE, surveyAssignSurveyor.getAssignDate().getTime());
+        values.put(SurveyAssignSurveyorTable.Cols.ASSIGN_BY, surveyAssignSurveyor.getAssignByUserId());
+
+        return values;
+    }
+
+    private static ContentValues getPeriodeSurveyContentValues(PeriodeSurvey periodeSurvey){
+        ContentValues values=new ContentValues();
+        values.put(PeriodeSurveyTable.Cols.ID_PERIODE, periodeSurvey.getPeriodeSurveyId());
+        values.put(PeriodeSurveyTable.Cols.TAHUN_KUALIFIKASI, periodeSurvey.getTahunKualifikasi());
+        values.put(PeriodeSurveyTable.Cols.IS_ACTIVE_PERIOD, periodeSurvey.isActivePeriode());
+        values.put(PeriodeSurveyTable.Cols.IS_DONE, periodeSurvey.isDone());
+        values.put(PeriodeSurveyTable.Cols.KETERANGAN, periodeSurvey.getKeterangan());
+
+
+        return values;
+    }
+
+    private static ContentValues getPerusahaanContentValues(Perusahaan perusahaan){
+        ContentValues values=new ContentValues();
+        values.put(PerusahaanTable.Cols.ID_PERUSAHAAN, perusahaan.getId());
+        values.put(PerusahaanTable.Cols.NAMA_PERUSAHAAN, perusahaan.getNamaPerusahaan());
+        values.put(PerusahaanTable.Cols.INDUSTRI, perusahaan.getIndustri());
+        values.put(PerusahaanTable.Cols.IS_ACTIV, perusahaan.isActive());
+
+        return values;
+    }
+
+    private static ContentValues getKualifikasiSurveyContentValues(KualifikasiSurvey kualifikasiSurvey){
+        ContentValues values=new ContentValues();
+        values.put(KualifikasiSurveyTable.Cols.ID_KUALIFIKASI_SURVEY, kualifikasiSurvey.getKualifikasiSurveyId());
+        values.put(KualifikasiSurveyTable.Cols.ID_PERUSAHAAN, kualifikasiSurvey.getPerusahaanId());
+        values.put(KualifikasiSurveyTable.Cols.ID_PERIODE, kualifikasiSurvey.getPeriodeSurveyId());
+        values.put(KualifikasiSurveyTable.Cols.ID_GALANGAN_KAPAL, kualifikasiSurvey.getGalanganKapalId());
+
+
+        return values;
+    }
+
+    private static ContentValues getFormGalpal1ContentValues(FormGalpal1 formGalpal1){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(PerusahaanIdentitasTable.Cols.ID_PERUSAHAAN_IDENTITAS, formGalpal1.getIdentitasPerusahaanId());
+        contentValues.put(PerusahaanIdentitasTable.Cols.ID_PERUSAHAAN, formGalpal1.getPerusahaanId());
+        contentValues.put(PerusahaanIdentitasTable.Cols.ID_KUALIFIKASI_SURVEY, formGalpal1.getKualifikasiSurveyId());
+        contentValues.put(PerusahaanIdentitasTable.Cols.STATUS_KEPEMILIKAN_USAHA, formGalpal1.getStatusKepemilikanUsaha());
+        contentValues.put(PerusahaanIdentitasTable.Cols.TELEPON_PERUSAHAAN, formGalpal1.getNomorTelepon());
+        contentValues.put(PerusahaanIdentitasTable.Cols.FAX_PERUSAHAAN, formGalpal1.getFax());
+        contentValues.put(PerusahaanIdentitasTable.Cols.ALAMAT_PERUSAHAAN, formGalpal1.getAlamat());
+        contentValues.put(PerusahaanIdentitasTable.Cols.KELURAHAN_PERUSAHAAN, formGalpal1.getKelurahan());
+        contentValues.put(PerusahaanIdentitasTable.Cols.KECAMATAN_PERUSAHAAN, formGalpal1.getKecamatan());
+        contentValues.put(PerusahaanIdentitasTable.Cols.ID_PROPINSI_PERUSAHAAN, formGalpal1.getPropinsi());
+        contentValues.put(PerusahaanIdentitasTable.Cols.ID_KABUPATEN_PERUSAHAAN, formGalpal1.getKebupaten_kota());
+        contentValues.put(PerusahaanIdentitasTable.Cols.KODE_POS_PERUSAHAAN, formGalpal1.getKodePos());
+        contentValues.put(PerusahaanIdentitasTable.Cols.ANGGOTA_ASOSIASI, formGalpal1.getAnggotaAsosiasi());
+        contentValues.put(PerusahaanIdentitasTable.Cols.KATEGORI_PERUSAHAAN, formGalpal1.getKategoriPerusahaan());
+        contentValues.put(PerusahaanIdentitasTable.Cols.CP_NAMA, formGalpal1.getContactPerson());
+        contentValues.put(PerusahaanIdentitasTable.Cols.CP_NO, formGalpal1.getNomorCp());
+        contentValues.put(PerusahaanIdentitasTable.Cols.CP_JABATAN, formGalpal1.getJabatan());
+        contentValues.put(PerusahaanIdentitasTable.Cols.CP_EMAIL, formGalpal1.getEmail());
+        contentValues.put(PerusahaanIdentitasTable.Cols.WEBSITE, formGalpal1.getWebsite());
+
+
+        return contentValues;
     }
 
 
-    public List<SingleForm> getGalpalForms(int kualifikasiSurveyId) {
-        List<SingleForm> galpalForms=new ArrayList<>();
-        for(SingleForm singleForm:mGalpalForms){
-            if(singleForm.getKualifikasiSurvey().getKualifikasiSurveyId()==kualifikasiSurveyId){
-                galpalForms.add(singleForm);
-            }
-        }
+    private CursorWrapperGal query(String tableName, String whereClause, String[] whereArgs){
 
-        return galpalForms;
-    }
+        Cursor cursor=mDatabase.query(
+                tableName,
+                null, // select all the column
+                whereClause,
+                whereArgs,
+                null, //group by
+                null, //having
+                null//order by
+        );
 
-    public List<SingleForm> getKompalForms(int kualifikasiSurveyId) {
-        List<SingleForm> kompalForms=new ArrayList<>();
-        for(SingleForm singleForm:mKompalForms){
-            if(singleForm.getKualifikasiSurvey().getKualifikasiSurveyId()==kualifikasiSurveyId){
-                kompalForms.add(singleForm);
-            }
-        }
-        return kompalForms;
-    }
-
-    public SingleForm getGalpalForm(int kualifikasiSurveyId,String namaForm){
-        for(SingleForm singleForm:mGalpalForms){
-            if(singleForm.getKualifikasiSurvey().getKualifikasiSurveyId()==kualifikasiSurveyId &&
-                    singleForm.getNamaForm().equals(namaForm)){
-                return singleForm;
-            }
-        }
-        return null;
-    }
-
-    public SingleForm getKompalForm(int kualifikasiSurveyId,String namaForm){
-        for(SingleForm singleForm:mKompalForms){
-            if(singleForm.getKualifikasiSurvey().getKualifikasiSurveyId()==kualifikasiSurveyId &&
-                    singleForm.getNamaForm().equals(namaForm)){
-                return singleForm;
-            }
-        }
-        return null;
+        return new CursorWrapperGal(cursor);
     }
 }

@@ -21,6 +21,7 @@ public class FormGalpal1 extends SingleForm {
     }
 
     private int identitasPerusahaanId;
+    private int perusahaanId;
     private String statusKepemilikanUsaha;
     private String nomorTelepon;
     private String fax;
@@ -55,6 +56,14 @@ public class FormGalpal1 extends SingleForm {
 
     public void setIdentitasPerusahaanId(int identitasPerusahaanId) {
         this.identitasPerusahaanId = identitasPerusahaanId;
+    }
+
+    public int getPerusahaanId() {
+        return perusahaanId;
+    }
+
+    public void setPerusahaanId(int perusahaanId) {
+        this.perusahaanId = perusahaanId;
     }
 
     public String getStatusKepemilikanUsaha() {
