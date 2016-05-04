@@ -39,6 +39,7 @@ public class FormGalpal6Fragment extends Fragment {
     private EditText mStatusEditText;
     private EditText mKapasitasTerpakaiEditText;
 
+    private boolean isDeleteButtonUnpressed=true;
     private Button mDeleteButton;
     private Button mSubmitButton;
     private FormGalpal6List mFormGalpal6List;
@@ -289,8 +290,10 @@ public class FormGalpal6Fragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-
+                DummyMaker.get(getActivity()).deleteFormGalpal6(mFormGalpal6);
+                isDeleteButtonUnpressed=false;
                 getActivity().finish();
+
             }
         });
 
@@ -302,6 +305,10 @@ public class FormGalpal6Fragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        DummyMaker.get(getActivity()).addFormGalpal6(mFormGalpal6);
+        if(isDeleteButtonUnpressed) {
+            DummyMaker.get(getActivity()).addFormGalpal6(mFormGalpal6);
+        }
     }
+
+
 }

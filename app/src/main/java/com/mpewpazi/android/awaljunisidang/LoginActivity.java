@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String EXTRA_ID_USER="usr";
 
-    private Button mPeriButton;
-    private Button mMpewpaziButton;
+    private Button mSignInButton;
+    private EditText mUsernameEditText;
+    private EditText mPasswordEditText;
+
 
     private String mUserId;
 
@@ -20,28 +24,26 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
+        mUsernameEditText=(EditText)findViewById(R.id.login_username);
+        mPasswordEditText=(EditText)findViewById(R.id.login_password);
+        mSignInButton=(Button)findViewById(R.id.login_btn_signin);
 
-        mPeriButton=(Button)findViewById(R.id.user_perinurpazri_btn);
-        mMpewpaziButton=(Button)findViewById(R.id.user_mpewpazi_btn);
 
-        mPeriButton.setOnClickListener(new View.OnClickListener() {
+
+        mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mUserId="perinurpazri";
-                Intent intent=new Intent(LoginActivity.this,HomePageActivity.class);
-                intent.putExtra(EXTRA_ID_USER,mUserId);
-                startActivity(intent);
+                mUserId=mUsernameEditText.getText().toString();
+                if(mUserId.equals("perinurpazri")|| mUserId.equals("mpewpazi")){
+                    Intent intent=new Intent(LoginActivity.this,HomePageActivity.class);
+                    intent.putExtra(EXTRA_ID_USER,mUserId);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(),"Salah",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        mMpewpaziButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mUserId="mpewpazi";
-                Intent intent=new Intent(LoginActivity.this,HomePageActivity.class);
-                intent.putExtra(EXTRA_ID_USER,mUserId);
-                startActivity(intent);
-            }
-        });
+
     }
 }

@@ -672,6 +672,12 @@ public class DummyMaker {
         }
     }
 
+    public void deleteFormGalpal6(FormGalpal6 formGalpal6){
+        String formGalpal6Id=String.valueOf(formGalpal6.getIdPeralatanKerjaCrane());
+        mDatabase.delete(FG6PeralatanKerjaLuarCraneTable.NAME,FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE+ "=?",
+                new String[] {formGalpal6Id});
+    }
+
     private void addFormGalpal6a(FormGalpal6 formGalpal6){
         ContentValues values=getFormGalpal6ContentValues(formGalpal6);
         String formGalpal6Id=String.valueOf(formGalpal6.getIdPeralatanKerjaCrane());
