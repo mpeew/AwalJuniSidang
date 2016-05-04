@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
@@ -78,7 +77,7 @@ public class DrawerFormActivity extends ActionBarActivity {
         mGalpalForms= mDummyMaker.getGalpalForms(kualifikasiSurveyId);
         mKompalForms= mDummyMaker.getKompalForms(kualifikasiSurveyId);
 
-        Toast.makeText(this,String.valueOf(kualifikasiSurveyId),Toast.LENGTH_SHORT).show();
+
 
         mNamaFormList=new ArrayList<>();
         for(int i=0;i<mGalpalForms.size();i++){
@@ -114,7 +113,7 @@ public class DrawerFormActivity extends ActionBarActivity {
         setupDrawer();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(mKualifikasiSurvey.getPerusahaan().getNamaPerusahaan());
+        getSupportActionBar().setTitle(mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan());
         //getSupportActionBar().setHomeButtonEnabled(true);
 
 
@@ -140,7 +139,7 @@ public class DrawerFormActivity extends ActionBarActivity {
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(mKualifikasiSurvey.getPerusahaan().getNamaPerusahaan());
+                getSupportActionBar().setTitle(mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan());
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };

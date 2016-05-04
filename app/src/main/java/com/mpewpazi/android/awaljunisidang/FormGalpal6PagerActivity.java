@@ -39,17 +39,14 @@ public class FormGalpal6PagerActivity extends AppCompatActivity {
         mViewPager=(ViewPager)findViewById(R.id.activity_formgalpal6_pager_view_pager);
 
 
-        mFormGalpal6List=(FormGalpal6List) DummyMaker.get(getApplicationContext()).
-                getGalpalForm(DrawerFormActivity.kualifikasiSurveyId,NAMA_FORM);
-
-        mFormGalpal6s=mFormGalpal6List.getFormGalpal6s();
+        mFormGalpal6s= DummyMaker.get(this).getFormGalpal6s(kualifikasiSurveyId);
 
         FragmentManager fragmentManager=getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentPagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int position) {
                 FormGalpal6 formGalpal6=mFormGalpal6s.get(position);
-                return FormGalpal6Fragment.newInstance(formGalpal6.getUUID(),kualifikasiSurveyId);
+                return FormGalpal6Fragment.newInstance(formGalpal6.getIdPeralatanKerjaCrane(),kualifikasiSurveyId);
             }
 
             @Override
@@ -61,7 +58,7 @@ public class FormGalpal6PagerActivity extends AppCompatActivity {
 
         //by default pageradapter show the first item, to change it look at below code
         for(int i=0;i<mFormGalpal6s.size();i++){
-            if(mFormGalpal6s.get(i).getUUID().equals(formGalpal6Id)){
+            if(mFormGalpal6s.get(i).getIdPeralatanKerjaCrane().equals(formGalpal6Id)){
                 mViewPager.setCurrentItem(i);
                 break;
             }

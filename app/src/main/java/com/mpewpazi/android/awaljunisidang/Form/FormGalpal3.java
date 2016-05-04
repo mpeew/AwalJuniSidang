@@ -10,7 +10,7 @@ import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal3Fragment;
 public class FormGalpal3 extends SingleForm {
 
     private int identitasUmumGalanganId;
-    private String namaPerusahaan;
+    private int perusahaanId;
     private String namaGalangan;
     private String nomorDock;
     private String nomorTelepon;
@@ -50,12 +50,12 @@ public class FormGalpal3 extends SingleForm {
         this.identitasUmumGalanganId = identitasUmumGalanganId;
     }
 
-    public String getNamaPerusahaan() {
-        return namaPerusahaan;
+    public int getPerusahaanId() {
+        return perusahaanId;
     }
 
-    public void setNamaPerusahaan(String namaPerusahaan) {
-        this.namaPerusahaan = namaPerusahaan;
+    public void setPerusahaanId(int perusahaanId) {
+        this.perusahaanId = perusahaanId;
     }
 
     public String getNamaGalangan() {

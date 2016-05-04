@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +17,6 @@ import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6List;
 import com.mpewpazi.android.awaljunisidang.FormGalpal6PagerActivity;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
@@ -34,9 +34,9 @@ public class ListFormGalpal6Fragment extends Fragment {
 
     private List<FormGalpal6> mFormGalpal6s;
 
-    private FormGalpal6List mFormGalpal6List;
     private RecyclerView mFormGalpal6RecyclerView;
     private FormGalpal6Adapter mAdapter;
+    private DummyMaker mDummyMaker;
 
 
     @Override
@@ -49,12 +49,14 @@ public class ListFormGalpal6Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_form_galpal6_list, container, false);
 
+
         mFormGalpal6RecyclerView = (RecyclerView) view.findViewById(R.id.form_galpal6_recycler_view);
 
         //recycler view butuh layoutmanager untuk mempossionig item di screen
         //ada banyak macam layout manager, kalau linear itu untuk vertikal posisioningnya
         //kedepanya ada gridLayoutManager
         mFormGalpal6RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        Log.d("updateG","true");
         updateUI();
 
         return view;
@@ -66,40 +68,38 @@ public class ListFormGalpal6Fragment extends Fragment {
         updateUI();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        updateUI();
-    }
-
     private void updateUI() {
-        mFormGalpal6List=(FormGalpal6List) DummyMaker.get(getActivity()).
-                getGalpalForm(DrawerFormActivity.kualifikasiSurveyId,NAMA_FORM);
+        mDummyMaker=DummyMaker.get(getActivity());
 
-        mFormGalpal6s=mFormGalpal6List.getFormGalpal6s();
 
-        if (mAdapter == null) {
-            mAdapter = new FormGalpal6Adapter(mFormGalpal6s);
-            mFormGalpal6RecyclerView.setAdapter(mAdapter);
-        } else {
+        mFormGalpal6s=mDummyMaker.getFormGalpal6s(DrawerFormActivity.kualifikasiSurveyId);
 
-           // reload all the item in he list
-            mAdapter.setData(mFormGalpal6s);
-            mAdapter.notifyDataSetChanged();
-        }
+        //if (mAdapter == null) {
+        mAdapter = new FormGalpal6Adapter(mFormGalpal6s);
+        mFormGalpal6RecyclerView.setAdapter(mAdapter);
+        Log.d("updateGui","true");
+        //} else {
+
+        // reload all the item in he list
+        //Log.d("updateGui","else");
+        //mAdapter.setData(mFormGalpal6s);
+        //mAdapter.notifyDataSetChanged();
+        //}
     }
 
     private class FormGalpal6Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        private TextView mNoTextView;
         private TextView mJenisMesinTextView;
-        private TextView mTahunPembuatanTextView;
+        private TextView mMerekTextView;
 
         private FormGalpal6 mFormGalpal6;
 
-        public void bindFormGalpal6(FormGalpal6 formGalpal6) {
+        public void bindFormGalpal6(FormGalpal6 formGalpal6,int no) {
             mFormGalpal6 = formGalpal6;
             mJenisMesinTextView.setText(mFormGalpal6.getJenisMesin());
-            mTahunPembuatanTextView.setText(String.valueOf(mFormGalpal6.getTahunPembuatan()));
+            mMerekTextView.setText(mFormGalpal6.getMerek());
+            mNoTextView.setText(String.valueOf(no));
 
         }
 
@@ -108,8 +108,9 @@ public class ListFormGalpal6Fragment extends Fragment {
             super(itemView);
             itemView.setOnClickListener(this);
 
+            mNoTextView=(TextView)itemView.findViewById(R.id.list_item_galpal6_no);
             mJenisMesinTextView = (TextView) itemView.findViewById(R.id.list_item_galpal6_jenis_mesin);
-            mTahunPembuatanTextView = (TextView) itemView.findViewById(R.id.list_item_galpal6_tahun_pembuatan);
+            mMerekTextView = (TextView) itemView.findViewById(R.id.list_item_galpal6_merek);
 
 
 
@@ -118,10 +119,10 @@ public class ListFormGalpal6Fragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-              Intent intent=new Intent(getActivity(),FormGalpal6PagerActivity.class);
-              intent.putExtra(EXTRA_ID_FORMGALPAL6,mFormGalpal6.getUUID());
-              intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMGALPAL6,mFormGalpal6.getKualifikasiSurvey().getKualifikasiSurveyId());
-              startActivity(intent);
+            Intent intent=new Intent(getActivity(),FormGalpal6PagerActivity.class);
+            intent.putExtra(EXTRA_ID_FORMGALPAL6,mFormGalpal6.getIdPeralatanKerjaCrane());
+            intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMGALPAL6,mFormGalpal6.getKualifikasiSurveyId());
+            startActivity(intent);
         }
     }
 
@@ -143,7 +144,7 @@ public class ListFormGalpal6Fragment extends Fragment {
         @Override
         public void onBindViewHolder(FormGalpal6Holder holder, int position) {
             FormGalpal6 formGalpal6 = mFormGalpal6s.get(position);
-            holder.bindFormGalpal6(formGalpal6);
+            holder.bindFormGalpal6(formGalpal6,position+1);
         }
 
         @Override
@@ -167,12 +168,11 @@ public class ListFormGalpal6Fragment extends Fragment {
         switch (item.getItemId()){
             case R.id.menu_item_new_crime:
                 FormGalpal6 formGalpal6=new FormGalpal6();
-                mFormGalpal6List=(FormGalpal6List) DummyMaker.get(getActivity()).
-                        getGalpalForm(DrawerFormActivity.kualifikasiSurveyId,NAMA_FORM);
-                mFormGalpal6List.addFormGalpal6(formGalpal6,DummyMaker.get(getActivity()).getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId));
+                formGalpal6.setKualifikasiSurveyId(DrawerFormActivity.kualifikasiSurveyId);
+                DummyMaker.get(getActivity()).addFormGalpal6(formGalpal6);
                 Intent intent=new Intent(getActivity(),FormGalpal6PagerActivity.class);
-                intent.putExtra(EXTRA_ID_FORMGALPAL6,formGalpal6.getUUID());
-                //intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMGALPAL6,mFormGalpal6.getKualifikasiSurvey().getKualifikasiSurveyId());
+                intent.putExtra(EXTRA_ID_FORMGALPAL6,formGalpal6.getIdPeralatanKerjaCrane());
+                intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMGALPAL6,formGalpal6.getKualifikasiSurveyId());
                 startActivity(intent);
                 return true;
             default:

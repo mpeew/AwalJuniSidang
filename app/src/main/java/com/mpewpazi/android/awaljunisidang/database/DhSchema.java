@@ -158,7 +158,6 @@ public class DhSchema {
             public static final String CP_NO="cp_no";
             public static final String CP_JABATAN="cp_jabatan";
             public static final String CP_EMAIL="cp_email";
-            public static final String ID_MST_JENIS_INDUSTRI="id_mst_jenis_industri";
             public static final String CREATED_DATE = "created_date";
             public static final String CREATED_USER = "created_user";
             public static final String CREATED_IP_ADDRESS = "created_ip_address";

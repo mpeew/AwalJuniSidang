@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6List;
 import com.mpewpazi.android.awaljunisidang.R;
@@ -40,6 +39,7 @@ public class FormGalpal6Fragment extends Fragment {
     private EditText mStatusEditText;
     private EditText mKapasitasTerpakaiEditText;
 
+    private Button mDeleteButton;
     private Button mSubmitButton;
     private FormGalpal6List mFormGalpal6List;
     private List<FormGalpal6> mFormGalpal6s;
@@ -72,17 +72,7 @@ public class FormGalpal6Fragment extends Fragment {
         int kualifikasiSurveyId=getArguments().getInt(ARG_FORMGALPAL6_KUALIFIKASI_SURVEY_ID);
         UUID formGalpal6Id=(UUID)getArguments().getSerializable(ARG_FORMGALPAL6_ID);
 
-        mKualifikasiSurvey= DummyMaker.get(getActivity()).getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
-        mFormGalpal6List=(FormGalpal6List) DummyMaker.get(getActivity()).
-                getGalpalForm(DrawerFormActivity.kualifikasiSurveyId,NAMA_FORM);
-
-        mFormGalpal6s=mFormGalpal6List.getFormGalpal6s();
-        for(FormGalpal6 formGalpal6:mFormGalpal6s){
-            if(formGalpal6.getUUID().equals(formGalpal6Id)){
-                mFormGalpal6=formGalpal6;
-                return;
-            }
-        }
+        mFormGalpal6= DummyMaker.get(getActivity()).getFormGalpal6(formGalpal6Id);
 
     }
 
@@ -105,6 +95,7 @@ public class FormGalpal6Fragment extends Fragment {
         mStatusEditText=(EditText)rootView.findViewById(R.id.galpal6_status);
 
         mSubmitButton=(Button)rootView.findViewById(R.id.galpal6_btn_submit);
+        mDeleteButton=(Button)rootView.findViewById(R.id.galpal6_btn_delete);
 
 
         mJenisMesinEditText.setText(mFormGalpal6.getJenisMesin());
@@ -134,7 +125,7 @@ public class FormGalpal6Fragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                 mFormGalpal6.setTahunPembuatan(11);
+                mFormGalpal6.setTahunPembuatan(11);
             }
 
             @Override
@@ -294,8 +285,23 @@ public class FormGalpal6Fragment extends Fragment {
             }
         });
 
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                getActivity().finish();
+            }
+        });
+
 
 
         return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        DummyMaker.get(getActivity()).addFormGalpal6(mFormGalpal6);
     }
 }

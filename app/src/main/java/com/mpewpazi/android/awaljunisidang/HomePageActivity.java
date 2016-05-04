@@ -75,9 +75,11 @@ public class HomePageActivity extends AppCompatActivity {
         public void bindSurvey(KualifikasiSurvey kualifikasiSurvey) {
 
             mKualifikasiSurvey = kualifikasiSurvey;
-            mNamaPerusahaanTextView.setText(mKualifikasiSurvey.getPerusahaan().getNamaPerusahaan());
+            String namaPerusahaan=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan();
+            String periodeSurvey=mDummyMaker.getPeriodeSurvey(kualifikasiSurvey.getPeriodeSurveyId()).getTahunKualifikasi();
+            mNamaPerusahaanTextView.setText(namaPerusahaan);
             mJenisObjekTextView.setText("Galangan Kapal");
-            mPeriodeSurveyTextView.setText(mKualifikasiSurvey.getPeriodeSurvey().getTahunKualifikasi());
+            mPeriodeSurveyTextView.setText(periodeSurvey);
             mProgressTextView.setText("75%");
             mImageViewGembok.setImageResource(R.drawable.lock);
 

@@ -2,7 +2,6 @@ package com.mpewpazi.android.awaljunisidang.Form;
 
 import android.support.v4.app.Fragment;
 
-import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal3Fragment;
 import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal4Fragment;
 
 /**
@@ -12,7 +11,7 @@ public class FormGalpal4 extends SingleForm {
     private int tinjauanWilayahMaritimId;
     private String jarakKedalaman;
     private String AirPelayaran;
-    private String pasangSurut;
+    private String pasangSurutPerairan;
     private String arus;
     private String gelombang;
     private String panjangWaterfront;
@@ -20,6 +19,7 @@ public class FormGalpal4 extends SingleForm {
     private String ketersediaanLahan;
     private String lahanProduktif;
     private String lahanPemukiman;
+    private String pasangSurutDaratan;
     private String dayaDukung;
     private String kelandaian;
     private String dekatJalan;
@@ -64,12 +64,20 @@ public class FormGalpal4 extends SingleForm {
         AirPelayaran = airPelayaran;
     }
 
-    public String getPasangSurut() {
-        return pasangSurut;
+    public String getPasangSurutPerairan() {
+        return pasangSurutPerairan;
     }
 
-    public void setPasangSurut(String pasangSurut) {
-        this.pasangSurut = pasangSurut;
+    public void setPasangSurutPerairan(String pasangSurutPerairan) {
+        this.pasangSurutPerairan = pasangSurutPerairan;
+    }
+
+    public String getPasangSurutDaratan() {
+        return pasangSurutDaratan;
+    }
+
+    public void setPasangSurutDaratan(String pasangSurutDaratan) {
+        this.pasangSurutDaratan = pasangSurutDaratan;
     }
 
     public String getArus() {
