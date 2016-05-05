@@ -7,19 +7,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DrawerFormActivity extends ActionBarActivity {
@@ -28,7 +31,9 @@ public class DrawerFormActivity extends ActionBarActivity {
 
 
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
+   // private ListView mDrawerList;
+    private RecyclerView mDrawerRecyclerView;
+    public static SingleFormAdapter mAdapter;
 
     //untuk merubah kembali nama aplikasi
     private String mActivityTitle;
@@ -59,13 +64,7 @@ public class DrawerFormActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //FormGalpalDBHelper dbHelper=new FormGalpalDBHelper(this);
-        //int x=dbHelper.numberOfRows(BaseDBHelper.FORM_GALPAL1_TABLE_NAME);
 
-        //Toast.makeText(this,String.valueOf(x),Toast.LENGTH_SHORT).show();
-
-
-        //ambil extra
         kualifikasiSurveyId=getIntent().getIntExtra(EXTRA_ID_SURVEY,0);
 
         mDummyMaker=DummyMaker.get(this);
@@ -73,57 +72,43 @@ public class DrawerFormActivity extends ActionBarActivity {
 
 
 
-        //cari data dari dari surveyAssignation sesuai dengan id yang dari extra
+
+
         mGalpalForms= mDummyMaker.getGalpalForms(kualifikasiSurveyId);
         mKompalForms= mDummyMaker.getKompalForms(kualifikasiSurveyId);
 
 
 
-        mNamaFormList=new ArrayList<>();
-        for(int i=0;i<mGalpalForms.size();i++){
-            mNamaFormList.add(mGalpalForms.get(i).getNamaForm());
-        }
-        for(int i=0;i<mKompalForms.size();i++){
-            mNamaFormList.add(mKompalForms.get(i).getNamaForm());
-        }
-
-        // fragmen dimasukan kedalam list untuk dimunculkan dilayar
-        mFragmentList=new ArrayList<>();
-        for(int i=0;i<mGalpalForms.size();i++){
-            mFragmentList.add(mGalpalForms.get(i).getFragment());
-        }
-        for(int i=0;i<mKompalForms.size();i++){
-            mFragmentList.add(mKompalForms.get(i).getFragment());
-        }
-
 
         //munculkan fragmen 0
        // Fragment fragment=new FormGalpal1Fragment();
-        Fragment fragment=mFragmentList.get(0);
+        Fragment fragment= mGalpalForms.get(0).getFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
 
 
 
         mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
-        mDrawerList=(ListView)findViewById(R.id.nav_list_view);
+        mDrawerRecyclerView=(RecyclerView)findViewById(R.id.nav_recycler_view);
+        mDrawerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         mActivityTitle=getTitle().toString();
 
         addDrawerItems();
         setupDrawer();
 
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan());
-        //getSupportActionBar().setHomeButtonEnabled(true);
+
 
 
     }
 
     private void addDrawerItems(){
-        //String[] titleItemDrawerArray={"Identitas Umum Perusahaan","Identitas Umum Galangan","Tinjauan Wilayah Maritim","Faktor-Faktor Produksi","Legalitas Perusahaan"};
-        mArrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mNamaFormList);
-        mDrawerList.setAdapter(mArrayAdapter);
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mAdapter=new SingleFormAdapter(mGalpalForms);
+        mDrawerRecyclerView.setAdapter(mAdapter);
+
     }
 
     private void setupDrawer(){
@@ -134,6 +119,8 @@ public class DrawerFormActivity extends ActionBarActivity {
                 super.onDrawerOpened(drawerView);
                // getSupportActionBar().setTitle(mKualifikasiSurvey.getJenisObjekSurvey());
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                //mAdapter.notifyDataSetChanged();
+
             }
 
             /** Called when a drawer has settled in a completely closed state. */
@@ -148,51 +135,9 @@ public class DrawerFormActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-
-    }
-
-    private void selectItem(int position) {
-
-        Fragment fragment = null;
-
-        switch (position) {
-            case 0:
-                fragment = mFragmentList.get(0);
-                break;
-            case 1:
-                fragment = mFragmentList.get(1);
-                break;
-            case 2:
-                fragment = mFragmentList.get(2);
-                break;
-            case 3:
-                fragment = mFragmentList.get(3);
-                break;
 
 
-            default:
-                break;
-        }
 
-        if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
-
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-           // getSupportActionBar().setTitle("Form 1");
-            mDrawerLayout.closeDrawer(mDrawerList);
-
-        } else {
-            Log.e("DrawerFormActivity", "Error in creating fragment");
-        }
-    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -232,5 +177,84 @@ public class DrawerFormActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class SingleFormHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        private TextView mNoTextView;
+        private TextView mTittleTextView;
+        private ImageView mStatusTextView;
+
+        private SingleForm mSingleForm;
+
+        public void bindSingleForm(SingleForm singleForm,int no){
+            mSingleForm=singleForm;
+            mTittleTextView.setText(mSingleForm.getNamaForm());
+            //mStatusTextView.setText("-");
+            mNoTextView.setText(String.valueOf(no));
+            if(mSingleForm.isSend()){
+                mStatusTextView.setImageResource(R.drawable.ok_icon);
+            }
+
+        }
+
+        public SingleFormHolder(View itemView) {
+            //setiap ada yang masuk ke super , reference setiap wideget dibuat oleh parent
+            super(itemView);
+            itemView.setOnClickListener(this);
+
+            mNoTextView=(TextView) itemView.findViewById(R.id.list_item_single_form_no);
+            mTittleTextView=(TextView) itemView.findViewById(R.id.list_item_single_form_title);
+            mStatusTextView=(ImageView) itemView.findViewById(R.id.list_item_single_form_status);
+
+
+        }
+
+
+
+        @Override
+        public void onClick(View v) {
+            Fragment fragment=mSingleForm.getFragment();
+            if (fragment != null) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                mDrawerLayout.closeDrawer(mDrawerRecyclerView);
+
+            } else {
+                Log.e("DrawerFormActivity", "Error in creating fragment");
+            }
+        }
+    }
+
+    private class SingleFormAdapter extends RecyclerView.Adapter<SingleFormHolder>{
+        private List<SingleForm> mSingleForms;
+        public SingleFormAdapter(List<SingleForm> singleForms){
+            mSingleForms=singleForms;
+        }
+
+        @Override
+        public SingleFormHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(DrawerFormActivity.this);
+            View view = layoutInflater
+                    .inflate(R.layout.list_item_single_form, parent, false);
+            return new SingleFormHolder(view);
+        }
+        @Override
+        public void onBindViewHolder(SingleFormHolder holder, int position) {
+            SingleForm singleForm = mSingleForms.get(position);
+            holder.bindSingleForm(singleForm,position+1);
+        }
+        @Override
+        public int getItemCount() {
+            return mSingleForms.size();
+        }
+
+
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        mAdapter.notifyDataSetChanged();
     }
 }

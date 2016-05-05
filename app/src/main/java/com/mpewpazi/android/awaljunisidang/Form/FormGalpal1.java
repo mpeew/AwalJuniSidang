@@ -50,6 +50,7 @@ public class FormGalpal1 extends SingleForm {
         return new FormGalpal1Fragment();
     }
 
+
     public int getIdentitasPerusahaanId() {
         return identitasPerusahaanId;
     }

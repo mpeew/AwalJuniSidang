@@ -33,19 +33,27 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        String userId=getIntent().getStringExtra(EXTRA_ID_USER);
+
 
         mRecyclerView=(RecyclerView)findViewById(R.id.surveyy_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mDummyMaker=DummyMaker.get(this);
-        mKualifikasiSurveys=mDummyMaker.getKualifikasiSurveys(userId);
-
-
-        mKualifikasiSurveyAdapter=new KualifikasiSurveyAdapter(mKualifikasiSurveys);
-        mRecyclerView.setAdapter(mKualifikasiSurveyAdapter);
+        updateUi();
     }
 
+    private void updateUi() {
+        String userId=getIntent().getStringExtra(EXTRA_ID_USER);
+        mDummyMaker= DummyMaker.get(this);
+        mKualifikasiSurveys=mDummyMaker.getKualifikasiSurveys(userId);
+        if(mKualifikasiSurveyAdapter==null) {
+            mKualifikasiSurveyAdapter = new KualifikasiSurveyAdapter(mKualifikasiSurveys);
+            mRecyclerView.setAdapter(mKualifikasiSurveyAdapter);
+        }else{
+            mKualifikasiSurveyAdapter.notifyDataSetChanged();
+            mKualifikasiSurveyAdapter.setKualifikasiSurveys(mKualifikasiSurveys);
+
+        }
+    }
 
 
     private class KualifikasiSurveyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -80,7 +88,7 @@ public class HomePageActivity extends AppCompatActivity {
             mNamaPerusahaanTextView.setText(namaPerusahaan);
             mJenisObjekTextView.setText("Galangan Kapal");
             mPeriodeSurveyTextView.setText(periodeSurvey);
-            mProgressTextView.setText("75%");
+            mProgressTextView.setText(String.valueOf(kualifikasiSurvey.getProgress())+"%");
             mImageViewGembok.setImageResource(R.drawable.lock);
 
         }
@@ -119,5 +127,17 @@ public class HomePageActivity extends AppCompatActivity {
         public int getItemCount() {
             return mKualifikasiSurveys.size();
         }
+
+        public void setKualifikasiSurveys(List<KualifikasiSurvey> kualifikasiSurveys){
+            mKualifikasiSurveys=kualifikasiSurveys;
+        }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUi();
+    }
+
+
 }

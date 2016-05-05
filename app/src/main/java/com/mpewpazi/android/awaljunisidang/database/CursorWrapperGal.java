@@ -7,6 +7,7 @@ import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6List;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.PeriodeSurvey;
 import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
@@ -101,12 +102,14 @@ public class CursorWrapperGal extends CursorWrapper{
         int idPerusahaan=getInt(getColumnIndex(KualifikasiSurveyTable.Cols.ID_PERUSAHAAN));
         int idPeriodeSurvey=getInt(getColumnIndex(KualifikasiSurveyTable.Cols.ID_PERIODE));
         int idGalangan=getInt(getColumnIndex(KualifikasiSurveyTable.Cols.ID_GALANGAN_KAPAL));
+        int progress=getInt(getColumnIndex(KualifikasiSurveyTable.Cols.PROGRESS));
 
         KualifikasiSurvey kualifikasiSurvey=new KualifikasiSurvey();
         kualifikasiSurvey.setKualifikasiSurveyId(idKualifikasiSurvey);
         kualifikasiSurvey.setPerusahaanId(idPerusahaan);
         kualifikasiSurvey.setPeriodeSurveyId(idPeriodeSurvey);
         kualifikasiSurvey.setGalanganKapalId(idGalangan);
+        kualifikasiSurvey.setProgress(progress);
 
         return kualifikasiSurvey;
     }
@@ -130,6 +133,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String cpJabatan=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.CP_JABATAN));
         String cpEmail=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.CP_EMAIL));
         String website=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.WEBSITE));
+        int status=getInt(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.STATUS_SENT));
 
         FormGalpal1 formGalpal1=new FormGalpal1();
         formGalpal1.setIdentitasPerusahaanId(idIdentitasPerusahaan);
@@ -150,6 +154,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal1.setJabatan(cpJabatan);
         formGalpal1.setEmail(cpEmail);
         formGalpal1.setWebsite(website);
+        formGalpal1.setSend(status!=1);
 
         return formGalpal1;
     }
@@ -282,5 +287,18 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal6.setStatus(status);
 
         return formGalpal6;
+    }
+
+    public FormGalpal6List getFormGalpal6List(){
+        int idPeralatanKerjaCraneList=getInt(getColumnIndex(FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_LIST));
+        int idKualifikasiSurvey=getInt(getColumnIndex(FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY));
+        int status=getInt(getColumnIndex(FG6ListPeralatanKerjaLuarCraneTable.Cols.STATUS_SENT));
+
+        FormGalpal6List formGalpal6List=new FormGalpal6List();
+        formGalpal6List.setId(idPeralatanKerjaCraneList);
+        formGalpal6List.setKualifikasiSurveyId(idKualifikasiSurvey);
+        formGalpal6List.setSend(status!=1);
+
+        return formGalpal6List;
     }
 }

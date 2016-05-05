@@ -60,6 +60,7 @@ public class DhSchema {
             public static final String ID_PERUSAHAAN="id_perusahaan";
             public static final String ID_PERIODE="id_periode";
             public static final String ID_GALANGAN_KAPAL="id_galangan_kapal";
+            public static final String PROGRESS="progress";
         }
     }
 
@@ -112,6 +113,7 @@ public class DhSchema {
             public static final String BUJUR_DERAJAT="bujur_derajat";
             public static final String BUJUR_MENIT="lintang_bujur";
             public static final String BUJUR_DETIK="bujur_detik";
+            public static final String STATUS_SENT = "status_sent";
             public static final String CREATED_DATE = "created_date";
             public static final String CREATED_USER = "created_user";
             public static final String CREATED_IP_ADDRESS = "created_ip_address";
@@ -249,6 +251,16 @@ public class DhSchema {
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
 
+        }
+    }
+
+    //FORM GALPAL6List
+    public static final class FG6ListPeralatanKerjaLuarCraneTable {
+        public static final String NAME="f1_peralatan_kerja_lr_crane_list";
+        public static final class Cols{
+            public static final String ID_F1_PERALATAN_KERJA_LR_CRANE_LIST="id_f1_peralatan_kerja_lr_crane_list";
+            public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
+            public static final String STATUS_SENT = "status_sent";
         }
     }
 
@@ -744,6 +756,8 @@ public class DhSchema {
 
         }
     }
+
+    //FORM KOMPAL1
 
 
 /*

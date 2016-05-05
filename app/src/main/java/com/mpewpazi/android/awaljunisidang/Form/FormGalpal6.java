@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * Created by mpewpazi on 4/18/16.
  */
-public class FormGalpal6 extends SingleForm  {
+public class FormGalpal6   {
     private UUID idPeralatanKerjaCrane;
     private int kualifikasiSurveyId;
     private String jenisMesin;

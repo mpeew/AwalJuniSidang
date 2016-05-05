@@ -363,7 +363,7 @@ public class FormGalpal3Fragment extends Fragment {
         mNamaPerusahaanEditText.setEnabled(false);
 
 
-        mSubmitButton=(Button)rootView.findViewById(R.id.b3tn_signup);
+        mSubmitButton=(Button)rootView.findViewById(R.id.galpal3_btn_submit);
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

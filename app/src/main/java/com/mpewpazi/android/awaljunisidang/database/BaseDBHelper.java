@@ -68,6 +68,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         "("+KualifikasiSurveyTable.Cols.ID_KUALIFIKASI_SURVEY+" integer primary key ," +
                         KualifikasiSurveyTable.Cols.ID_PERUSAHAAN +", " +
                         KualifikasiSurveyTable.Cols.ID_PERIODE +", " +
+                        KualifikasiSurveyTable.Cols.PROGRESS +", " +
                         KualifikasiSurveyTable.Cols.ID_GALANGAN_KAPAL +" )"
         );
 
@@ -119,6 +120,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG1PerusahaanIdentitasTable.Cols.BUJUR_DERAJAT +" integer," +
                         FG1PerusahaanIdentitasTable.Cols.BUJUR_MENIT +" int," +
                         FG1PerusahaanIdentitasTable.Cols.BUJUR_DETIK +" real," +
+                        FG1PerusahaanIdentitasTable.Cols.STATUS_SENT +" ," +
                         FG1PerusahaanIdentitasTable.Cols.CREATED_DATE +" numeric," +
                         FG1PerusahaanIdentitasTable.Cols.CREATED_USER +" text," +
                         FG1PerusahaanIdentitasTable.Cols.CREATED_IP_ADDRESS +" text," +
@@ -227,6 +229,14 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG6PeralatanKerjaLuarCraneTable.Cols.MODIFIED_DATE +" ," +
                         FG6PeralatanKerjaLuarCraneTable.Cols.MODIFIED_USER +" ," +
                         FG6PeralatanKerjaLuarCraneTable.Cols.MODIFIED_IP_ADDRESS +" )"
+        );
+
+        //Create tabel formgalpal6list
+        db.execSQL(
+                "create table "+FG6ListPeralatanKerjaLuarCraneTable.NAME+
+                        "("+FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_LIST+" integer primary key ," +
+                        FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY +" ," +
+                        FG6ListPeralatanKerjaLuarCraneTable.Cols.STATUS_SENT +" )"
         );
 
        /* //create tabel formgalpal19

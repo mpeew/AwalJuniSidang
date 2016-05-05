@@ -386,12 +386,12 @@
     </ScrollView>
 
 
-    <Button android:id="@+id/kompal1_btn_submit"
+    <Button android:id="@+id/galpal4_btn_submit"
             android:layout_weight="9"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:text="SUBMIT"
-            android:background="@color/colorPrimary"
+            android:text="@string/lengkap"
+            android:background="@android:color/holo_red_light"
             android:layout_marginTop="0dp"
             android:textColor="@android:color/white"/>
 

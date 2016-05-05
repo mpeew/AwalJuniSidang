@@ -1,5 +1,6 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -81,7 +82,9 @@ public class FormGalpal1Fragment extends Fragment  {
             mPropinsiNames.add(mPropinsis.get(a).getNama());
         }
 
+
         mDummyMaker=DummyMaker.get(getActivity());
+        mGalpalForms=mDummyMaker.getGalpalForms(DrawerFormActivity.kualifikasiSurveyId);
         mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
         mFormGalpal1=mDummyMaker.getFormGalpal1(DrawerFormActivity.kualifikasiSurveyId);
 
@@ -380,6 +383,26 @@ public class FormGalpal1Fragment extends Fragment  {
                     return;
                 }
 
+                if(!mFormGalpal1.isSend()){
+                    mFormGalpal1.setSend(true);
+                    mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mGalpalForms.size());
+                    mSubmitButton.setText(R.string.belum_lengkap);
+                    mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                }else{
+                    mFormGalpal1.setSend(false);
+                    mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()-100/mGalpalForms.size());
+                    mSubmitButton.setText(R.string.lengkap);
+                    mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+
+                Intent intent = getActivity().getIntent();
+                getActivity().overridePendingTransition(0, 0);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                getActivity().finish();
+                getActivity().overridePendingTransition(0, 0);
+                startActivity(intent);
+
+
             }
         });
 
@@ -416,5 +439,6 @@ public class FormGalpal1Fragment extends Fragment  {
     public void onPause() {
         super.onPause();
         mDummyMaker.addFormGalpal1(mFormGalpal1);
+        mDummyMaker.addKualifikasiSurvey(mKualifikasiSurvey);
     }
 }

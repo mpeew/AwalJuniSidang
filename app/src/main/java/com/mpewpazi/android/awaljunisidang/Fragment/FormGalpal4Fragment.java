@@ -94,7 +94,7 @@ public class FormGalpal4Fragment extends Fragment {
         mNilaiEkonomiSpinner=(Spinner)rootView.findViewById(R.id.kompal1_nilai_ekonomi_spinner);
         mPerkembanganWilayahSpinner=(Spinner)rootView.findViewById(R.id.kompal1_perkembangan_wilayah_spinner);
         mRutrwSpinner=(Spinner)rootView.findViewById(R.id.kompal1_rutrw_spinner);
-        mSubmitButton=(Button)rootView.findViewById(R.id.kompal1_btn_submit);
+        mSubmitButton=(Button)rootView.findViewById(R.id.galpal4_btn_submit);
 
 
         mPanjangWaterfrontEditText.setText(mFormGalpal4.getPanjangWaterfront());
