@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="17dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="PERALATAN KERJA LUAR RUANGAN (CRANES)"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_weight="91"
+        android:layout_height="0dp" >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="5dp">
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/kompal3d_jenis_standar_mutu_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/kompal3d_jenis_standar_mutu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:hint="Jenis Standar Mutu" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/kompal3d_keterangan_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/kompal3d_keterangan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:hint="Keterangan" />
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_weight="9"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <Button android:id="@+id/kompal3a_btn_delete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="DELETE"
+                android:background="@android:color/holo_red_light"
+                android:layout_marginTop="0dp"
+                android:textColor="@android:color/white"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

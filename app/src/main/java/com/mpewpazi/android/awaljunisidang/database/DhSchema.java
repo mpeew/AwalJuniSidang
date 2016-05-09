@@ -757,8 +757,92 @@ public class DhSchema {
         }
     }
 
-    //FORM KOMPAL1
+    //FORM KOMPAL3a
+    public static final class FK3aJenisKapasitasProduksiTable{
+        public static final String NAME="f2_jenis_kapasitas_produksi";
+        public static final class Cols{
+            public static final String ID_F2_JENIS_KAPASITAS_PRODUKSI="id_f2_jenis_kapasitas_produksi";
+            public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
+            public static final String ID_PERIODE="id_periode";
+            public static final String JENIS_PRODUKSI="jenis_produksi";
+            public static final String KAPASITAS_PRODUKSI="kapasitas_produksi";
+            public static final String ID_MST_SATUAN="id_mst_satuan";
+            public static final String CREATED_DATE = "created_date";
+            public static final String CREATED_USER = "created_user";
+            public static final String CREATED_IP_ADDRESS = "created_ip_address";
+            public static final String MODIFIED_DATE = "modified_date";
+            public static final String MODIFIED_USER = "modified_user";
+            public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+        }
+    }
 
+    public static final class FK3bJumlahProduksiTable{
+        public static final String NAME="f2_jumlah_produksi";
+        public static final class Cols{
+            public static final String ID_F2_JUMLAH_PRODUKSI="id_f2_jumlah_produksi";
+            public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
+            public static final String ID_PERIODE="id_periode";
+            public static final String ID_F2_JENIS_KAPASITAS_PRODUKSI="id_f2_jenis_kapasitas_produksi";
+            public static final String JUMLAH_PROD_NMIN4="jumlah_prod_nmin4";
+            public static final String JUMLAH_PROD_NMIN3="jumlah_prod_nmin3";
+            public static final String JUMLAH_PROD_NMIN2="jumlah_prod_nmin2";
+            public static final String JUMLAH_PROD_NMIN1="jumlah_prod_nmin1";
+            public static final String ID_MST_SATUAN="id_mst_satuan";
+            public static final String NILAI_PRODUKSI_NMIN4="nilai_produksi_nmin4";
+            public static final String NILAI_PRODUKSI_NMIN3="nilai_produksi_nmin3";
+            public static final String NILAI_PRODUKSI_NMIN2="nilai_produksi_nmin2";
+            public static final String NILAI_PRODUKSI_NMIN1="nilai_produksi_nmin1";
+            public static final String KETERANGAN="keterangan";
+            public static final String CREATED_DATE = "created_date";
+            public static final String CREATED_USER = "created_user";
+            public static final String CREATED_IP_ADDRESS = "created_ip_address";
+            public static final String MODIFIED_DATE = "modified_date";
+            public static final String MODIFIED_USER = "modified_user";
+            public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+
+        }
+    }
+
+    public static final class FK3cSistemBerproduksiTable{
+        public static final String NAME="f2_sistem_berproduksi";
+        public static final class Cols{
+            public static final String ID_F2_SISTEM_BERPRODUKSI="id_f2_sistem_berproduksi";
+            public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
+            public static final String ID_PERIODE="id_periode";
+            public static final String NAMA_PRODUK="nama_produk";
+            public static final String ID_MST_JENIS_PRODUKSI="id_mst_jenis_produksi";
+            public static final String ID_MST_JENIS_BERPRODUKSI="id_mst_jenis_berproduksi";
+            public static final String JUMLAH_PROD_NMIN4="jumlah_prod_nmin4";
+            public static final String JUMLAH_PROD_NMIN3="jumlah_prod_nmin3";
+            public static final String JUMLAH_PROD_NMIN2="jumlah_prod_nmin2";
+            public static final String JUMLAH_PROD_NMIN1="jumlah_prod_nmin1";
+            public static final String CREATED_DATE = "created_date";
+            public static final String CREATED_USER = "created_user";
+            public static final String CREATED_IP_ADDRESS = "created_ip_address";
+            public static final String MODIFIED_DATE = "modified_date";
+            public static final String MODIFIED_USER = "modified_user";
+            public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+
+        }
+    }
+
+    public static final class FK3dStandarMutuTableTable{
+        public static final String NAME="f2_standar_mutu";
+        public static final class Cols{
+            public static final String ID_F2_STANDAR_MUTU="id_f2_standar_mutu";
+            public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
+            public static final String ID_PERIODE="id_periode";
+            public static final String JENIS_STANDAR_MUTU="jenis_standar_mutu";
+            public static final String KETERANGAN="keterangan";
+            public static final String CREATED_DATE = "created_date";
+            public static final String CREATED_USER = "created_user";
+            public static final String CREATED_IP_ADDRESS = "created_ip_address";
+            public static final String MODIFIED_DATE = "modified_date";
+            public static final String MODIFIED_USER = "modified_user";
+            public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+
+        }
+    }
 
 /*
     public static final class {

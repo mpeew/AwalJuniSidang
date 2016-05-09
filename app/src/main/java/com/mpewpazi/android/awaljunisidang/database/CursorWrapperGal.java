@@ -8,6 +8,10 @@ import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6List;
+import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
+import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
+import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
+import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.PeriodeSurvey;
 import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
@@ -17,6 +21,19 @@ import com.mpewpazi.android.awaljunisidang.model.User;
 import java.util.UUID;
 
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.*;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG3GalanganKapalTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG4TinjauanAreaTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6ListPeralatanKerjaLuarCraneTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6PeralatanKerjaLuarCraneTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKapasitasProduksiTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3cSistemBerproduksiTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PeriodeSurveyTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PerusahaanTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.SurveyAssignSurveyorTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.UserTable;
 
 
 /**
@@ -255,6 +272,19 @@ public class CursorWrapperGal extends CursorWrapper{
         return formGalpal4;
     }
 
+    public FormGalpal6List getFormGalpal6List(){
+        int idPeralatanKerjaCraneList=getInt(getColumnIndex(FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_LIST));
+        int idKualifikasiSurvey=getInt(getColumnIndex(FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY));
+        int status=getInt(getColumnIndex(FG6ListPeralatanKerjaLuarCraneTable.Cols.STATUS_SENT));
+
+        FormGalpal6List formGalpal6List=new FormGalpal6List();
+        formGalpal6List.setId(idPeralatanKerjaCraneList);
+        formGalpal6List.setKualifikasiSurveyId(idKualifikasiSurvey);
+        formGalpal6List.setSend(status!=1);
+
+        return formGalpal6List;
+    }
+
     public FormGalpal6 getFormGalpal6(){
         String idPeralatanKerjaCrane=getString(getColumnIndex(FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE));
         int idKualifikasiSurvey=getInt(getColumnIndex(FG6PeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY));
@@ -289,16 +319,85 @@ public class CursorWrapperGal extends CursorWrapper{
         return formGalpal6;
     }
 
-    public FormGalpal6List getFormGalpal6List(){
-        int idPeralatanKerjaCraneList=getInt(getColumnIndex(FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_LIST));
-        int idKualifikasiSurvey=getInt(getColumnIndex(FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY));
-        int status=getInt(getColumnIndex(FG6ListPeralatanKerjaLuarCraneTable.Cols.STATUS_SENT));
+    public FormKompal3a getFormKompal3a(){
+        String idJenisKapasitasProduksi=getString(getColumnIndex(FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI));
+        int idKualifikasiSurvey=getInt(getColumnIndex(FK3aJenisKapasitasProduksiTable.Cols.ID_KUALIFIKASI_SURVEY));
+        String jenisProduksi=getString(getColumnIndex(FK3aJenisKapasitasProduksiTable.Cols.JENIS_PRODUKSI));
+        String satuan=getString(getColumnIndex(FK3aJenisKapasitasProduksiTable.Cols.ID_MST_SATUAN));
 
-        FormGalpal6List formGalpal6List=new FormGalpal6List();
-        formGalpal6List.setId(idPeralatanKerjaCraneList);
-        formGalpal6List.setKualifikasiSurveyId(idKualifikasiSurvey);
-        formGalpal6List.setSend(status!=1);
+        FormKompal3a formKompal3a=new FormKompal3a(UUID.fromString(idJenisKapasitasProduksi));
+        formKompal3a.setIdKualifikasiSurvey(idKualifikasiSurvey);
+        formKompal3a.setJenisProduksi(jenisProduksi);
+        formKompal3a.setSatuan(satuan);
 
-        return formGalpal6List;
+        return formKompal3a;
+    }
+
+    public FormKompal3b getFormKompal3b(){
+        String idJumlahProduksi=getString(getColumnIndex(FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI));
+        int idKualifikasiSurvey=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.ID_KUALIFIKASI_SURVEY));
+        String jenisProduk=getString(getColumnIndex(FK3bJumlahProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI));
+        int jumlahProdthn1=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN1));
+        int jumlahProdthn2=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN2));
+        int jumlahProdthn3=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN3));
+        int jumlahProdthn4=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN4));
+        String satuan=getString(getColumnIndex(FK3bJumlahProduksiTable.Cols.ID_MST_SATUAN));
+        int nilaiProduksiThn1=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN1));
+        int nilaiProduksiThn2=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN2));
+        int nilaiProduksiThn3=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN3));
+        int nilaiProduksiThn4=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN4));
+        String keterangan=getString(getColumnIndex(FK3bJumlahProduksiTable.Cols.KETERANGAN));
+
+        FormKompal3b formKompal3b=new FormKompal3b(UUID.fromString(idJumlahProduksi));
+        formKompal3b.setIdKualifikasiSurvey(idKualifikasiSurvey);
+        formKompal3b.setJenisProduk(jenisProduk);
+        formKompal3b.setJumlahProdThn1(jumlahProdthn1);
+        formKompal3b.setJumlahProdThn2(jumlahProdthn2);
+        formKompal3b.setJumlahProdThn3(jumlahProdthn3);
+        formKompal3b.setJumlahProdThn4(jumlahProdthn4);
+        formKompal3b.setSatuan(satuan);
+        formKompal3b.setNilaiProduksiThn1(nilaiProduksiThn1);
+        formKompal3b.setNilaiProduksiThn2(nilaiProduksiThn2);
+        formKompal3b.setNilaiProduksiThn3(nilaiProduksiThn3);
+        formKompal3b.setNilaiProduksiThn4(nilaiProduksiThn4);
+        formKompal3b.setKeterangan(keterangan);
+
+        return formKompal3b;
+    }
+
+    public FormKompal3c getFormKompal3c(){
+        String idSistemBerproduksi=getString(getColumnIndex(FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI));
+        int idKualifikasiSurvey=getInt(getColumnIndex(FK3cSistemBerproduksiTable.Cols.ID_KUALIFIKASI_SURVEY));
+        String namaProduk=getString(getColumnIndex(FK3cSistemBerproduksiTable.Cols.NAMA_PRODUK));
+        String sistemProduksi=getString(getColumnIndex(FK3cSistemBerproduksiTable.Cols.ID_MST_JENIS_PRODUKSI));
+        int jumlahProdthn1=getInt(getColumnIndex(FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN1));
+        int jumlahProdthn2=getInt(getColumnIndex(FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN2));
+        int jumlahProdthn3=getInt(getColumnIndex(FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN3));
+        int jumlahProdthn4=getInt(getColumnIndex(FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN4));
+
+        FormKompal3c formKompal3c=new FormKompal3c(UUID.fromString(idSistemBerproduksi));
+        formKompal3c.setIdKualifikasiSurvey(idKualifikasiSurvey);
+        formKompal3c.setNamaProduk(namaProduk);
+        formKompal3c.setSistemProduksi(sistemProduksi);
+        formKompal3c.setJumlahProduksiThn1(jumlahProdthn1);
+        formKompal3c.setJumlahProduksiThn2(jumlahProdthn2);
+        formKompal3c.setJumlahProduksiThn3(jumlahProdthn3);
+        formKompal3c.setJumlahProduksiThn4(jumlahProdthn4);
+
+        return formKompal3c;
+    }
+
+    public FormKompal3d getFormKompal3d(){
+        String idStandarMutu=getString(getColumnIndex(FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU));
+        int idKualifikasiSurvey=getInt(getColumnIndex(FK3dStandarMutuTableTable.Cols.ID_KUALIFIKASI_SURVEY));
+        String jenisStandarMutu=getString(getColumnIndex(FK3dStandarMutuTableTable.Cols.JENIS_STANDAR_MUTU));
+        String keterangan=getString(getColumnIndex(FK3dStandarMutuTableTable.Cols.KETERANGAN));
+
+        FormKompal3d formKompal3d=new FormKompal3d(UUID.fromString(idStandarMutu));
+        formKompal3d.setIdKualifikasiSurvey(idKualifikasiSurvey);
+        formKompal3d.setJenisStandarMutu(jenisStandarMutu);
+        formKompal3d.setKeterangan(keterangan);
+
+        return formKompal3d;
     }
 }

@@ -5,13 +5,25 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.*;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG3GalanganKapalTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG4TinjauanAreaTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6ListPeralatanKerjaLuarCraneTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6PeralatanKerjaLuarCraneTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKapasitasProduksiTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PeriodeSurveyTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PerusahaanTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.SurveyAssignSurveyorTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.UserTable;
 
 /**
  * Created by mpewpazi on 4/8/16.
  */
 public class BaseDBHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "shipyardkemenperin.db";
+    public static final String DATABASE_NAME = "shipyardkemenperine.db";
 
     public BaseDBHelper(Context context)
     {
@@ -234,41 +246,112 @@ public class BaseDBHelper extends SQLiteOpenHelper {
         //Create tabel formgalpal6list
         db.execSQL(
                 "create table "+FG6ListPeralatanKerjaLuarCraneTable.NAME+
-                        "("+FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_LIST+" integer primary key ," +
+                        "("+FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_LIST+" text primary key ," +
                         FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY +" ," +
                         FG6ListPeralatanKerjaLuarCraneTable.Cols.STATUS_SENT +" )"
         );
 
-       /* //create tabel formgalpal19
-        //foreign key belum dimasukan
+
+        //Create Table FormKompal3a
         db.execSQL(
-                "create table "+FORM_GALPAL19_TABLE_NAME+
-                        "("+FORM_GALPAL19_COLUMN_ID+" integer primary key ," +
-                        FORM_GALPAL19_COLUMN_NAMA_BENGKEL +" text," +
-                        FORM_GALPAL19_COLUMN_LUAS +" integer," +
-                        FORM_GALPAL19_COLUMN_DIMENSI +" text," +
-                        FORM_GALPAL19_COLUMN_KAPASITAS +" integer," +
-                        FORM_GALPAL19_COLUMN_STATUS +" text," +
-                        FORM_GALPAL19_COLUMN_JARAK +" integer," +
-                        FORM_UMUM_COLUMN_CREATED_DATE +" date," +
-                        FORM_UMUM_COLUMN_CREATED_USER +" text," +
-                        FORM_UMUM_COLUMN_CREATED_IP_ADDRESS +" text," +
-                        FORM_UMUM_COLUMN_MODIFIED_DATE +" date," +
-                        FORM_UMUM_COLUMN_MODIFIED_USER +" text," +
-                        FORM_UMUM_COLUMN_MODIFIED_IP_ADDRESS +" text)"
-        );*/
+                "create table "+FK3aJenisKapasitasProduksiTable.NAME+
+                        "("+FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI+" text primary key ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.ID_KUALIFIKASI_SURVEY +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.ID_PERIODE +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.JENIS_PRODUKSI +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.KAPASITAS_PRODUKSI +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.ID_MST_SATUAN +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.CREATED_DATE +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.CREATED_USER +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.CREATED_IP_ADDRESS +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.MODIFIED_DATE +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.MODIFIED_USER +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.MODIFIED_IP_ADDRESS +" )"
+        );
 
-
-
-
-       /* //create tabel formkompal2
+        //CREATE TABLE FORMKOMPAL3b
         db.execSQL(
-                "create table " + FORM_KOMPAL2_TABLE_NAME +
-                        "(" + FORM_KOMPAL2_COLUMN_ID + " integer primary key ," +
-                        FORM_KOMPAL2_COLUMN_BAHAN_BAKU + " text," +
-                        FORM_KOMPAL2_COLUMN_MESIN_SISTEM_ELEKTRIKAL + " text," +
-                        FORM_KOMPAL2_COLUMN_PERLENGKAPAN_KAPAL + " text)"
-        );*/
+                "create table "+FK3bJumlahProduksiTable.NAME+
+                        "("+FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI+" text primary key ," +
+                        FK3bJumlahProduksiTable.Cols.ID_KUALIFIKASI_SURVEY +" ," +
+                        FK3bJumlahProduksiTable.Cols.ID_PERIODE +" ," +
+                        FK3bJumlahProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI +" ," +
+                        FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN4 +" ," +
+                        FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN3 +" ," +
+                        FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN2 +" ," +
+                        FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN1 +" ," +
+                        FK3bJumlahProduksiTable.Cols.ID_MST_SATUAN +" ," +
+                        FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN4 +" ," +
+                        FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN3 +" ," +
+                        FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN2 +" ," +
+                        FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN1 +" ," +
+                        FK3bJumlahProduksiTable.Cols.KETERANGAN +" ," +
+                        FK3bJumlahProduksiTable.Cols.CREATED_DATE +" ," +
+                        FK3bJumlahProduksiTable.Cols.CREATED_USER +" ," +
+                        FK3bJumlahProduksiTable.Cols.CREATED_IP_ADDRESS +" ," +
+                        FK3bJumlahProduksiTable.Cols.MODIFIED_DATE +" ," +
+                        FK3bJumlahProduksiTable.Cols.MODIFIED_USER +" ," +
+                        FK3bJumlahProduksiTable.Cols.MODIFIED_IP_ADDRESS +" )"
+        );
+
+        //CREATE TABLE FORMKOMPAL3c
+        db.execSQL(
+                "create table "+ FK3cSistemBerproduksiTable.NAME+
+                        "("+FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI+" text primary key ," +
+                        FK3cSistemBerproduksiTable.Cols.ID_KUALIFIKASI_SURVEY +" ," +
+                        FK3cSistemBerproduksiTable.Cols.ID_PERIODE +" ," +
+                        FK3cSistemBerproduksiTable.Cols.NAMA_PRODUK +" ," +
+                        FK3cSistemBerproduksiTable.Cols.ID_MST_JENIS_PRODUKSI +" ," +
+                        FK3cSistemBerproduksiTable.Cols.ID_MST_JENIS_BERPRODUKSI +" ," +
+                        FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN4 +" ," +
+                        FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN3 +" ," +
+                        FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN2 +" ," +
+                        FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN1 +" ," +
+                        FK3cSistemBerproduksiTable.Cols.CREATED_DATE +" ," +
+                        FK3cSistemBerproduksiTable.Cols.CREATED_USER +" ," +
+                        FK3cSistemBerproduksiTable.Cols.CREATED_IP_ADDRESS +" ," +
+                        FK3cSistemBerproduksiTable.Cols.MODIFIED_DATE +" ," +
+                        FK3cSistemBerproduksiTable.Cols.MODIFIED_USER +" ," +
+                        FK3cSistemBerproduksiTable.Cols.MODIFIED_IP_ADDRESS +" )"
+        );
+
+        //CREATE TABLE FORMKOMPAL3d
+        db.execSQL(
+                "create table "+FK3dStandarMutuTableTable.NAME+
+                        "("+FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU+" text primary key ," +
+                        FK3dStandarMutuTableTable.Cols.ID_KUALIFIKASI_SURVEY +" ," +
+                        FK3dStandarMutuTableTable.Cols.ID_PERIODE +" ," +
+                        FK3dStandarMutuTableTable.Cols.JENIS_STANDAR_MUTU +" ," +
+                        FK3dStandarMutuTableTable.Cols.KETERANGAN +" ," +
+                        FK3dStandarMutuTableTable.Cols.CREATED_DATE +" ," +
+                        FK3dStandarMutuTableTable.Cols.CREATED_USER +" ," +
+                        FK3dStandarMutuTableTable.Cols.CREATED_IP_ADDRESS +" ," +
+                        FK3dStandarMutuTableTable.Cols.MODIFIED_DATE +" ," +
+                        FK3dStandarMutuTableTable.Cols.MODIFIED_USER +" ," +
+                        FK3dStandarMutuTableTable.Cols.MODIFIED_IP_ADDRESS +" )"
+        );
+
+       /* contoh
+        db.execSQL(
+                "create table "+DUMMY.NAME+
+                        "("+DUMMY.Cols.+" integer primary key ," +
+                        DUMMY.Cols.ID_KUALIFIKASI_SURVEY +" ," +
+                        DUMMY.Cols.ID_PERIODE +" ," +
+                        DUMMY.Cols. +" ," +
+                        DUMMY.Cols. +" ," +
+                        DUMMY.Cols. +" ," +
+                        DUMMY.Cols. +" ," +
+                        DUMMY.Cols. +" ," +
+                        DUMMY.Cols. +" ," +
+                        DUMMY.Cols.CREATED_DATE +" ," +
+                        DUMMY.Cols.CREATED_USER +" ," +
+                        DUMMY.Cols.CREATED_IP_ADDRESS +" ," +
+                        DUMMY.Cols.MODIFIED_DATE +" ," +
+                        DUMMY.Cols.MODIFIED_USER +" ," +
+                        DUMMY.Cols.MODIFIED_IP_ADDRESS +" )"
+        );
+
+        */
 
 
     }
