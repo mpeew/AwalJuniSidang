@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6List;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
@@ -41,8 +40,8 @@ public class FormGalpal6Fragment extends Fragment {
 
     private boolean isDeleteButtonUnpressed=true;
     private Button mDeleteButton;
-    private Button mSubmitButton;
-    private FormGalpal6List mFormGalpal6List;
+
+
     private List<FormGalpal6> mFormGalpal6s;
     private FormGalpal6 mFormGalpal6;
 
@@ -95,7 +94,7 @@ public class FormGalpal6Fragment extends Fragment {
         mLokasiEditText=(EditText)rootView.findViewById(R.id.galpal6_lokasi);
         mStatusEditText=(EditText)rootView.findViewById(R.id.galpal6_status);
 
-        mSubmitButton=(Button)rootView.findViewById(R.id.galpal6_btn_submit);
+
         mDeleteButton=(Button)rootView.findViewById(R.id.galpal6_btn_delete);
 
 
@@ -279,12 +278,7 @@ public class FormGalpal6Fragment extends Fragment {
             }
         });
 
-        mSubmitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
 
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override

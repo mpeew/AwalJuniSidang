@@ -150,30 +150,14 @@
     </ScrollView>
 
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_weight="9"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <Button android:id="@+id/galpal6_btn_submit"
-                android:layout_weight="50"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="@string/lengkap"
-                android:background="@color/colorPrimary"
-                android:layout_marginTop="0dp"
-                android:textColor="@android:color/white"/>
-        <Button android:id="@+id/galpal6_btn_delete"
-                android:layout_weight="50"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="DELETE"
-                android:background="@android:color/holo_red_light"
-                android:layout_marginTop="0dp"
-                android:textColor="@android:color/white"/>
-
-
-    </LinearLayout>
+    <Button android:id="@+id/galpal6_btn_delete"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"
+            android:text="DELETE"
+            android:background="@android:color/holo_red_light"
+            android:layout_marginTop="0dp"
+            android:textColor="@android:color/white"/>
 
 
 </LinearLayout>

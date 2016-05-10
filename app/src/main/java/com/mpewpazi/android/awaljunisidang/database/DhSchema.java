@@ -255,12 +255,13 @@ public class DhSchema {
     }
 
     //FORM GALPAL6List
-    public static final class FG6ListPeralatanKerjaLuarCraneTable {
-        public static final String NAME="f1_peralatan_kerja_lr_crane_list";
+    public static final class FG6Helper{
+        public static final String NAME="f1_peralatan_kerja_lr_crane_helper";
         public static final class Cols{
-            public static final String ID_F1_PERALATAN_KERJA_LR_CRANE_LIST="id_f1_peralatan_kerja_lr_crane_list";
+            public static final String ID_F1_PERALATAN_KERJA_LR_CRANE_HELPER="id_f1_peralatan_kerja_lr_crane_helper";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String STATUS_SENT = "status_sent";
+
         }
     }
 

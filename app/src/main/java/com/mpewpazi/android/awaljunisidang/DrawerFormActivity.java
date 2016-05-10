@@ -53,6 +53,8 @@ public class DrawerFormActivity extends ActionBarActivity {
     private List<SingleForm> mKompalForms;
 
 
+
+
     //array adapter untuk list item di drawer
     private ArrayAdapter<String> mArrayAdapter;
 
@@ -69,10 +71,6 @@ public class DrawerFormActivity extends ActionBarActivity {
 
         mDummyMaker=DummyMaker.get(this);
         mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(kualifikasiSurveyId);
-
-
-
-
 
         mGalpalForms= mDummyMaker.getGalpalForms(kualifikasiSurveyId);
         mKompalForms= mDummyMaker.getKompalForms(kualifikasiSurveyId);

@@ -8,10 +8,11 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.*;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG3GalanganKapalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG4TinjauanAreaTable;
-import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6ListPeralatanKerjaLuarCraneTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6PeralatanKerjaLuarCraneTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKapasitasProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3cSistemBerproduksiTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarMutuTableTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PeriodeSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PerusahaanTable;
@@ -245,10 +246,16 @@ public class BaseDBHelper extends SQLiteOpenHelper {
 
         //Create tabel formgalpal6list
         db.execSQL(
-                "create table "+FG6ListPeralatanKerjaLuarCraneTable.NAME+
-                        "("+FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_LIST+" text primary key ," +
-                        FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY +" ," +
-                        FG6ListPeralatanKerjaLuarCraneTable.Cols.STATUS_SENT +" )"
+                "create table "+ FG6Helper.NAME+
+                        "("+FG6Helper.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_HELPER+" integer primary key ," +
+                        FG6Helper.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
+                        FG6Helper.Cols.STATUS_SENT +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.CREATED_DATE +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.CREATED_USER +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.CREATED_IP_ADDRESS +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.MODIFIED_DATE +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.MODIFIED_USER +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.MODIFIED_IP_ADDRESS +" )"
         );
 
 

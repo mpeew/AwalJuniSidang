@@ -9,11 +9,15 @@ import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6List;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6Help;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
+import com.mpewpazi.android.awaljunisidang.Form.FormKompal3aHelp;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
+import com.mpewpazi.android.awaljunisidang.Form.FormKompal3bHelp;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
+import com.mpewpazi.android.awaljunisidang.Form.FormKompal3cHelp;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
+import com.mpewpazi.android.awaljunisidang.Form.FormKompal3dHelp;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
 import com.mpewpazi.android.awaljunisidang.database.CursorWrapperGal;
@@ -30,7 +34,7 @@ import java.util.UUID;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG3GalanganKapalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG4TinjauanAreaTable;
-import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6ListPeralatanKerjaLuarCraneTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6Helper;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6PeralatanKerjaLuarCraneTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKapasitasProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
@@ -136,7 +140,7 @@ public class DummyMaker {
         kualifikasiSurvey.setPeriodeSurveyId(2014);
         kualifikasiSurvey.setGalanganKapalId(1);
         kualifikasiSurvey.setProgress(0);
-        addGalpalForms(1,kualifikasiSurvey.getKualifikasiSurveyId(),"4862bf0a-110b-11e6-a148-3e1d05defe78");
+        addGalpalForms(1,kualifikasiSurvey.getKualifikasiSurveyId());
        // makeKompalForms(kualifikasiSurvey,1);
 
         KualifikasiSurvey kualifikasiSurvey1=new KualifikasiSurvey();
@@ -144,7 +148,7 @@ public class DummyMaker {
         kualifikasiSurvey1.setPerusahaanId(2);
         kualifikasiSurvey1.setPeriodeSurveyId(2014);
         kualifikasiSurvey1.setGalanganKapalId(1);
-        addGalpalForms(2,kualifikasiSurvey1.getKualifikasiSurveyId(),"4862c1c6-110b-11e6-a148-3e1d05defe78");
+        addGalpalForms(2,kualifikasiSurvey1.getKualifikasiSurveyId());
         //makeKompalForms(kualifikasiSurvey1,2);
 
         KualifikasiSurvey kualifikasiSurvey2=new KualifikasiSurvey();
@@ -152,7 +156,7 @@ public class DummyMaker {
         kualifikasiSurvey2.setPerusahaanId(3);
         kualifikasiSurvey2.setPeriodeSurveyId(2014);
         kualifikasiSurvey2.setGalanganKapalId(1);
-        addGalpalForms(3,kualifikasiSurvey2.getKualifikasiSurveyId(),"4862c3ec-110b-11e6-a148-3e1d05defe78");
+        addGalpalForms(3,kualifikasiSurvey2.getKualifikasiSurveyId());
         //makeKompalForms(kualifikasiSurvey2,3);
 
         KualifikasiSurvey kualifikasiSurvey3=new KualifikasiSurvey();
@@ -160,7 +164,7 @@ public class DummyMaker {
         kualifikasiSurvey3.setPerusahaanId(4);
         kualifikasiSurvey3.setPeriodeSurveyId(2014);
         kualifikasiSurvey3.setGalanganKapalId(1);
-        addGalpalForms(4,kualifikasiSurvey3.getKualifikasiSurveyId(),"4862c5b8-110b-11e6-a148-3e1d05defe78");
+        addGalpalForms(4,kualifikasiSurvey3.getKualifikasiSurveyId());
        // makeKompalForms(kualifikasiSurvey3,4);
 
         addKualifikasiSurvey(kualifikasiSurvey);
@@ -195,6 +199,10 @@ public class DummyMaker {
 
 
     }
+
+
+
+
 
     public Perusahaan getPerusahaan(int idPerusahaan){
         CursorWrapperGal cursor=query(PerusahaanTable.NAME,PerusahaanTable.Cols.ID_PERUSAHAAN+ "=?",
@@ -303,8 +311,6 @@ public class DummyMaker {
         return surveyAssignSurveyors;
     }
 
-
-
     public KualifikasiSurvey getKualifikasiSurvey(int idKualifikasi){
         CursorWrapperGal cursor=query(KualifikasiSurveyTable.NAME,KualifikasiSurveyTable.Cols.ID_KUALIFIKASI_SURVEY+ "=?",
                 new String[] {String.valueOf(idKualifikasi)});
@@ -412,23 +418,88 @@ public class DummyMaker {
         }
     }
 
-    public FormGalpal6List getFormGalpal6List(int idKualifikasiSurvey){
-        CursorWrapperGal cursor=query(FG6ListPeralatanKerjaLuarCraneTable.NAME,FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY+ "=?",
-                new String[] {String.valueOf(idKualifikasiSurvey)});
+    public FormGalpal6Help getFormGalpal6Help(int idKualifiaksiSurvey){
+
+        CursorWrapperGal cursor=query(FG6Helper.NAME,FG6Helper.Cols.ID_KUALIFIKASI_SURVEY+ "=?",
+                new String[] {String.valueOf(idKualifiaksiSurvey)});
         try{
             if(cursor.getCount()==0){
-                return new FormGalpal6List();
+                return null;
+
             }
 
             cursor.moveToFirst();
-            return cursor.getFormGalpal6List();
+            return cursor.getFormGalpal6Help();
         }finally {
             cursor.close();
         }
     }
 
+    public FormKompal3a getFormKompal3a(UUID idFormKompal3a){
+        CursorWrapperGal cursor=query(FK3aJenisKapasitasProduksiTable.NAME,FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI+ "=?",
+                new String[] {idFormKompal3a.toString()});
+        try{
+            if(cursor.getCount()==0){
+                return null;
 
+            }
 
+            cursor.moveToFirst();
+            return cursor.getFormKompal3a();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public FormKompal3b getFormKompal3b(UUID idFormKompal3b){
+        CursorWrapperGal cursor=query(FK3bJumlahProduksiTable.NAME,FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI+ "=?",
+                new String[] {idFormKompal3b.toString()});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+
+            }
+
+            cursor.moveToFirst();
+            return cursor.getFormKompal3b();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public FormKompal3c getFormKompal3c(UUID idFormKompal3c){
+        CursorWrapperGal cursor=query(FK3cSistemBerproduksiTable.NAME,FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI+ "=?",
+                new String[] {idFormKompal3c.toString()});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+
+            }
+
+            cursor.moveToFirst();
+            return cursor.getFormKompal3c();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public FormKompal3d getFormKompal3d(UUID idFormKompal3d){
+        CursorWrapperGal cursor=query(FK3dStandarMutuTableTable.NAME,FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU+ "=?",
+                new String[] {idFormKompal3d.toString()});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+
+            }
+
+            cursor.moveToFirst();
+            return cursor.getFormKompal3d();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    // ambil semua formgalpal6
     public List<FormGalpal6> getFormGalpal6s(){
         List<FormGalpal6> formGalpal6s=new ArrayList<>();
         CursorWrapperGal cursor=query(FG6PeralatanKerjaLuarCraneTable.NAME,null,null);
@@ -444,6 +515,7 @@ public class DummyMaker {
         return formGalpal6s;
     }
 
+    //form2 galpal 6 yang memiliki kualifikasi survey id tertentu
     public List<FormGalpal6> getFormGalpal6s(int kualifikasisurveyid){
         List<FormGalpal6> formGalpal6s=getFormGalpal6s();
         List<FormGalpal6> formGalpal6s1=new ArrayList<>();
@@ -456,22 +528,25 @@ public class DummyMaker {
     }
 
 
-
     public List<SingleForm> getGalpalForms(int kualifikasiSurveyId) {
         List<SingleForm> galpalForms=new ArrayList<>();
         galpalForms.add(getFormGalpal1(kualifikasiSurveyId));
         galpalForms.add(getFormGalpal3(kualifikasiSurveyId));
         galpalForms.add(getFormGalpal4(kualifikasiSurveyId));
-        galpalForms.add(getFormGalpal6List(kualifikasiSurveyId));
-
-
+        galpalForms.add(getFormGalpal6Help(kualifikasiSurveyId));
+        galpalForms.add(new FormKompal3aHelp());
+        galpalForms.add(new FormKompal3bHelp());
+        galpalForms.add(new FormKompal3cHelp());
+        galpalForms.add(new FormKompal3dHelp());
         return galpalForms;
     }
+
     public List<SingleForm> getKompalForms(int kualifikasiSurveyId) {
         List<SingleForm> kompalForms=new ArrayList<>();
         //belum ada
         return kompalForms;
     }
+
 
 
 
@@ -585,7 +660,6 @@ public class DummyMaker {
         }
     }
 
-    //sementara sebelum ada data dari server
     public void addFormGalpal1a(FormGalpal1 formGalpal1){
         ContentValues values=getFormGalpal1ContentValues(formGalpal1);
         String formGalpal1Id=String.valueOf(formGalpal1.getIdentitasPerusahaanId());
@@ -603,8 +677,6 @@ public class DummyMaker {
             cursor.close();
         }
     }
-
-
 
     public void addFormGalpal3(FormGalpal3 formGalpal3){
         ContentValues values=getFormGalpal3ContentValues(formGalpal3);
@@ -697,32 +769,24 @@ public class DummyMaker {
         }
     }
 
-    public void addFormGalpal6List(FormGalpal6List formGalpal6List){
-        ContentValues values=getFormGalpal6ListContentValues(formGalpal6List);
-        String formGalpal6ListId=String.valueOf(formGalpal6List.getId());
+    public void addFormGalpal6Helper(FormGalpal6Help formGalpal6Help){
 
-        CursorWrapperGal cursor=query(FG6ListPeralatanKerjaLuarCraneTable.NAME,FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_LIST+ "=?",
-                new String[] {formGalpal6ListId});
+
+        ContentValues values=getFormGalpal6HelperContentValues(formGalpal6Help);
+        String formGalpal6HelpId=String.valueOf(formGalpal6Help.getIdFormGalpal6Help());
+
+        CursorWrapperGal cursor=query(FG6Helper.NAME,FG6Helper.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_HELPER+ "=?",
+                new String[] {formGalpal6HelpId});
         try{
             if(cursor.getCount()==0){
-                mDatabase.insert(FG6ListPeralatanKerjaLuarCraneTable.NAME,null,values);
+                mDatabase.insert(FG6Helper.NAME,null,values);
             }else{
-                mDatabase.update(FG6ListPeralatanKerjaLuarCraneTable.NAME,values,FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_LIST+" = ?",new String[]{formGalpal6ListId});
+                mDatabase.update(FG6Helper.NAME,values,FG6Helper.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_HELPER+" = ?",new String[]{formGalpal6HelpId});
             }
 
         }finally {
             cursor.close();
         }
-    }
-
-
-
-
-
-    public void deleteFormGalpal6(FormGalpal6 formGalpal6){
-        String formGalpal6Id=String.valueOf(formGalpal6.getIdPeralatanKerjaCrane());
-        mDatabase.delete(FG6PeralatanKerjaLuarCraneTable.NAME,FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE+ "=?",
-                new String[] {formGalpal6Id});
     }
 
     private void addFormGalpal6a(FormGalpal6 formGalpal6){
@@ -779,12 +843,6 @@ public class DummyMaker {
         }
     }
 
-    public void deleteFormKompal3a(FormKompal3a formKompal3a){
-        String formKompal3aId=formKompal3a.getIdJenisKapasitasProduksi().toString();
-        mDatabase.delete(FK3aJenisKapasitasProduksiTable.NAME,FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI+ "=?",
-                new String[] {formKompal3aId});
-    }
-
     public void addFormKompal3b(FormKompal3b formKompal3b){
         ContentValues values=getFormKompal3bContentValues(formKompal3b);
         String formKompal3bId=formKompal3b.getIdjumlahProduksi().toString();
@@ -819,12 +877,6 @@ public class DummyMaker {
         }finally {
             cursor.close();
         }
-    }
-
-    public void deleteFormKompal3b(FormKompal3b formKompal3b){
-        String formKompal3bId=formKompal3b.getIdjumlahProduksi().toString();
-        mDatabase.delete(FK3bJumlahProduksiTable.NAME,FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI+ "=?",
-                new String[] {formKompal3bId});
     }
 
     public void addFormKompal3c(FormKompal3c formKompal3c){
@@ -899,69 +951,67 @@ public class DummyMaker {
         }
     }
 
-    private void addGalpalForms(int formGalpalId,int kualifikasiSurveyId, String id6){
+    private void addGalpalForms(int formGalpalId,int kualifikasiSurveyId){
         FormGalpal1 formGalpal1=new FormGalpal1();
         formGalpal1.setIdentitasPerusahaanId(formGalpalId);
         formGalpal1.setKualifikasiSurveyId(kualifikasiSurveyId);
 
         FormGalpal3 formGalpal3=new FormGalpal3();
-        formGalpal3.setIdentitasUmumGalanganId(formGalpalId+100);
+        formGalpal3.setIdentitasUmumGalanganId(formGalpalId);
         formGalpal3.setKualifikasiSurveyId(kualifikasiSurveyId);
 
         FormGalpal4 formGalpal4=new FormGalpal4();
-        formGalpal4.setTinjauanWilayahMaritimId(formGalpalId+1000);
+        formGalpal4.setTinjauanWilayahMaritimId(formGalpalId);
         formGalpal4.setKualifikasiSurveyId(kualifikasiSurveyId);
 
-        FormGalpal6List formGalpal6List=new FormGalpal6List();
-        formGalpal6List.setId(formGalpalId);
-        formGalpal6List.setKualifikasiSurveyId(kualifikasiSurveyId);
-       // FormGalpal6 formGalpal6=new FormGalpal6(UUID.fromString(id6));
-        //formGalpal6.setKualifikasiSurveyId(kualifikasiSurveyId);
-        //formGalpal6.setJenisMesin("Inas Nisrina");
-        //formGalpal6.setTahunPembuatan(2004);
+        FormGalpal6Help formGalpal6Help=new FormGalpal6Help();
+        formGalpal6Help.setIdFormGalpal6Help(formGalpalId);
+        formGalpal6Help.setKualifikasiSurveyId(kualifikasiSurveyId);
 
         addFormGalpal1a(formGalpal1);
         addFormGalpal3a(formGalpal3);
-        addFormGalpal6List(formGalpal6List);
         addFormGalpal4a(formGalpal4);
+        addFormGalpal6Helper(formGalpal6Help);
 
+    }
 
-        /*FormGalpal3 formGalpal3=new FormGalpal3();
-        formGalpal3.setIdentitasUmumGalanganId(id);
-        FormGalpal6List formGalpal6List=new FormGalpal6List();
-
-        FormGalpal6 formGalpal6=new FormGalpal6();
-        formGalpal6.setId(1);
-        formGalpal6.setJenisMesin("Mesin Gergaji");
-        formGalpal6.setTahunPembuatan(1994);
-
-        FormGalpal6 formGalpal61=new FormGalpal6();
-        formGalpal61.setId(2);
-        formGalpal61.setJenisMesin("Mesin Bla");
-        formGalpal61.setTahunPembuatan(1994);
-
-        formGalpal6List.addFormGalpal6(formGalpal61,kualifikasiSurvey);
-        formGalpal6List.addFormGalpal6(formGalpal6,kualifikasiSurvey);
-        mGalpalForms.add(formGalpal1);
-        mGalpalForms.add(formGalpal3);
-        mGalpalForms.add(formGalpal6List);
-        for(int y=galpalSize;y<mGalpalForms.size();y++){
-            mGalpalForms.get(y).setKualifikasiSurvey(kualifikasiSurvey);
-        }
-        galpalSize=mGalpalForms.size();*/
+    private void addKompalForms(int formKompalId,int kualifikasiSurveyId){
 
 
     }
-    private void makeKompalForms(KualifikasiSurvey kualifikasiSurvey,int id){
-        /*FormGalpal4 formGalpal4=new FormGalpal4();
-        formGalpal4.setTinjauanWilayahMaritimId(id);
-        mKompalForms.add(formGalpal4);
-        for(int y=kompalSize;y<mKompalForms.size();y++){
-            mKompalForms.get(y).setKualifikasiSurvey(kualifikasiSurvey);
-        }
-        kompalSize=mKompalForms.size();*/
 
+
+
+    public void deleteFormGalpal6(FormGalpal6 formGalpal6){
+        String formGalpal6Id=String.valueOf(formGalpal6.getIdPeralatanKerjaCrane());
+        mDatabase.delete(FG6PeralatanKerjaLuarCraneTable.NAME,FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE+ "=?",
+                new String[] {formGalpal6Id});
     }
+
+    public void deleteFormKompal3a(FormKompal3a formKompal3a){
+        String formKompal3aId=formKompal3a.getIdJenisKapasitasProduksi().toString();
+        mDatabase.delete(FK3aJenisKapasitasProduksiTable.NAME,FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI+ "=?",
+                new String[] {formKompal3aId});
+    }
+
+    public void deleteFormKompal3b(FormKompal3b formKompal3b){
+        String formKompal3bId=formKompal3b.getIdjumlahProduksi().toString();
+        mDatabase.delete(FK3bJumlahProduksiTable.NAME,FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI+ "=?",
+                new String[] {formKompal3bId});
+    }
+
+    public void deleteFormKompal3c(FormKompal3c formKompal3c){
+        String formKompal3cId=formKompal3c.getIdSistemBerproduksi().toString();
+        mDatabase.delete(FK3cSistemBerproduksiTable.NAME,FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI+ "=?",
+                new String[] {formKompal3cId});
+    }
+
+    public void deleteFormKompal3d(FormKompal3d formKompal3d){
+        String formKompal3dId=formKompal3d.getIdStandarMutu().toString();
+        mDatabase.delete(FK3dStandarMutuTableTable.NAME,FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU+ "=?",
+                new String[] {formKompal3dId});
+    }
+
 
 
 
@@ -1048,7 +1098,7 @@ public class DummyMaker {
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.CP_JABATAN, formGalpal1.getJabatan());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.CP_EMAIL, formGalpal1.getEmail());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.WEBSITE, formGalpal1.getWebsite());
-        contentValues.put(FG1PerusahaanIdentitasTable.Cols.STATUS_SENT,formGalpal1.isSend());
+        contentValues.put(FG1PerusahaanIdentitasTable.Cols.STATUS_SENT,formGalpal1.isSend() ? 1 : 0);
         return contentValues;
     }
 
@@ -1122,11 +1172,11 @@ public class DummyMaker {
         return contentValues;
     }
 
-    private static ContentValues getFormGalpal6ListContentValues(FormGalpal6List formGalpal6List){
+    private static ContentValues getFormGalpal6HelperContentValues(FormGalpal6Help formGalpal6Help){
         ContentValues contentValues=new ContentValues();
-        contentValues.put(FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_LIST,formGalpal6List.getId());
-        contentValues.put(FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY,formGalpal6List.getKualifikasiSurveyId());
-        contentValues.put(FG6ListPeralatanKerjaLuarCraneTable.Cols.STATUS_SENT,formGalpal6List.isSend());
+        contentValues.put(FG6Helper.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_HELPER,formGalpal6Help.getIdFormGalpal6Help());
+        contentValues.put(FG6Helper.Cols.ID_KUALIFIKASI_SURVEY,formGalpal6Help.getKualifikasiSurveyId());
+        contentValues.put(FG6Helper.Cols.STATUS_SENT,formGalpal6Help.isSend() ? 1 : 0);
         return contentValues;
     }
 

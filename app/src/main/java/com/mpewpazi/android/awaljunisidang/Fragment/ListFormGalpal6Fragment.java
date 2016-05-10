@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
@@ -27,7 +28,7 @@ import java.util.List;
  * Created by mpewpazi on 4/22/16.
  */
 public class ListFormGalpal6Fragment extends Fragment {
-    private final static String NAMA_FORM="Peralatan Ruang Kerja Luar Ruang Cranes";
+
     private final static String EXTRA_KUALIFIKASISURVEY_FORMGALPAL6="extra_kualifikasisurvey_form_galpal6";
     private final static String EXTRA_ID_FORMGALPAL6="extra_id_form_galpal6";
 
@@ -38,6 +39,11 @@ public class ListFormGalpal6Fragment extends Fragment {
     private FormGalpal6Adapter mAdapter;
     private DummyMaker mDummyMaker;
 
+    private Button mSubmitButton;
+
+    public ListFormGalpal6Fragment (){
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,7 @@ public class ListFormGalpal6Fragment extends Fragment {
 
 
         mFormGalpal6RecyclerView = (RecyclerView) view.findViewById(R.id.form_galpal6_recycler_view);
+        mSubmitButton=(Button)view.findViewById(R.id.galpal6_btn_submit);
 
         //recycler view butuh layoutmanager untuk mempossionig item di screen
         //ada banyak macam layout manager, kalau linear itu untuk vertikal posisioningnya
@@ -58,6 +65,13 @@ public class ListFormGalpal6Fragment extends Fragment {
         mFormGalpal6RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         Log.d("updateG","true");
         updateUI();
+
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         return view;
     }

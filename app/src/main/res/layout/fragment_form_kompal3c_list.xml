@@ -17,7 +17,7 @@
         android:textSize="17dp"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:text="DAFTAR PERALATAN RUANG KERJA LUAR CRANES"
+        android:text="Sistem Berproduksi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -51,7 +51,7 @@
             <TextView
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
-                android:text="Jenis Mesin"
+                android:text="Nama Produk"
                 android:layout_weight="45"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -59,7 +59,7 @@
             <TextView
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
-                android:text="Merek"
+                android:text="Sistem Produksi"
                 android:layout_weight="45"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -70,7 +70,7 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/form_galpal6_recycler_view"
+        android:id="@+id/form_kompal3c_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="89"
@@ -78,7 +78,7 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <Button android:id="@+id/galpal6_btn_submit"
+    <Button android:id="@+id/kompal3c_btn_submit"
             android:layout_weight="11"
             android:layout_width="fill_parent"
             android:layout_height="0dp"

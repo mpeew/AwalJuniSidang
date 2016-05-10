@@ -7,24 +7,16 @@ import android.support.v4.app.Fragment;
  */
 public class SingleForm {
     protected String mNamaForm;
-    protected boolean isSend=false;
+    protected boolean mSend;
     protected Fragment mFragment;
     protected int mKualifikasiSurveyId;
 
     public boolean isSend() {
-        return isSend;
-    }
-
-    public void setNamaForm(String namaForm) {
-        mNamaForm = namaForm;
-    }
-
-    public void setFragment(Fragment fragment) {
-        mFragment = fragment;
+        return mSend;
     }
 
     public void setSend(boolean send) {
-        isSend = send;
+        mSend = send;
     }
 
     public int getKualifikasiSurveyId() {
@@ -33,6 +25,14 @@ public class SingleForm {
 
     public void setKualifikasiSurveyId(int kualifikasiSurveyId) {
         mKualifikasiSurveyId = kualifikasiSurveyId;
+    }
+
+    public void setNamaForm(String namaForm) {
+        mNamaForm = namaForm;
+    }
+
+    public void setFragment(Fragment fragment) {
+        mFragment = fragment;
     }
 
     public String getNamaForm() {

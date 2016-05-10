@@ -34,6 +34,10 @@ import java.util.List;
  */
 public class FormGalpal1Fragment extends Fragment  {
 
+    public FormGalpal1Fragment(){
+
+    }
+
 
 
     private EditText mNamaPerusahaanEditText;
@@ -383,7 +387,7 @@ public class FormGalpal1Fragment extends Fragment  {
                     return;
                 }
 
-                if(!mFormGalpal1.isSend()){
+                if(mFormGalpal1.isSend()){
                     mFormGalpal1.setSend(true);
                     mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mGalpalForms.size());
                     mSubmitButton.setText(R.string.belum_lengkap);

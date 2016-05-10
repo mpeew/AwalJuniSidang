@@ -7,7 +7,7 @@ import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6List;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6Help;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
@@ -24,11 +24,11 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.*;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG3GalanganKapalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG4TinjauanAreaTable;
-import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6ListPeralatanKerjaLuarCraneTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6PeralatanKerjaLuarCraneTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKapasitasProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3cSistemBerproduksiTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarMutuTableTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PeriodeSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PerusahaanTable;
@@ -272,17 +272,17 @@ public class CursorWrapperGal extends CursorWrapper{
         return formGalpal4;
     }
 
-    public FormGalpal6List getFormGalpal6List(){
-        int idPeralatanKerjaCraneList=getInt(getColumnIndex(FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_LIST));
-        int idKualifikasiSurvey=getInt(getColumnIndex(FG6ListPeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY));
-        int status=getInt(getColumnIndex(FG6ListPeralatanKerjaLuarCraneTable.Cols.STATUS_SENT));
+    public FormGalpal6Help getFormGalpal6Help(){
+        int idFormGalpal6Help=getInt(getColumnIndex(FG6Helper.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_HELPER));
+        int idKualifikasiSurvey=getInt(getColumnIndex(FG6Helper.Cols.ID_KUALIFIKASI_SURVEY));
+        int isSend=getInt(getColumnIndex(FG6Helper.Cols.STATUS_SENT));
 
-        FormGalpal6List formGalpal6List=new FormGalpal6List();
-        formGalpal6List.setId(idPeralatanKerjaCraneList);
-        formGalpal6List.setKualifikasiSurveyId(idKualifikasiSurvey);
-        formGalpal6List.setSend(status!=1);
+        FormGalpal6Help formGalpal6Help=new FormGalpal6Help();
+        formGalpal6Help.setIdFormGalpal6Help(idFormGalpal6Help);
+        formGalpal6Help.setKualifikasiSurveyId(idKualifikasiSurvey);
+        formGalpal6Help.setSend(isSend!=1);
 
-        return formGalpal6List;
+        return formGalpal6Help;
     }
 
     public FormGalpal6 getFormGalpal6(){

@@ -14,6 +14,7 @@ import android.widget.Spinner;
 
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.R;
+import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 
 import java.util.UUID;
 
@@ -61,7 +62,7 @@ public class FormKompal3cFragment extends Fragment {
         UUID formKompal3cId=(UUID)getArguments().getSerializable(ARG_FORMKOMPAL3c_ID);
 
         //----------------------------------------------- ----------------------------------------------- -----------------------------------------------
-        //mFormGalpal6= DummyMaker.get(getActivity()).getFormGalpal6(formKompal3cId);
+        mFormKompal3c= DummyMaker.get(getActivity()).getFormKompal3c(formKompal3cId);
 
     }
 
@@ -161,10 +162,9 @@ public class FormKompal3cFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                /* ----------------------------------------------- ----------------------------------------------- -----------------------------------------------
-                DummyMaker.get(getActivity()).deleteFormGalpal6(mFormGalpal6);
+                DummyMaker.get(getActivity()).deleteFormKompal3c(mFormKompal3c);
                 isDeleteButtonUnpressed=false;
-                getActivity().finish();*/
+                getActivity().finish();
 
             }
         });
@@ -179,7 +179,7 @@ public class FormKompal3cFragment extends Fragment {
         super.onPause();
         if(isDeleteButtonUnpressed) {
             // ----------------------------------------------- ----------------------------------------------- -----------------------------------------------
-            // DummyMaker.get(getActivity()).addFormGalpal6(mFormGalpal6);
+            DummyMaker.get(getActivity()).addFormKompal3c(mFormKompal3c);
         }
     }
 }

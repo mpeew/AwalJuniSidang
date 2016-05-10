@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6List;
 import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal6Fragment;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 
@@ -21,7 +20,7 @@ import java.util.UUID;
 public class FormGalpal6PagerActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private List<FormGalpal6> mFormGalpal6s;
-    private FormGalpal6List mFormGalpal6List;
+
     private final static String EXTRA_KUALIFIKASISURVEY_FORMGALPAL6="extra_kualifikasisurvey_form_galpal6";
     private final static String EXTRA_ID_FORMGALPAL6="extra_id_form_galpal6";
 
