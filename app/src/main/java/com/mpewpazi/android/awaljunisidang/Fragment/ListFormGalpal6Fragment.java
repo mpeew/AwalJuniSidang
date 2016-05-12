@@ -17,12 +17,12 @@ import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6Help;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormGalpal6PagerActivity;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 
 import java.util.List;
 
@@ -41,10 +41,11 @@ public class ListFormGalpal6Fragment extends SingleFragment {
     private FormGalpal6Adapter mAdapter;
     private DummyMaker mDummyMaker;
 
-    private FormGalpal6Help mFormGalpal6Help;
+
     private KualifikasiSurvey mKualifikasiSurvey;
 
     private List<SingleForm> mGalpalForms;
+    private MenuCheckingGalpal mMenuCheckingGalpal;
 
     private Button mSubmitButton;
 
@@ -58,9 +59,9 @@ public class ListFormGalpal6Fragment extends SingleFragment {
         setHasOptionsMenu(true);
 
         mDummyMaker=DummyMaker.get(getContext());
-        mFormGalpal6Help=mDummyMaker.getFormGalpal6Help(DrawerFormActivity.kualifikasiSurveyId);
         mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
         mGalpalForms=mDummyMaker.getGalpalForms();
+        mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,idMenu);
 
     }
 
@@ -80,32 +81,28 @@ public class ListFormGalpal6Fragment extends SingleFragment {
         updateUI();
 
         mSubmitButton=(Button)view.findViewById(R.id.galpal6_btn_submit);
-        if(mFormGalpal6Help.isSend()){
+        if(mMenuCheckingGalpal.isComplete()){
             mSubmitButton.setText(R.string.belum_lengkap);
             mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
         }
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                if(!mFormGalpal6Help.isSend()){
-                    mFormGalpal6Help.setSend(true);
+                if(!mMenuCheckingGalpal.isComplete()){
+                    mMenuCheckingGalpal.setComplete(true);
                     mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mGalpalForms.size());
                     mSubmitButton.setText(R.string.belum_lengkap);
                     mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
                 }else{
-                    mFormGalpal6Help.setSend(false);
+                    mMenuCheckingGalpal.setComplete(false);
                     mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()-100/mGalpalForms.size());
                     mSubmitButton.setText(R.string.lengkap);
                     mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
 
-                mDummyMaker.addFormGalpal6Helper(mFormGalpal6Help);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
                 mDummyMaker.addKualifikasiSurvey(mKualifikasiSurvey);
                 mCustomClickListener.clickListener();
-
-
 
             }
         });
@@ -128,6 +125,13 @@ public class ListFormGalpal6Fragment extends SingleFragment {
         //if (mAdapter == null) {
         mAdapter = new FormGalpal6Adapter(mFormGalpal6s);
         mFormGalpal6RecyclerView.setAdapter(mAdapter);
+        if(mFormGalpal6s.size()>0){
+            mMenuCheckingGalpal.setFill(true);
+        }else{
+            mMenuCheckingGalpal.setFill(false);
+        }
+        mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+        mCustomClickListener.clickListener();
         Log.d("updateGui","true");
         //} else {
 
@@ -230,6 +234,8 @@ public class ListFormGalpal6Fragment extends SingleFragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
 
 

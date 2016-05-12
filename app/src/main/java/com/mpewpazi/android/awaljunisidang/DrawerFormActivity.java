@@ -110,6 +110,8 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
     }
 
     private void addDrawerItems(){
+        mMenuCheckingGalpals=mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId);
+        mGalpalForms= mDummyMaker.getGalpalForms();
         mAdapter=new SingleFormAdapter(mGalpalForms,mMenuCheckingGalpals,this);
         mDrawerRecyclerView.setAdapter(mAdapter);
 
@@ -195,7 +197,9 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
 
         private TextView mNoTextView;
         private TextView mTittleTextView;
-        private ImageView mStatusTextView;
+        private ImageView mStatusFillTextView;
+        private ImageView mStatusCompleteTextView;
+        private ImageView mStatusVerifiedTextView;
         private CustomClickListener mCustomClickListener;
 
         private SingleForm mSingleForm;
@@ -207,8 +211,14 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
             mTittleTextView.setText(mSingleForm.getNamaForm());
             //mStatusTextView.setText("-");
             mNoTextView.setText(String.valueOf(no));
+            if(mMenuCheckingGalpal.isFill()){
+                mStatusFillTextView.setImageResource(R.drawable.ok_icon);
+            }
             if(mMenuCheckingGalpal.isComplete()){
-                mStatusTextView.setImageResource(R.drawable.ok_icon);
+                mStatusCompleteTextView.setImageResource(R.drawable.ok_icon);
+            }
+            if(mMenuCheckingGalpal.isVerified()){
+                mStatusVerifiedTextView.setImageResource(R.drawable.ok_icon);
             }
 
         }
@@ -220,7 +230,9 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
 
             mNoTextView=(TextView) itemView.findViewById(R.id.list_item_single_form_no);
             mTittleTextView=(TextView) itemView.findViewById(R.id.list_item_single_form_title);
-            mStatusTextView=(ImageView) itemView.findViewById(R.id.list_item_single_form_status);
+            mStatusFillTextView=(ImageView) itemView.findViewById(R.id.list_item_single_form_status_fill);
+            mStatusCompleteTextView=(ImageView) itemView.findViewById(R.id.list_item_single_form_status_complete);
+            mStatusVerifiedTextView=(ImageView)itemView.findViewById(R.id.list_item_single_form_status_verified);
 
             mCustomClickListener=customClickListener;
 
@@ -276,9 +288,5 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
 
     }
 
-    @Override
-    protected void onResumeFragments() {
-        super.onResumeFragments();
-        mAdapter.notifyDataSetChanged();
-    }
+
 }

@@ -7,7 +7,6 @@ import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6Help;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
@@ -22,11 +21,9 @@ import com.mpewpazi.android.awaljunisidang.model.User;
 
 import java.util.UUID;
 
-import static com.mpewpazi.android.awaljunisidang.database.DhSchema.*;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG3GalanganKapalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG4TinjauanAreaTable;
-import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6Helper;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6PeralatanKerjaLuarCraneTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKapasitasProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
@@ -34,6 +31,7 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3cSistemBe
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarMutuTableTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingGalpalTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingKompalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PeriodeSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PerusahaanTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.SurveyAssignSurveyorTable;
@@ -154,7 +152,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String cpJabatan=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.CP_JABATAN));
         String cpEmail=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.CP_EMAIL));
         String website=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.WEBSITE));
-        int status=getInt(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.STATUS_SENT));
+
 
         FormGalpal1 formGalpal1=new FormGalpal1();
         formGalpal1.setIdentitasPerusahaanId(idIdentitasPerusahaan);
@@ -175,7 +173,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal1.setJabatan(cpJabatan);
         formGalpal1.setEmail(cpEmail);
         formGalpal1.setWebsite(website);
-        formGalpal1.setSend(status==1);
+
 
         return formGalpal1;
     }
@@ -201,7 +199,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String cpNo=getString(getColumnIndex(FG3GalanganKapalTable.Cols.CP_NO));
         String cpJabatan=getString(getColumnIndex(FG3GalanganKapalTable.Cols.CP_JABATAN));
         String cpEmail=getString(getColumnIndex(FG3GalanganKapalTable.Cols.CP_EMAIL));
-        int status=getInt(getColumnIndex(FG3GalanganKapalTable.Cols.STATUS_SENT));
+
 
         FormGalpal3 formGalpal3=new FormGalpal3();
         formGalpal3.setIdentitasUmumGalanganId(idGalanganKapal);
@@ -224,7 +222,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal3.setNomorCp(cpNo);
         formGalpal3.setJabatan(cpJabatan);
         formGalpal3.setEmail(cpEmail);
-        formGalpal3.setSend(status==1);
+
 
         return formGalpal3;
     }
@@ -251,7 +249,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String nilaiEkonomi=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.NILAI_EKONOMI));
         String perkembanganWilayah=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.PERKEMBANGAN_WILAYAH));
         String rutrw=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.RUTWR));
-        int status=getInt(getColumnIndex(FG3GalanganKapalTable.Cols.STATUS_SENT));
+
 
         FormGalpal4 formGalpal4=new FormGalpal4();
         formGalpal4.setTinjauanWilayahMaritimId(idTinjauanWilayahMaritim);
@@ -275,23 +273,11 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal4.setNilaiEkonomi(nilaiEkonomi);
         formGalpal4.setPerkembanganWilayah(perkembanganWilayah);
         formGalpal4.setRutrw(rutrw);
-        formGalpal4.setSend(status==1);
+
 
         return formGalpal4;
     }
 
-    public FormGalpal6Help getFormGalpal6Help(){
-        int idFormGalpal6Help=getInt(getColumnIndex(FG6Helper.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_HELPER));
-        int idKualifikasiSurvey=getInt(getColumnIndex(FG6Helper.Cols.ID_KUALIFIKASI_SURVEY));
-        int isSend=getInt(getColumnIndex(FG6Helper.Cols.STATUS_SENT));
-
-        FormGalpal6Help formGalpal6Help=new FormGalpal6Help();
-        formGalpal6Help.setIdFormGalpal6Help(idFormGalpal6Help);
-        formGalpal6Help.setKualifikasiSurveyId(idKualifikasiSurvey);
-        formGalpal6Help.setSend(isSend==1);
-
-        return formGalpal6Help;
-    }
 
     public FormGalpal6 getFormGalpal6(){
         String idPeralatanKerjaCrane=getString(getColumnIndex(FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE));

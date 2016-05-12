@@ -1,11 +1,14 @@
 package com.mpewpazi.android.awaljunisidang.Form;
 
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormKompal3bFragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
+
 import java.util.UUID;
 
 /**
  * Created by mpewpazi on 5/6/16.
  */
-public class FormKompal3b {
+public class FormKompal3b extends SingleForm {
     private UUID idjumlahProduksi;
     private int idKualifikasiSurvey;
     private String jenisProduk;
@@ -19,6 +22,16 @@ public class FormKompal3b {
     private int nilaiProduksiThn3;
     private int nilaiProduksiThn4;
     private String keterangan;
+
+    @Override
+    public String getNamaForm() {
+        return "Jumlah dan Nilai Produksi 4 Tahun Terakhir";
+    }
+
+    @Override
+    public SingleFragment getFragment() {
+        return new ListFormKompal3bFragment();
+    }
 
     public FormKompal3b(){
         this(UUID.randomUUID());

@@ -142,11 +142,14 @@ public class FormGalpal1Fragment extends SingleFragment  {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mFormGalpal1.setNomorTelepon(s.toString());
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
@@ -164,7 +167,9 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
@@ -182,7 +187,9 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
@@ -200,7 +207,9 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
@@ -218,7 +227,9 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
@@ -236,7 +247,9 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
@@ -255,7 +268,9 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
@@ -273,7 +288,9 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
@@ -291,7 +308,9 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
@@ -309,7 +328,9 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
@@ -327,7 +348,9 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
@@ -346,7 +369,9 @@ public class FormGalpal1Fragment extends SingleFragment  {
             @Override
             public void afterTextChanged(Editable s) {
                 validateEmail();
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
@@ -364,7 +389,9 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
         

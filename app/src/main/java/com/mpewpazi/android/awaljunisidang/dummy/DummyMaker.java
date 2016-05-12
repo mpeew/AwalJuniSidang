@@ -9,15 +9,10 @@ import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6Help;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
-import com.mpewpazi.android.awaljunisidang.Form.FormKompal3aHelp;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
-import com.mpewpazi.android.awaljunisidang.Form.FormKompal3bHelp;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
-import com.mpewpazi.android.awaljunisidang.Form.FormKompal3cHelp;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
-import com.mpewpazi.android.awaljunisidang.Form.FormKompal3dHelp;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
 import com.mpewpazi.android.awaljunisidang.database.CursorWrapperGal;
@@ -36,7 +31,6 @@ import java.util.UUID;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG3GalanganKapalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG4TinjauanAreaTable;
-import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6Helper;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6PeralatanKerjaLuarCraneTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKapasitasProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
@@ -430,23 +424,6 @@ public class DummyMaker {
         }
     }
 
-    public FormGalpal6Help getFormGalpal6Help(int idKualifiaksiSurvey){
-
-        CursorWrapperGal cursor=query(FG6Helper.NAME,FG6Helper.Cols.ID_KUALIFIKASI_SURVEY+ "=?",
-                new String[] {String.valueOf(idKualifiaksiSurvey)});
-        try{
-            if(cursor.getCount()==0){
-                return null;
-
-            }
-
-            cursor.moveToFirst();
-            return cursor.getFormGalpal6Help();
-        }finally {
-            cursor.close();
-        }
-    }
-
     public FormKompal3a getFormKompal3a(UUID idFormKompal3a){
         CursorWrapperGal cursor=query(FK3aJenisKapasitasProduksiTable.NAME,FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI+ "=?",
                 new String[] {idFormKompal3a.toString()});
@@ -662,10 +639,10 @@ public class DummyMaker {
 
     public List<SingleForm> getKompalForms() {
         List<SingleForm> kompalForms=new ArrayList<>();
-        kompalForms.add(new FormKompal3aHelp());
-        kompalForms.add(new FormKompal3bHelp());
-        kompalForms.add(new FormKompal3cHelp());
-        kompalForms.add(new FormKompal3dHelp());
+        kompalForms.add(new FormKompal3a());
+        kompalForms.add(new FormKompal3b());
+        kompalForms.add(new FormKompal3c());
+        kompalForms.add(new FormKompal3d());
         return kompalForms;
     }
 
@@ -820,7 +797,7 @@ public class DummyMaker {
         }
     }
 
-    private void addMenuCheckingKompal(MenuCheckingKompal menuCheckingKompal){
+    public void addMenuCheckingKompal(MenuCheckingKompal menuCheckingKompal){
         ContentValues values=getMenuCheckingKompalContentValues(menuCheckingKompal);
         String idMenuCheckingKompal=String.valueOf(menuCheckingKompal.getIdMenuCheckingKompal());
 
@@ -848,7 +825,7 @@ public class DummyMaker {
             if(cursor.getCount()==0){
                 mDatabase.insert(MenuCheckingKompalTable.NAME,null,values);
             }else{
-                mDatabase.update(MenuCheckingKompalTable.NAME,values,MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING+" = ?",new String[]{idMenuCheckingKompal});
+                //mDatabase.update(MenuCheckingKompalTable.NAME,values,MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING+" = ?",new String[]{idMenuCheckingKompal});
             }
 
         }finally {
@@ -976,46 +953,6 @@ public class DummyMaker {
                 mDatabase.insert(FG6PeralatanKerjaLuarCraneTable.NAME,null,values);
             }else{
                 mDatabase.update(FG6PeralatanKerjaLuarCraneTable.NAME,values,FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE+" = ?",new String[]{formGalpal6Id});
-            }
-
-        }finally {
-            cursor.close();
-        }
-    }
-
-    public void addFormGalpal6Helper(FormGalpal6Help formGalpal6Help){
-
-
-        ContentValues values=getFormGalpal6HelperContentValues(formGalpal6Help);
-        String formGalpal6HelpId=String.valueOf(formGalpal6Help.getIdFormGalpal6Help());
-
-        CursorWrapperGal cursor=query(FG6Helper.NAME,FG6Helper.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_HELPER+ "=?",
-                new String[] {formGalpal6HelpId});
-        try{
-            if(cursor.getCount()==0){
-                mDatabase.insert(FG6Helper.NAME,null,values);
-            }else{
-                mDatabase.update(FG6Helper.NAME,values,FG6Helper.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_HELPER+" = ?",new String[]{formGalpal6HelpId});
-            }
-
-        }finally {
-            cursor.close();
-        }
-    }
-
-    public void addFormGalpal6Helpera(FormGalpal6Help formGalpal6Help){
-
-
-        ContentValues values=getFormGalpal6HelperContentValues(formGalpal6Help);
-        String formGalpal6HelpId=String.valueOf(formGalpal6Help.getIdFormGalpal6Help());
-
-        CursorWrapperGal cursor=query(FG6Helper.NAME,FG6Helper.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_HELPER+ "=?",
-                new String[] {formGalpal6HelpId});
-        try{
-            if(cursor.getCount()==0){
-                mDatabase.insert(FG6Helper.NAME,null,values);
-            }else{
-               // mDatabase.update(FG6Helper.NAME,values,FG6Helper.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_HELPER+" = ?",new String[]{formGalpal6HelpId});
             }
 
         }finally {
@@ -1351,7 +1288,6 @@ public class DummyMaker {
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.CP_JABATAN, formGalpal1.getJabatan());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.CP_EMAIL, formGalpal1.getEmail());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.WEBSITE, formGalpal1.getWebsite());
-        contentValues.put(FG1PerusahaanIdentitasTable.Cols.STATUS_SENT,formGalpal1.isSend() ? 1 : 0);
         return contentValues;
     }
 
@@ -1377,7 +1313,6 @@ public class DummyMaker {
         contentValues.put(FG3GalanganKapalTable.Cols.CP_NO, formGalpal3.getNomorCp());
         contentValues.put(FG3GalanganKapalTable.Cols.CP_JABATAN, formGalpal3.getJabatan());
         contentValues.put(FG3GalanganKapalTable.Cols.CP_EMAIL, formGalpal3.getEmail());
-        contentValues.put(FG3GalanganKapalTable.Cols.STATUS_SENT,formGalpal3.isSend() ? 1 : 0);
         return contentValues;
     }
 
@@ -1404,7 +1339,6 @@ public class DummyMaker {
         contentValues.put(FG4TinjauanAreaTable.Cols.NILAI_EKONOMI, formGalpal4.getNilaiEkonomi());
         contentValues.put(FG4TinjauanAreaTable.Cols.PERKEMBANGAN_WILAYAH, formGalpal4.getPerkembanganWilayah());
         contentValues.put(FG4TinjauanAreaTable.Cols.RUTWR, formGalpal4.getRutrw());
-        contentValues.put(FG4TinjauanAreaTable.Cols.STATUS_SENT,formGalpal4.isSend() ? 1 : 0);
         return contentValues;
     }
 
@@ -1427,13 +1361,7 @@ public class DummyMaker {
         return contentValues;
     }
 
-    private static ContentValues getFormGalpal6HelperContentValues(FormGalpal6Help formGalpal6Help){
-        ContentValues contentValues=new ContentValues();
-        contentValues.put(FG6Helper.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_HELPER,formGalpal6Help.getIdFormGalpal6Help());
-        contentValues.put(FG6Helper.Cols.ID_KUALIFIKASI_SURVEY,formGalpal6Help.getKualifikasiSurveyId());
-        contentValues.put(FG6Helper.Cols.STATUS_SENT,formGalpal6Help.isSend() ? 1 : 0);
-        return contentValues;
-    }
+
 
     private static ContentValues getFormKompal3aContentValues(FormKompal3a formKompal3a){
         ContentValues contentValues=new ContentValues();

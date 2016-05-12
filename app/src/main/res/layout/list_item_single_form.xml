@@ -11,6 +11,7 @@
                   android:padding="10dp">
 
         <TextView
+            android:textColor="@android:color/black"
             android:textSize="15dp"
             android:id="@+id/list_item_single_form_no"
             android:layout_width="0dp"
@@ -18,6 +19,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:textColor="@android:color/black"
             android:textSize="15dp"
             android:id="@+id/list_item_single_form_title"
             android:layout_width="0dp"
@@ -25,10 +27,25 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
-            android:id="@+id/list_item_single_form_status"
+            android:id="@+id/list_item_single_form_status_fill"
+            android:src="@drawable/not_ok_icon"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:gravity="center"/>
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:id="@+id/list_item_single_form_status_complete"
+            android:src="@drawable/not_ok_icon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:id="@+id/list_item_single_form_status_verified"
+            android:src="@drawable/not_ok_icon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"/>
 
 
     </LinearLayout>

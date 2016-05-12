@@ -16,6 +16,7 @@ import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class FormGalpal4Fragment extends SingleFragment {
     private KualifikasiSurvey mKualifikasiSurvey;
     private List<SingleForm> mGalpalForms;
     private FormGalpal4 mFormGalpal4;
+    private MenuCheckingGalpal mMenuCheckingGalpal;
 
 
 
@@ -61,6 +63,7 @@ public class FormGalpal4Fragment extends SingleFragment {
         mKualifikasiSurvey= mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
         mFormGalpal4=mDummyMaker.getFormGalpal4(DrawerFormActivity.kualifikasiSurveyId);
         mGalpalForms=mDummyMaker.getGalpalForms();
+        mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,idMenu);
 
 
 
@@ -110,7 +113,9 @@ public class FormGalpal4Fragment extends SingleFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
@@ -128,29 +133,32 @@ public class FormGalpal4Fragment extends SingleFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
             }
         });
 
-        if(mFormGalpal4.isSend()){
+        if(mMenuCheckingGalpal.isComplete()){
             mSubmitButton.setText(R.string.belum_lengkap);
             mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
         }
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mFormGalpal4.isSend()){
-                    mFormGalpal4.setSend(true);
+                if(!mMenuCheckingGalpal.isComplete()){
+                    mMenuCheckingGalpal.setComplete(true);
                     mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mGalpalForms.size());
                     mSubmitButton.setText(R.string.belum_lengkap);
                     mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
                 }else{
-                    mFormGalpal4.setSend(false);
+                    mMenuCheckingGalpal.setComplete(false);
                     mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()-100/mGalpalForms.size());
                     mSubmitButton.setText(R.string.lengkap);
                     mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
 
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
                 mDummyMaker.addFormGalpal4(mFormGalpal4);
                 mDummyMaker.addKualifikasiSurvey(mKualifikasiSurvey);
                 mCustomClickListener.clickListener();

@@ -1,15 +1,28 @@
 package com.mpewpazi.android.awaljunisidang.Form;
 
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormKompal3dFragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
+
 import java.util.UUID;
 
 /**
  * Created by mpewpazi on 5/6/16.
  */
-public class FormKompal3d {
+public class FormKompal3d extends SingleForm {
     private UUID idStandarMutu;
     private int idKualifikasiSurvey;
     private String jenisStandarMutu;
     private String keterangan;
+
+    @Override
+    public String getNamaForm() {
+        return "Standar Mutu";
+    }
+
+    @Override
+    public SingleFragment getFragment() {
+        return new ListFormKompal3dFragment();
+    }
 
     public FormKompal3d(){
         this(UUID.randomUUID());
