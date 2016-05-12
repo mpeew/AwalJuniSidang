@@ -1151,7 +1151,6 @@ public class DummyMaker {
     private void addMenuCheckingGalpals(int kualifikasiSurveyId){
         for(int x=0;x<getGalpalForms().size();x++){
             MenuCheckingGalpal menuCheckingGalpal=new MenuCheckingGalpal();
-            menuCheckingGalpal.setIdMenuCheckingGalpal(x);
             menuCheckingGalpal.setIdKualifikasiSurvey(kualifikasiSurveyId);
             menuCheckingGalpal.setIdMenuGalpal(x);
             addMenuCheckingGalpala(menuCheckingGalpal);
@@ -1161,7 +1160,6 @@ public class DummyMaker {
     private void addMenuCheckingKompals(int kualifikasiSurveyId){
         for(int x=0;x<getKompalForms().size();x++){
             MenuCheckingKompal menuCheckingKompal=new MenuCheckingKompal();
-            menuCheckingKompal.setIdMenuCheckingKompal(x);
             menuCheckingKompal.setIdKualifikasiSurvey(kualifikasiSurveyId);
             menuCheckingKompal.setIdMenuKompal(x);
             addMenuCheckingKompala(menuCheckingKompal);
@@ -1416,7 +1414,7 @@ public class DummyMaker {
 
     private ContentValues getMenuCheckingGalpalContentValues(MenuCheckingGalpal menuCheckingGalpal){
         ContentValues contentValues=new ContentValues();
-        contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING,menuCheckingGalpal.getIdMenuCheckingGalpal());
+        contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING,menuCheckingGalpal.getIdMenuCheckingGalpal().toString());
         contentValues.put(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY,menuCheckingGalpal.getIdKualifikasiSurvey());
         contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1,menuCheckingGalpal.getIdMenuGalpal());
         contentValues.put(MenuCheckingGalpalTable.Cols.IS_FILL,menuCheckingGalpal.isFill() ? 1 : 0);
@@ -1427,9 +1425,9 @@ public class DummyMaker {
 
     private ContentValues getMenuCheckingKompalContentValues(MenuCheckingKompal menuCheckingKompal){
         ContentValues contentValues=new ContentValues();
-        contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING,menuCheckingKompal.getIdMenuCheckingKompal());
+        contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING,menuCheckingKompal.getIdMenuCheckingKompal().toString());
         contentValues.put(MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY,menuCheckingKompal.getIdKualifikasiSurvey());
-        contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2,menuCheckingKompal.getIdMenuCheckingKompal());
+        contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2,menuCheckingKompal.getIdMenuKompal());
         contentValues.put(MenuCheckingKompalTable.Cols.IS_FILL,menuCheckingKompal.isFill() ? 1 : 0);
         contentValues.put(MenuCheckingKompalTable.Cols.IS_COMPLETE,menuCheckingKompal.isComplete() ? 1 : 0);
         contentValues.put(MenuCheckingKompalTable.Cols.IS_VERIFIED,menuCheckingKompal.isVerified() ? 1 : 0);

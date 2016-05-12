@@ -1,22 +1,28 @@
 package com.mpewpazi.android.awaljunisidang.model;
 
+import java.util.UUID;
+
 /**
  * Created by mpewpazi on 5/11/16.
  */
 public class MenuCheckingGalpal {
-    private int idMenuCheckingGalpal;
+    private UUID idMenuCheckingGalpal;
     private int idKualifikasiSurvey;
     private int idMenuGalpal;
     private boolean fill;
     private boolean complete;
     private boolean verified;
 
-    public int getIdMenuCheckingGalpal() {
+    public UUID getIdMenuCheckingGalpal() {
         return idMenuCheckingGalpal;
     }
 
-    public void setIdMenuCheckingGalpal(int idMenuCheckingGalpal) {
-        this.idMenuCheckingGalpal = idMenuCheckingGalpal;
+    public MenuCheckingGalpal(){
+        idMenuCheckingGalpal=UUID.randomUUID();
+    }
+
+    public MenuCheckingGalpal(UUID uuid){
+        idMenuCheckingGalpal=uuid;
     }
 
     public int getIdKualifikasiSurvey() {
