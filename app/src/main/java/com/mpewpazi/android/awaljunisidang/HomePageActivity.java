@@ -34,7 +34,6 @@ public class HomePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
 
-
         mRecyclerView=(RecyclerView)findViewById(R.id.surveyy_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

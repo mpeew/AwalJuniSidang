@@ -1,7 +1,6 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -22,7 +21,7 @@ import java.util.List;
 /**
  * Created by mpewpazi on 3/27/16.
  */
-public class FormGalpal3Fragment extends Fragment {
+public class FormGalpal3Fragment extends SingleFragment {
 
     private final static String NAMA_FORM="Identitas Umum Galangan";
 
@@ -61,24 +60,21 @@ public class FormGalpal3Fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        updateData();
+        mDummyMaker= DummyMaker.get(getActivity());
+        mKualifikasiSurvey= DummyMaker.get(getActivity()).getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
+        mFormGalpal3=DummyMaker.get(getActivity()).getFormGalpal3(DrawerFormActivity.kualifikasiSurveyId);
+        mGalpalForms=DummyMaker.get(getActivity()).getGalpalForms();
 
         mNamaPerusahaan=mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan();
 
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateData();
-    }
 
-    private void updateData() {
-        mDummyMaker= DummyMaker.get(getActivity());
-        mKualifikasiSurvey= DummyMaker.get(getActivity()).getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
-        mFormGalpal3=DummyMaker.get(getActivity()).getFormGalpal3(DrawerFormActivity.kualifikasiSurveyId);
-    }
+
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -364,10 +360,28 @@ public class FormGalpal3Fragment extends Fragment {
 
 
         mSubmitButton=(Button)rootView.findViewById(R.id.galpal3_btn_submit);
+        if(mFormGalpal3.isSend()){
+            mSubmitButton.setText(R.string.belum_lengkap);
+            mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+        }
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!mFormGalpal3.isSend()){
+                    mFormGalpal3.setSend(true);
+                    mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mGalpalForms.size());
+                    mSubmitButton.setText(R.string.belum_lengkap);
+                    mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                }else{
+                    mFormGalpal3.setSend(false);
+                    mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()-100/mGalpalForms.size());
+                    mSubmitButton.setText(R.string.lengkap);
+                    mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
 
+                mDummyMaker.addFormGalpal3(mFormGalpal3);
+                mDummyMaker.addKualifikasiSurvey(mKualifikasiSurvey);
+                mCustomClickListener.clickListener();
 
             }
         });
@@ -380,6 +394,7 @@ public class FormGalpal3Fragment extends Fragment {
     public void onPause() {
         super.onPause();
         mDummyMaker.addFormGalpal3(mFormGalpal3);
+
     }
 
 }

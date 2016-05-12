@@ -87,12 +87,12 @@ public class FormKompal3bFragment extends Fragment {
         mNilaiProduksiThn2EditText=(EditText)rootView.findViewById(R.id.kompal3b_nilai_prod_2012);
         mNilaiProduksiThn3EditText=(EditText)rootView.findViewById(R.id.kompal3b_nilai_prod_2013);
         mNilaiProduksiThn4EditText=(EditText)rootView.findViewById(R.id.kompal3b_nilai_prod_2014);
-        mKeteranganEditText=(EditText)rootView.findViewById(R.id.kompal3d_keterangan);
+        mKeteranganEditText=(EditText)rootView.findViewById(R.id.kompal3b_keterangan);
 
         mDeleteButton=(Button)rootView.findViewById(R.id.kompal3b_btn_delete);
 
 
-        mJumlahProduksiThn1EditText.setText(mFormKompal3b.getJumlahProdThn1());
+        mJumlahProduksiThn1EditText.setText(String.valueOf(mFormKompal3b.getJumlahProdThn1()));
         mJumlahProduksiThn1EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -111,7 +111,7 @@ public class FormKompal3bFragment extends Fragment {
         });
 
 
-        mJumlahProduksiThn2EditText.setText(mFormKompal3b.getJumlahProdThn2());
+        mJumlahProduksiThn2EditText.setText(String.valueOf(mFormKompal3b.getJumlahProdThn2()));
         mJumlahProduksiThn2EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -129,7 +129,7 @@ public class FormKompal3bFragment extends Fragment {
             }
         });
 
-        mJumlahProduksiThn3EditText.setText(mFormKompal3b.getJumlahProdThn3());
+        mJumlahProduksiThn3EditText.setText(String.valueOf(mFormKompal3b.getJumlahProdThn3()));
         mJumlahProduksiThn3EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -147,7 +147,7 @@ public class FormKompal3bFragment extends Fragment {
             }
         });
 
-        mJumlahProduksiThn4EditText.setText(mFormKompal3b.getJumlahProdThn4());
+        mJumlahProduksiThn4EditText.setText(String.valueOf(mFormKompal3b.getJumlahProdThn4()));
         mJumlahProduksiThn4EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -165,7 +165,7 @@ public class FormKompal3bFragment extends Fragment {
             }
         });
 
-        mNilaiProduksiThn1EditText.setText(mFormKompal3b.getNilaiProduksiThn1());
+        mNilaiProduksiThn1EditText.setText(String.valueOf(mFormKompal3b.getNilaiProduksiThn1()));
         mNilaiProduksiThn1EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -183,7 +183,7 @@ public class FormKompal3bFragment extends Fragment {
             }
         });
 
-        mNilaiProduksiThn2EditText.setText(mFormKompal3b.getNilaiProduksiThn2());
+        mNilaiProduksiThn2EditText.setText(String.valueOf(mFormKompal3b.getNilaiProduksiThn2()));
         mNilaiProduksiThn2EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -201,7 +201,7 @@ public class FormKompal3bFragment extends Fragment {
             }
         });
 
-        mNilaiProduksiThn3EditText.setText(mFormKompal3b.getNilaiProduksiThn3());
+        mNilaiProduksiThn3EditText.setText(String.valueOf(mFormKompal3b.getNilaiProduksiThn3()));
         mNilaiProduksiThn3EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -219,7 +219,7 @@ public class FormKompal3bFragment extends Fragment {
             }
         });
 
-        mNilaiProduksiThn4EditText.setText(mFormKompal3b.getNilaiProduksiThn4());
+        mNilaiProduksiThn4EditText.setText(String.valueOf(mFormKompal3b.getNilaiProduksiThn4()));
         mNilaiProduksiThn4EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

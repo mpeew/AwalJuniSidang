@@ -3,7 +3,6 @@ package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,16 +17,19 @@ import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6Help;
+import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormGalpal6PagerActivity;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 
 import java.util.List;
 
 /**
  * Created by mpewpazi on 4/22/16.
  */
-public class ListFormGalpal6Fragment extends Fragment {
+public class ListFormGalpal6Fragment extends SingleFragment {
 
     private final static String EXTRA_KUALIFIKASISURVEY_FORMGALPAL6="extra_kualifikasisurvey_form_galpal6";
     private final static String EXTRA_ID_FORMGALPAL6="extra_id_form_galpal6";
@@ -39,6 +41,11 @@ public class ListFormGalpal6Fragment extends Fragment {
     private FormGalpal6Adapter mAdapter;
     private DummyMaker mDummyMaker;
 
+    private FormGalpal6Help mFormGalpal6Help;
+    private KualifikasiSurvey mKualifikasiSurvey;
+
+    private List<SingleForm> mGalpalForms;
+
     private Button mSubmitButton;
 
     public ListFormGalpal6Fragment (){
@@ -49,6 +56,12 @@ public class ListFormGalpal6Fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        mDummyMaker=DummyMaker.get(getContext());
+        mFormGalpal6Help=mDummyMaker.getFormGalpal6Help(DrawerFormActivity.kualifikasiSurveyId);
+        mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
+        mGalpalForms=mDummyMaker.getGalpalForms();
+
     }
 
     @Override
@@ -57,7 +70,7 @@ public class ListFormGalpal6Fragment extends Fragment {
 
 
         mFormGalpal6RecyclerView = (RecyclerView) view.findViewById(R.id.form_galpal6_recycler_view);
-        mSubmitButton=(Button)view.findViewById(R.id.galpal6_btn_submit);
+
 
         //recycler view butuh layoutmanager untuk mempossionig item di screen
         //ada banyak macam layout manager, kalau linear itu untuk vertikal posisioningnya
@@ -66,9 +79,33 @@ public class ListFormGalpal6Fragment extends Fragment {
         Log.d("updateG","true");
         updateUI();
 
+        mSubmitButton=(Button)view.findViewById(R.id.galpal6_btn_submit);
+        if(mFormGalpal6Help.isSend()){
+            mSubmitButton.setText(R.string.belum_lengkap);
+            mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+        }
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                if(!mFormGalpal6Help.isSend()){
+                    mFormGalpal6Help.setSend(true);
+                    mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mGalpalForms.size());
+                    mSubmitButton.setText(R.string.belum_lengkap);
+                    mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                }else{
+                    mFormGalpal6Help.setSend(false);
+                    mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()-100/mGalpalForms.size());
+                    mSubmitButton.setText(R.string.lengkap);
+                    mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+
+                mDummyMaker.addFormGalpal6Helper(mFormGalpal6Help);
+                mDummyMaker.addKualifikasiSurvey(mKualifikasiSurvey);
+                mCustomClickListener.clickListener();
+
+
 
             }
         });

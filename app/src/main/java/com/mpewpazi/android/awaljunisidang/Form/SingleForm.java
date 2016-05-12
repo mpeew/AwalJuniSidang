@@ -1,6 +1,6 @@
 package com.mpewpazi.android.awaljunisidang.Form;
 
-import android.support.v4.app.Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
 
 /**
  * Created by mpewpazi on 3/31/16.
@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 public class SingleForm {
     protected String mNamaForm;
     protected boolean mSend;
-    protected Fragment mFragment;
+    protected SingleFragment mFragment;
     protected int mKualifikasiSurveyId;
 
     public boolean isSend() {
@@ -31,7 +31,7 @@ public class SingleForm {
         mNamaForm = namaForm;
     }
 
-    public void setFragment(Fragment fragment) {
+    public void setFragment(SingleFragment fragment) {
         mFragment = fragment;
     }
 
@@ -39,7 +39,7 @@ public class SingleForm {
         return mNamaForm;
     }
 
-    public Fragment getFragment() {
+    public SingleFragment getFragment() {
         return mFragment;
     }
 }

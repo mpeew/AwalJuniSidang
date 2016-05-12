@@ -13,6 +13,8 @@ import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
 import com.mpewpazi.android.awaljunisidang.model.PeriodeSurvey;
 import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
 import com.mpewpazi.android.awaljunisidang.model.SurveyAssignSurveyor;
@@ -24,12 +26,14 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.*;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG3GalanganKapalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG4TinjauanAreaTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6Helper;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6PeralatanKerjaLuarCraneTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKapasitasProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3cSistemBerproduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarMutuTableTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingGalpalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PeriodeSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PerusahaanTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.SurveyAssignSurveyorTable;
@@ -171,7 +175,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal1.setJabatan(cpJabatan);
         formGalpal1.setEmail(cpEmail);
         formGalpal1.setWebsite(website);
-        formGalpal1.setSend(status!=1);
+        formGalpal1.setSend(status==1);
 
         return formGalpal1;
     }
@@ -197,6 +201,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String cpNo=getString(getColumnIndex(FG3GalanganKapalTable.Cols.CP_NO));
         String cpJabatan=getString(getColumnIndex(FG3GalanganKapalTable.Cols.CP_JABATAN));
         String cpEmail=getString(getColumnIndex(FG3GalanganKapalTable.Cols.CP_EMAIL));
+        int status=getInt(getColumnIndex(FG3GalanganKapalTable.Cols.STATUS_SENT));
 
         FormGalpal3 formGalpal3=new FormGalpal3();
         formGalpal3.setIdentitasUmumGalanganId(idGalanganKapal);
@@ -219,6 +224,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal3.setNomorCp(cpNo);
         formGalpal3.setJabatan(cpJabatan);
         formGalpal3.setEmail(cpEmail);
+        formGalpal3.setSend(status==1);
 
         return formGalpal3;
     }
@@ -245,6 +251,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String nilaiEkonomi=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.NILAI_EKONOMI));
         String perkembanganWilayah=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.PERKEMBANGAN_WILAYAH));
         String rutrw=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.RUTWR));
+        int status=getInt(getColumnIndex(FG3GalanganKapalTable.Cols.STATUS_SENT));
 
         FormGalpal4 formGalpal4=new FormGalpal4();
         formGalpal4.setTinjauanWilayahMaritimId(idTinjauanWilayahMaritim);
@@ -268,6 +275,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal4.setNilaiEkonomi(nilaiEkonomi);
         formGalpal4.setPerkembanganWilayah(perkembanganWilayah);
         formGalpal4.setRutrw(rutrw);
+        formGalpal4.setSend(status==1);
 
         return formGalpal4;
     }
@@ -280,7 +288,7 @@ public class CursorWrapperGal extends CursorWrapper{
         FormGalpal6Help formGalpal6Help=new FormGalpal6Help();
         formGalpal6Help.setIdFormGalpal6Help(idFormGalpal6Help);
         formGalpal6Help.setKualifikasiSurveyId(idKualifikasiSurvey);
-        formGalpal6Help.setSend(isSend!=1);
+        formGalpal6Help.setSend(isSend==1);
 
         return formGalpal6Help;
     }
@@ -399,5 +407,43 @@ public class CursorWrapperGal extends CursorWrapper{
         formKompal3d.setKeterangan(keterangan);
 
         return formKompal3d;
+    }
+
+    public MenuCheckingGalpal getMenuCheckingGalpal(){
+        int idMenuCheckingGalpal=getInt(getColumnIndex(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING));
+        int idKualifikasiSurvey=getInt(getColumnIndex(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY));
+        int idMenu=getInt(getColumnIndex(MenuCheckingGalpalTable.Cols.ID_MENU_F1));
+        int isFill=getInt(getColumnIndex(MenuCheckingGalpalTable.Cols.IS_FILL));
+        int isComplete=getInt(getColumnIndex(MenuCheckingGalpalTable.Cols.IS_COMPLETE));
+        int isVerified=getInt(getColumnIndex(MenuCheckingGalpalTable.Cols.IS_VERIFIED));
+
+        MenuCheckingGalpal menuCheckingGalpal=new MenuCheckingGalpal();
+        menuCheckingGalpal.setIdMenuCheckingGalpal(idMenuCheckingGalpal);
+        menuCheckingGalpal.setIdKualifikasiSurvey(idKualifikasiSurvey);
+        menuCheckingGalpal.setIdMenuGalpal(idMenu);
+        menuCheckingGalpal.setFill(isFill==1);
+        menuCheckingGalpal.setComplete(isComplete==1);
+        menuCheckingGalpal.setVerified(isVerified==1);
+
+        return menuCheckingGalpal;
+    }
+
+    public MenuCheckingKompal getMenuCheckingKompal(){
+        int idMenuCheckingKompal=getInt(getColumnIndex(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING));
+        int idKualifikasiSurvey=getInt(getColumnIndex(MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY));
+        int idMenu=getInt(getColumnIndex(MenuCheckingKompalTable.Cols.ID_MENU_F2));
+        int isFill=getInt(getColumnIndex(MenuCheckingKompalTable.Cols.IS_FILL));
+        int isComplete=getInt(getColumnIndex(MenuCheckingKompalTable.Cols.IS_COMPLETE));
+        int isVerified=getInt(getColumnIndex(MenuCheckingKompalTable.Cols.IS_VERIFIED));
+
+        MenuCheckingKompal menuCheckingKompal=new MenuCheckingKompal();
+        menuCheckingKompal.setIdMenuCheckingKompal(idMenuCheckingKompal);
+        menuCheckingKompal.setIdKualifikasiSurvey(idKualifikasiSurvey);
+        menuCheckingKompal.setIdMenuKompal(idMenu);
+        menuCheckingKompal.setFill(isFill==1);
+        menuCheckingKompal.setComplete(isComplete==1);
+        menuCheckingKompal.setVerified(isVerified==1);
+
+        return menuCheckingKompal;
     }
 }

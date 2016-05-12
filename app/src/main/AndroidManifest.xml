@@ -22,6 +22,14 @@
         </activity>
         <activity android:name=".FormGalpal6PagerActivity">
         </activity>
+        <activity android:name=".FormKompal3aPagerActivity">
+        </activity>
+        <activity android:name=".FormKompal3bPagerActivity">
+        </activity>
+        <activity android:name=".FormKompal3cPagerActivity">
+        </activity>
+        <activity android:name=".FormKompal3dPagerActivity">
+        </activity>
     </application>
 
 </manifest>

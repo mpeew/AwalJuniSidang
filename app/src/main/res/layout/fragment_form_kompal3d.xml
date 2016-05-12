@@ -15,7 +15,7 @@
         android:textSize="17dp"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:text="PERALATAN KERJA LUAR RUANGAN (CRANES)"
+        android:text="STANDAR MUTU"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

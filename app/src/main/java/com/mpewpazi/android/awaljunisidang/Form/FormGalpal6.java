@@ -1,11 +1,14 @@
 package com.mpewpazi.android.awaljunisidang.Form;
 
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal6Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
+
 import java.util.UUID;
 
 /**
  * Created by mpewpazi on 4/18/16.
  */
-public class FormGalpal6   {
+public class FormGalpal6  extends SingleForm {
     private UUID idPeralatanKerjaCrane;
     private int kualifikasiSurveyId;
     private String jenisMesin;
@@ -27,6 +30,16 @@ public class FormGalpal6   {
 
     public FormGalpal6(UUID id){
         idPeralatanKerjaCrane=id;
+    }
+
+    @Override
+    public SingleFragment getFragment() {
+        return new ListFormGalpal6Fragment();
+    }
+
+    @Override
+    public String getNamaForm() {
+        return "Peralatan Kerja Luar Ruang Cranes";
     }
 
     public UUID getIdPeralatanKerjaCrane() {

@@ -1,8 +1,7 @@
 package com.mpewpazi.android.awaljunisidang.Form;
 
-import android.support.v4.app.Fragment;
-
 import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal4Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
 
 /**
  * Created by mpewpazi on 4/20/16.
@@ -36,7 +35,7 @@ public class FormGalpal4 extends SingleForm {
     }
 
     @Override
-    public Fragment getFragment() {
+    public SingleFragment getFragment() {
         return new FormGalpal4Fragment();
     }
 

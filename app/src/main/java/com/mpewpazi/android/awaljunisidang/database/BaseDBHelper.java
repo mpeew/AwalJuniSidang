@@ -133,7 +133,6 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG1PerusahaanIdentitasTable.Cols.BUJUR_DERAJAT +" integer," +
                         FG1PerusahaanIdentitasTable.Cols.BUJUR_MENIT +" int," +
                         FG1PerusahaanIdentitasTable.Cols.BUJUR_DETIK +" real," +
-                        FG1PerusahaanIdentitasTable.Cols.STATUS_SENT +" ," +
                         FG1PerusahaanIdentitasTable.Cols.CREATED_DATE +" numeric," +
                         FG1PerusahaanIdentitasTable.Cols.CREATED_USER +" text," +
                         FG1PerusahaanIdentitasTable.Cols.CREATED_IP_ADDRESS +" text," +
@@ -222,7 +221,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "create table "+FG6PeralatanKerjaLuarCraneTable.NAME+
                         "("+FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE+" text primary key ," +
-                        FG6PeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY +" ," +
+                        FG6PeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         FG6PeralatanKerjaLuarCraneTable.Cols.ID_PERIODE +" ," +
                         FG6PeralatanKerjaLuarCraneTable.Cols.JENIS_MESIN +" ," +
                         FG6PeralatanKerjaLuarCraneTable.Cols.TAHUN_PEMBUATAN +" ," +
@@ -244,26 +243,14 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG6PeralatanKerjaLuarCraneTable.Cols.MODIFIED_IP_ADDRESS +" )"
         );
 
-        //Create tabel formgalpal6list
-        db.execSQL(
-                "create table "+ FG6Helper.NAME+
-                        "("+FG6Helper.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_HELPER+" integer primary key ," +
-                        FG6Helper.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
-                        FG6Helper.Cols.STATUS_SENT +" ," +
-                        FK3aJenisKapasitasProduksiTable.Cols.CREATED_DATE +" ," +
-                        FK3aJenisKapasitasProduksiTable.Cols.CREATED_USER +" ," +
-                        FK3aJenisKapasitasProduksiTable.Cols.CREATED_IP_ADDRESS +" ," +
-                        FK3aJenisKapasitasProduksiTable.Cols.MODIFIED_DATE +" ," +
-                        FK3aJenisKapasitasProduksiTable.Cols.MODIFIED_USER +" ," +
-                        FK3aJenisKapasitasProduksiTable.Cols.MODIFIED_IP_ADDRESS +" )"
-        );
+
 
 
         //Create Table FormKompal3a
         db.execSQL(
                 "create table "+FK3aJenisKapasitasProduksiTable.NAME+
                         "("+FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI+" text primary key ," +
-                        FK3aJenisKapasitasProduksiTable.Cols.ID_KUALIFIKASI_SURVEY +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         FK3aJenisKapasitasProduksiTable.Cols.ID_PERIODE +" ," +
                         FK3aJenisKapasitasProduksiTable.Cols.JENIS_PRODUKSI +" ," +
                         FK3aJenisKapasitasProduksiTable.Cols.KAPASITAS_PRODUKSI +" ," +
@@ -280,7 +267,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "create table "+FK3bJumlahProduksiTable.NAME+
                         "("+FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI+" text primary key ," +
-                        FK3bJumlahProduksiTable.Cols.ID_KUALIFIKASI_SURVEY +" ," +
+                        FK3bJumlahProduksiTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         FK3bJumlahProduksiTable.Cols.ID_PERIODE +" ," +
                         FK3bJumlahProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI +" ," +
                         FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN4 +" ," +
@@ -305,7 +292,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "create table "+ FK3cSistemBerproduksiTable.NAME+
                         "("+FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI+" text primary key ," +
-                        FK3cSistemBerproduksiTable.Cols.ID_KUALIFIKASI_SURVEY +" ," +
+                        FK3cSistemBerproduksiTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         FK3cSistemBerproduksiTable.Cols.ID_PERIODE +" ," +
                         FK3cSistemBerproduksiTable.Cols.NAMA_PRODUK +" ," +
                         FK3cSistemBerproduksiTable.Cols.ID_MST_JENIS_PRODUKSI +" ," +
@@ -326,7 +313,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "create table "+FK3dStandarMutuTableTable.NAME+
                         "("+FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU+" text primary key ," +
-                        FK3dStandarMutuTableTable.Cols.ID_KUALIFIKASI_SURVEY +" ," +
+                        FK3dStandarMutuTableTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         FK3dStandarMutuTableTable.Cols.ID_PERIODE +" ," +
                         FK3dStandarMutuTableTable.Cols.JENIS_STANDAR_MUTU +" ," +
                         FK3dStandarMutuTableTable.Cols.KETERANGAN +" ," +
@@ -337,6 +324,28 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FK3dStandarMutuTableTable.Cols.MODIFIED_USER +" ," +
                         FK3dStandarMutuTableTable.Cols.MODIFIED_IP_ADDRESS +" )"
         );
+
+        db.execSQL(
+                "create table "+MenuCheckingGalpalTable.NAME+
+                        "("+MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING+" integer primary key ," +
+                        MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
+                        MenuCheckingGalpalTable.Cols.ID_MENU_F1 +" integer ," +
+                        MenuCheckingGalpalTable.Cols.IS_FILL +" ," +
+                        MenuCheckingGalpalTable.Cols.IS_COMPLETE +" ," +
+                        MenuCheckingGalpalTable.Cols.IS_VERIFIED +" )"
+        );
+
+        db.execSQL(
+                "create table "+MenuCheckingKompalTable.NAME+
+                        "("+MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING+" integer primary key ," +
+                        MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
+                        MenuCheckingKompalTable.Cols.ID_MENU_F2 +" integer ," +
+                        MenuCheckingKompalTable.Cols.IS_FILL +" ," +
+                        MenuCheckingKompalTable.Cols.IS_COMPLETE +" ," +
+                        MenuCheckingKompalTable.Cols.IS_VERIFIED +" )"
+        );
+
+
 
        /* contoh
         db.execSQL(

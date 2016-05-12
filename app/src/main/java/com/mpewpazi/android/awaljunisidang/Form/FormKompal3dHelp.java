@@ -1,8 +1,7 @@
 package com.mpewpazi.android.awaljunisidang.Form;
 
-import android.support.v4.app.Fragment;
-
 import com.mpewpazi.android.awaljunisidang.Fragment.ListFormKompal3dFragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
 
 /**
  * Created by mpewpazi on 5/10/16.
@@ -16,7 +15,7 @@ public class FormKompal3dHelp extends SingleForm {
     }
 
     @Override
-    public Fragment getFragment() {
+    public SingleFragment getFragment() {
         return new ListFormKompal3dFragment();
     }
 

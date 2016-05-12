@@ -1,7 +1,6 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
@@ -24,7 +22,7 @@ import java.util.List;
 /**
  * Created by mpewpazi on 3/27/16.
  */
-public class FormGalpal4Fragment extends Fragment {
+public class FormGalpal4Fragment extends SingleFragment {
     private final String NAMA_FORM="Tinjauan Wilayah Maritim";
 
     private Spinner mJarakKedalamanSpinner;
@@ -49,7 +47,7 @@ public class FormGalpal4Fragment extends Fragment {
 
     private DummyMaker mDummyMaker;
     private KualifikasiSurvey mKualifikasiSurvey;
-    private List<SingleForm> mKompalForms;
+    private List<SingleForm> mGalpalForms;
     private FormGalpal4 mFormGalpal4;
 
 
@@ -62,6 +60,7 @@ public class FormGalpal4Fragment extends Fragment {
         mDummyMaker=DummyMaker.get(getActivity());
         mKualifikasiSurvey= mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
         mFormGalpal4=mDummyMaker.getFormGalpal4(DrawerFormActivity.kualifikasiSurveyId);
+        mGalpalForms=mDummyMaker.getGalpalForms();
 
 
 
@@ -133,12 +132,29 @@ public class FormGalpal4Fragment extends Fragment {
             }
         });
 
+        if(mFormGalpal4.isSend()){
+            mSubmitButton.setText(R.string.belum_lengkap);
+            mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+        }
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!mFormGalpal4.isSend()){
+                    mFormGalpal4.setSend(true);
+                    mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mGalpalForms.size());
+                    mSubmitButton.setText(R.string.belum_lengkap);
+                    mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                }else{
+                    mFormGalpal4.setSend(false);
+                    mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()-100/mGalpalForms.size());
+                    mSubmitButton.setText(R.string.lengkap);
+                    mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
 
+                mDummyMaker.addFormGalpal4(mFormGalpal4);
+                mDummyMaker.addKualifikasiSurvey(mKualifikasiSurvey);
+                mCustomClickListener.clickListener();
 
-                Toast.makeText(getContext(), "Berhasil ", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -150,5 +166,6 @@ public class FormGalpal4Fragment extends Fragment {
     public void onPause() {
         super.onPause();
         mDummyMaker.addFormGalpal4(mFormGalpal4);
+
     }
 }

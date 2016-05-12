@@ -82,7 +82,7 @@ public class FormKompal3cFragment extends Fragment {
 
         mDeleteButton=(Button)rootView.findViewById(R.id.kompal3a_btn_delete);
 
-        mJumlahProduksithn1EditText.setText(mFormKompal3c.getJumlahProduksiThn1());
+        mJumlahProduksithn1EditText.setText(String.valueOf(mFormKompal3c.getJumlahProduksiThn1()));
         mJumlahProduksithn1EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -100,7 +100,7 @@ public class FormKompal3cFragment extends Fragment {
             }
         });
 
-        mJumlahProduksithn2EditText.setText(mFormKompal3c.getJumlahProduksiThn2());
+        mJumlahProduksithn2EditText.setText(String.valueOf(mFormKompal3c.getJumlahProduksiThn2()));
         mJumlahProduksithn2EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -118,7 +118,7 @@ public class FormKompal3cFragment extends Fragment {
             }
         });
 
-        mJumlahProduksithn3EditText.setText(mFormKompal3c.getJumlahProduksiThn3());
+        mJumlahProduksithn3EditText.setText(String.valueOf(mFormKompal3c.getJumlahProduksiThn3()));
         mJumlahProduksithn3EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -136,7 +136,7 @@ public class FormKompal3cFragment extends Fragment {
             }
         });
 
-        mJumlahProduksithn4EditText.setText(mFormKompal3c.getJumlahProduksiThn4());
+        mJumlahProduksithn4EditText.setText(String.valueOf(mFormKompal3c.getJumlahProduksiThn4()));
         mJumlahProduksithn4EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

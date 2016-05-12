@@ -1,9 +1,7 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -25,6 +23,7 @@ import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.masterData.Propinsi;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +31,7 @@ import java.util.List;
 /**
  * Created by mpewpazi on 3/27/16.
  */
-public class FormGalpal1Fragment extends Fragment  {
-
-    public FormGalpal1Fragment(){
-
-    }
-
+public class FormGalpal1Fragment extends SingleFragment  {
 
 
     private EditText mNamaPerusahaanEditText;
@@ -70,6 +64,7 @@ public class FormGalpal1Fragment extends Fragment  {
 
     private FormGalpal1 mFormGalpal1;
     private DummyMaker mDummyMaker;
+    private MenuCheckingGalpal mMenuCheckingGalpal;
 
 
 
@@ -88,9 +83,10 @@ public class FormGalpal1Fragment extends Fragment  {
 
 
         mDummyMaker=DummyMaker.get(getActivity());
-        mGalpalForms=mDummyMaker.getGalpalForms(DrawerFormActivity.kualifikasiSurveyId);
+        mGalpalForms=mDummyMaker.getGalpalForms();
         mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
         mFormGalpal1=mDummyMaker.getFormGalpal1(DrawerFormActivity.kualifikasiSurveyId);
+        mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,idMenu);
 
 
         mNamaPerusahaan=mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan();
@@ -378,6 +374,10 @@ public class FormGalpal1Fragment extends Fragment  {
 
 
         mSubmitButton=(Button)rootView.findViewById(R.id.galpal1_btn_submit);
+        if(mMenuCheckingGalpal.isComplete()){
+            mSubmitButton.setText(R.string.belum_lengkap);
+            mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+        }
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -387,24 +387,23 @@ public class FormGalpal1Fragment extends Fragment  {
                     return;
                 }
 
-                if(mFormGalpal1.isSend()){
-                    mFormGalpal1.setSend(true);
+                if(!mMenuCheckingGalpal.isComplete()){
+                    mMenuCheckingGalpal.setComplete(true);
                     mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mGalpalForms.size());
                     mSubmitButton.setText(R.string.belum_lengkap);
                     mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
                 }else{
-                    mFormGalpal1.setSend(false);
+                    mMenuCheckingGalpal.setComplete(false);
                     mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()-100/mGalpalForms.size());
                     mSubmitButton.setText(R.string.lengkap);
                     mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                 }
 
-                Intent intent = getActivity().getIntent();
-                getActivity().overridePendingTransition(0, 0);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                getActivity().finish();
-                getActivity().overridePendingTransition(0, 0);
-                startActivity(intent);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mDummyMaker.addFormGalpal1(mFormGalpal1);
+                mDummyMaker.addKualifikasiSurvey(mKualifikasiSurvey);
+                mCustomClickListener.clickListener();
+
 
 
             }
@@ -443,6 +442,9 @@ public class FormGalpal1Fragment extends Fragment  {
     public void onPause() {
         super.onPause();
         mDummyMaker.addFormGalpal1(mFormGalpal1);
-        mDummyMaker.addKualifikasiSurvey(mKualifikasiSurvey);
+
     }
+
+
+
 }

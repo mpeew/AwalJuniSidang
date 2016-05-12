@@ -166,6 +166,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String STATUS_SENT = "status_sent";
         }
     }
 
@@ -201,6 +202,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String STATUS_SENT = "status_sent";
         }
     }
 
@@ -221,6 +223,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String STATUS_SENT = "status_sent";
 
         }
     }
@@ -250,6 +253,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+
 
         }
     }
@@ -842,6 +846,48 @@ public class DhSchema {
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
 
+        }
+    }
+
+    public static final class MenuCheckingGalpalTable{
+        public static final String NAME="menu_f1_entry_checking";
+        public static final class Cols{
+            public static final String ID_MENU_F1_ENTRY_CHECKING="id_menu_f1_entry_checking";
+            public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
+            public static final String ID_MENU_F1="id_menu_f1";
+            public static final String IS_FILL="is_fill";
+            public static final String IS_COMPLETE="is_complete";
+            public static final String IS_VERIFIED="is_verified";
+            public static final String USERID_FILL="userid_fill";
+            public static final String FILL_DATE="fill_date";
+            public static final String IP_USER_FILL="ip_user_fill";
+            public static final String USERID_COMPLETE="userid_complete";
+            public static final String COMPLETE_DATE="complete_date";
+            public static final String IP_USER_COMPLETE="ip_user_complete";
+            public static final String USERID_VERIFIKASI="userid_verifikasi";
+            public static final String VERIFY_DATE="verify_date";
+            public static final String IP_USER_VERIFY="ip_user_verify";
+        }
+    }
+
+    public static final class MenuCheckingKompalTable{
+        public static final String NAME="menu_f2_entry_checking";
+        public static final class Cols{
+            public static final String ID_MENU_F2_ENTRY_CHECKING="id_menu_f2_entry_checking";
+            public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
+            public static final String ID_MENU_F2="id_menu_f2";
+            public static final String IS_FILL="is_fill";
+            public static final String IS_COMPLETE="is_complete";
+            public static final String IS_VERIFIED="is_verified";
+            public static final String USERID_FILL="userid_fill";
+            public static final String FILL_DATE="fill_date";
+            public static final String IP_USER_FILL="ip_user_fill";
+            public static final String USERID_COMPLETE="userid_complete";
+            public static final String COMPLETE_DATE="complete_date";
+            public static final String IP_USER_COMPLETE="ip_user_complete";
+            public static final String USERID_VERIFIKASI="userid_verifikasi";
+            public static final String VERIFY_DATE="verify_date";
+            public static final String IP_USER_VERIFY="ip_user_verify";
         }
     }
 

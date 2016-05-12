@@ -1,8 +1,7 @@
 package com.mpewpazi.android.awaljunisidang.Form;
 
-import android.support.v4.app.Fragment;
-
 import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal6Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
 
 /**
  * Created by mpewpazi on 5/10/16.
@@ -19,7 +18,7 @@ public class FormGalpal6Help extends SingleForm {
     }
 
     @Override
-    public Fragment getFragment() {
+    public SingleFragment getFragment() {
         return new ListFormGalpal6Fragment();
     }
 

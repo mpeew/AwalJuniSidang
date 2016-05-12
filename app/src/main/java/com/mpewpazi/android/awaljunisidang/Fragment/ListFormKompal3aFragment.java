@@ -1,10 +1,9 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
+import com.mpewpazi.android.awaljunisidang.FormKompal3aPagerActivity;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 
@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Created by mpewpazi on 5/10/16.
  */
-public class ListFormKompal3aFragment extends Fragment {
+public class ListFormKompal3aFragment extends SingleFragment {
     private final static String EXTRA_KUALIFIKASISURVEY_FORMKOMPAL3A="extra_kualifikasisurvey_form_kompal3a";
     private final static String EXTRA_ID_FORMKOMPAL3A="extra_id_form_kompal3a";
 
@@ -76,24 +76,14 @@ public class ListFormKompal3aFragment extends Fragment {
         updateUI();
     }
 
+
     private void updateUI() {
         mDummyMaker=DummyMaker.get(getActivity());
-
-
-       // mFormKompal3as=mDummyMaker.getFormKompal3as(DrawerFormActivity.kualifikasiSurveyId);
-
-        //if (mAdapter == null) {
+        mFormKompal3as=mDummyMaker.getFormKompal3as(DrawerFormActivity.kualifikasiSurveyId);
         mAdapter = new FormKompal3aAdapter(mFormKompal3as);
         mFormKompal3aRecyclerView.setAdapter(mAdapter);
-        Log.d("updateGui","true");
-        //} else {
-
-        // reload all the item in he list
-        //Log.d("updateGui","else");
-        //mAdapter.setData(mFormKompal3as);
-        //mAdapter.notifyDataSetChanged();
-        //}
     }
+
 
     private class FormKompal3aHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -127,10 +117,10 @@ public class ListFormKompal3aFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            //Intent intent=new Intent(getActivity(),FormKompal3aPagerActivity.class);
-           // intent.putExtra(EXTRA_ID_FORMKOMPAL3A,mFormKompal3a.getIdPeralatanKerjaCrane());
-            //intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMKOMPAL3A,mFormKompal3a.getKualifikasiSurveyId());
-           // startActivity(intent);
+             Intent intent=new Intent(getActivity(),FormKompal3aPagerActivity.class);
+             intent.putExtra(EXTRA_ID_FORMKOMPAL3A,mFormKompal3a.getIdJenisKapasitasProduksi());
+             intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMKOMPAL3A,mFormKompal3a.getIdKualifikasiSurvey());
+             startActivity(intent);
         }
     }
 
@@ -178,10 +168,10 @@ public class ListFormKompal3aFragment extends Fragment {
                 FormKompal3a formKompal3a=new FormKompal3a();
                 formKompal3a.setIdKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
                 DummyMaker.get(getActivity()).addFormKompal3a(formKompal3a);
-                //Intent intent=new Intent(getActivity(),FormKompal3aPagerActivity.class);
-               // intent.putExtra(EXTRA_ID_FORMKOMPAL3A,formKompal3a.getIdJenisKapasitasProduksi());
-              //  intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMKOMPAL3A,formKompal3a.getIdKualifikasiSurvey());
-              //  startActivity(intent);
+                Intent intent=new Intent(getActivity(),FormKompal3aPagerActivity.class);
+                intent.putExtra(EXTRA_ID_FORMKOMPAL3A,formKompal3a.getIdJenisKapasitasProduksi());
+                intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMKOMPAL3A,formKompal3a.getIdKualifikasiSurvey());
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
