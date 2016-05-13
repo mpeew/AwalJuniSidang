@@ -405,7 +405,7 @@ public class CursorWrapperGal extends CursorWrapper{
 
         MenuCheckingGalpal menuCheckingGalpal=new MenuCheckingGalpal(UUID.fromString(idMenuCheckingGalpal));
         menuCheckingGalpal.setIdKualifikasiSurvey(idKualifikasiSurvey);
-        menuCheckingGalpal.setIdMenuGalpal(idMenu);
+        menuCheckingGalpal.setIdMenu(idMenu);
         menuCheckingGalpal.setFill(isFill==1);
         menuCheckingGalpal.setComplete(isComplete==1);
         menuCheckingGalpal.setVerified(isVerified==1);
@@ -423,7 +423,7 @@ public class CursorWrapperGal extends CursorWrapper{
 
         MenuCheckingKompal menuCheckingKompal=new MenuCheckingKompal(UUID.fromString(idMenuCheckingKompal));
         menuCheckingKompal.setIdKualifikasiSurvey(idKualifikasiSurvey);
-        menuCheckingKompal.setIdMenuKompal(idMenu);
+        menuCheckingKompal.setIdMenu(idMenu);
         menuCheckingKompal.setFill(isFill==1);
         menuCheckingKompal.setComplete(isComplete==1);
         menuCheckingKompal.setVerified(isVerified==1);

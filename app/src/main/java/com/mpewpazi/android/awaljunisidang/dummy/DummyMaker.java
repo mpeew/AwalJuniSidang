@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
@@ -21,9 +22,11 @@ import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
 import com.mpewpazi.android.awaljunisidang.model.PeriodeSurvey;
 import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
+import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 import com.mpewpazi.android.awaljunisidang.model.SurveyAssignSurveyor;
 import com.mpewpazi.android.awaljunisidang.model.User;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -103,7 +106,7 @@ public class DummyMaker {
         Perusahaan perusahaan1=new Perusahaan();
         perusahaan1.setId(1);
         perusahaan1.setNamaPerusahaan("PT ABC");
-        perusahaan1.setIndustri("Galangan Kapal");
+        perusahaan1.setIndustri("Komponen Kapal");
         perusahaan1.setActive(1);
 
         Perusahaan perusahaan2=new Perusahaan();
@@ -136,40 +139,52 @@ public class DummyMaker {
         kualifikasiSurvey.setPeriodeSurveyId(2014);
         kualifikasiSurvey.setGalanganKapalId(1);
         kualifikasiSurvey.setProgress(0);
-        addGalpalForms(1,kualifikasiSurvey.getKualifikasiSurveyId());
-        addKompalForms(1,kualifikasiSurvey.getKualifikasiSurveyId());
-        addMenuCheckingGalpals(kualifikasiSurvey.getKualifikasiSurveyId());
-        addMenuCheckingKompals(kualifikasiSurvey.getKualifikasiSurveyId());
+        if(getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri().equals("Galangan Kapal")){
+            addGalpalForms(1,kualifikasiSurvey.getKualifikasiSurveyId());
+            addMenuCheckingGalpals(kualifikasiSurvey.getKualifikasiSurveyId());
+        }else{
+            addKompalForms(1,kualifikasiSurvey.getKualifikasiSurveyId());
+            addMenuCheckingKompals(kualifikasiSurvey.getKualifikasiSurveyId());
+        }
 
         KualifikasiSurvey kualifikasiSurvey1=new KualifikasiSurvey();
         kualifikasiSurvey1.setKualifikasiSurveyId(2);
         kualifikasiSurvey1.setPerusahaanId(2);
         kualifikasiSurvey1.setPeriodeSurveyId(2014);
         kualifikasiSurvey1.setGalanganKapalId(1);
-        addGalpalForms(2,kualifikasiSurvey1.getKualifikasiSurveyId());
-        addKompalForms(2,kualifikasiSurvey1.getKualifikasiSurveyId());
-        addMenuCheckingGalpals(kualifikasiSurvey1.getKualifikasiSurveyId());
-        addMenuCheckingKompals(kualifikasiSurvey1.getKualifikasiSurveyId());
+        if(getPerusahaan(kualifikasiSurvey1.getPerusahaanId()).getIndustri().equals("Galangan Kapal")) {
+            addGalpalForms(2, kualifikasiSurvey1.getKualifikasiSurveyId());
+            addMenuCheckingGalpals(kualifikasiSurvey1.getKualifikasiSurveyId());
+        }else {
+            addKompalForms(2, kualifikasiSurvey1.getKualifikasiSurveyId());
+            addMenuCheckingKompals(kualifikasiSurvey1.getKualifikasiSurveyId());
+        }
 
         KualifikasiSurvey kualifikasiSurvey2=new KualifikasiSurvey();
         kualifikasiSurvey2.setKualifikasiSurveyId(3);
         kualifikasiSurvey2.setPerusahaanId(3);
         kualifikasiSurvey2.setPeriodeSurveyId(2014);
         kualifikasiSurvey2.setGalanganKapalId(1);
-        addGalpalForms(3,kualifikasiSurvey2.getKualifikasiSurveyId());
-        addKompalForms(3,kualifikasiSurvey2.getKualifikasiSurveyId());
-        addMenuCheckingGalpals(kualifikasiSurvey2.getKualifikasiSurveyId());
-        addMenuCheckingKompals(kualifikasiSurvey2.getKualifikasiSurveyId());
+        if(getPerusahaan(kualifikasiSurvey2.getPerusahaanId()).getIndustri().equals("Galangan Kapal")) {
+            addGalpalForms(3, kualifikasiSurvey2.getKualifikasiSurveyId());
+            addMenuCheckingGalpals(kualifikasiSurvey2.getKualifikasiSurveyId());
+        }else {
+            addMenuCheckingKompals(kualifikasiSurvey2.getKualifikasiSurveyId());
+            addKompalForms(3, kualifikasiSurvey2.getKualifikasiSurveyId());
+        }
 
         KualifikasiSurvey kualifikasiSurvey3=new KualifikasiSurvey();
         kualifikasiSurvey3.setKualifikasiSurveyId(4);
         kualifikasiSurvey3.setPerusahaanId(4);
         kualifikasiSurvey3.setPeriodeSurveyId(2014);
         kualifikasiSurvey3.setGalanganKapalId(1);
-        addGalpalForms(4,kualifikasiSurvey3.getKualifikasiSurveyId());
-        addKompalForms(4,kualifikasiSurvey3.getKualifikasiSurveyId());
-        addMenuCheckingGalpals(kualifikasiSurvey3.getKualifikasiSurveyId());
-        addMenuCheckingKompals(kualifikasiSurvey3.getKualifikasiSurveyId());
+        if(getPerusahaan(kualifikasiSurvey3.getPerusahaanId()).getIndustri().equals("Galangan Kapal")) {
+            addGalpalForms(4, kualifikasiSurvey3.getKualifikasiSurveyId());
+            addMenuCheckingGalpals(kualifikasiSurvey3.getKualifikasiSurveyId());
+        }else {
+            addKompalForms(4, kualifikasiSurvey3.getKualifikasiSurveyId());
+            addMenuCheckingKompals(kualifikasiSurvey3.getKualifikasiSurveyId());
+        }
 
         addKualifikasiSurveya(kualifikasiSurvey);
         addKualifikasiSurveya(kualifikasiSurvey1);
@@ -489,29 +504,29 @@ public class DummyMaker {
     }
 
     public MenuCheckingGalpal getMenuCheckingGalpal(int idKualifikasiSurvey,int idMenu){
-        List<MenuCheckingGalpal> menuCheckingGalpals=getMenuCheckingGalpals(idKualifikasiSurvey);
+        List<SingleMenuChecking> menuCheckingGalpals=getMenuCheckingGalpals(idKualifikasiSurvey);
 
-        for(MenuCheckingGalpal menuCheckingGalpal:menuCheckingGalpals){
-            if(menuCheckingGalpal.getIdMenuGalpal()==idMenu){
-                return menuCheckingGalpal;
+        for(SingleMenuChecking menuCheckingGalpal:menuCheckingGalpals){
+            if(menuCheckingGalpal.getIdMenu()==idMenu){
+                return (MenuCheckingGalpal) menuCheckingGalpal;
             }
         }
         return null;
     }
 
     public MenuCheckingKompal getMenuCheckingKompal(int idKualifikasiSurvey,int idMenu){
-        List<MenuCheckingKompal> menuCheckingKompals=getMenuCheckingKompals(idKualifikasiSurvey);
+        List<SingleMenuChecking> menuCheckingKompals=getMenuCheckingKompals(idKualifikasiSurvey);
 
-        for(MenuCheckingKompal menuCheckingKompal:menuCheckingKompals){
-            if(menuCheckingKompal.getIdMenuKompal()==idMenu){
-                return menuCheckingKompal;
+        for(SingleMenuChecking menuCheckingKompal:menuCheckingKompals){
+            if(menuCheckingKompal.getIdMenu()==idMenu){
+                return (MenuCheckingKompal) menuCheckingKompal;
             }
         }
         return null;
     }
 
-    public List<MenuCheckingGalpal> getMenuCheckingGalpals(int idKualifikasiSurvey){
-        List<MenuCheckingGalpal> menuCheckingGalpals=new ArrayList<>();
+    public List<SingleMenuChecking> getMenuCheckingGalpals(int idKualifikasiSurvey){
+        List<SingleMenuChecking> menuCheckingGalpals=new ArrayList<>();
         CursorWrapperGal cursor=querya(MenuCheckingGalpalTable.NAME,MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY+"=?"
                 ,new String[] {String.valueOf(idKualifikasiSurvey)},MenuCheckingGalpalTable.Cols.ID_MENU_F1);
         try{
@@ -526,8 +541,8 @@ public class DummyMaker {
         return menuCheckingGalpals;
     }
 
-    public List<MenuCheckingKompal> getMenuCheckingKompals(int idKualifikasiSurvey){
-        List<MenuCheckingKompal> menuCheckingKompals=new ArrayList<>();
+    public List<SingleMenuChecking> getMenuCheckingKompals(int idKualifikasiSurvey){
+        List<SingleMenuChecking> menuCheckingKompals=new ArrayList<>();
         CursorWrapperGal cursor=querya(MenuCheckingKompalTable.NAME,MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY+"=?"
                 ,new String[] {String.valueOf(idKualifikasiSurvey)},MenuCheckingKompalTable.Cols.ID_MENU_F2);
         try{
@@ -1152,7 +1167,7 @@ public class DummyMaker {
         for(int x=0;x<getGalpalForms().size();x++){
             MenuCheckingGalpal menuCheckingGalpal=new MenuCheckingGalpal();
             menuCheckingGalpal.setIdKualifikasiSurvey(kualifikasiSurveyId);
-            menuCheckingGalpal.setIdMenuGalpal(x);
+            menuCheckingGalpal.setIdMenu(x);
             addMenuCheckingGalpala(menuCheckingGalpal);
         }
     }
@@ -1161,7 +1176,7 @@ public class DummyMaker {
         for(int x=0;x<getKompalForms().size();x++){
             MenuCheckingKompal menuCheckingKompal=new MenuCheckingKompal();
             menuCheckingKompal.setIdKualifikasiSurvey(kualifikasiSurveyId);
-            menuCheckingKompal.setIdMenuKompal(x);
+            menuCheckingKompal.setIdMenu(x);
             addMenuCheckingKompala(menuCheckingKompal);
         }
     }
@@ -1416,7 +1431,7 @@ public class DummyMaker {
         ContentValues contentValues=new ContentValues();
         contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING,menuCheckingGalpal.getIdMenuCheckingGalpal().toString());
         contentValues.put(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY,menuCheckingGalpal.getIdKualifikasiSurvey());
-        contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1,menuCheckingGalpal.getIdMenuGalpal());
+        contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1,menuCheckingGalpal.getIdMenu());
         contentValues.put(MenuCheckingGalpalTable.Cols.IS_FILL,menuCheckingGalpal.isFill() ? 1 : 0);
         contentValues.put(MenuCheckingGalpalTable.Cols.IS_COMPLETE,menuCheckingGalpal.isComplete() ? 1 : 0);
         contentValues.put(MenuCheckingGalpalTable.Cols.IS_VERIFIED,menuCheckingGalpal.isVerified() ? 1 : 0);
@@ -1427,7 +1442,7 @@ public class DummyMaker {
         ContentValues contentValues=new ContentValues();
         contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING,menuCheckingKompal.getIdMenuCheckingKompal().toString());
         contentValues.put(MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY,menuCheckingKompal.getIdKualifikasiSurvey());
-        contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2,menuCheckingKompal.getIdMenuKompal());
+        contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2,menuCheckingKompal.getIdMenu());
         contentValues.put(MenuCheckingKompalTable.Cols.IS_FILL,menuCheckingKompal.isFill() ? 1 : 0);
         contentValues.put(MenuCheckingKompalTable.Cols.IS_COMPLETE,menuCheckingKompal.isComplete() ? 1 : 0);
         contentValues.put(MenuCheckingKompalTable.Cols.IS_VERIFIED,menuCheckingKompal.isVerified() ? 1 : 0);
@@ -1475,5 +1490,13 @@ public class DummyMaker {
         return new CursorWrapperGal(cursor);
     }
 
+    public File getPhotoFile(FormGalpal3 formGalpal3){
+        File externalFilesDir=mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        if(externalFilesDir==null){
+            return null;
+        }
+
+        return new File(externalFilesDir,formGalpal3.getPhotoFileName());
+    }
 
 }

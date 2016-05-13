@@ -1,6 +1,14 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -8,15 +16,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
+import com.mpewpazi.android.awaljunisidang.PictureUtils;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -24,9 +36,8 @@ import java.util.List;
  */
 public class FormGalpal3Fragment extends SingleFragment {
 
-    private final static String NAMA_FORM="Identitas Umum Galangan";
-
-
+    private static final int SELECT_FILE=1;
+    private static final int REQUEST_PHOTO=2;
 
     private String mNamaPerusahaan;
 
@@ -46,9 +57,12 @@ public class FormGalpal3Fragment extends SingleFragment {
     private EditText mJabatanEditText;
     private EditText mEmailEditText;
     private Button mSubmitButton;
+    private ImageButton mCaptureButton;
+    private ImageView mPhotoView;
 
     private List<SingleForm> mGalpalForms;
     private FormGalpal3 mFormGalpal3;
+    private File mPhotoFile;
 
     private DummyMaker mDummyMaker;
 
@@ -69,6 +83,8 @@ public class FormGalpal3Fragment extends SingleFragment {
 
         mNamaPerusahaan=mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan();
         mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,idMenu);
+        mPhotoFile=mDummyMaker.getPhotoFile(mFormGalpal3);
+
 
 
     }
@@ -99,6 +115,8 @@ public class FormGalpal3Fragment extends SingleFragment {
         mNomorCpEditText=(EditText)rootView.findViewById(R.id.contact_person_no);
         mJabatanEditText=(EditText)rootView.findViewById(R.id.jabatan);
         mEmailEditText=(EditText)rootView.findViewById(R.id.alamat_email);
+        mCaptureButton=(ImageButton)rootView.findViewById(R.id.galpal3_camera_button);
+        mPhotoView=(ImageView)rootView.findViewById(R.id.galpal3_image_view);
 
         mFormGalpal3.setPerusahaanId(mKualifikasiSurvey.getPerusahaanId());
 
@@ -387,6 +405,46 @@ public class FormGalpal3Fragment extends SingleFragment {
         mNamaPerusahaanEditText.setText(mNamaPerusahaan);
         mNamaPerusahaanEditText.setEnabled(false);
 
+        PackageManager packageManager = getActivity().getPackageManager();
+        final Intent captureImage=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        boolean canTakePhoto=mPhotoFile!=null&& captureImage.resolveActivity(packageManager)!=null;
+        mCaptureButton.setEnabled(canTakePhoto);
+        if(canTakePhoto){
+            Uri uri=Uri.fromFile(mPhotoFile);
+            captureImage.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+        }
+        mCaptureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final CharSequence[] items = { "Take Photo", "Choose from Library",
+                        "Cancel" };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo")) {
+                            startActivityForResult(captureImage, REQUEST_PHOTO);
+                        } else if (items[item].equals("Choose from Library")) {
+                            Intent intent = new Intent(
+                                    Intent.ACTION_PICK,
+                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            intent.setType("image/*");
+                            startActivityForResult(
+                                    Intent.createChooser(intent, "Select File"),
+                                    SELECT_FILE);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+            }
+        });
+
+        updatePhotoView();
+
 
         mSubmitButton=(Button)rootView.findViewById(R.id.galpal3_btn_submit);
         if(mMenuCheckingGalpal.isComplete()){
@@ -426,5 +484,26 @@ public class FormGalpal3Fragment extends SingleFragment {
         mDummyMaker.addFormGalpal3(mFormGalpal3);
 
     }
+
+    private void updatePhotoView(){
+        if(mPhotoFile==null || !mPhotoFile.exists()){
+            mPhotoView.setImageDrawable(null);
+        }else{
+            Bitmap bitmap= PictureUtils.getScaledBitmap(mPhotoFile.getPath(),getActivity());
+            mPhotoView.setImageBitmap(bitmap);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode!= Activity.RESULT_OK){
+            return;
+        }
+        if (requestCode==REQUEST_PHOTO){
+            updatePhotoView();
+        }
+    }
+
+
 
 }

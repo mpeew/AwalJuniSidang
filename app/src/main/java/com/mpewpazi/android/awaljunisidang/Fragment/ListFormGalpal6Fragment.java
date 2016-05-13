@@ -118,8 +118,6 @@ public class ListFormGalpal6Fragment extends SingleFragment {
 
     private void updateUI() {
         mDummyMaker=DummyMaker.get(getActivity());
-
-
         mFormGalpal6s=mDummyMaker.getFormGalpal6s(DrawerFormActivity.kualifikasiSurveyId);
 
         //if (mAdapter == null) {

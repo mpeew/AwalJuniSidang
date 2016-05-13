@@ -15,9 +15,12 @@ import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
+import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormKompal3cPagerActivity;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
 
 import java.util.List;
 
@@ -34,15 +37,21 @@ public class ListFormKompal3cFragment extends SingleFragment {
     private RecyclerView mFormKompal3cRecyclerView;
     private FormKompal3cAdapter mAdapter;
     private DummyMaker mDummyMaker;
-
+    private MenuCheckingKompal mMenuCheckingKompal;
+    private KualifikasiSurvey mKualifikasiSurvey;
+    private List<SingleForm> mKompalForms;
     private Button mSubmitButton;
-
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        mDummyMaker=DummyMaker.get(getContext());
+        mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
+        mKompalForms=mDummyMaker.getKompalForms();
+        mMenuCheckingKompal=mDummyMaker.getMenuCheckingKompal(DrawerFormActivity.kualifikasiSurveyId,idMenu);
     }
 
     @Override
@@ -60,9 +69,28 @@ public class ListFormKompal3cFragment extends SingleFragment {
 
         updateUI();
 
+        if(mMenuCheckingKompal.isComplete()){
+            mSubmitButton.setText(R.string.belum_lengkap);
+            mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+        }
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!mMenuCheckingKompal.isComplete()){
+                    mMenuCheckingKompal.setComplete(true);
+                    mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mKompalForms.size());
+                    mSubmitButton.setText(R.string.belum_lengkap);
+                    mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                }else{
+                    mMenuCheckingKompal.setComplete(false);
+                    mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()-100/mKompalForms.size());
+                    mSubmitButton.setText(R.string.lengkap);
+                    mSubmitButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+
+                mDummyMaker.addMenuCheckingKompal(mMenuCheckingKompal);
+                mDummyMaker.addKualifikasiSurvey(mKualifikasiSurvey);
+                mCustomClickListener.clickListener();
 
             }
         });
@@ -82,6 +110,13 @@ public class ListFormKompal3cFragment extends SingleFragment {
         mFormKompal3cs=mDummyMaker.getFormKompal3cs(DrawerFormActivity.kualifikasiSurveyId);
         mAdapter = new FormKompal3cAdapter(mFormKompal3cs);
         mFormKompal3cRecyclerView.setAdapter(mAdapter);
+        if(mFormKompal3cs.size()>0){
+            mMenuCheckingKompal.setFill(true);
+        }else{
+            mMenuCheckingKompal.setFill(false);
+        }
+        mDummyMaker.addMenuCheckingKompal(mMenuCheckingKompal);
+        mCustomClickListener.clickListener();
     }
 
 

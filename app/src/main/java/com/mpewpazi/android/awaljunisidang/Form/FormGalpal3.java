@@ -192,4 +192,8 @@ public class FormGalpal3 extends SingleForm {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getPhotoFileName(){
+        return "IMG_"+String.valueOf(getIdentitasUmumGalanganId())+".jpg";
+    }
 }

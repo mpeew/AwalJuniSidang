@@ -23,7 +23,7 @@ import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
-import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
 import java.util.List;
 
@@ -51,9 +51,8 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
 
     private DummyMaker mDummyMaker;
 
-    private List<SingleForm> mGalpalForms;
-    private List<SingleForm> mKompalForms;
-    private List<MenuCheckingGalpal> mMenuCheckingGalpals;
+    private List<SingleForm> mSingleForms;
+    private List<SingleMenuChecking> mMenuCheckingSingles;
 
 
 
@@ -75,16 +74,15 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
         mDummyMaker=DummyMaker.get(this);
         mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(kualifikasiSurveyId);
 
-        mGalpalForms= mDummyMaker.getGalpalForms();
-        mKompalForms= mDummyMaker.getKompalForms();
-        mMenuCheckingGalpals=mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId);
-
-
+        mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
+        mDrawerRecyclerView=(RecyclerView)findViewById(R.id.nav_recycler_view);
+        mDrawerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        addDrawerItems();
 
 
         //munculkan fragmen 0
        // Fragment fragment=new FormGalpal1Fragment();
-        SingleFragment fragment=mGalpalForms.get(0).getFragment();
+        SingleFragment fragment=mSingleForms.get(0).getFragment();
         fragment.setCustomClickListener(this);
         fragment.setIdMenu(0);
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -92,13 +90,11 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
 
 
 
-        mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
-        mDrawerRecyclerView=(RecyclerView)findViewById(R.id.nav_recycler_view);
-        mDrawerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         mActivityTitle=getTitle().toString();
 
-        addDrawerItems();
+
         setupDrawer();
 
 
@@ -110,9 +106,17 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
     }
 
     private void addDrawerItems(){
-        mMenuCheckingGalpals=mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId);
-        mGalpalForms= mDummyMaker.getGalpalForms();
-        mAdapter=new SingleFormAdapter(mGalpalForms,mMenuCheckingGalpals,this);
+        if(mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getIndustri().equals("Galangan Kapal")){
+            mSingleForms=mDummyMaker.getGalpalForms();
+            mMenuCheckingSingles=mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId);
+        }else{
+            mSingleForms=mDummyMaker.getKompalForms();
+            mMenuCheckingSingles=mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId);
+        }
+
+
+
+        mAdapter=new SingleFormAdapter(mSingleForms,mMenuCheckingSingles,this);
         mDrawerRecyclerView.setAdapter(mAdapter);
 
     }
@@ -187,10 +191,7 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
 
     @Override
     public void clickListener() {
-        mGalpalForms=mDummyMaker.getGalpalForms();
-        mMenuCheckingGalpals=mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId);
-        mAdapter=new SingleFormAdapter(mGalpalForms,mMenuCheckingGalpals,this);
-        mDrawerRecyclerView.setAdapter(mAdapter);
+        addDrawerItems();
     }
 
     private class SingleFormHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -203,9 +204,9 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
         private CustomClickListener mCustomClickListener;
 
         private SingleForm mSingleForm;
-        private MenuCheckingGalpal mMenuCheckingGalpal;
+        private SingleMenuChecking mMenuCheckingGalpal;
 
-        public void bindSingleForm(SingleForm singleForm, MenuCheckingGalpal menuCheckingGalpal, int no){
+        public void bindSingleForm(SingleForm singleForm, SingleMenuChecking menuCheckingGalpal, int no){
             mSingleForm=singleForm;
             mMenuCheckingGalpal=menuCheckingGalpal;
             mTittleTextView.setText(mSingleForm.getNamaForm());
@@ -260,9 +261,9 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
     private class SingleFormAdapter extends RecyclerView.Adapter<SingleFormHolder>{
         private List<SingleForm> mSingleForms;
         private CustomClickListener mCustomClickListener;
-        private List<MenuCheckingGalpal> mMenuCheckingGalpals;
-        public SingleFormAdapter(List<SingleForm> singleForms,List<MenuCheckingGalpal> menuCheckingGalpals,CustomClickListener customClickListener){
-            mMenuCheckingGalpals=menuCheckingGalpals;
+        private List<SingleMenuChecking> mMenuCheckingSingles;
+        public SingleFormAdapter(List<SingleForm> singleForms,List<SingleMenuChecking> menuCheckingGalpals,CustomClickListener customClickListener){
+            mMenuCheckingSingles=menuCheckingGalpals;
             mSingleForms=singleForms;
             mCustomClickListener=customClickListener;
         }
@@ -277,7 +278,7 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
         @Override
         public void onBindViewHolder(SingleFormHolder holder, int position) {
             SingleForm singleForm = mSingleForms.get(position);
-            MenuCheckingGalpal menuCheckingGalpal=mMenuCheckingGalpals.get(position);
+            SingleMenuChecking menuCheckingGalpal=mMenuCheckingSingles.get(position);
             holder.bindSingleForm(singleForm,menuCheckingGalpal,position+1);
         }
         @Override
