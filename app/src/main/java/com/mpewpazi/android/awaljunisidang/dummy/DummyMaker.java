@@ -17,6 +17,8 @@ import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
 import com.mpewpazi.android.awaljunisidang.database.CursorWrapperGal;
+import com.mpewpazi.android.awaljunisidang.masterData.Kabupaten;
+import com.mpewpazi.android.awaljunisidang.masterData.Propinsi;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
@@ -42,6 +44,8 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarM
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingGalpalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingKompalTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstKabupatenTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstPropinsiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PeriodeSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PerusahaanTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.SurveyAssignSurveyorTable;
@@ -71,6 +75,53 @@ public class DummyMaker {
     private DummyMaker(Context context){
         mContext=context.getApplicationContext();
         mDatabase=new BaseDBHelper(mContext).getWritableDatabase();
+
+        Propinsi propinsi=new Propinsi();
+        propinsi.setId(1);
+        propinsi.setKodeBps(11);
+        propinsi.setNama("Nangroe Aceh Darusalam");
+        propinsi.setKodeiso("ID-AC");
+        propinsi.setIbukota("Banda Aceh");
+        propinsi.setPulau("Sumatra");
+        addMstPropinsi(propinsi);
+
+        Propinsi propinsia=new Propinsi();
+        propinsia.setId(2);
+        propinsia.setKodeBps(11);
+        propinsia.setNama("Sumatra Barat");
+        propinsia.setKodeiso("ID-AC");
+        propinsia.setIbukota("Banda Aceh");
+        propinsia.setPulau("Sumatra");
+        addMstPropinsi(propinsia);
+
+        Propinsi propinsib=new Propinsi();
+        propinsib.setId(3);
+        propinsib.setKodeBps(11);
+        propinsib.setNama("DKI Jakarta");
+        propinsib.setKodeiso("ID-AC");
+        propinsib.setIbukota("Banda Aceh");
+        propinsib.setPulau("Sumatra");
+        addMstPropinsi(propinsib);
+
+        Kabupaten kabupaten=new Kabupaten();
+        kabupaten.setId(1);
+        kabupaten.setNama("Meulaboh");
+        kabupaten.setIbuKota("Kuningan");
+        kabupaten.setId_propinsi(1);
+        addMstKabupaten(kabupaten);
+
+        Kabupaten kabupaten1=new Kabupaten();
+        kabupaten1.setId(2);
+        kabupaten1.setNama("Padang");
+        kabupaten1.setId_propinsi(2);
+        addMstKabupaten(kabupaten1);
+
+        Kabupaten kabupaten2=new Kabupaten();
+        kabupaten2.setId(3);
+        kabupaten2.setNama("Jakarta Barat");
+        kabupaten2.setId_propinsi(3);
+        addMstKabupaten(kabupaten2);
+
 
         User user=new User();
         user.setUserId("mpewpazi");
@@ -361,6 +412,38 @@ public class DummyMaker {
 
     }
 
+    public List<Propinsi> getMstPropinsis(){
+        List<Propinsi> propinsis=new ArrayList<>();
+        CursorWrapperGal cursor=query(MstPropinsiTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                propinsis.add(cursor.getPropinsi());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return propinsis;
+    }
+
+    public List<Kabupaten> getMstKabupaten(int idPropinsi){
+        List<Kabupaten> kabupatens=new ArrayList<>();
+        CursorWrapperGal cursor=querya(MstKabupatenTable.NAME,MstKabupatenTable.Cols.ID_PROPINSI+ "=?",
+                new String[] {String.valueOf(idPropinsi)},MstKabupatenTable.Cols.NAMA);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                kabupatens.add(cursor.getKabupaten());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return kabupatens;
+    }
+
+
     //memunculkan kualifikasi survey yang hanya bersangkutan dengan userId
     public List<KualifikasiSurvey> getKualifikasiSurveys(String usernameId){
         List<KualifikasiSurvey> kualifikasiSurveys=new ArrayList<>();
@@ -373,8 +456,6 @@ public class DummyMaker {
         }
         return kualifikasiSurveys;
     }
-
-
 
     public FormGalpal1 getFormGalpal1(int idKualifikasiSurvey){
         CursorWrapperGal cursor=query(FG1PerusahaanIdentitasTable.NAME,FG1PerusahaanIdentitasTable.Cols.ID_KUALIFIKASI_SURVEY+ "=?",
@@ -642,7 +723,6 @@ public class DummyMaker {
         return formKompal3ds;
     }
 
-
     public List<SingleForm> getGalpalForms() {
         List<SingleForm> galpalForms=new ArrayList<>();
         galpalForms.add(new FormGalpal1());
@@ -661,11 +741,41 @@ public class DummyMaker {
         return kompalForms;
     }
 
+    private void addMstPropinsi(Propinsi propinsi){
+        ContentValues values=getMstPropinsiContentValues(propinsi);
+        int idPropinsi=propinsi.getId();
 
+        CursorWrapperGal cursor=query(MstPropinsiTable.NAME,MstPropinsiTable.Cols.ID_PROPINSI+ "=?",
+                new String[] {String.valueOf(idPropinsi)});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(MstPropinsiTable.NAME,null,values);
+            }else{
+                mDatabase.update(MstPropinsiTable.NAME,values,MstPropinsiTable.Cols.ID_PROPINSI+" = ?",new String[]{String.valueOf(idPropinsi)});
+            }
 
+        }finally {
+            cursor.close();
+        }
+    }
 
+    private void addMstKabupaten(Kabupaten kabupaten){
+        ContentValues values=getMstKabupatenContentValues(kabupaten);
+        int idKabupaten=kabupaten.getId();
 
+        CursorWrapperGal cursor=query(MstKabupatenTable.NAME,MstKabupatenTable.Cols.ID+ "=?",
+                new String[] {String.valueOf(idKabupaten)});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(MstKabupatenTable.NAME,null,values);
+            }else{
+                mDatabase.update(MstKabupatenTable.NAME,values,MstKabupatenTable.Cols.ID+" = ?",new String[]{String.valueOf(idKabupaten)});
+            }
 
+        }finally {
+            cursor.close();
+        }
+    }
 
     private void addSurveyAssignSurveyor(SurveyAssignSurveyor surveyAssignSurveyor) {
         ContentValues values=getSurveyAssignSurveyorContentValues(surveyAssignSurveyor);
@@ -1291,8 +1401,8 @@ public class DummyMaker {
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.ALAMAT_PERUSAHAAN, formGalpal1.getAlamat());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.KELURAHAN_PERUSAHAAN, formGalpal1.getKelurahan());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.KECAMATAN_PERUSAHAAN, formGalpal1.getKecamatan());
-        contentValues.put(FG1PerusahaanIdentitasTable.Cols.ID_PROPINSI_PERUSAHAAN, formGalpal1.getPropinsi());
-        contentValues.put(FG1PerusahaanIdentitasTable.Cols.ID_KABUPATEN_PERUSAHAAN, formGalpal1.getKebupaten_kota());
+        contentValues.put(FG1PerusahaanIdentitasTable.Cols.ID_PROPINSI_PERUSAHAAN, formGalpal1.getIdPropinsi());
+        contentValues.put(FG1PerusahaanIdentitasTable.Cols.ID_KABUPATEN_PERUSAHAAN, formGalpal1.getIdKabupaten_kota());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.KODE_POS_PERUSAHAAN, formGalpal1.getKodePos());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.ANGGOTA_ASOSIASI, formGalpal1.getAnggotaAsosiasi());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.KATEGORI_PERUSAHAAN, formGalpal1.getKategoriPerusahaan());
@@ -1319,6 +1429,7 @@ public class DummyMaker {
         contentValues.put(FG3GalanganKapalTable.Cols.ID_PROPINSI_GALANGAN,formGalpal3.getPropinsi());
         contentValues.put(FG3GalanganKapalTable.Cols.ID_KABUPATEN_GALANGAN, formGalpal3.getKebupaten_kota());
         contentValues.put(FG3GalanganKapalTable.Cols.KODE_POS_GALANGAN, formGalpal3.getKodePos());
+        contentValues.put(FG3GalanganKapalTable.Cols.IMAGE_PATH,formGalpal3.getImagePath());
         contentValues.put(FG3GalanganKapalTable.Cols.LATITUDE, formGalpal3.getLatitude());
         contentValues.put(FG3GalanganKapalTable.Cols.LONGITUDE, formGalpal3.getLongitude());
         contentValues.put(FG3GalanganKapalTable.Cols.KATEGORI_GALANGAN, formGalpal3.getKategoriGalangan());
@@ -1446,6 +1557,31 @@ public class DummyMaker {
         contentValues.put(MenuCheckingKompalTable.Cols.IS_FILL,menuCheckingKompal.isFill() ? 1 : 0);
         contentValues.put(MenuCheckingKompalTable.Cols.IS_COMPLETE,menuCheckingKompal.isComplete() ? 1 : 0);
         contentValues.put(MenuCheckingKompalTable.Cols.IS_VERIFIED,menuCheckingKompal.isVerified() ? 1 : 0);
+        return contentValues;
+    }
+
+    private ContentValues getMstPropinsiContentValues(Propinsi propinsi){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(MstPropinsiTable.Cols.ID_PROPINSI,propinsi.getId());
+        contentValues.put(MstPropinsiTable.Cols.KODEBPS,propinsi.getKodeBps());
+        contentValues.put(MstPropinsiTable.Cols.NAMA,propinsi.getNama());
+        contentValues.put(MstPropinsiTable.Cols.KODEISO,propinsi.getKodeiso());
+        contentValues.put(MstPropinsiTable.Cols.IBUKOTA,propinsi.getIbukota());
+        contentValues.put(MstPropinsiTable.Cols.PULAU,propinsi.getPulau());
+
+        return contentValues;
+    }
+
+    private ContentValues getMstKabupatenContentValues(Kabupaten kabupaten){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(MstKabupatenTable.Cols.ID,kabupaten.getId());
+        contentValues.put(MstKabupatenTable.Cols.NAMA,kabupaten.getNama());
+        contentValues.put(MstKabupatenTable.Cols.IBU_KOTA,kabupaten.getIbuKota());
+        contentValues.put(MstKabupatenTable.Cols.ID_PROPINSI,kabupaten.getId_propinsi());
+        contentValues.put(MstKabupatenTable.Cols.IBUKOTAPROP,kabupaten.getIbuKotaPropinsi());
+        contentValues.put(MstKabupatenTable.Cols.JMLPENDUDUK,kabupaten.getJumlahPenduduk());
+        contentValues.put(MstKabupatenTable.Cols.KODEBPS,kabupaten.getKodebps());
+
         return contentValues;
     }
 

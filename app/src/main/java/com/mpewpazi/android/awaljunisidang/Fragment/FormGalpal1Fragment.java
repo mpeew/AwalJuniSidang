@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,15 +19,17 @@ import android.widget.Toast;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.MasterDataCreator;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.masterData.Kabupaten;
 import com.mpewpazi.android.awaljunisidang.masterData.Propinsi;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.widget.AdapterView.OnItemSelectedListener;
 
 /**
  * Created by mpewpazi on 3/27/16.
@@ -51,13 +54,17 @@ public class FormGalpal1Fragment extends SingleFragment  {
     private EditText mWebsiteEditText;
 
     private Spinner mPropinsiSpinner;
+    private Spinner mKabupatenSpinner;
 
     private Button mSubmitButton;
 
 
 
     private List<Propinsi> mPropinsis;
+    private List<Kabupaten> mKabupatens;
+
     private List<String> mPropinsiNames;
+    private List<String> mKabupatenNames;
 
     private List<SingleForm> mGalpalForms;
     private KualifikasiSurvey mKualifikasiSurvey;
@@ -74,14 +81,6 @@ public class FormGalpal1Fragment extends SingleFragment  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // memasukan master data propinsi
-        mPropinsis= MasterDataCreator.get().getPropinsis();
-        mPropinsiNames=new ArrayList<>();
-        for(int a=0;a<mPropinsis.size();a++){
-            mPropinsiNames.add(mPropinsis.get(a).getNama());
-        }
-
-
         mDummyMaker=DummyMaker.get(getActivity());
         mGalpalForms=mDummyMaker.getGalpalForms();
         mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
@@ -90,6 +89,18 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
 
         mNamaPerusahaan=mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan();
+
+        // memasukan master data propinsi
+        mPropinsis= DummyMaker.get(getActivity()).getMstPropinsis();
+
+
+
+        mPropinsiNames=new ArrayList<>();
+        for(int a=0;a<mPropinsis.size();a++){
+            mPropinsiNames.add(mPropinsis.get(a).getNama());
+        }
+
+
 
 
 
@@ -120,13 +131,31 @@ public class FormGalpal1Fragment extends SingleFragment  {
         mEmailInputLayout=(TextInputLayout)rootView.findViewById(R.id.galpal1_alamat_email_layout);
         mPropinsiSpinner=(Spinner)rootView.findViewById(R.id.galpal1_propinsi_spinner);
         mWebsiteEditText=(EditText)rootView.findViewById(R.id.galpal1_website);
+        mKabupatenSpinner=(Spinner)rootView.findViewById(R.id.galpal1_kabupaten_spinner);
 
         // setting spinner propinsi
 
         ArrayAdapter<String> dataAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,mPropinsiNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPropinsiSpinner.setAdapter(dataAdapter);
-        mPropinsiSpinner.setSelection(dataAdapter.getPosition(mFormGalpal1.getPropinsi()));
+        mPropinsiSpinner.setSelection(mFormGalpal1.getIdPropinsi());
+        mPropinsiSpinner.setOnItemSelectedListener(myListener);
+
+
+        if(mFormGalpal1.getIdPropinsi()!=0){
+            mKabupatens=DummyMaker.get(getActivity()).getMstKabupaten(mFormGalpal1.getIdPropinsi());
+            mKabupatenNames=new ArrayList<>();
+            for(int a=0;a<mKabupatens.size();a++){
+                mKabupatenNames.add(mKabupatens.get(a).getNama());
+            }
+            ArrayAdapter<String> dataAdapter1=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,mKabupatenNames);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mKabupatenSpinner.setAdapter(dataAdapter1);
+            mKabupatenSpinner.setSelection(mFormGalpal1.getIdKabupaten_kota());
+            mKabupatenSpinner.setOnItemSelectedListener(myListener);
+        }else{
+            mKabupatenSpinner.setEnabled(false);
+        }
 
         //nama perusahaan di lock
         mFormGalpal1.setNamaPerusahaan(mNamaPerusahaan);
@@ -471,6 +500,27 @@ public class FormGalpal1Fragment extends SingleFragment  {
         mDummyMaker.addFormGalpal1(mFormGalpal1);
 
     }
+
+    OnItemSelectedListener myListener=new OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            switch (parent.getId()) {
+                case R.id.galpal1_kabupaten_spinner:
+                    mFormGalpal1.setIdKabupaten_kota(position+1);
+                    break;
+                case R.id.galpal1_propinsi_spinner:
+                    mFormGalpal1.setIdPropinsi(position+1);
+                    break;
+
+
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
 
 
 

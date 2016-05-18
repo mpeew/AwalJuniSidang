@@ -27,6 +27,7 @@ public class FormGalpal3 extends SingleForm {
     private String nomorCp;
     private String jabatan;
     private String email;
+    private String imagePath;
 
 
 
@@ -195,5 +196,13 @@ public class FormGalpal3 extends SingleForm {
 
     public String getPhotoFileName(){
         return "IMG_"+String.valueOf(getIdentitasUmumGalanganId())+".jpg";
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

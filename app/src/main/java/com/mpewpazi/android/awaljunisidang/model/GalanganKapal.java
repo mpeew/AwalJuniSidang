@@ -17,8 +17,8 @@ public class GalanganKapal {
     private String alamatGalangan;
     private String kelurahanGalangan;
     private String kecamatanGalangan;
-    private Propinsi propinsiGalangan;
-    private Kabupaten kabupatenGalangan;
+    private int idPropinsiGalangan;
+    private int idKabupatenGalangan;
     private String teleponGalangan;
     private String faxGalangan;
     private String kodePosGalangan;
@@ -123,20 +123,20 @@ public class GalanganKapal {
         this.kecamatanGalangan = kecamatanGalangan;
     }
 
-    public Propinsi getPropinsiGalangan() {
-        return propinsiGalangan;
+    public int getIdPropinsiGalangan() {
+        return idPropinsiGalangan;
     }
 
-    public void setPropinsiGalangan(Propinsi propinsiGalangan) {
-        this.propinsiGalangan = propinsiGalangan;
+    public void setIdPropinsiGalangan(int idPropinsiGalangan) {
+        this.idPropinsiGalangan = idPropinsiGalangan;
     }
 
-    public Kabupaten getKabupatenGalangan() {
-        return kabupatenGalangan;
+    public int getIdKabupatenGalangan() {
+        return idKabupatenGalangan;
     }
 
-    public void setKabupatenGalangan(Kabupaten kabupatenGalangan) {
-        this.kabupatenGalangan = kabupatenGalangan;
+    public void setIdKabupatenGalangan(int idKabupatenGalangan) {
+        this.idKabupatenGalangan = idKabupatenGalangan;
     }
 
     public String getTeleponGalangan() {

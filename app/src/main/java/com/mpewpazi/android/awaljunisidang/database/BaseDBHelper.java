@@ -162,6 +162,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG3GalanganKapalTable.Cols.TELEPON_GALANGAN +" text," +
                         FG3GalanganKapalTable.Cols.FAX_GALANGAN +" text," +
                         FG3GalanganKapalTable.Cols.KODE_POS_GALANGAN +" text," +
+                        FG3GalanganKapalTable.Cols.IMAGE_PATH +" text," +
                         FG3GalanganKapalTable.Cols.LONGITUDE +" text," +
                         FG3GalanganKapalTable.Cols.LATITUDE +" text," +
                         FG3GalanganKapalTable.Cols.LINTANG +" text," +
@@ -343,6 +344,27 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         MenuCheckingKompalTable.Cols.IS_FILL +" ," +
                         MenuCheckingKompalTable.Cols.IS_COMPLETE +" ," +
                         MenuCheckingKompalTable.Cols.IS_VERIFIED +" )"
+        );
+
+        db.execSQL(
+                "create table "+MstKabupatenTable.NAME+
+                        "("+MstKabupatenTable.Cols.ID+" integer primary key ," +
+                        MstKabupatenTable.Cols.NAMA +" ," +
+                        MstKabupatenTable.Cols.IBU_KOTA +" ," +
+                        MstKabupatenTable.Cols.ID_PROPINSI +" integer ," +
+                        MstKabupatenTable.Cols.IBUKOTAPROP +" ," +
+                        MstKabupatenTable.Cols.KODEBPS +" ," +
+                        MstKabupatenTable.Cols.JMLPENDUDUK +" )"
+        );
+
+        db.execSQL(
+                "create table "+MstPropinsiTable.NAME+
+                        "("+MstPropinsiTable.Cols.ID_PROPINSI+" integer primary key ," +
+                        MstPropinsiTable.Cols.KODEBPS +" ," +
+                        MstPropinsiTable.Cols.NAMA +" ," +
+                        MstPropinsiTable.Cols.KODEISO +" ," +
+                        MstPropinsiTable.Cols.IBUKOTA +" ," +
+                        MstPropinsiTable.Cols.PULAU +" )"
         );
 
 

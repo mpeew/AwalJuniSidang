@@ -145,6 +145,7 @@ public class DhSchema {
             public static final String TELEPON_GALANGAN = "telepon_galangan";
             public static final String FAX_GALANGAN = "fax_galangan";
             public static final String KODE_POS_GALANGAN="kode_pos_galangan";
+            public static final String IMAGE_PATH="image_path";
             public static final String LONGITUDE="longitude";
             public static final String LATITUDE="latitude";
             public static final String LINTANG="lintang";
@@ -875,6 +876,32 @@ public class DhSchema {
             public static final String USERID_VERIFIKASI="userid_verifikasi";
             public static final String VERIFY_DATE="verify_date";
             public static final String IP_USER_VERIFY="ip_user_verify";
+        }
+    }
+
+    public static final class MstPropinsiTable {
+        public static final String NAME="mst_propinsi";
+        public static final class Cols{
+            public static final String ID_PROPINSI="id_propinsi";
+            public static final String KODEBPS="kodebps";
+            public static final String NAMA="nama";
+            public static final String KODEISO="kodeiso";
+            public static final String IBUKOTA="ibukota";
+            public static final String PULAU="pulau";
+        }
+    }
+
+    public static final class MstKabupatenTable{
+        public static final String NAME="mst_kabupatenkota";
+        public static final class Cols{
+            public static final String ID="id";
+            public static final String NAMA="nama";
+            public static final String IBU_KOTA="ibu_kota";
+            public static final String ID_PROPINSI="id_propinsi";
+            public static final String IBUKOTAPROP="ibukotaprop";
+            public static final String JMLPENDUDUK="jmlpenduduk";
+            public static final String KODEBPS="kodebps";
+
         }
     }
 

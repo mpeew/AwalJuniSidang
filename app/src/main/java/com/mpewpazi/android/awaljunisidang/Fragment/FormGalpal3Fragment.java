@@ -3,7 +3,7 @@ package com.mpewpazi.android.awaljunisidang.Fragment;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class FormGalpal3Fragment extends SingleFragment {
 
-    private static final int SELECT_FILE=1;
+    private static final int REQUEST_SELECT_FILE=1;
     private static final int REQUEST_PHOTO=2;
 
     private String mNamaPerusahaan;
@@ -405,14 +405,9 @@ public class FormGalpal3Fragment extends SingleFragment {
         mNamaPerusahaanEditText.setText(mNamaPerusahaan);
         mNamaPerusahaanEditText.setEnabled(false);
 
-        PackageManager packageManager = getActivity().getPackageManager();
-        final Intent captureImage=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        boolean canTakePhoto=mPhotoFile!=null&& captureImage.resolveActivity(packageManager)!=null;
-        mCaptureButton.setEnabled(canTakePhoto);
-        if(canTakePhoto){
-            Uri uri=Uri.fromFile(mPhotoFile);
-            captureImage.putExtra(MediaStore.EXTRA_OUTPUT,uri);
-        }
+
+
+
         mCaptureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -425,15 +420,15 @@ public class FormGalpal3Fragment extends SingleFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
                         if (items[item].equals("Take Photo")) {
+                            Intent captureImage=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            Uri uri=Uri.fromFile(mPhotoFile);
+                            captureImage.putExtra(MediaStore.EXTRA_OUTPUT,uri);
                             startActivityForResult(captureImage, REQUEST_PHOTO);
                         } else if (items[item].equals("Choose from Library")) {
-                            Intent intent = new Intent(
-                                    Intent.ACTION_PICK,
-                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             intent.setType("image/*");
-                            startActivityForResult(
-                                    Intent.createChooser(intent, "Select File"),
-                                    SELECT_FILE);
+
+                            startActivityForResult(Intent.createChooser(intent, "Select File"), REQUEST_SELECT_FILE);
                         } else if (items[item].equals("Cancel")) {
                             dialog.dismiss();
                         }
@@ -486,10 +481,10 @@ public class FormGalpal3Fragment extends SingleFragment {
     }
 
     private void updatePhotoView(){
-        if(mPhotoFile==null || !mPhotoFile.exists()){
+        if(mFormGalpal3.getImagePath()==null){
             mPhotoView.setImageDrawable(null);
         }else{
-            Bitmap bitmap= PictureUtils.getScaledBitmap(mPhotoFile.getPath(),getActivity());
+            Bitmap bitmap= PictureUtils.getScaledBitmap(mFormGalpal3.getImagePath(),getActivity());
             mPhotoView.setImageBitmap(bitmap);
         }
     }
@@ -500,9 +495,21 @@ public class FormGalpal3Fragment extends SingleFragment {
             return;
         }
         if (requestCode==REQUEST_PHOTO){
+            mFormGalpal3.setImagePath(mPhotoFile.getPath());
+            updatePhotoView();
+        }else if(requestCode==REQUEST_SELECT_FILE){
+            Uri selectedImageUri = data.getData();
+            String[] projection = { MediaStore.MediaColumns.DATA };
+            Cursor cursor = getActivity().getContentResolver().query(selectedImageUri, projection, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+            cursor.moveToFirst();
+            mFormGalpal3.setImagePath(cursor.getString(column_index));
+            cursor.close();
             updatePhotoView();
         }
     }
+
+
 
 
 

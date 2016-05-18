@@ -171,11 +171,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
-                    android:entries="@array/coba_spinner"
                     android:layout_weight="35"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kabupaten_spinner"/>
+                    android:id="@+id/galpal1_kabupaten_spinner"/>
 
             </LinearLayout>
             <android.support.design.widget.TextInputLayout

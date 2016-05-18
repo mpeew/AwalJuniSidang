@@ -11,6 +11,8 @@ import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
+import com.mpewpazi.android.awaljunisidang.masterData.Kabupaten;
+import com.mpewpazi.android.awaljunisidang.masterData.Propinsi;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
@@ -21,6 +23,7 @@ import com.mpewpazi.android.awaljunisidang.model.User;
 
 import java.util.UUID;
 
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.*;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG3GalanganKapalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG4TinjauanAreaTable;
@@ -142,8 +145,8 @@ public class CursorWrapperGal extends CursorWrapper{
         String alamat=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.ALAMAT_PERUSAHAAN));
         String kelurahan=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.KELURAHAN_PERUSAHAAN));
         String kecamatan=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.KECAMATAN_PERUSAHAAN));
-        String propinsi=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.ID_PROPINSI_PERUSAHAAN));
-        String kabupaten_kota=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.ID_KABUPATEN_PERUSAHAAN));
+        int idPropinsi=getInt(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.ID_PROPINSI_PERUSAHAAN));
+        int idKabupaten_kota=getInt(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.ID_KABUPATEN_PERUSAHAAN));
         String kodePos=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.KODE_POS_PERUSAHAAN));
         String anggotaAsosiasi=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.ANGGOTA_ASOSIASI));
         String kategoriPerusahaan=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.KATEGORI_PERUSAHAAN));
@@ -163,8 +166,8 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal1.setAlamat(alamat);
         formGalpal1.setKelurahan(kelurahan);
         formGalpal1.setKecamatan(kecamatan);
-        formGalpal1.setPropinsi(propinsi);
-        formGalpal1.setKebupaten_kota(kabupaten_kota);
+        formGalpal1.setIdPropinsi(idPropinsi);
+        formGalpal1.setIdKabupaten_kota(idKabupaten_kota);
         formGalpal1.setKodePos(kodePos);
         formGalpal1.setAnggotaAsosiasi(anggotaAsosiasi);
         formGalpal1.setKategoriPerusahaan(kategoriPerusahaan);
@@ -199,6 +202,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String cpNo=getString(getColumnIndex(FG3GalanganKapalTable.Cols.CP_NO));
         String cpJabatan=getString(getColumnIndex(FG3GalanganKapalTable.Cols.CP_JABATAN));
         String cpEmail=getString(getColumnIndex(FG3GalanganKapalTable.Cols.CP_EMAIL));
+        String imagePath=getString(getColumnIndex(FG3GalanganKapalTable.Cols.IMAGE_PATH));
 
 
         FormGalpal3 formGalpal3=new FormGalpal3();
@@ -222,6 +226,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal3.setNomorCp(cpNo);
         formGalpal3.setJabatan(cpJabatan);
         formGalpal3.setEmail(cpEmail);
+        formGalpal3.setImagePath(imagePath);
 
 
         return formGalpal3;
@@ -429,5 +434,46 @@ public class CursorWrapperGal extends CursorWrapper{
         menuCheckingKompal.setVerified(isVerified==1);
 
         return menuCheckingKompal;
+    }
+
+
+    public Propinsi getPropinsi(){
+        int idPropinsi=getInt(getColumnIndex(MstPropinsiTable.Cols.ID_PROPINSI));
+        int kodeBps=getInt(getColumnIndex(MstPropinsiTable.Cols.KODEBPS));
+        String nama=getString(getColumnIndex(MstPropinsiTable.Cols.NAMA));
+        String kodeIso=getString(getColumnIndex(MstPropinsiTable.Cols.KODEISO));
+        String ibuKota=getString(getColumnIndex(MstPropinsiTable.Cols.IBUKOTA));
+        String pulau=getString(getColumnIndex(MstPropinsiTable.Cols.PULAU));
+
+        Propinsi propinsi=new Propinsi();
+        propinsi.setId(idPropinsi);
+        propinsi.setKodeBps(kodeBps);
+        propinsi.setNama(nama);
+        propinsi.setKodeiso(kodeIso);
+        propinsi.setIbukota(ibuKota);
+        propinsi.setPulau(pulau);
+
+        return propinsi;
+    }
+
+    public Kabupaten getKabupaten(){
+        int id=getInt(getColumnIndex(MstKabupatenTable.Cols.ID));
+        String nama=getString(getColumnIndex(MstKabupatenTable.Cols.NAMA));
+        String ibuKota=getString(getColumnIndex(MstKabupatenTable.Cols.IBU_KOTA));
+        int idPropinsi=getInt(getColumnIndex(MstKabupatenTable.Cols.ID_PROPINSI));
+        int ibuKotaProp=getInt(getColumnIndex(MstKabupatenTable.Cols.IBU_KOTA));
+        int jumlahPenduduk=getInt(getColumnIndex(MstKabupatenTable.Cols.JMLPENDUDUK));
+        int kodeBps=getInt(getColumnIndex(MstKabupatenTable.Cols.KODEBPS));
+
+        Kabupaten kabupaten=new Kabupaten();
+        kabupaten.setId(id);
+        kabupaten.setNama(nama);
+        kabupaten.setIbuKota(ibuKota);
+        kabupaten.setId_propinsi(idPropinsi);
+        kabupaten.setIbuKotaPropinsi(ibuKotaProp);
+        kabupaten.setJumlahPenduduk(jumlahPenduduk);
+        kabupaten.setKodebps(kodeBps);
+
+        return kabupaten;
     }
 }
