@@ -1285,6 +1285,7 @@ public class DummyMaker {
             menuCheckingGalpal.setIdKualifikasiSurvey(kualifikasiSurveyId);
             menuCheckingGalpal.setIdMenu(x);
             addMenuCheckingGalpala(menuCheckingGalpal);
+            //
         }
     }
 
