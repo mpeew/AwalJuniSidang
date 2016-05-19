@@ -157,7 +157,7 @@ public class DummyMaker {
         Perusahaan perusahaan1=new Perusahaan();
         perusahaan1.setId(1);
         perusahaan1.setNamaPerusahaan("PT ABC");
-        perusahaan1.setIndustri("Komponen Kapal");
+        perusahaan1.setIndustri("Galangan Kapal");
         perusahaan1.setActive(1);
 
         Perusahaan perusahaan2=new Perusahaan();
@@ -185,7 +185,7 @@ public class DummyMaker {
 
 
         KualifikasiSurvey kualifikasiSurvey=new KualifikasiSurvey();
-        kualifikasiSurvey.setKualifikasiSurveyId(1);
+        kualifikasiSurvey.setKualifikasiSurveyId(20150001);
         kualifikasiSurvey.setPerusahaanId(1);
         kualifikasiSurvey.setPeriodeSurveyId(2014);
         kualifikasiSurvey.setGalanganKapalId(1);
@@ -245,7 +245,7 @@ public class DummyMaker {
         SurveyAssignSurveyor surveyAssignSurveyor=new SurveyAssignSurveyor();
         surveyAssignSurveyor.setSurveyAssignSurveyorId(1);
         surveyAssignSurveyor.setUserId("mpewpazi");
-        surveyAssignSurveyor.setKualifikasiSurveyId(1);
+        surveyAssignSurveyor.setKualifikasiSurveyId(20150001);
 
         SurveyAssignSurveyor surveyAssignSurveyor1=new SurveyAssignSurveyor();
         surveyAssignSurveyor1.setSurveyAssignSurveyorId(2);
@@ -994,6 +994,12 @@ public class DummyMaker {
         }
     }
 
+    public void addFormGalpal1s(List<FormGalpal1> formGalpal1s){
+        for(FormGalpal1 formGalpal1:formGalpal1s){
+            addFormGalpal1(formGalpal1);
+        }
+    }
+
     public void addFormGalpal3(FormGalpal3 formGalpal3){
         ContentValues values=getFormGalpal3ContentValues(formGalpal3);
         String formGalpal3Id=String.valueOf(formGalpal3.getIdentitasUmumGalanganId());
@@ -1249,7 +1255,7 @@ public class DummyMaker {
 
     private void addGalpalForms(int formGalpalId,int kualifikasiSurveyId){
         FormGalpal1 formGalpal1=new FormGalpal1();
-        formGalpal1.setIdentitasPerusahaanId(formGalpalId);
+        formGalpal1.setIdentitasPerusahaanId(kualifikasiSurveyId);
         formGalpal1.setKualifikasiSurveyId(kualifikasiSurveyId);
 
         FormGalpal3 formGalpal3=new FormGalpal3();
@@ -1407,7 +1413,7 @@ public class DummyMaker {
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.ANGGOTA_ASOSIASI, formGalpal1.getAnggotaAsosiasi());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.KATEGORI_PERUSAHAAN, formGalpal1.getKategoriPerusahaan());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.CP_NAMA, formGalpal1.getContactPerson());
-        contentValues.put(FG1PerusahaanIdentitasTable.Cols.CP_NO, formGalpal1.getNomorCp());
+        contentValues.put(FG1PerusahaanIdentitasTable.Cols.CP_NOMOR, formGalpal1.getNomorCp());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.CP_JABATAN, formGalpal1.getJabatan());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.CP_EMAIL, formGalpal1.getEmail());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.WEBSITE, formGalpal1.getWebsite());

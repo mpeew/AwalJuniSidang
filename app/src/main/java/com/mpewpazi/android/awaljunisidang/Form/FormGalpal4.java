@@ -8,13 +8,13 @@ import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
  */
 public class FormGalpal4 extends SingleForm {
     private int tinjauanWilayahMaritimId;
-    private String jarakKedalaman;
-    private String AirPelayaran;
-    private String pasangSurutPerairan;
-    private String arus;
-    private String gelombang;
-    private String panjangWaterfront;
-    private String luasLahan;
+    private int jarakKedalaman;
+    private int AirPelayaran;
+    private int pasangSurutPerairan;
+    private int arus;
+    private int gelombang;
+    private int panjangWaterfront;
+    private int luasLahan;
     private String ketersediaanLahan;
     private String lahanProduktif;
     private String lahanPemukiman;
@@ -47,28 +47,61 @@ public class FormGalpal4 extends SingleForm {
         this.tinjauanWilayahMaritimId = tinjauanWilayahMaritimId;
     }
 
-    public String getJarakKedalaman() {
+
+    public int getJarakKedalaman() {
         return jarakKedalaman;
     }
 
-    public void setJarakKedalaman(String jarakKedalaman) {
+    public void setJarakKedalaman(int jarakKedalaman) {
         this.jarakKedalaman = jarakKedalaman;
     }
 
-    public String getAirPelayaran() {
+    public int getAirPelayaran() {
         return AirPelayaran;
     }
 
-    public void setAirPelayaran(String airPelayaran) {
+    public void setAirPelayaran(int airPelayaran) {
         AirPelayaran = airPelayaran;
     }
 
-    public String getPasangSurutPerairan() {
+    public int getPasangSurutPerairan() {
         return pasangSurutPerairan;
     }
 
-    public void setPasangSurutPerairan(String pasangSurutPerairan) {
+    public void setPasangSurutPerairan(int pasangSurutPerairan) {
         this.pasangSurutPerairan = pasangSurutPerairan;
+    }
+
+    public int getArus() {
+        return arus;
+    }
+
+    public void setArus(int arus) {
+        this.arus = arus;
+    }
+
+    public int getGelombang() {
+        return gelombang;
+    }
+
+    public void setGelombang(int gelombang) {
+        this.gelombang = gelombang;
+    }
+
+    public int getPanjangWaterfront() {
+        return panjangWaterfront;
+    }
+
+    public void setPanjangWaterfront(int panjangWaterfront) {
+        this.panjangWaterfront = panjangWaterfront;
+    }
+
+    public int getLuasLahan() {
+        return luasLahan;
+    }
+
+    public void setLuasLahan(int luasLahan) {
+        this.luasLahan = luasLahan;
     }
 
     public String getPasangSurutDaratan() {
@@ -79,37 +112,7 @@ public class FormGalpal4 extends SingleForm {
         this.pasangSurutDaratan = pasangSurutDaratan;
     }
 
-    public String getArus() {
-        return arus;
-    }
 
-    public void setArus(String arus) {
-        this.arus = arus;
-    }
-
-    public String getGelombang() {
-        return gelombang;
-    }
-
-    public void setGelombang(String gelombang) {
-        this.gelombang = gelombang;
-    }
-
-    public String getPanjangWaterfront() {
-        return panjangWaterfront;
-    }
-
-    public void setPanjangWaterfront(String panjangWaterfront) {
-        this.panjangWaterfront = panjangWaterfront;
-    }
-
-    public String getLuasLahan() {
-        return luasLahan;
-    }
-
-    public void setLuasLahan(String luasLahan) {
-        this.luasLahan = luasLahan;
-    }
 
     public String getKetersediaanLahan() {
         return ketersediaanLahan;

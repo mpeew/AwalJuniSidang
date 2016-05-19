@@ -52,7 +52,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "create table "+ SurveyAssignSurveyorTable.NAME+
                         "("+SurveyAssignSurveyorTable.Cols.ID_SURVEY_ASSIGN_SURVEYOR+" integer primary key ," +
-                        SurveyAssignSurveyorTable.Cols.ID_KUALIFIKASI_SURVEY +", " +
+                        SurveyAssignSurveyorTable.Cols.ID_KUALIFIKASI_SURVEY +" integer , " +
                         SurveyAssignSurveyorTable.Cols.USERID +", " +
                         SurveyAssignSurveyorTable.Cols.ASSIGN_DATE +", " +
                         SurveyAssignSurveyorTable.Cols.ASSIGN_BY +" )"
@@ -119,7 +119,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG1PerusahaanIdentitasTable.Cols.ANGGOTA_ASOSIASI +" text," +
                         FG1PerusahaanIdentitasTable.Cols.WEBSITE +" text," +
                         FG1PerusahaanIdentitasTable.Cols.CP_NAMA +" text," +
-                        FG1PerusahaanIdentitasTable.Cols.CP_NO +" text," +
+                        FG1PerusahaanIdentitasTable.Cols.CP_NOMOR +" text," +
                         FG1PerusahaanIdentitasTable.Cols.CP_JABATAN +" text," +
                         FG1PerusahaanIdentitasTable.Cols.CP_EMAIL +" text," +
                         FG1PerusahaanIdentitasTable.Cols.ID_MST_JENIS_INDUSTRI +" integer," +

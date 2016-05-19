@@ -8,6 +8,7 @@ public class KualifikasiSurvey {
     private int perusahaanId;
     private int periodeSurveyId;
     private int galanganKapalId;
+    private int status;
     private int progress;
 
     public int getProgress() {
@@ -48,5 +49,13 @@ public class KualifikasiSurvey {
 
     public void setGalanganKapalId(int galanganKapalId) {
         this.galanganKapalId = galanganKapalId;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

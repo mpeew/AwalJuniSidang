@@ -138,11 +138,11 @@ public class FormGalpal1Fragment extends SingleFragment  {
         ArrayAdapter<String> dataAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,mPropinsiNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPropinsiSpinner.setAdapter(dataAdapter);
-        mPropinsiSpinner.setSelection(mFormGalpal1.getIdPropinsi());
+       // mPropinsiSpinner.setSelection(mFormGalpal1.getIdPropinsi());
         mPropinsiSpinner.setOnItemSelectedListener(myListener);
 
 
-        if(mFormGalpal1.getIdPropinsi()!=0){
+        /*if(mFormGalpal1.getIdPropinsi()!=0){
             mKabupatens=DummyMaker.get(getActivity()).getMstKabupaten(mFormGalpal1.getIdPropinsi());
             mKabupatenNames=new ArrayList<>();
             for(int a=0;a<mKabupatens.size();a++){
@@ -155,7 +155,7 @@ public class FormGalpal1Fragment extends SingleFragment  {
             mKabupatenSpinner.setOnItemSelectedListener(myListener);
         }else{
             mKabupatenSpinner.setEnabled(false);
-        }
+        }*/
 
         //nama perusahaan di lock
         mFormGalpal1.setNamaPerusahaan(mNamaPerusahaan);

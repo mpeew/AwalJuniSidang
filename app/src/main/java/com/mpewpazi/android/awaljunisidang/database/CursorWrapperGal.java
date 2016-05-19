@@ -151,7 +151,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String anggotaAsosiasi=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.ANGGOTA_ASOSIASI));
         String kategoriPerusahaan=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.KATEGORI_PERUSAHAAN));
         String cpNama=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.CP_NAMA));
-        String cpNo=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.CP_NO));
+        String cpNo=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.CP_NOMOR));
         String cpJabatan=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.CP_JABATAN));
         String cpEmail=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.CP_EMAIL));
         String website=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.WEBSITE));
@@ -192,8 +192,8 @@ public class CursorWrapperGal extends CursorWrapper{
         String alamat=getString(getColumnIndex(FG3GalanganKapalTable.Cols.ALAMAT_GALANGAN));
         String kelurahan=getString(getColumnIndex(FG3GalanganKapalTable.Cols.KELURAHAN_GALANGAN));
         String kecamatan=getString(getColumnIndex(FG3GalanganKapalTable.Cols.KECAMATAN_GALANGAN));
-        String provinsi=getString(getColumnIndex(FG3GalanganKapalTable.Cols.ID_PROPINSI_GALANGAN));
-        String kabupaten=getString(getColumnIndex(FG3GalanganKapalTable.Cols.ID_KABUPATEN_GALANGAN));
+        int provinsiId=getInt(getColumnIndex(FG3GalanganKapalTable.Cols.ID_PROPINSI_GALANGAN));
+        int kabupatenId=getInt(getColumnIndex(FG3GalanganKapalTable.Cols.ID_KABUPATEN_GALANGAN));
         String kodePos=getString(getColumnIndex(FG3GalanganKapalTable.Cols.KODE_POS_GALANGAN));
         String latitude=getString(getColumnIndex(FG3GalanganKapalTable.Cols.LATITUDE));
         String longitude=getString(getColumnIndex(FG3GalanganKapalTable.Cols.LONGITUDE));
@@ -216,8 +216,8 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal3.setAlamat(alamat);
         formGalpal3.setKelurahan(kelurahan);
         formGalpal3.setKecamatan(kecamatan);
-        formGalpal3.setPropinsi(provinsi);
-        formGalpal3.setKebupaten_kota(kabupaten);
+        formGalpal3.setPropinsiId(provinsiId);
+        formGalpal3.setKebupaten_kotaId(kabupatenId);
         formGalpal3.setKodePos(kodePos);
         formGalpal3.setLatitude(latitude);
         formGalpal3.setLongitude(longitude);
@@ -235,13 +235,13 @@ public class CursorWrapperGal extends CursorWrapper{
     public FormGalpal4 getFormGalpal4(){
         int idTinjauanWilayahMaritim=getInt(getColumnIndex(FG4TinjauanAreaTable.Cols.ID_F1_TINJAUAN_AREA));
         int idKualifikasiSurvey=getInt(getColumnIndex(FG4TinjauanAreaTable.Cols.ID_KUALIFIKASI_SURVEY));
-        String jarakKedalaman=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.ID_MST_JARAK_KEDALAMAN));
-        String airPelayaran=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.ID_MST_AIR_PELAYARAN));
-        String pasangSurut=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.ID_MST_PASANG_SURUT));
-        String arus=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.ID_MST_ARUS));
-        String gelombang=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.ID_MST_GELOMBANG));
-        String panjangWaterfornt=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.PANJANG_WATERFRONT));
-        String luasLahan=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.LUAS_LAHAN));
+        int mstJarakKedalaman=getInt(getColumnIndex(FG4TinjauanAreaTable.Cols.ID_MST_JARAK_KEDALAMAN));
+        int mstAirPelayaran=getInt(getColumnIndex(FG4TinjauanAreaTable.Cols.ID_MST_AIR_PELAYARAN));
+        int mstPasangSurut=getInt(getColumnIndex(FG4TinjauanAreaTable.Cols.ID_MST_PASANG_SURUT));
+        int mstArus=getInt(getColumnIndex(FG4TinjauanAreaTable.Cols.ID_MST_ARUS));
+        int mstGelombang=getInt(getColumnIndex(FG4TinjauanAreaTable.Cols.ID_MST_GELOMBANG));
+        int panjangWaterfornt=getInt(getColumnIndex(FG4TinjauanAreaTable.Cols.PANJANG_WATERFRONT));
+        int luasLahan=getInt(getColumnIndex(FG4TinjauanAreaTable.Cols.LUAS_LAHAN));
         String ketersediaanLahan=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.KETERSEDIAAN_LAHAN));
         String lahanProduktif=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.LAHAN_PRODUKTIF));
         String lahanPemukiman=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.LAHAN_PEMUKIMAN));
@@ -259,11 +259,11 @@ public class CursorWrapperGal extends CursorWrapper{
         FormGalpal4 formGalpal4=new FormGalpal4();
         formGalpal4.setTinjauanWilayahMaritimId(idTinjauanWilayahMaritim);
         formGalpal4.setKualifikasiSurveyId(idKualifikasiSurvey);
-        formGalpal4.setJarakKedalaman(jarakKedalaman);
-        formGalpal4.setAirPelayaran(airPelayaran);
-        formGalpal4.setPasangSurutPerairan(pasangSurut);
-        formGalpal4.setArus(arus);
-        formGalpal4.setGelombang(gelombang);
+        formGalpal4.setJarakKedalaman(mstJarakKedalaman);
+        formGalpal4.setAirPelayaran(mstAirPelayaran);
+        formGalpal4.setPasangSurutPerairan(mstPasangSurut);
+        formGalpal4.setArus(mstArus);
+        formGalpal4.setGelombang(mstGelombang);
         formGalpal4.setPanjangWaterfront(panjangWaterfornt);
         formGalpal4.setLuasLahan(luasLahan);
         formGalpal4.setKetersediaanLahan(ketersediaanLahan);
@@ -349,12 +349,12 @@ public class CursorWrapperGal extends CursorWrapper{
 
         FormKompal3b formKompal3b=new FormKompal3b(UUID.fromString(idJumlahProduksi));
         formKompal3b.setIdKualifikasiSurvey(idKualifikasiSurvey);
-        formKompal3b.setJenisProduk(jenisProduk);
+        formKompal3b.setJenisProdukId(jenisProduk);
         formKompal3b.setJumlahProdThn1(jumlahProdthn1);
         formKompal3b.setJumlahProdThn2(jumlahProdthn2);
         formKompal3b.setJumlahProdThn3(jumlahProdthn3);
         formKompal3b.setJumlahProdThn4(jumlahProdthn4);
-        formKompal3b.setSatuan(satuan);
+        formKompal3b.setSatuanId(satuan);
         formKompal3b.setNilaiProduksiThn1(nilaiProduksiThn1);
         formKompal3b.setNilaiProduksiThn2(nilaiProduksiThn2);
         formKompal3b.setNilaiProduksiThn3(nilaiProduksiThn3);

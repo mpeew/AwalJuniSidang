@@ -1,6 +1,7 @@
 package com.mpewpazi.android.awaljunisidang;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.SurveyAssignSurveyor;
@@ -32,6 +34,7 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+        new FetchItemTask().execute();
 
 
         mRecyclerView=(RecyclerView)findViewById(R.id.surveyy_recycler_view);
@@ -137,6 +140,22 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         updateUi();
+    }
+
+    private class FetchItemTask extends AsyncTask<Void,Void,List<FormGalpal1>> {
+
+        @Override
+        protected List<FormGalpal1> doInBackground(Void... params) {
+            return new DataFetcher().fetchItems();
+        }
+
+
+
+        @Override
+        protected void onPostExecute(List<FormGalpal1> galleryItems) {
+            DummyMaker.get(getApplicationContext()).addFormGalpal1s(galleryItems);
+
+        }
     }
 
 

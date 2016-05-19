@@ -19,6 +19,44 @@ public class FormGalpal1 extends SingleForm {
         this.namaPerusahaan = namaPerusahaan;
     }
 
+    private int idPerusahaanIdentitas;
+    private int idPerusahaan;
+    private int idKualifikasiSurvey;
+    private String alamatPerusahaan;
+    private String kelurahanPerusahaan;
+    private String kecamatanPerusahaan;
+    private int idKabupatenPerusahaan;
+    private int idPropinsiPerusahaan;
+    private String teleponPerusahaan;
+    private String faxPerusahaan;
+    private String kodePosPerusahaan;
+    private String alamatPabrik;
+    private String kelurahanPabrik;
+    private String kecamatanPabrik;
+    private int idKabupatenPabrik;
+    private int idPropinsiPabrik;
+    private String teleponPabrik;
+    private String faxPabrik;
+    private String kodePosPabrik;
+    private int idMstLokasiPabrik;
+    private String lahanPeruntukan;
+    private int luasTanahPabrik;
+    private String NPWP;
+    private String namaPimpinan;
+    private String statusKepemilikanUsaha;
+    private String kategoriPerusahaan;
+    private String anggotaAsosiasi;
+    private String website;
+    private String cpNama;
+    private String cpNomor;
+    private String cpJabatan;
+    private String cpEmail;
+    private int idMstJenisIndustri;
+    private String longitude;
+    private String latitude;
+
+
+
     private int identitasPerusahaanId;
     private int perusahaanId;
     private String statusKepemilikanUsaha;

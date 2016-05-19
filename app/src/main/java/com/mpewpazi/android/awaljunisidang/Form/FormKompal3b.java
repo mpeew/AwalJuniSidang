@@ -11,16 +11,16 @@ import java.util.UUID;
 public class FormKompal3b extends SingleForm {
     private UUID idjumlahProduksi;
     private int idKualifikasiSurvey;
-    private String jenisProduk;
+    private int jenisProdukId;
     private int jumlahProdThn1;
     private int jumlahProdThn2;
     private int jumlahProdThn3;
     private int jumlahProdThn4;
-    private String satuan;
-    private int nilaiProduksiThn1;
-    private int nilaiProduksiThn2;
-    private int nilaiProduksiThn3;
-    private int nilaiProduksiThn4;
+    private int satuanId;
+    private double nilaiProduksiThn1;
+    private double nilaiProduksiThn2;
+    private double nilaiProduksiThn3;
+    private double nilaiProduksiThn4;
     private String keterangan;
 
     @Override
@@ -41,12 +41,13 @@ public class FormKompal3b extends SingleForm {
         idjumlahProduksi=id;
     }
 
-    public String getJenisProduk() {
-        return jenisProduk;
+
+    public int getJenisProdukId() {
+        return jenisProdukId;
     }
 
-    public void setJenisProduk(String jenisProduk) {
-        this.jenisProduk = jenisProduk;
+    public void setJenisProdukId(int jenisProdukId) {
+        this.jenisProdukId = jenisProdukId;
     }
 
     public UUID getIdjumlahProduksi() {
@@ -97,40 +98,44 @@ public class FormKompal3b extends SingleForm {
         this.jumlahProdThn4 = jumlahProdThn4;
     }
 
-    public String getSatuan() {
-        return satuan;
+    public int getSatuanId() {
+        return satuanId;
     }
 
-    public void setSatuan(String satuan) {
-        this.satuan = satuan;
+    public void setSatuanId(int satuanId) {
+        this.satuanId = satuanId;
     }
 
-    public int getNilaiProduksiThn1() {
+    public double getNilaiProduksiThn1() {
         return nilaiProduksiThn1;
     }
 
-    public void setNilaiProduksiThn1(int nilaiProduksiThn1) {
+    public void setNilaiProduksiThn1(double nilaiProduksiThn1) {
         this.nilaiProduksiThn1 = nilaiProduksiThn1;
     }
 
-    public int getNilaiProduksiThn2() {
+    public double getNilaiProduksiThn2() {
         return nilaiProduksiThn2;
     }
 
-    public void setNilaiProduksiThn2(int nilaiProduksiThn2) {
+    public void setNilaiProduksiThn2(double nilaiProduksiThn2) {
         this.nilaiProduksiThn2 = nilaiProduksiThn2;
     }
 
-    public int getNilaiProduksiThn3() {
+    public double getNilaiProduksiThn3() {
         return nilaiProduksiThn3;
     }
 
-    public void setNilaiProduksiThn3(int nilaiProduksiThn3) {
+    public void setNilaiProduksiThn3(double nilaiProduksiThn3) {
         this.nilaiProduksiThn3 = nilaiProduksiThn3;
     }
 
-    public int getNilaiProduksiThn4() {
+    public double getNilaiProduksiThn4() {
         return nilaiProduksiThn4;
+    }
+
+    public void setNilaiProduksiThn4(double nilaiProduksiThn4) {
+        this.nilaiProduksiThn4 = nilaiProduksiThn4;
     }
 
     public void setNilaiProduksiThn4(int nilaiProduksiThn4) {

@@ -12,8 +12,8 @@ public class FormKompal3a extends SingleForm {
     private UUID idJenisKapasitasProduksi;
     private int idKualifikasiSurvey;
     private String jenisProduksi;
-    private String kapasitasProduksi;
-    private String satuan;
+    private int kapasitasProduksi;
+    private int satuan;
 
     @Override
     public SingleFragment getFragment() {
@@ -57,19 +57,19 @@ public class FormKompal3a extends SingleForm {
         this.jenisProduksi = jenisProduksi;
     }
 
-    public String getKapasitasProduksi() {
+    public int getKapasitasProduksi() {
         return kapasitasProduksi;
     }
 
-    public void setKapasitasProduksi(String kapasitasProduksi) {
+    public void setKapasitasProduksi(int kapasitasProduksi) {
         this.kapasitasProduksi = kapasitasProduksi;
     }
 
-    public String getSatuan() {
+    public int getSatuan() {
         return satuan;
     }
 
-    public void setSatuan(String satuan) {
+    public void setSatuan(int satuan) {
         this.satuan = satuan;
     }
 }

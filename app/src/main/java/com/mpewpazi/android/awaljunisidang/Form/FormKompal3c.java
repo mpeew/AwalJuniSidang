@@ -12,7 +12,8 @@ public class FormKompal3c extends SingleForm {
     private UUID idSistemBerproduksi;
     private int idKualifikasiSurvey;
     private String namaProduk;
-    private String sistemProduksi;
+    private int jenisProduksi;
+    private int sistemProduksi;
     private int jumlahProduksiThn1;
     private int jumlahProduksiThn2;
     private int jumlahProduksiThn3;
@@ -61,11 +62,19 @@ public class FormKompal3c extends SingleForm {
         this.namaProduk = namaProduk;
     }
 
-    public String getSistemProduksi() {
+    public int getJenisProduksi() {
+        return jenisProduksi;
+    }
+
+    public void setJenisProduksi(int jenisProduksi) {
+        this.jenisProduksi = jenisProduksi;
+    }
+
+    public int getSistemProduksi() {
         return sistemProduksi;
     }
 
-    public void setSistemProduksi(String sistemProduksi) {
+    public void setSistemProduksi(int sistemProduksi) {
         this.sistemProduksi = sistemProduksi;
     }
 
