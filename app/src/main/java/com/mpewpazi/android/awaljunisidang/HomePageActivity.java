@@ -146,7 +146,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         @Override
         protected List<FormGalpal1> doInBackground(Void... params) {
-            return new DataFetcher().fetchItems();
+            return new DataFetcher().fetchFormGalpal1s();
         }
 
 

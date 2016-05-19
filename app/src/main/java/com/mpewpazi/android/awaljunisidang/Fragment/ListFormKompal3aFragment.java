@@ -133,7 +133,7 @@ public class ListFormKompal3aFragment extends SingleFragment {
         public void bindFormKompal3a(FormKompal3a formKompal3a,int no) {
             mFormKompal3a = formKompal3a;
             mJenisProduksiTextView.setText(mFormKompal3a.getJenisProduksi());
-            mKapasitasProduksiTextView.setText(mFormKompal3a.getKapasitasProduksi());
+            mKapasitasProduksiTextView.setText(String.valueOf(mFormKompal3a.getKapasitasProduksi()));
             mNoTextView.setText(String.valueOf(no));
 
         }

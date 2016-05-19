@@ -163,7 +163,7 @@ public class DummyMaker {
         Perusahaan perusahaan2=new Perusahaan();
         perusahaan2.setId(2);
         perusahaan2.setNamaPerusahaan("PT EFG");
-        perusahaan2.setIndustri("Galangan Kapal");
+        perusahaan2.setIndustri("Komponen Kapal");
         perusahaan2.setActive(1);
 
         Perusahaan perusahaan3=new Perusahaan();
@@ -1432,8 +1432,8 @@ public class DummyMaker {
         contentValues.put(FG3GalanganKapalTable.Cols.ALAMAT_GALANGAN, formGalpal3.getAlamat());
         contentValues.put(FG3GalanganKapalTable.Cols.KELURAHAN_GALANGAN, formGalpal3.getKelurahan());
         contentValues.put(FG3GalanganKapalTable.Cols.KECAMATAN_GALANGAN, formGalpal3.getKecamatan());
-        contentValues.put(FG3GalanganKapalTable.Cols.ID_PROPINSI_GALANGAN,formGalpal3.getPropinsi());
-        contentValues.put(FG3GalanganKapalTable.Cols.ID_KABUPATEN_GALANGAN, formGalpal3.getKebupaten_kota());
+        contentValues.put(FG3GalanganKapalTable.Cols.ID_PROPINSI_GALANGAN,formGalpal3.getPropinsiId());
+        contentValues.put(FG3GalanganKapalTable.Cols.ID_KABUPATEN_GALANGAN, formGalpal3.getKebupaten_kotaId());
         contentValues.put(FG3GalanganKapalTable.Cols.KODE_POS_GALANGAN, formGalpal3.getKodePos());
         contentValues.put(FG3GalanganKapalTable.Cols.IMAGE_PATH,formGalpal3.getImagePath());
         contentValues.put(FG3GalanganKapalTable.Cols.LATITUDE, formGalpal3.getLatitude());
@@ -1508,12 +1508,12 @@ public class DummyMaker {
         ContentValues contentValues=new ContentValues();
         contentValues.put(FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI,formKompal3b.getIdjumlahProduksi().toString());
         contentValues.put(FK3bJumlahProduksiTable.Cols.ID_KUALIFIKASI_SURVEY,formKompal3b.getIdKualifikasiSurvey());
-        contentValues.put(FK3bJumlahProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI,formKompal3b.getJenisProduk());
+        contentValues.put(FK3bJumlahProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI,formKompal3b.getJenisProdukId());
         contentValues.put(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN1,formKompal3b.getJumlahProdThn1());
         contentValues.put(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN2,formKompal3b.getJumlahProdThn2());
         contentValues.put(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN3,formKompal3b.getJumlahProdThn3());
         contentValues.put(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN4,formKompal3b.getJumlahProdThn4());
-        contentValues.put(FK3bJumlahProduksiTable.Cols.ID_MST_SATUAN,formKompal3b.getSatuan());
+        contentValues.put(FK3bJumlahProduksiTable.Cols.ID_MST_SATUAN,formKompal3b.getSatuanId());
         contentValues.put(FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN1,formKompal3b.getNilaiProduksiThn1());
         contentValues.put(FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN2,formKompal3b.getNilaiProduksiThn2());
         contentValues.put(FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN3,formKompal3b.getNilaiProduksiThn3());

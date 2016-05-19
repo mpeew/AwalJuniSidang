@@ -134,7 +134,7 @@ public class ListFormKompal3bFragment extends SingleFragment {
 
         public void bindFormKompal3b(FormKompal3b formKompal3b,int no) {
             mFormKompal3b = formKompal3b;
-            mJenisProdukTextView.setText(mFormKompal3b.getJenisProduk());
+            mJenisProdukTextView.setText(String.valueOf(mFormKompal3b.getJenisProdukId()));
             mJumlahProduk2014TextView.setText(String.valueOf(mFormKompal3b.getJumlahProdThn4()));
             mNoTextView.setText(String.valueOf(no));
 

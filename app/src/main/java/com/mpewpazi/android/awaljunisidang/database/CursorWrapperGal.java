@@ -322,7 +322,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String idJenisKapasitasProduksi=getString(getColumnIndex(FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI));
         int idKualifikasiSurvey=getInt(getColumnIndex(FK3aJenisKapasitasProduksiTable.Cols.ID_KUALIFIKASI_SURVEY));
         String jenisProduksi=getString(getColumnIndex(FK3aJenisKapasitasProduksiTable.Cols.JENIS_PRODUKSI));
-        String satuan=getString(getColumnIndex(FK3aJenisKapasitasProduksiTable.Cols.ID_MST_SATUAN));
+        int satuan=getInt(getColumnIndex(FK3aJenisKapasitasProduksiTable.Cols.ID_MST_SATUAN));
 
         FormKompal3a formKompal3a=new FormKompal3a(UUID.fromString(idJenisKapasitasProduksi));
         formKompal3a.setIdKualifikasiSurvey(idKualifikasiSurvey);
@@ -335,12 +335,12 @@ public class CursorWrapperGal extends CursorWrapper{
     public FormKompal3b getFormKompal3b(){
         String idJumlahProduksi=getString(getColumnIndex(FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI));
         int idKualifikasiSurvey=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.ID_KUALIFIKASI_SURVEY));
-        String jenisProduk=getString(getColumnIndex(FK3bJumlahProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI));
+        int jenisProduk=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI));
         int jumlahProdthn1=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN1));
         int jumlahProdthn2=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN2));
         int jumlahProdthn3=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN3));
         int jumlahProdthn4=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN4));
-        String satuan=getString(getColumnIndex(FK3bJumlahProduksiTable.Cols.ID_MST_SATUAN));
+        int satuan=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.ID_MST_SATUAN));
         int nilaiProduksiThn1=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN1));
         int nilaiProduksiThn2=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN2));
         int nilaiProduksiThn3=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN3));
@@ -368,7 +368,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String idSistemBerproduksi=getString(getColumnIndex(FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI));
         int idKualifikasiSurvey=getInt(getColumnIndex(FK3cSistemBerproduksiTable.Cols.ID_KUALIFIKASI_SURVEY));
         String namaProduk=getString(getColumnIndex(FK3cSistemBerproduksiTable.Cols.NAMA_PRODUK));
-        String sistemProduksi=getString(getColumnIndex(FK3cSistemBerproduksiTable.Cols.ID_MST_JENIS_PRODUKSI));
+        int sistemProduksi=getInt(getColumnIndex(FK3cSistemBerproduksiTable.Cols.ID_MST_JENIS_PRODUKSI));
         int jumlahProdthn1=getInt(getColumnIndex(FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN1));
         int jumlahProdthn2=getInt(getColumnIndex(FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN2));
         int jumlahProdthn3=getInt(getColumnIndex(FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN3));

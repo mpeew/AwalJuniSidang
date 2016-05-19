@@ -72,7 +72,7 @@ public class DataFetcher {
 
         try {
 
-            String jsonString = getUrlString("http://192.168.1.102/galpal/perusahaanIdentitas/perusahaanidentitasapi");
+            String jsonString = getUrlString("http://192.168.1.100/galpal/perusahaanIdentitas/perusahaanidentitasapi");
             Log.i(TAG, "Received JSON: " + jsonString);
             JSONArray jsonBody = new JSONArray(jsonString);
             parseFormGalpal1s(items,jsonBody);
@@ -302,8 +302,8 @@ public class DataFetcher {
             item.setAlamat(jsonObject.getString(DhSchema.FG3GalanganKapalTable.Cols.ALAMAT_GALANGAN));
             item.setKelurahan(jsonObject.getString(DhSchema.FG3GalanganKapalTable.Cols.KELURAHAN_GALANGAN));
             item.setKecamatan(jsonObject.getString(DhSchema.FG3GalanganKapalTable.Cols.KECAMATAN_GALANGAN));
-            item.setKebupaten_kota(jsonObject.getInt(DhSchema.FG3GalanganKapalTable.Cols.ID_KABUPATEN_GALANGAN));
-            item.setPropinsi(jsonObject.getInt(DhSchema.FG3GalanganKapalTable.Cols.ID_PROPINSI_GALANGAN));
+            item.setKebupaten_kotaId(jsonObject.getInt(DhSchema.FG3GalanganKapalTable.Cols.ID_KABUPATEN_GALANGAN));
+            item.setPropinsiId(jsonObject.getInt(DhSchema.FG3GalanganKapalTable.Cols.ID_PROPINSI_GALANGAN));
             item.setNomorTelepon(jsonObject.getString(DhSchema.FG3GalanganKapalTable.Cols.TELEPON_GALANGAN));
             item.setFax(jsonObject.getString(DhSchema.FG3GalanganKapalTable.Cols.FAX_GALANGAN));
             item.setKodePos(jsonObject.getString(DhSchema.FG3GalanganKapalTable.Cols.KODE_POS_GALANGAN));
@@ -318,7 +318,7 @@ public class DataFetcher {
 
         try {
 
-            String jsonString = getUrlString("http://192.168.1.102/galpal/");
+            String jsonString = getUrlString("http://192.168.1.100/galpal/");
             Log.i(TAG, "Received JSON: " + jsonString);
             JSONArray jsonBody = new JSONArray(jsonString);
             parseFormGalpal4s(items,jsonBody);

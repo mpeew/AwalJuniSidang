@@ -99,7 +99,7 @@ public class FormGalpal4Fragment extends SingleFragment {
         mSubmitButton=(Button)rootView.findViewById(R.id.galpal4_btn_submit);
 
 
-        mPanjangWaterfrontEditText.setText(mFormGalpal4.getPanjangWaterfront());
+        mPanjangWaterfrontEditText.setText(String.valueOf(mFormGalpal4.getPanjangWaterfront()));
         mPanjangWaterfrontEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -108,7 +108,7 @@ public class FormGalpal4Fragment extends SingleFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal4.setPanjangWaterfront(s.toString());
+                //mFormGalpal4.setPanjangWaterfront(s.toString());
             }
 
             @Override
@@ -119,7 +119,7 @@ public class FormGalpal4Fragment extends SingleFragment {
             }
         });
 
-        mLuasLahanEditText.setText(mFormGalpal4.getLuasLahan());
+        mLuasLahanEditText.setText(String.valueOf(mFormGalpal4.getLuasLahan()));
         mLuasLahanEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -128,7 +128,7 @@ public class FormGalpal4Fragment extends SingleFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal4.setLuasLahan(s.toString());
+                //mFormGalpal4.setLuasLahan(s.toString());
             }
 
             @Override

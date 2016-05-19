@@ -103,7 +103,7 @@ public class FormKompal3aFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal3a.setKapasitasProduksi(s.toString());
+                //mFormKompal3a.setKapasitasProduksi(s.toString());
             }
 
             @Override
