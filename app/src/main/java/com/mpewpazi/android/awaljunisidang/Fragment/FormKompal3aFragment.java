@@ -94,7 +94,7 @@ public class FormKompal3aFragment extends Fragment {
             }
         });
 
-        mKapasitasProduksiEditText.setText(mFormKompal3a.getKapasitasProduksi());
+        mKapasitasProduksiEditText.setText(String.valueOf(mFormKompal3a.getKapasitasProduksi()));
         mKapasitasProduksiEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

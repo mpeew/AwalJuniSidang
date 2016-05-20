@@ -185,7 +185,7 @@ public class DummyMaker {
 
 
         KualifikasiSurvey kualifikasiSurvey=new KualifikasiSurvey();
-        kualifikasiSurvey.setKualifikasiSurveyId(20150001);
+        kualifikasiSurvey.setKualifikasiSurveyId(20150101);
         kualifikasiSurvey.setPerusahaanId(1);
         kualifikasiSurvey.setPeriodeSurveyId(2014);
         kualifikasiSurvey.setGalanganKapalId(1);
@@ -245,7 +245,7 @@ public class DummyMaker {
         SurveyAssignSurveyor surveyAssignSurveyor=new SurveyAssignSurveyor();
         surveyAssignSurveyor.setSurveyAssignSurveyorId(1);
         surveyAssignSurveyor.setUserId("mpewpazi");
-        surveyAssignSurveyor.setKualifikasiSurveyId(20150001);
+        surveyAssignSurveyor.setKualifikasiSurveyId(20150101);
 
         SurveyAssignSurveyor surveyAssignSurveyor1=new SurveyAssignSurveyor();
         surveyAssignSurveyor1.setSurveyAssignSurveyorId(2);
@@ -1259,11 +1259,11 @@ public class DummyMaker {
         formGalpal1.setKualifikasiSurveyId(kualifikasiSurveyId);
 
         FormGalpal3 formGalpal3=new FormGalpal3();
-        formGalpal3.setIdentitasUmumGalanganId(formGalpalId);
+        formGalpal3.setIdentitasUmumGalanganId(kualifikasiSurveyId);
         formGalpal3.setKualifikasiSurveyId(kualifikasiSurveyId);
 
         FormGalpal4 formGalpal4=new FormGalpal4();
-        formGalpal4.setTinjauanWilayahMaritimId(formGalpalId);
+        formGalpal4.setTinjauanWilayahMaritimId(kualifikasiSurveyId);
         formGalpal4.setKualifikasiSurveyId(kualifikasiSurveyId);
 
 

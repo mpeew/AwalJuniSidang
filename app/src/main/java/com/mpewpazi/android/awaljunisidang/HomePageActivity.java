@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
+import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
+import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
+import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
+import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
+import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.SurveyAssignSurveyor;
@@ -34,13 +43,16 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        new FetchItemTask().execute();
-
 
         mRecyclerView=(RecyclerView)findViewById(R.id.surveyy_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         updateUi();
+
+        //for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys){
+            new FetchItemTask(String.valueOf(20150101)).execute();
+        //}
+
     }
 
     private void updateUi() {
@@ -142,18 +154,53 @@ public class HomePageActivity extends AppCompatActivity {
         updateUi();
     }
 
-    private class FetchItemTask extends AsyncTask<Void,Void,List<FormGalpal1>> {
+    private class FetchItemTask extends AsyncTask<Void,Void,List<SingleForm>> {
+        private String mIdKualifikasiSurvey;
+
+        private FetchItemTask(String idKualifikasiSurvey){
+            mIdKualifikasiSurvey=idKualifikasiSurvey;
+        }
 
         @Override
-        protected List<FormGalpal1> doInBackground(Void... params) {
-            return new DataFetcher().fetchFormGalpal1s();
+        protected List<SingleForm> doInBackground(Void... params) {
+            Log.i("a", "Received JSON: " + mIdKualifikasiSurvey);
+            return new DataFetcher().fetchFormGalpal1s(mIdKualifikasiSurvey);
         }
 
 
 
         @Override
-        protected void onPostExecute(List<FormGalpal1> galleryItems) {
-            DummyMaker.get(getApplicationContext()).addFormGalpal1s(galleryItems);
+        protected void onPostExecute(List<SingleForm> singleForms) {
+
+            for(SingleForm singleForm:singleForms){
+                switch(singleForm.getKodeForm()){
+                    case "FG1":
+                        DummyMaker.get(getApplicationContext()).addFormGalpal1((FormGalpal1)singleForm);
+                        break;
+                    case "FG3":
+                        DummyMaker.get(getApplicationContext()).addFormGalpal3((FormGalpal3)singleForm);
+                        break;
+                    case "FG4":
+                        DummyMaker.get(getApplicationContext()).addFormGalpal4((FormGalpal4)singleForm);
+                        break;
+                    case "FG6":
+                        DummyMaker.get(getApplicationContext()).addFormGalpal6((FormGalpal6)singleForm);
+                        break;
+                    case "FK3a":
+                        DummyMaker.get(getApplicationContext()).addFormKompal3a((FormKompal3a)singleForm);
+                        break;
+                    case "FK3b":
+                        DummyMaker.get(getApplicationContext()).addFormKompal3b((FormKompal3b)singleForm);
+                        break;
+                    case "FK3c":
+                        DummyMaker.get(getApplicationContext()).addFormKompal3c((FormKompal3c)singleForm);
+                        break;
+                    case "FK3d":
+                        DummyMaker.get(getApplicationContext()).addFormKompal3d((FormKompal3d)singleForm);
+                        break;
+
+                }
+            }
 
         }
     }

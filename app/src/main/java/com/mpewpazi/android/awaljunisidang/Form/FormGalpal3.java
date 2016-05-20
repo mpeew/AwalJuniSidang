@@ -30,7 +30,10 @@ public class FormGalpal3 extends SingleForm {
     private String imagePath;
 
 
-
+    @Override
+    public String getKodeForm() {
+        return "FG3";
+    }
 
     @Override
     public String getNamaForm() {

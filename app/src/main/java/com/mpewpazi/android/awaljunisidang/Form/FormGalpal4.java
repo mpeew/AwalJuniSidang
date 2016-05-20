@@ -30,6 +30,11 @@ public class FormGalpal4 extends SingleForm {
 
 
     @Override
+    public String getKodeForm() {
+        return "FG4";
+    }
+
+    @Override
     public String getNamaForm() {
         return "Tinjauan Wilayah Maritim";
     }

@@ -192,7 +192,7 @@ public class DhSchema {
             public static final String BUJUR_MENIT="lintang_bujur";
             public static final String BUJUR_DETIK="bujur_detik";
             public static final String CP_NAMA="cp_nama";
-            public static final String CP_NO="cp_no";
+            public static final String CP_NO="cp_nomor";
             public static final String CP_JABATAN="cp_jabatan";
             public static final String CP_EMAIL="cp_email";
             public static final String CREATED_DATE = "created_date";
@@ -208,11 +208,11 @@ public class DhSchema {
     public static final class FG4TinjauanAreaTable{
         public static final String NAME="f1_tinjauan_area";
         public static final class Cols{
-            public static final String ID_F1_TINJAUAN_AREA = "id";
+            public static final String ID_F1_TINJAUAN_AREA = "id_f1_tinjauan_area";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_PERIODE="id_periode";
             public static final String ID_MST_JARAK_KEDALAMAN = "id_mst_jarak_kedalaman";
-            public static final String ID_MST_AIR_PELAYARAN = "is_mst_air_pelayaran";
+            public static final String ID_MST_AIR_PELAYARAN = "id_mst_air_pelayaran";
             public static final String ID_MST_PASANG_SURUT = "id_mst_pasang_surut";
             public static final String ID_MST_ARUS = "id_mst_arus";
             public static final String ID_MST_GELOMBANG = "id_mst_gelombang";
@@ -229,7 +229,7 @@ public class DhSchema {
             public static final String INTERKONEKSI_ANGKUTAN = "interkoneksi_angkutan";
             public static final String NILAI_EKONOMI = "nilai_ekonomi";
             public static final String PERKEMBANGAN_WILAYAH = "perkembangan_wilayah";
-            public static final String RUTWR = "rutwr";
+            public static final String RUTWR = "RUTRW";
             public static final String CREATED_DATE = "created_date";
             public static final String CREATED_USER = "created_user";
             public static final String CREATED_IP_ADDRESS = "created_ip_address";

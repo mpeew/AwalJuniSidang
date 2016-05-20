@@ -40,6 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
+                    android:inputType="text"
                     android:hint="Nama Perusahaan" />
             </android.support.design.widget.TextInputLayout>
 
@@ -80,6 +81,7 @@
                         android:id="@+id/galpal1_nomor_telepon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="phone"
                         android:hint="Nomor Telepon" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -93,6 +95,7 @@
                         android:id="@+id/galpal1_fax"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="phone"
                         android:hint="Fax" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -108,6 +111,7 @@
                     android:id="@+id/galpal1_alamat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:hint="Alamat" />
             </android.support.design.widget.TextInputLayout>
 
@@ -121,6 +125,7 @@
                     android:id="@+id/galpal1_kelurahan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:hint="Kelurahan" />
             </android.support.design.widget.TextInputLayout>
 
@@ -133,6 +138,7 @@
                     android:id="@+id/galpal1_kecamatan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:hint="Kecamatan" />
             </android.support.design.widget.TextInputLayout>
 
@@ -186,6 +192,7 @@
                     android:id="@+id/galpal1_kode_pos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:hint="Kode Pos" />
             </android.support.design.widget.TextInputLayout>
 
@@ -198,6 +205,7 @@
                     android:id="@+id/galpal1_anggota_asosiasi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:hint="Anggota Asosiasi" />
             </android.support.design.widget.TextInputLayout>
 
@@ -210,6 +218,7 @@
                     android:id="@+id/galpal1_kategori_perusahaan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:hint="Kategori Perusahaan" />
             </android.support.design.widget.TextInputLayout>
 
@@ -227,6 +236,7 @@
                     android:id="@+id/galpal1_contact_person"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:hint="Nama Contact Person" />
             </android.support.design.widget.TextInputLayout>
 
@@ -240,6 +250,7 @@
                     android:id="@+id/galpal1_contact_person_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="phone"
                     android:hint="Nomor Contact Person" />
             </android.support.design.widget.TextInputLayout>
 
@@ -254,6 +265,7 @@
                     android:id="@+id/galpal1_jabatan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:hint="Jabatan CP" />
             </android.support.design.widget.TextInputLayout>
 
@@ -266,6 +278,7 @@
                     android:id="@+id/galpal1_alamat_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
                     android:hint="Alamat Email CP" />
             </android.support.design.widget.TextInputLayout>
 
@@ -278,6 +291,7 @@
                     android:id="@+id/galpal1_website"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textUri"
                     android:hint="Website" />
             </android.support.design.widget.TextInputLayout>
 

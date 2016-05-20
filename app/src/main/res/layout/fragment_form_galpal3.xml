@@ -32,38 +32,40 @@
 
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/nama_perusahaan_layout3"
+                android:id="@+id/galpal3_nama_perusahaan_layout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/nama_perusahaan3"
+                    android:id="@+id/galpal3_nama_perusahaan3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
+                    android:inputType="text"
                     android:hint="Nama Perusahaan" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/nama_galangan_layout3"
+                android:id="@+id/galpal3_nama_galangan_layout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/nama_galangan3"
+                    android:id="@+id/galpal3_nama_galangan3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
+                    android:inputType="text"
                     android:hint="Nama Galangan" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/nomor_dock_layout3"
+                android:id="@+id/galpal3_nomor_dock_layout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/nomor_dock3"
+                    android:id="@+id/galpal3_nomor_dock3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -77,28 +79,30 @@
                 android:layout_height="wrap_content">
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/nomor_telepon_layout"
+                    android:id="@+id/galpal3_nomor_telepon_layout"
                     android:layout_weight="0.5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/nomor_telepon"
+                        android:id="@+id/galpal3_nomor_telepon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="phone"
                         android:hint="Nomor Telepon" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/fax_layout"
+                    android:id="@+id/galpal3_fax_layout"
                     android:layout_weight="0.5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/fax"
+                        android:id="@+id/galpal3_fax"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="phone"
                         android:hint="Fax" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -106,12 +110,12 @@
 
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/alamat_layout"
+                android:id="@+id/galpal3_alamat_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/alamat"
+                    android:id="@+id/galpal3_alamat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Alamat" />
@@ -119,27 +123,26 @@
 
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/kelurahan_layout"
+                android:id="@+id/galpal3_kelurahan_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/kelurahan"
+                    android:id="@+id/galpal3_kelurahan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Kelurahan" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/kecamatan_layout"
+                android:id="@+id/galpal3_kecamatan_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/kecamatan"
+                    android:id="@+id/galpal3_kecamatan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
                     android:hint="Kecamatan" />
             </android.support.design.widget.TextInputLayout>
 
@@ -161,7 +164,7 @@
                     android:layout_weight="35"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/propinsi_spinner"/>
+                    android:id="@+id/galpal3_propinsi_spinner"/>
 
             </LinearLayout>
 
@@ -183,16 +186,16 @@
                     android:layout_weight="35"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kabupaten_spinner"/>
+                    android:id="@+id/galpal3_kabupaten_spinner"/>
 
             </LinearLayout>
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/kode_pos_layout"
+                android:id="@+id/galpal3_kode_pos_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/kode_pos"
+                    android:id="@+id/galpal3_kode_pos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Kode Pos" />
@@ -203,26 +206,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/long_layout3"
+                    android:id="@+id/galpal3_long_layout3"
                     android:layout_weight="50"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/long3"
+                        android:id="@+id/galpal3_long3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Longitude(E)" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/lat_layout"
+                    android:id="@+id/galpal3_lat_layout"
                     android:layout_weight="50"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/lat"
+                        android:id="@+id/galpal3_lat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Latitude(E)" />
@@ -248,7 +251,7 @@
                     android:layout_weight="35"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kategori_galangan_spinner"/>
+                    android:id="@+id/galpal3_kategori_galangan_spinner"/>
 
             </LinearLayout>
 
@@ -257,54 +260,56 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/contact_person_layout"
+                    android:id="@+id/galpal3_contact_person_layout"
                     android:layout_weight="50"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/contact_person"
+                        android:id="@+id/galpal3_contact_person"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Nama Contact Person" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/contact_person_no_layout"
+                    android:id="@+id/galpal3_contact_person_no_layout"
                     android:layout_weight="50"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/contact_person_no"
+                        android:id="@+id/galpal3_contact_person_no"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="phone"
                         android:hint="Nomor Contact Person" />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/jabatan_layout"
+                android:id="@+id/galpal3_jabatan_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/jabatan"
+                    android:id="@+id/galpal3_jabatan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Jabatan CP" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/alamat_email_layout"
+                android:id="@+id/galpal3_alamat_email_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/alamat_email"
+                    android:id="@+id/galpal3_alamat_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
                     android:hint="Alamat Email CP" />
             </android.support.design.widget.TextInputLayout>
 

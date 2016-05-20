@@ -44,6 +44,7 @@ public class FormGalpal3Fragment extends SingleFragment {
     private EditText mNamaGalanganEditText;
     private EditText mNamaPerusahaanEditText;
     private EditText mNomorTeleponEditText;
+    private EditText mNomorDock;
     private EditText mFaxEditText;
     private EditText mAlamatEditText;
     private EditText mKelurahanEditText;
@@ -56,6 +57,10 @@ public class FormGalpal3Fragment extends SingleFragment {
     private EditText mNomorCpEditText;
     private EditText mJabatanEditText;
     private EditText mEmailEditText;
+    private EditText mCpNamaEditText;
+    private EditText mCpNoEditText;
+    private EditText mCpJabatanEditText;
+    private EditText mCpEmailEditText;
     private Button mSubmitButton;
     private ImageButton mCaptureButton;
     private ImageView mPhotoView;
@@ -100,23 +105,28 @@ public class FormGalpal3Fragment extends SingleFragment {
 
         View rootView = inflater.inflate(R.layout.fragment_form_galpal3, container, false);
 
-        mNamaPerusahaanEditText=(EditText)rootView.findViewById(R.id.nama_perusahaan3);
-        mNamaGalanganEditText=(EditText)rootView.findViewById(R.id.nama_galangan3);
-        mNomorTeleponEditText=(EditText)rootView.findViewById(R.id.nomor_telepon);
-        mFaxEditText=(EditText)rootView.findViewById(R.id.fax);
-        mAlamatEditText=(EditText)rootView.findViewById(R.id.alamat);
-        mKelurahanEditText=(EditText)rootView.findViewById(R.id.kelurahan);
-        mKecamatanEditText=(EditText)rootView.findViewById(R.id.kecamatan);
-        mKodePosEditText=(EditText)rootView.findViewById(R.id.kode_pos);
-        mLongitudeEditText=(EditText)rootView.findViewById(R.id.long3);
-        mLatitudeEditText=(EditText)rootView.findViewById(R.id.lat);
-       // mKategoriGalanganEditText=(Spinner)rootView.findViewById(R.id.kategori_galangan_spinner);
-        mContactPersonEditText=(EditText)rootView.findViewById(R.id.contact_person);
-        mNomorCpEditText=(EditText)rootView.findViewById(R.id.contact_person_no);
-        mJabatanEditText=(EditText)rootView.findViewById(R.id.jabatan);
-        mEmailEditText=(EditText)rootView.findViewById(R.id.alamat_email);
+        mNamaPerusahaanEditText=(EditText)rootView.findViewById(R.id.galpal3_nama_perusahaan3);
+        mNamaGalanganEditText=(EditText)rootView.findViewById(R.id.galpal3_nama_galangan3);
+        mNomorTeleponEditText=(EditText)rootView.findViewById(R.id.galpal3_nomor_telepon);
+        mFaxEditText=(EditText)rootView.findViewById(R.id.galpal3_fax);
+        mAlamatEditText=(EditText)rootView.findViewById(R.id.galpal3_alamat);
+        mKelurahanEditText=(EditText)rootView.findViewById(R.id.galpal3_kelurahan);
+        mKecamatanEditText=(EditText)rootView.findViewById(R.id.galpal3_kecamatan);
+        mNomorDock=(EditText)rootView.findViewById(R.id.galpal3_nomor_dock3);
+        mKodePosEditText=(EditText)rootView.findViewById(R.id.galpal3_kode_pos);
+        mLongitudeEditText=(EditText)rootView.findViewById(R.id.galpal3_long3);
+        mLatitudeEditText=(EditText)rootView.findViewById(R.id.galpal3_lat);
+       // mKategoriGalanganEditText=(Spinner)rootView.findViewById(R.id.galpal3_kategori_galangan_spinner);
+        mContactPersonEditText=(EditText)rootView.findViewById(R.id.galpal3_contact_person);
+        mNomorCpEditText=(EditText)rootView.findViewById(R.id.galpal3_contact_person_no);
+        mJabatanEditText=(EditText)rootView.findViewById(R.id.galpal3_jabatan);
+        mEmailEditText=(EditText)rootView.findViewById(R.id.galpal3_alamat_email);
         mCaptureButton=(ImageButton)rootView.findViewById(R.id.galpal3_camera_button);
         mPhotoView=(ImageView)rootView.findViewById(R.id.galpal3_image_view);
+        mCpNamaEditText=(EditText)rootView.findViewById(R.id.galpal3_contact_person);
+        mCpNoEditText=(EditText)rootView.findViewById(R.id.galpal3_contact_person_no);
+        mCpEmailEditText=(EditText)rootView.findViewById(R.id.galpal3_alamat_email);
+        mCpJabatanEditText=(EditText)rootView.findViewById(R.id.galpal3_jabatan);
 
         mFormGalpal3.setPerusahaanId(mKualifikasiSurvey.getPerusahaanId());
 
@@ -132,6 +142,26 @@ public class FormGalpal3Fragment extends SingleFragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mFormGalpal3.setNamaGalangan(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
+            }
+        });
+
+        mNomorDock.setText(mFormGalpal3.getNomorDock());
+        mNomorDock.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mFormGalpal3.setNomorDock(s.toString());
             }
 
             @Override
@@ -401,6 +431,86 @@ public class FormGalpal3Fragment extends SingleFragment {
             }
         });
 
+        mCpNamaEditText.setText(mFormGalpal3.getContactPerson());
+        mCpNamaEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mFormGalpal3.setContactPerson(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
+            }
+        });
+
+
+        mCpNoEditText.setText(mFormGalpal3.getNomorCp());
+        mCpNoEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mFormGalpal3.setNomorCp(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
+            }
+        });
+
+        mCpEmailEditText.setText(mFormGalpal3.getEmail());
+        mCpEmailEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mFormGalpal3.setEmail(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
+            }
+        });
+
+        mCpJabatanEditText.setText(mFormGalpal3.getJabatan());
+        mCpJabatanEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mFormGalpal3.setJabatan(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mMenuCheckingGalpal.setFill(true);
+                mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
+                mCustomClickListener.clickListener();
+            }
+        });
 
         mNamaPerusahaanEditText.setText(mNamaPerusahaan);
         mNamaPerusahaanEditText.setEnabled(false);

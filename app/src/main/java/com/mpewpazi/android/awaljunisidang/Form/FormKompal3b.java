@@ -24,6 +24,11 @@ public class FormKompal3b extends SingleForm {
     private String keterangan;
 
     @Override
+    public String getKodeForm() {
+        return "FK3b";
+    }
+
+    @Override
     public String getNamaForm() {
         return "Jumlah dan Nilai Produksi 4 Tahun Terakhir";
     }

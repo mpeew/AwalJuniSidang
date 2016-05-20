@@ -3,7 +3,7 @@ package com.mpewpazi.android.awaljunisidang.masterData;
 /**
  * Created by mpewpazi on 4/12/16.
  */
-public class Propinsi {
+public class Propinsi extends SingleMaster {
     int id;
     int kodeBps;
     String nama;

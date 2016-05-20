@@ -20,6 +20,11 @@ public class FormKompal3c extends SingleForm {
     private int jumlahProduksiThn4;
 
     @Override
+    public String getKodeForm() {
+        return "FK3c";
+    }
+
+    @Override
     public String getNamaForm() {
         return "Sistem Berproduksi";
     }

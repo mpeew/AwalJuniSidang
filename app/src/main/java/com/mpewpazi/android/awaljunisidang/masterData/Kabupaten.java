@@ -3,7 +3,7 @@ package com.mpewpazi.android.awaljunisidang.masterData;
 /**
  * Created by mpewpazi on 5/16/16.
  */
-public class Kabupaten {
+public class Kabupaten extends SingleMaster {
     private int id;
     private String nama;
     private String ibuKota;

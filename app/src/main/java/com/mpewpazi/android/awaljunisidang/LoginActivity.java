@@ -1,6 +1,7 @@
 package com.mpewpazi.android.awaljunisidang;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,6 +18,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private String mUserId;
+
+    private String buildUrl(Uri endpoint, String id) {
+        Uri.Builder uriBuilder = endpoint.buildUpon().appendPath(id);
+        return uriBuilder.build().toString();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

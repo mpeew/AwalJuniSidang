@@ -33,6 +33,11 @@ public class FormGalpal6  extends SingleForm {
     }
 
     @Override
+    public String getKodeForm() {
+        return "FG6";
+    }
+
+    @Override
     public SingleFragment getFragment() {
         return new ListFormGalpal6Fragment();
     }

@@ -21,6 +21,11 @@ public class FormKompal3a extends SingleForm {
     }
 
     @Override
+    public String getKodeForm() {
+        return "FK3a";
+    }
+
+    @Override
     public String getNamaForm() {
         return "Jenis dan Kapasitas Produksi";
     }
