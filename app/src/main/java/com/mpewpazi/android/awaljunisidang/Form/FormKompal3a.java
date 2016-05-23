@@ -9,13 +9,21 @@ import java.util.UUID;
  * Created by mpewpazi on 5/6/16.
  */
 public class FormKompal3a extends SingleForm {
+    private int idJenisKapasitasProduksiServer;
     private UUID idJenisKapasitasProduksi;
-    private int idKualifikasiSurvey;
     private String jenisProduksi;
     private int kapasitasProduksi;
     private int satuan;
 
     public static final String kode="FK3a";
+
+    public int getIdJenisKapasitasProduksiServer() {
+        return idJenisKapasitasProduksiServer;
+    }
+
+    public void setIdJenisKapasitasProduksiServer(int idJenisKapasitasProduksiServer) {
+        this.idJenisKapasitasProduksiServer = idJenisKapasitasProduksiServer;
+    }
 
     @Override
     public SingleFragment getFragment() {
@@ -46,14 +54,6 @@ public class FormKompal3a extends SingleForm {
 
     public void setIdJenisKapasitasProduksi(UUID idJenisKapasitasProduksi) {
         this.idJenisKapasitasProduksi = idJenisKapasitasProduksi;
-    }
-
-    public int getIdKualifikasiSurvey() {
-        return idKualifikasiSurvey;
-    }
-
-    public void setIdKualifikasiSurvey(int idKualifikasiSurvey) {
-        this.idKualifikasiSurvey = idKualifikasiSurvey;
     }
 
     public String getJenisProduksi() {

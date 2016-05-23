@@ -185,7 +185,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         DummyMaker.get(getApplicationContext()).addFormGalpal4((FormGalpal4)singleForm);
                         break;
                     case FormGalpal6.kode:
-                        DummyMaker.get(getApplicationContext()).addFormGalpal6((FormGalpal6)singleForm);
+                        DummyMaker.get(getApplicationContext()).addFormGalpal6Server((FormGalpal6)singleForm);
                         break;
                 }
             }
@@ -214,15 +214,19 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 switch(singleForm.getKodeForm()){
                     case FormKompal3a.kode:
                         DummyMaker.get(getApplicationContext()).addFormKompal3a((FormKompal3a)singleForm);
+                        Log.i("A", FormKompal3a.kode );
                         break;
                     case FormKompal3b.kode:
                         DummyMaker.get(getApplicationContext()).addFormKompal3b((FormKompal3b)singleForm);
+                        Log.i("A", FormKompal3b.kode );
                         break;
                     case FormKompal3c.kode:
                         DummyMaker.get(getApplicationContext()).addFormKompal3c((FormKompal3c)singleForm);
+                        Log.i("A", FormKompal3c.kode );
                         break;
                     case FormKompal3d.kode:
                         DummyMaker.get(getApplicationContext()).addFormKompal3d((FormKompal3d)singleForm);
+                        Log.i("A", FormKompal3d.kode );
                         break;
                 }
             }

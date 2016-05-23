@@ -182,7 +182,7 @@ public class ListFormKompal3aFragment extends SingleFragment {
         public void onClick(View v) {
              Intent intent=new Intent(getActivity(),FormKompal3aPagerActivity.class);
              intent.putExtra(EXTRA_ID_FORMKOMPAL3A,mFormKompal3a.getIdJenisKapasitasProduksi());
-             intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMKOMPAL3A,mFormKompal3a.getIdKualifikasiSurvey());
+             intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMKOMPAL3A,mFormKompal3a.getKualifikasiSurveyId());
              startActivity(intent);
         }
     }
@@ -229,11 +229,11 @@ public class ListFormKompal3aFragment extends SingleFragment {
         switch (item.getItemId()){
             case R.id.menu_item_new_crime:
                 FormKompal3a formKompal3a=new FormKompal3a();
-                formKompal3a.setIdKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
+                formKompal3a.setKualifikasiSurveyId(DrawerFormActivity.kualifikasiSurveyId);
                 DummyMaker.get(getActivity()).addFormKompal3a(formKompal3a);
                 Intent intent=new Intent(getActivity(),FormKompal3aPagerActivity.class);
                 intent.putExtra(EXTRA_ID_FORMKOMPAL3A,formKompal3a.getIdJenisKapasitasProduksi());
-                intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMKOMPAL3A,formKompal3a.getIdKualifikasiSurvey());
+                intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMKOMPAL3A,formKompal3a.getKualifikasiSurveyId());
                 startActivity(intent);
                 return true;
             default:

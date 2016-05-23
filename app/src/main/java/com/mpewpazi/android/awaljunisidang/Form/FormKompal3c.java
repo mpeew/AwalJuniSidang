@@ -9,8 +9,8 @@ import java.util.UUID;
  * Created by mpewpazi on 5/6/16.
  */
 public class FormKompal3c extends SingleForm {
+    private int idSistemBerproduksiServer;
     private UUID idSistemBerproduksi;
-    private int idKualifikasiSurvey;
     private String namaProduk;
     private int jenisProduksi;
     private int sistemProduksi;
@@ -20,6 +20,14 @@ public class FormKompal3c extends SingleForm {
     private int jumlahProduksiThn4;
 
     public static final String kode="FK3c";
+
+    public int getIdSistemBerproduksiServer() {
+        return idSistemBerproduksiServer;
+    }
+
+    public void setIdSistemBerproduksiServer(int idSistemBerproduksiServer) {
+        this.idSistemBerproduksiServer = idSistemBerproduksiServer;
+    }
 
     @Override
     public String getKodeForm() {
@@ -51,14 +59,6 @@ public class FormKompal3c extends SingleForm {
 
     public void setIdSistemBerproduksi(UUID idSistemBerproduksi) {
         this.idSistemBerproduksi = idSistemBerproduksi;
-    }
-
-    public int getIdKualifikasiSurvey() {
-        return idKualifikasiSurvey;
-    }
-
-    public void setIdKualifikasiSurvey(int idKualifikasiSurvey) {
-        this.idKualifikasiSurvey = idKualifikasiSurvey;
     }
 
     public String getNamaProduk() {

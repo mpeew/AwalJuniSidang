@@ -9,12 +9,20 @@ import java.util.UUID;
  * Created by mpewpazi on 5/6/16.
  */
 public class FormKompal3d extends SingleForm {
+    private int idStandarMutuServer;
     private UUID idStandarMutu;
-    private int idKualifikasiSurvey;
     private String jenisStandarMutu;
     private String keterangan;
 
     public static final String kode="FK3d";
+
+    public int getIdStandarMutuServer() {
+        return idStandarMutuServer;
+    }
+
+    public void setIdStandarMutuServer(int idStandarMutuServer) {
+        this.idStandarMutuServer = idStandarMutuServer;
+    }
 
     @Override
     public String getKodeForm() {
@@ -53,14 +61,6 @@ public class FormKompal3d extends SingleForm {
 
     public void setIdStandarMutu(UUID idStandarMutu) {
         this.idStandarMutu = idStandarMutu;
-    }
-
-    public int getIdKualifikasiSurvey() {
-        return idKualifikasiSurvey;
-    }
-
-    public void setIdKualifikasiSurvey(int idKualifikasiSurvey) {
-        this.idKualifikasiSurvey = idKualifikasiSurvey;
     }
 
     public String getJenisStandarMutu() {

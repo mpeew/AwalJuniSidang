@@ -264,7 +264,8 @@ public class DhSchema {
     public static final class FG6PeralatanKerjaLuarCraneTable {
         public static final String NAME="f1_peralatan_kerja_lr_crane";
         public static final class Cols{
-            public static final String ID_F1_PERALATAN_KERJA_LR_CRANE="id_f1_peralatan_kerja_lr_crane";
+            public static final String ID_F1_PERALATAN_KERJA_LR_CRANE="id_f1_peralatan_kerja_lr_crane_local";
+            public static final String ID_F1_PERALATAN_KERJA_LR_CRANE_SERVER="id_f1_peralatan_kerja_lr_crane";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_PERIODE="id_periode";
             public static final String JENIS_MESIN="jenis_mesin";
@@ -789,7 +790,8 @@ public class DhSchema {
     public static final class FK3aJenisKapasitasProduksiTable{
         public static final String NAME="f2_jenis_kapasitas_produksi";
         public static final class Cols{
-            public static final String ID_F2_JENIS_KAPASITAS_PRODUKSI="id_f2_jenis_kapasitas_produksi";
+            public static final String ID_F2_JENIS_KAPASITAS_PRODUKSI="id_f2_jenis_kapasitas_produksi_local";
+            public static final String ID_F2_JENIS_KAPASITAS_PRODUKSI_SERVER="id_f2_jenis_kapasitas_produksi";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_PERIODE="id_periode";
             public static final String JENIS_PRODUKSI="jenis_produksi";
@@ -807,7 +809,8 @@ public class DhSchema {
     public static final class FK3bJumlahProduksiTable{
         public static final String NAME="f2_jumlah_produksi";
         public static final class Cols{
-            public static final String ID_F2_JUMLAH_PRODUKSI="id_f2_jumlah_produksi";
+            public static final String ID_F2_JUMLAH_PRODUKSI="id_f2_jumlah_produksi_local";
+            public static final String ID_F2_JUMLAH_PRODUKSI_SERVER="id_f2_jumlah_produksi";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_PERIODE="id_periode";
             public static final String ID_F2_JENIS_KAPASITAS_PRODUKSI="id_f2_jenis_kapasitas_produksi";
@@ -834,7 +837,8 @@ public class DhSchema {
     public static final class FK3cSistemBerproduksiTable{
         public static final String NAME="f2_sistem_berproduksi";
         public static final class Cols{
-            public static final String ID_F2_SISTEM_BERPRODUKSI="id_f2_sistem_berproduksi";
+            public static final String ID_F2_SISTEM_BERPRODUKSI="id_f2_sistem_berproduksi_local";
+            public static final String ID_F2_SISTEM_BERPRODUKSI_SERVER="id_f2_sistem_berproduksi";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_PERIODE="id_periode";
             public static final String NAMA_PRODUK="nama_produk";
@@ -857,7 +861,8 @@ public class DhSchema {
     public static final class FK3dStandarMutuTableTable{
         public static final String NAME="f2_standar_mutu";
         public static final class Cols{
-            public static final String ID_F2_STANDAR_MUTU="id_f2_standar_mutu";
+            public static final String ID_F2_STANDAR_MUTU="id_f2_standar_mutu_local";
+            public static final String ID_F2_STANDAR_MUTU_SERVER="id_f2_standard_mutu";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_PERIODE="id_periode";
             public static final String JENIS_STANDAR_MUTU="jenis_standard_mutu";

@@ -9,8 +9,8 @@ import java.util.UUID;
  * Created by mpewpazi on 4/18/16.
  */
 public class FormGalpal6  extends SingleForm {
+    private int idPeralatanKerjaCraneServer;
     private UUID idPeralatanKerjaCrane;
-    private int kualifikasiSurveyId;
     private String jenisMesin;
     private int tahunPembuatan;
     private String merek;
@@ -25,6 +25,14 @@ public class FormGalpal6  extends SingleForm {
     private String status;
 
     public static final String kode="FG6";
+
+    public int getIdPeralatanKerjaCraneServer() {
+        return idPeralatanKerjaCraneServer;
+    }
+
+    public void setIdPeralatanKerjaCraneServer(int idPeralatanKerjaCraneServer) {
+        this.idPeralatanKerjaCraneServer = idPeralatanKerjaCraneServer;
+    }
 
     public FormGalpal6(){
         this(UUID.randomUUID());
@@ -57,13 +65,6 @@ public class FormGalpal6  extends SingleForm {
         this.idPeralatanKerjaCrane = idPeralatanKerjaCrane;
     }
 
-    public int getKualifikasiSurveyId() {
-        return kualifikasiSurveyId;
-    }
-
-    public void setKualifikasiSurveyId(int kualifikasiSurveyId) {
-        this.kualifikasiSurveyId = kualifikasiSurveyId;
-    }
 
     public String getJenisMesin() {
         return jenisMesin;

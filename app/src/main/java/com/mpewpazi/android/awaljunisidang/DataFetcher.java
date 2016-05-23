@@ -334,10 +334,10 @@ public class DataFetcher {
             String jsonFormKompal3dString=getUrlString(uriFormKompal3d);
 
 
-            //Log.i(TAG, "Received JSON: " + jsonFormKompal3aString);
-            //Log.i(TAG, "Received JSON: " + jsonFormKompal3bString);
-            // Log.i(TAG, "Received JSON: " + jsonFormKompal3cString);
-            // Log.i(TAG, "Received JSON: " + jsonFormKompal3dString);
+           // Log.i(TAG, "Received JSON: " + jsonFormKompal3aString);
+           // Log.i(TAG, "Received JSON: " + jsonFormKompal3bString);
+           // Log.i(TAG, "Received JSON: " + jsonFormKompal3cString);
+           // Log.i(TAG, "Received JSON: " + jsonFormKompal3dString);
 
 
             JSONArray jsonFormKompal3aBody=new JSONArray(jsonFormKompal3aString);
@@ -446,7 +446,7 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             FormGalpal6 item = new FormGalpal6();
-            //item.setIdPeralatanKerjaCrane(jsonObject.getInt(DhSchema.FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE));
+            item.setIdPeralatanKerjaCraneServer(jsonObject.getInt(FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_SERVER));
             item.setKualifikasiSurveyId(jsonObject.getInt(FG6PeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY));
             item.setJenisMesin(jsonObject.getString(FG6PeralatanKerjaLuarCraneTable.Cols.JENIS_MESIN));
             item.setTahunPembuatan(jsonObject.getInt(FG6PeralatanKerjaLuarCraneTable.Cols.TAHUN_PEMBUATAN));
@@ -471,7 +471,7 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             FormKompal3a item = new FormKompal3a();
-            //item.setIdJenisKapasitasProduksi(jsonObject.getInt(DhSchema.FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI));
+            item.setIdJenisKapasitasProduksiServer(jsonObject.getInt(FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI_SERVER));
             item.setKualifikasiSurveyId(jsonObject.getInt(FK3aJenisKapasitasProduksiTable.Cols.ID_KUALIFIKASI_SURVEY));
             item.setJenisProduksi(jsonObject.getString(FK3aJenisKapasitasProduksiTable.Cols.JENIS_PRODUKSI));
             item.setKapasitasProduksi(jsonObject.getInt(FK3aJenisKapasitasProduksiTable.Cols.KAPASITAS_PRODUKSI));
@@ -487,8 +487,8 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             FormKompal3b item = new FormKompal3b();
-            //item.setIdjumlahProduksi(jsonObject.getInt(DhSchema.FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI));
-            item.setIdKualifikasiSurvey(jsonObject.getInt(FK3bJumlahProduksiTable.Cols.ID_KUALIFIKASI_SURVEY));
+            item.setIdJumlahProduksiServer(jsonObject.getInt(FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI_SERVER));
+            item.setKualifikasiSurveyId(jsonObject.getInt(FK3bJumlahProduksiTable.Cols.ID_KUALIFIKASI_SURVEY));
             item.setJenisProdukId(jsonObject.getInt(FK3bJumlahProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI));
             item.setJumlahProdThn4(jsonObject.getInt(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN4));
             item.setJumlahProdThn3(jsonObject.getInt(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN3));
@@ -512,7 +512,7 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             FormKompal3c item = new FormKompal3c();
-           // item.setIdSistemBerproduksi(jsonObject.getInt(DhSchema.FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI));
+            item.setIdSistemBerproduksiServer(jsonObject.getInt(FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI_SERVER));
             item.setKualifikasiSurveyId(jsonObject.getInt(FK3cSistemBerproduksiTable.Cols.ID_KUALIFIKASI_SURVEY));
             item.setNamaProduk(jsonObject.getString(FK3cSistemBerproduksiTable.Cols.NAMA_PRODUK));
             item.setSistemProduksi(jsonObject.getInt(FK3cSistemBerproduksiTable.Cols.ID_MST_JENIS_BERPRODUKSI));
@@ -531,7 +531,7 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             FormKompal3d item = new FormKompal3d();
-            //item.setIdStandarMutu(jsonObject.getInt(DhSchema.FK3dStandarMutuTableTable.Cols.JENIS_STANDAR_MUTU));
+            item.setIdStandarMutuServer(jsonObject.getInt(FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU_SERVER));
             item.setKualifikasiSurveyId(jsonObject.getInt(FK3dStandarMutuTableTable.Cols.ID_KUALIFIKASI_SURVEY));
             item.setJenisStandarMutu(jsonObject.getString(FK3dStandarMutuTableTable.Cols.JENIS_STANDAR_MUTU));
             item.setKeterangan(jsonObject.getString(FK3dStandarMutuTableTable.Cols.KETERANGAN));

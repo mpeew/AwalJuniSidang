@@ -222,6 +222,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "create table "+FG6PeralatanKerjaLuarCraneTable.NAME+
                         "("+FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE+" text primary key ," +
+                        FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_SERVER +" integer ," +
                         FG6PeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         FG6PeralatanKerjaLuarCraneTable.Cols.ID_PERIODE +" ," +
                         FG6PeralatanKerjaLuarCraneTable.Cols.JENIS_MESIN +" ," +
@@ -251,6 +252,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "create table "+FK3aJenisKapasitasProduksiTable.NAME+
                         "("+FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI+" text primary key ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI_SERVER +" integer ," +
                         FK3aJenisKapasitasProduksiTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         FK3aJenisKapasitasProduksiTable.Cols.ID_PERIODE +" ," +
                         FK3aJenisKapasitasProduksiTable.Cols.JENIS_PRODUKSI +" ," +
@@ -268,6 +270,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "create table "+FK3bJumlahProduksiTable.NAME+
                         "("+FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI+" text primary key ," +
+                        FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI_SERVER +" integer ," +
                         FK3bJumlahProduksiTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         FK3bJumlahProduksiTable.Cols.ID_PERIODE +" ," +
                         FK3bJumlahProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI +" ," +
@@ -293,6 +296,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "create table "+ FK3cSistemBerproduksiTable.NAME+
                         "("+FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI+" text primary key ," +
+                        FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI_SERVER +" integer ," +
                         FK3cSistemBerproduksiTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         FK3cSistemBerproduksiTable.Cols.ID_PERIODE +" ," +
                         FK3cSistemBerproduksiTable.Cols.NAMA_PRODUK +" ," +
@@ -314,6 +318,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "create table "+FK3dStandarMutuTableTable.NAME+
                         "("+FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU+" text primary key ," +
+                        FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU_SERVER +" integer ," +
                         FK3dStandarMutuTableTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         FK3dStandarMutuTableTable.Cols.ID_PERIODE +" ," +
                         FK3dStandarMutuTableTable.Cols.JENIS_STANDAR_MUTU +" ," +
