@@ -27,15 +27,23 @@
 
         <TextView
             android:id="@+id/list_item_kompal3a_jenis_produksi"
-            android:layout_weight="45"
+            android:layout_weight="38"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/list_item_kompal3a_kapasitas_produksi"
-            android:layout_weight="45"
+            android:layout_weight="37"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:id="@+id/list_item_kompal3a_delete"
+            android:background="@android:color/white"
+            android:src="@drawable/delete_icon"
+            android:layout_weight="15"
+            android:layout_width="0dp"
+            android:layout_height="40dp"/>
 
 
     </LinearLayout>

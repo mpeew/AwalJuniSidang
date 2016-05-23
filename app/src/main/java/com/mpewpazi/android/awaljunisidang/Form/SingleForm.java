@@ -5,9 +5,9 @@ import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
 /**
  * Created by mpewpazi on 3/31/16.
  */
-public class SingleForm {
+public abstract class SingleForm {
     protected String mNamaForm;
-    protected String kodeForm;
+
     protected boolean mSend;
     protected SingleFragment mFragment;
     protected int mKualifikasiSurveyId;
@@ -38,7 +38,5 @@ public class SingleForm {
         return mFragment;
     }
 
-    public String getKodeForm() {
-        return kodeForm;
-    }
+    public abstract String getKodeForm();
 }

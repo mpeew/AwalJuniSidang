@@ -1,7 +1,9 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
@@ -127,15 +130,38 @@ public class ListFormKompal3aFragment extends SingleFragment {
         private TextView mNoTextView;
         private TextView mJenisProduksiTextView;
         private TextView mKapasitasProduksiTextView;
+        private ImageButton mDeleteButton;
 
         private FormKompal3a mFormKompal3a;
 
-        public void bindFormKompal3a(FormKompal3a formKompal3a,int no) {
+        public void bindFormKompal3a(final FormKompal3a formKompal3a, int no) {
             mFormKompal3a = formKompal3a;
             mJenisProduksiTextView.setText(mFormKompal3a.getJenisProduksi());
             mKapasitasProduksiTextView.setText(String.valueOf(mFormKompal3a.getKapasitasProduksi()));
             mNoTextView.setText(String.valueOf(no));
+            mDeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(getActivity());
+                    alertDialogBuilder.setMessage("Apakah anda yakin akan menghapus kolom ini");
 
+                    alertDialogBuilder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DummyMaker.get(getActivity()).deleteFormKompal3a(formKompal3a);
+                            updateUI();
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+                    alertDialogBuilder.show();
+                }
+            });
         }
 
         public FormKompal3aHolder(View itemView) {
@@ -146,7 +172,7 @@ public class ListFormKompal3aFragment extends SingleFragment {
             mNoTextView=(TextView)itemView.findViewById(R.id.list_item_kompal3a_no);
             mJenisProduksiTextView = (TextView) itemView.findViewById(R.id.list_item_kompal3a_jenis_produksi);
             mKapasitasProduksiTextView = (TextView) itemView.findViewById(R.id.list_item_kompal3a_kapasitas_produksi);
-
+            mDeleteButton=(ImageButton)itemView.findViewById(R.id.list_item_kompal3a_delete);
 
 
         }

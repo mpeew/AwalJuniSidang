@@ -28,11 +28,11 @@ public class FormGalpal3 extends SingleForm {
     private String jabatan;
     private String email;
     private String imagePath;
-
+    public static final String kode="FG3";
 
     @Override
     public String getKodeForm() {
-        return "FG3";
+        return kode;
     }
 
     @Override

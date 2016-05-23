@@ -18,7 +18,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
@@ -34,32 +39,52 @@ import java.util.List;
 /**
  * Created by mpewpazi on 3/27/16.
  */
-public class FormGalpal3Fragment extends SingleFragment {
+public class FormGalpal3Fragment extends SingleFragment implements Validator.ValidationListener {
 
     private static final int REQUEST_SELECT_FILE=1;
     private static final int REQUEST_PHOTO=2;
 
-    private String mNamaPerusahaan;
+    private Validator mValidator;
+    private boolean isValidated;
 
+    private String mNamaPerusahaan;
+    @NotEmpty
     private EditText mNamaGalanganEditText;
     private EditText mNamaPerusahaanEditText;
+    @NotEmpty
     private EditText mNomorTeleponEditText;
+    @NotEmpty
     private EditText mNomorDock;
+    @NotEmpty
     private EditText mFaxEditText;
+    @NotEmpty
     private EditText mAlamatEditText;
+    @NotEmpty
     private EditText mKelurahanEditText;
+    @NotEmpty
     private EditText mKecamatanEditText;
+    @NotEmpty
     private EditText mKodePosEditText;
+    @NotEmpty
     private EditText mLongitudeEditText;
+    @NotEmpty
     private EditText mLatitudeEditText;
     private EditText mKategoriGalanganEditText;
+    @NotEmpty
     private EditText mContactPersonEditText;
+    @NotEmpty
     private EditText mNomorCpEditText;
+    @NotEmpty
     private EditText mJabatanEditText;
+    @Email
     private EditText mEmailEditText;
+    @NotEmpty
     private EditText mCpNamaEditText;
+    @NotEmpty
     private EditText mCpNoEditText;
+    @NotEmpty
     private EditText mCpJabatanEditText;
+    @Email
     private EditText mCpEmailEditText;
     private Button mSubmitButton;
     private ImageButton mCaptureButton;
@@ -90,7 +115,8 @@ public class FormGalpal3Fragment extends SingleFragment {
         mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,idMenu);
         mPhotoFile=mDummyMaker.getPhotoFile(mFormGalpal3);
 
-
+        mValidator=new Validator(this);
+        mValidator.setValidationListener(this);
 
     }
 
@@ -559,6 +585,10 @@ public class FormGalpal3Fragment extends SingleFragment {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mValidator.validate();
+                if(!isValidated){
+                    return;
+                }
                 if(!mMenuCheckingGalpal.isComplete()){
                     mMenuCheckingGalpal.setComplete(true);
                     mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mGalpalForms.size());
@@ -620,7 +650,25 @@ public class FormGalpal3Fragment extends SingleFragment {
     }
 
 
+    @Override
+    public void onValidationSucceeded() {
+        isValidated=true;
+    }
 
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
 
-
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                EditText editText=((EditText) view);
+                editText.setError(message);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+            }
+        }
+        isValidated =false;
+    }
 }

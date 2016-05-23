@@ -150,12 +150,12 @@
     </ScrollView>
 
 
-    <Button android:id="@+id/galpal6_btn_delete"
+    <Button android:id="@+id/galpal6_btn_save"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="9"
-            android:text="DELETE"
-            android:background="@android:color/holo_red_light"
+            android:text="SAVE"
+            android:background="@android:color/holo_green_light"
             android:layout_marginTop="0dp"
             android:textColor="@android:color/white"/>
 

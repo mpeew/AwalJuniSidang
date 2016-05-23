@@ -11,8 +11,15 @@ import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
-import com.mpewpazi.android.awaljunisidang.masterData.Kabupaten;
-import com.mpewpazi.android.awaljunisidang.masterData.Propinsi;
+import com.mpewpazi.android.awaljunisidang.masterData.MstAirPelayaran;
+import com.mpewpazi.android.awaljunisidang.masterData.MstArus;
+import com.mpewpazi.android.awaljunisidang.masterData.MstGelombang;
+import com.mpewpazi.android.awaljunisidang.masterData.MstJarakKedalaman;
+import com.mpewpazi.android.awaljunisidang.masterData.MstJenisProduksi;
+import com.mpewpazi.android.awaljunisidang.masterData.MstKabupaten;
+import com.mpewpazi.android.awaljunisidang.masterData.MstPasangSurut;
+import com.mpewpazi.android.awaljunisidang.masterData.MstPropinsi;
+import com.mpewpazi.android.awaljunisidang.masterData.MstSatuan;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
@@ -437,7 +444,7 @@ public class CursorWrapperGal extends CursorWrapper{
     }
 
 
-    public Propinsi getPropinsi(){
+    public MstPropinsi getPropinsi(){
         int idPropinsi=getInt(getColumnIndex(MstPropinsiTable.Cols.ID_PROPINSI));
         int kodeBps=getInt(getColumnIndex(MstPropinsiTable.Cols.KODEBPS));
         String nama=getString(getColumnIndex(MstPropinsiTable.Cols.NAMA));
@@ -445,18 +452,18 @@ public class CursorWrapperGal extends CursorWrapper{
         String ibuKota=getString(getColumnIndex(MstPropinsiTable.Cols.IBUKOTA));
         String pulau=getString(getColumnIndex(MstPropinsiTable.Cols.PULAU));
 
-        Propinsi propinsi=new Propinsi();
-        propinsi.setId(idPropinsi);
-        propinsi.setKodeBps(kodeBps);
-        propinsi.setNama(nama);
-        propinsi.setKodeiso(kodeIso);
-        propinsi.setIbukota(ibuKota);
-        propinsi.setPulau(pulau);
+        MstPropinsi mstPropinsi =new MstPropinsi();
+        mstPropinsi.setId(idPropinsi);
+        mstPropinsi.setKodeBps(kodeBps);
+        mstPropinsi.setNama(nama);
+        mstPropinsi.setKodeiso(kodeIso);
+        mstPropinsi.setIbukota(ibuKota);
+        mstPropinsi.setPulau(pulau);
 
-        return propinsi;
+        return mstPropinsi;
     }
 
-    public Kabupaten getKabupaten(){
+    public MstKabupaten getKabupaten(){
         int id=getInt(getColumnIndex(MstKabupatenTable.Cols.ID));
         String nama=getString(getColumnIndex(MstKabupatenTable.Cols.NAMA));
         String ibuKota=getString(getColumnIndex(MstKabupatenTable.Cols.IBU_KOTA));
@@ -465,15 +472,95 @@ public class CursorWrapperGal extends CursorWrapper{
         int jumlahPenduduk=getInt(getColumnIndex(MstKabupatenTable.Cols.JMLPENDUDUK));
         int kodeBps=getInt(getColumnIndex(MstKabupatenTable.Cols.KODEBPS));
 
-        Kabupaten kabupaten=new Kabupaten();
-        kabupaten.setId(id);
-        kabupaten.setNama(nama);
-        kabupaten.setIbuKota(ibuKota);
-        kabupaten.setId_propinsi(idPropinsi);
-        kabupaten.setIbuKotaPropinsi(ibuKotaProp);
-        kabupaten.setJumlahPenduduk(jumlahPenduduk);
-        kabupaten.setKodebps(kodeBps);
+        MstKabupaten mstKabupaten =new MstKabupaten();
+        mstKabupaten.setId(id);
+        mstKabupaten.setNama(nama);
+        mstKabupaten.setIbuKota(ibuKota);
+        mstKabupaten.setId_propinsi(idPropinsi);
+        mstKabupaten.setIbuKotaPropinsi(ibuKotaProp);
+        mstKabupaten.setJumlahPenduduk(jumlahPenduduk);
+        mstKabupaten.setKodebps(kodeBps);
 
-        return kabupaten;
+        return mstKabupaten;
+    }
+
+    public MstAirPelayaran getAirPelayaran(){
+        int id=getInt(getColumnIndex(MstAirPelayaranTable.Cols.ID_MST_AIR_PELAYARAN));
+        String nama=getString(getColumnIndex(MstAirPelayaranTable.Cols.AIR_PELAYARAN));
+
+        MstAirPelayaran mstAirPelayaran=new MstAirPelayaran();
+        mstAirPelayaran.setIdMstAirPelayaran(id);
+        mstAirPelayaran.setAirPelayaran(nama);
+
+        return mstAirPelayaran;
+    }
+
+    public MstArus getArus(){
+        int id=getInt(getColumnIndex(MstArusTable.Cols.ID_MST_ARUS));
+        String nama=getString(getColumnIndex(MstArusTable.Cols.ARUS));
+
+        MstArus mstArus=new MstArus();
+        mstArus.setIdMstArus(id);
+        mstArus.setArus(nama);
+
+        return mstArus;
+    }
+
+    public MstGelombang getGelombang(){
+        int id=getInt(getColumnIndex(MstGelombangTable.Cols.ID_MST_GELOMBANG));
+        String nama=getString(getColumnIndex(MstGelombangTable.Cols.MST_GELOMBANG));
+
+        MstGelombang mstGelombang=new MstGelombang();
+        mstGelombang.setIdMstGelombang(id);
+        mstGelombang.setMstGelombang(nama);
+
+        return mstGelombang;
+    }
+
+    public MstJarakKedalaman getJarakKedalaman(){
+        int id=getInt(getColumnIndex(MstJarakKedalamanTable.Cols.ID_MST_JARAK_KEDALAMAN));
+        String nama=getString(getColumnIndex(MstJarakKedalamanTable.Cols.JARAK_KEDALAMAN));
+
+        MstJarakKedalaman mstJarakKedalaman=new MstJarakKedalaman();
+        mstJarakKedalaman.setIdMstJarakKedalaman(id);
+        mstJarakKedalaman.setJarakKedalaman(nama);
+
+        return mstJarakKedalaman;
+    }
+
+    public MstJenisProduksi getJenisProduksi(){
+        int id=getInt(getColumnIndex(MstJenisProduksiTable.Cols.ID_MST_JENIS_PRODUKSI));
+        String nama=getString(getColumnIndex(MstJenisProduksiTable.Cols.JENIS_PRODUKSI));
+        String kki=getString(getColumnIndex(MstJenisProduksiTable.Cols.KKI));
+
+        MstJenisProduksi mstJenisProduksi=new MstJenisProduksi();
+        mstJenisProduksi.setIdMstJenisProduksi(id);
+        mstJenisProduksi.setJenisProduksi(nama);
+        mstJenisProduksi.setKki(kki);
+
+        return mstJenisProduksi;
+    }
+
+    public MstPasangSurut getPasangSurut(){
+        int id=getInt(getColumnIndex(MstPasangSurutTable.Cols.ID_MST_PASANG_SURUT));
+        String nama=getString(getColumnIndex(MstPasangSurutTable.Cols.PASANG_SURUT));
+
+        MstPasangSurut mstPasangSurut=new MstPasangSurut();
+        mstPasangSurut.setIdMstPasangSurut(id);
+        mstPasangSurut.setPasangSurut(nama);
+
+        return mstPasangSurut;
+
+    }
+
+    public MstSatuan getSatuan(){
+        int id=getInt(getColumnIndex(MstSatuanTable.Cols.ID_MST_SATUAN));
+        String nama=getString(getColumnIndex(MstSatuanTable.Cols.SATUAN));
+
+        MstSatuan mstSatuan=new MstSatuan();
+        mstSatuan.setIdMstSatuan(id);
+        mstSatuan.setSatuan(nama);
+
+        return mstSatuan;
     }
 }

@@ -24,6 +24,8 @@ public class FormGalpal6  extends SingleForm {
     private String lokasi;
     private String status;
 
+    public static final String kode="FG6";
+
     public FormGalpal6(){
         this(UUID.randomUUID());
     }
@@ -34,7 +36,7 @@ public class FormGalpal6  extends SingleForm {
 
     @Override
     public String getKodeForm() {
-        return "FG6";
+        return kode;
     }
 
     @Override

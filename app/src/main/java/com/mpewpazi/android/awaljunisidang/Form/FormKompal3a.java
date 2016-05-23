@@ -15,6 +15,8 @@ public class FormKompal3a extends SingleForm {
     private int kapasitasProduksi;
     private int satuan;
 
+    public static final String kode="FK3a";
+
     @Override
     public SingleFragment getFragment() {
         return new ListFormKompal3aFragment();
@@ -22,7 +24,7 @@ public class FormKompal3a extends SingleForm {
 
     @Override
     public String getKodeForm() {
-        return "FK3a";
+        return kode;
     }
 
     @Override

@@ -11,27 +11,36 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
  * Created by mpewpazi on 5/6/16.
  */
-public class FormKompal3aFragment extends Fragment {
+public class FormKompal3aFragment extends Fragment implements Validator.ValidationListener {
 
     private static final String ARG_FORMKOMPAL3a_ID="formkompal3a_id";
     private static final String ARG_FORMKOMPAL3a_KUALIFIKASI_SURVEY_ID="formkompal3a_kualifikasi_id";
+    private Validator mValidator;
+    private boolean isValidated;
 
+    @NotEmpty
     private EditText mJenisProduksi;
+    @NotEmpty
     private EditText mKapasitasProduksiEditText;
     private Spinner mSatuanSpinner;
 
-    private Button mDeleteButton;
-    private boolean isDeleteButtonUnpressed=true;
+    private Button mSaveButton;
+    private boolean isSaveButtonUnpressed=true;
 
     private FormKompal3a mFormKompal3a;
 
@@ -60,6 +69,8 @@ public class FormKompal3aFragment extends Fragment {
 
         //----------------------------------------------- ----------------------------------------------- -----------------------------------------------
         mFormKompal3a= DummyMaker.get(getActivity()).getFormKompal3a(formKompal3aId);
+        mValidator=new Validator(this);
+        mValidator.setValidationListener(this);
 
     }
 
@@ -73,7 +84,7 @@ public class FormKompal3aFragment extends Fragment {
         mJenisProduksi=(EditText)rootView.findViewById(R.id.kompal3a_jenis_produksi);
         mKapasitasProduksiEditText=(EditText)rootView.findViewById(R.id.kompal3a_kapasitas_produksi);
         mSatuanSpinner=(Spinner)rootView.findViewById(R.id.kompal3a_satuan_spinner);
-        mDeleteButton=(Button)rootView.findViewById(R.id.kompal3a_btn_delete);
+        mSaveButton=(Button)rootView.findViewById(R.id.kompal3a_btn_save);
 
 
         mJenisProduksi.setText(mFormKompal3a.getJenisProduksi());
@@ -114,13 +125,15 @@ public class FormKompal3aFragment extends Fragment {
 
 
 
-        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // ----------------------------------------------- ----------------------------------------------- -----------------------------------------------
-                DummyMaker.get(getActivity()).deleteFormKompal3a(mFormKompal3a);
-                isDeleteButtonUnpressed=false;
+                mValidator.validate();
+                if(!isValidated){
+                    return;
+                }
+                DummyMaker.get(getActivity()).addFormKompal3a(mFormKompal3a);
                 getActivity().finish();
 
             }
@@ -131,12 +144,28 @@ public class FormKompal3aFragment extends Fragment {
         return rootView;
     }
 
+
+
     @Override
-    public void onPause() {
-        super.onPause();
-        if(isDeleteButtonUnpressed) {
-            DummyMaker.get(getActivity()).addFormKompal3a(mFormKompal3a);
+    public void onValidationSucceeded() {
+        isValidated=true;
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                EditText editText=((EditText) view);
+                editText.setError(message);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+            }
         }
+        isValidated=false;
     }
 
 }

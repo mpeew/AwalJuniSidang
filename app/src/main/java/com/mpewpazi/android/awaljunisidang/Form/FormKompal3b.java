@@ -23,9 +23,11 @@ public class FormKompal3b extends SingleForm {
     private double nilaiProduksiThn4;
     private String keterangan;
 
+    public static final String kode="FK3b";
+
     @Override
     public String getKodeForm() {
-        return "FK3b";
+        return kode;
     }
 
     @Override

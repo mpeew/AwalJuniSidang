@@ -839,7 +839,7 @@ public class DhSchema {
             public static final String ID_PERIODE="id_periode";
             public static final String NAMA_PRODUK="nama_produk";
             public static final String ID_MST_JENIS_PRODUKSI="id_mst_jenis_produksi";
-            public static final String ID_MST_JENIS_BERPRODUKSI="id_mst_jenis_berproduksi";
+            public static final String ID_MST_JENIS_BERPRODUKSI="id_mst_sistem_berproduksi";
             public static final String JUMLAH_PROD_NMIN4="jumlah_prod_nmin4";
             public static final String JUMLAH_PROD_NMIN3="jumlah_prod_nmin3";
             public static final String JUMLAH_PROD_NMIN2="jumlah_prod_nmin2";
@@ -860,7 +860,7 @@ public class DhSchema {
             public static final String ID_F2_STANDAR_MUTU="id_f2_standar_mutu";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_PERIODE="id_periode";
-            public static final String JENIS_STANDAR_MUTU="jenis_standar_mutu";
+            public static final String JENIS_STANDAR_MUTU="jenis_standard_mutu";
             public static final String KETERANGAN="keterangan";
             public static final String CREATED_DATE = "created_date";
             public static final String CREATED_USER = "created_user";
@@ -931,7 +931,7 @@ public class DhSchema {
         public static final class Cols{
             public static final String ID="id";
             public static final String NAMA="nama";
-            public static final String IBU_KOTA="ibu_kota";
+            public static final String IBU_KOTA="ibukota";
             public static final String ID_PROPINSI="id_propinsi";
             public static final String IBUKOTAPROP="ibukotaprop";
             public static final String JMLPENDUDUK="jmlpenduduk";
@@ -939,6 +939,65 @@ public class DhSchema {
 
         }
     }
+
+    public static final class MstAirPelayaranTable{
+        public static final String NAME="mst_air_pelayaran";
+        public static final class Cols{
+            public static final String ID_MST_AIR_PELAYARAN="id_mst_air_pelayaran";
+            public static final String AIR_PELAYARAN="air_pelayaran";
+        }
+    }
+
+    public static final class MstArusTable{
+        public static final String NAME="mst_arus";
+        public static final class Cols{
+            public static final String ID_MST_ARUS="id_mst_arus";
+            public static final String ARUS="arus";
+        }
+    }
+
+    public static final class MstGelombangTable{
+        public static final String NAME="mst_gelombang";
+        public static final class Cols{
+            public static final String ID_MST_GELOMBANG="id_mst_gelombang";
+            public static final String MST_GELOMBANG="mst_gelombang";
+        }
+    }
+
+    public static final class MstJarakKedalamanTable{
+        public static final String NAME="mst_jarak_kedalaman";
+        public static final class Cols{
+            public static final String ID_MST_JARAK_KEDALAMAN="id_mst_jarak_kedalaman";
+            public static final String JARAK_KEDALAMAN="jarak_kedalaman";
+        }
+    }
+
+    public static final class MstJenisProduksiTable{
+        public static final String NAME="mst_jenis_produksi";
+        public static final class Cols{
+            public static final String ID_MST_JENIS_PRODUKSI="id_mst_jenis_produksi";
+            public static final String KKI="kki";
+            public static final String JENIS_PRODUKSI="jenis_produksi";
+        }
+    }
+
+    public static final class MstSatuanTable{
+        public static final String NAME="mst_satuan";
+        public static final class Cols{
+            public static final String ID_MST_SATUAN="id_mst_satuan";
+            public static final String SATUAN="satuan";
+        }
+    }
+
+    public static final class MstPasangSurutTable{
+        public static final String NAME="mst_pasang_surut";
+        public static final class Cols{
+            public static final String ID_MST_PASANG_SURUT="id_mst_pasang_surut";
+            public static final String PASANG_SURUT="pasang_surut";
+        }
+    }
+
+
 
 /*
     public static final class {

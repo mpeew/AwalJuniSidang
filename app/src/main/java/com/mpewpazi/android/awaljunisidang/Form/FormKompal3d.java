@@ -14,9 +14,11 @@ public class FormKompal3d extends SingleForm {
     private String jenisStandarMutu;
     private String keterangan;
 
+    public static final String kode="FK3d";
+
     @Override
     public String getKodeForm() {
-        return "FK3d";
+        return kode;
     }
 
     @Override

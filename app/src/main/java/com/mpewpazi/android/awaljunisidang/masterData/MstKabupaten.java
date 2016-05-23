@@ -3,7 +3,7 @@ package com.mpewpazi.android.awaljunisidang.masterData;
 /**
  * Created by mpewpazi on 5/16/16.
  */
-public class Kabupaten extends SingleMaster {
+public class MstKabupaten extends SingleMaster {
     private int id;
     private String nama;
     private String ibuKota;
@@ -11,6 +11,7 @@ public class Kabupaten extends SingleMaster {
     private int ibuKotaPropinsi;
     private int jumlahPenduduk;
     private int kodebps;
+    public static final String kode="kabupaten";
 
     public int getId() {
         return id;
@@ -66,5 +67,10 @@ public class Kabupaten extends SingleMaster {
 
     public void setKodebps(int kodebps) {
         this.kodebps = kodebps;
+    }
+
+    @Override
+    public String getKodeMst() {
+        return kode;
     }
 }

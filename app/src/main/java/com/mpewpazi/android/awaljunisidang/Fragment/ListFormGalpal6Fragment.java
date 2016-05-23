@@ -1,8 +1,10 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
@@ -145,14 +148,38 @@ public class ListFormGalpal6Fragment extends SingleFragment {
         private TextView mNoTextView;
         private TextView mJenisMesinTextView;
         private TextView mMerekTextView;
+        private ImageButton mDeleteButton;
 
         private FormGalpal6 mFormGalpal6;
 
-        public void bindFormGalpal6(FormGalpal6 formGalpal6,int no) {
+        public void bindFormGalpal6(final FormGalpal6 formGalpal6, int no) {
             mFormGalpal6 = formGalpal6;
             mJenisMesinTextView.setText(mFormGalpal6.getJenisMesin());
             mMerekTextView.setText(mFormGalpal6.getMerek());
             mNoTextView.setText(String.valueOf(no));
+            mDeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(getActivity());
+                    alertDialogBuilder.setMessage("Apakah anda yakin akan menghapus kolom ini");
+
+                    alertDialogBuilder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DummyMaker.get(getActivity()).deleteFormGalpal6(formGalpal6);
+                            updateUI();
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+                    alertDialogBuilder.show();
+                }
+            });
 
         }
 
@@ -164,7 +191,7 @@ public class ListFormGalpal6Fragment extends SingleFragment {
             mNoTextView=(TextView)itemView.findViewById(R.id.list_item_galpal6_no);
             mJenisMesinTextView = (TextView) itemView.findViewById(R.id.list_item_galpal6_jenis_mesin);
             mMerekTextView = (TextView) itemView.findViewById(R.id.list_item_galpal6_merek);
-
+            mDeleteButton=(ImageButton) itemView.findViewById(R.id.list_item_galpal6_delete);
 
 
         }

@@ -3,13 +3,14 @@ package com.mpewpazi.android.awaljunisidang.masterData;
 /**
  * Created by mpewpazi on 4/12/16.
  */
-public class Propinsi extends SingleMaster {
+public class MstPropinsi extends SingleMaster {
     int id;
     int kodeBps;
     String nama;
     String kodeiso;
     String ibukota;
     String pulau;
+    public static final String kode="propinsi";
 
     public int getId() {
         return id;
@@ -57,5 +58,10 @@ public class Propinsi extends SingleMaster {
 
     public void setPulau(String pulau) {
         this.pulau = pulau;
+    }
+
+    @Override
+    public String getKodeMst() {
+        return kode;
     }
 }

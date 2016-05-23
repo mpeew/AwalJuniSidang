@@ -10,7 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
@@ -22,24 +26,38 @@ import java.util.UUID;
 /**
  * Created by mpewpazi on 4/18/16.
  */
-public class FormGalpal6Fragment extends Fragment {
+public class FormGalpal6Fragment extends Fragment implements Validator.ValidationListener {
     private final static String NAMA_FORM="Peralatan Ruang Kerja Luar Ruang Cranes";
     private static final String ARG_FORMGALPAL6_ID="formgalpal6_id";
     private static final String ARG_FORMGALPAL6_KUALIFIKASI_SURVEY_ID="formgalpal6_kualifikasi_id";
 
+    private Validator mValidator;
+    private boolean isValidated;
+
+    @NotEmpty
     private EditText mJenisMesinEditText;
+
+    @NotEmpty
     private EditText mTahunPembuatanEditText;
+    @NotEmpty
     private EditText mMerekEditText;
+    @NotEmpty
     private EditText mKapasitasTerpasangEditText;
+    @NotEmpty
     private EditText mDimensiEditText;
+    @NotEmpty
     private EditText mJumlahEditText;
+    @NotEmpty
     private EditText mKondisiEditText;
+    @NotEmpty
     private EditText mLokasiEditText;
+    @NotEmpty
     private EditText mStatusEditText;
+    @NotEmpty
     private EditText mKapasitasTerpakaiEditText;
 
-    private boolean isDeleteButtonUnpressed=true;
-    private Button mDeleteButton;
+
+    private Button mSaveButton;
 
 
     private List<FormGalpal6> mFormGalpal6s;
@@ -74,6 +92,9 @@ public class FormGalpal6Fragment extends Fragment {
 
         mFormGalpal6= DummyMaker.get(getActivity()).getFormGalpal6(formGalpal6Id);
 
+        mValidator=new Validator(this);
+        mValidator.setValidationListener(this);
+
     }
 
 
@@ -86,7 +107,7 @@ public class FormGalpal6Fragment extends Fragment {
         mJenisMesinEditText=(EditText)rootView.findViewById(R.id.galpal6_jenis_mesin);
         mTahunPembuatanEditText=(EditText)rootView.findViewById(R.id.galpal6_tahun_pembuatan);
         mMerekEditText=(EditText)rootView.findViewById(R.id.galpal6_merek);
-        mKapasitasTerpasangEditText=(EditText)rootView.findViewById(R.id.galpal6_dimensi);
+        mKapasitasTerpasangEditText=(EditText)rootView.findViewById(R.id.galpal6_kapasitas_terpasang);
         mKapasitasTerpakaiEditText=(EditText)rootView.findViewById(R.id.galpal6_kapasitas_terpakai);
         mDimensiEditText=(EditText)rootView.findViewById(R.id.galpal6_dimensi);
         mJumlahEditText=(EditText)rootView.findViewById(R.id.galpal6_jumlah);
@@ -95,7 +116,7 @@ public class FormGalpal6Fragment extends Fragment {
         mStatusEditText=(EditText)rootView.findViewById(R.id.galpal6_status);
 
 
-        mDeleteButton=(Button)rootView.findViewById(R.id.galpal6_btn_delete);
+        mSaveButton=(Button)rootView.findViewById(R.id.galpal6_btn_save);
 
 
         mJenisMesinEditText.setText(mFormGalpal6.getJenisMesin());
@@ -280,12 +301,14 @@ public class FormGalpal6Fragment extends Fragment {
 
 
 
-        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                DummyMaker.get(getActivity()).deleteFormGalpal6(mFormGalpal6);
-                isDeleteButtonUnpressed=false;
+                mValidator.validate();
+                if(!isValidated){
+                    return;
+                }
+                DummyMaker.get(getActivity()).addFormGalpal6(mFormGalpal6);
                 getActivity().finish();
 
             }
@@ -296,13 +319,28 @@ public class FormGalpal6Fragment extends Fragment {
         return rootView;
     }
 
+
+
+
     @Override
-    public void onPause() {
-        super.onPause();
-        if(isDeleteButtonUnpressed) {
-            DummyMaker.get(getActivity()).addFormGalpal6(mFormGalpal6);
-        }
+    public void onValidationSucceeded() {
+        isValidated=true;
     }
 
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
 
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                EditText editText=((EditText) view);
+                editText.setError(message);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+            }
+        }
+        isValidated=false;
+    }
 }

@@ -367,6 +367,49 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         MstPropinsiTable.Cols.PULAU +" )"
         );
 
+        db.execSQL(
+                "create table "+MstAirPelayaranTable.NAME+
+                        "("+MstAirPelayaranTable.Cols.ID_MST_AIR_PELAYARAN+" integer primary key ," +
+                         MstAirPelayaranTable.Cols.AIR_PELAYARAN+" )"
+        );
+
+        db.execSQL(
+                "create table "+MstArusTable.NAME+
+                "("+MstArusTable.Cols.ID_MST_ARUS+" integer primary key ," +
+                MstArusTable.Cols.ARUS+" )"
+        );
+
+        db.execSQL(
+                "create table "+MstGelombangTable.NAME+
+                "("+MstGelombangTable.Cols.ID_MST_GELOMBANG+" integer primary key ," +
+                MstGelombangTable.Cols.MST_GELOMBANG+" )"
+        );
+
+        db.execSQL(
+                "create table "+MstJarakKedalamanTable.NAME+
+                "("+MstJarakKedalamanTable.Cols.ID_MST_JARAK_KEDALAMAN+" integer primary key ," +
+                MstJarakKedalamanTable.Cols.JARAK_KEDALAMAN+" )"
+        );
+
+        db.execSQL(
+                "create table "+MstPasangSurutTable.NAME+
+                "("+MstPasangSurutTable.Cols.ID_MST_PASANG_SURUT+" integer primary key ," +
+                MstPasangSurutTable.Cols.PASANG_SURUT+" )"
+        );
+
+        db.execSQL(
+                "create table "+MstSatuanTable.NAME+
+                "("+MstSatuanTable.Cols.ID_MST_SATUAN+" integer primary key ," +
+                MstSatuanTable.Cols.SATUAN+" )"
+        );
+
+        db.execSQL(
+                "create table "+MstJenisProduksiTable.NAME+
+                "("+MstJenisProduksiTable.Cols.ID_MST_JENIS_PRODUKSI+" integer primary key ," +
+                MstJenisProduksiTable.Cols.JENIS_PRODUKSI+" ," +
+                MstJenisProduksiTable.Cols.KKI+" )"
+        );
+
 
 
        /* contoh

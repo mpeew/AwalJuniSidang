@@ -10,25 +10,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
  * Created by mpewpazi on 5/6/16.
  */
-public class FormKompal3dFragment extends Fragment {
+public class FormKompal3dFragment extends Fragment implements Validator.ValidationListener {
     private static final String ARG_FORMKOMPAL3d_ID="formkompal3d_id";
     private static final String ARG_FORMKOMPAL3d_KUALIFIKASI_SURVEY_ID="formkompal3d_kualifikasi_id";
 
+    private Validator mValidator;
+    private boolean isValidated;
+
+    @NotEmpty
     private EditText mJenisStandarMutuEditText;
+    @NotEmpty
     private EditText mKeteranganEditText;
 
-    private Button mDeleteButton;
-    private boolean isDeleteButtonUnpressed=true;
+    private Button mSaveButton;
+    private boolean isSaveButtonUnpressed=true;
 
     private FormKompal3d mFormKompal3d;
 
@@ -57,6 +67,9 @@ public class FormKompal3dFragment extends Fragment {
 
         mFormKompal3d= DummyMaker.get(getActivity()).getFormKompal3d(formKompal3dId);
 
+        mValidator=new Validator(this);
+        mValidator.setValidationListener(this);
+
     }
 
 
@@ -69,7 +82,7 @@ public class FormKompal3dFragment extends Fragment {
         mJenisStandarMutuEditText=(EditText)rootView.findViewById(R.id.kompal3d_jenis_standar_mutu);
         mKeteranganEditText=(EditText)rootView.findViewById(R.id.kompal3d_keterangan);
 
-        mDeleteButton=(Button)rootView.findViewById(R.id.kompal3a_btn_delete);
+        mSaveButton=(Button)rootView.findViewById(R.id.kompal3d_btn_save);
 
         mJenisStandarMutuEditText.setText(mFormKompal3d.getJenisStandarMutu());
         mJenisStandarMutuEditText.addTextChangedListener(new TextWatcher() {
@@ -109,12 +122,15 @@ public class FormKompal3dFragment extends Fragment {
 
 
 
-        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                DummyMaker.get(getActivity()).deleteFormKompal3d(mFormKompal3d);
-                isDeleteButtonUnpressed=false;
+                mValidator.validate();
+                if(!isValidated){
+                    return;
+                }
+                DummyMaker.get(getActivity()).addFormKompal3d(mFormKompal3d);
                 getActivity().finish();
 
             }
@@ -125,11 +141,27 @@ public class FormKompal3dFragment extends Fragment {
         return rootView;
     }
 
+
+
     @Override
-    public void onPause() {
-        super.onPause();
-        if(isDeleteButtonUnpressed) {
-            DummyMaker.get(getActivity()).addFormKompal3d(mFormKompal3d);
+    public void onValidationSucceeded() {
+        isValidated=true;
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                EditText editText=((EditText) view);
+                editText.setError(message);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+            }
         }
+        isValidated=false;
     }
 }

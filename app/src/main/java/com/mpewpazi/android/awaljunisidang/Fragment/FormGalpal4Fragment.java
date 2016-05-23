@@ -9,7 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
@@ -23,16 +27,24 @@ import java.util.List;
 /**
  * Created by mpewpazi on 3/27/16.
  */
-public class FormGalpal4Fragment extends SingleFragment {
+public class FormGalpal4Fragment extends SingleFragment implements Validator.ValidationListener {
     private final String NAMA_FORM="Tinjauan Wilayah Maritim";
+
+    private Validator mValidator;
+    private boolean isValidated;
 
     private Spinner mJarakKedalamanSpinner;
     private Spinner mAirPelayaranSpinner;
     private Spinner mPasangSurutSpinner;
     private Spinner mArusSpinner;
     private Spinner mGelombangSpinner;
+
+    @NotEmpty
     private EditText mPanjangWaterfrontEditText;
+
+    @NotEmpty
     private EditText mLuasLahanEditText;
+
     private Spinner mKetersediaanLahanSpinner;
     private Spinner mLahanProduktifSpinner;
     private Spinner mLahanPemukimanSpinner;
@@ -65,6 +77,8 @@ public class FormGalpal4Fragment extends SingleFragment {
         mGalpalForms=mDummyMaker.getGalpalForms();
         mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,idMenu);
 
+        mValidator=new Validator(this);
+        mValidator.setValidationListener(this);
 
 
     }
@@ -146,6 +160,10 @@ public class FormGalpal4Fragment extends SingleFragment {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mValidator.validate();
+                if(!isValidated){
+                    return;
+                }
                 if(!mMenuCheckingGalpal.isComplete()){
                     mMenuCheckingGalpal.setComplete(true);
                     mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mGalpalForms.size());
@@ -175,5 +193,27 @@ public class FormGalpal4Fragment extends SingleFragment {
         super.onPause();
         mDummyMaker.addFormGalpal4(mFormGalpal4);
 
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        isValidated=true;
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                EditText editText=((EditText) view);
+                editText.setError(message);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+            }
+        }
+        isValidated =false;
     }
 }

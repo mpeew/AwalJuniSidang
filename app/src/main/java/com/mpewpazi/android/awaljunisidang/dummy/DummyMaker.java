@@ -17,8 +17,15 @@ import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
 import com.mpewpazi.android.awaljunisidang.database.CursorWrapperGal;
-import com.mpewpazi.android.awaljunisidang.masterData.Kabupaten;
-import com.mpewpazi.android.awaljunisidang.masterData.Propinsi;
+import com.mpewpazi.android.awaljunisidang.masterData.MstAirPelayaran;
+import com.mpewpazi.android.awaljunisidang.masterData.MstArus;
+import com.mpewpazi.android.awaljunisidang.masterData.MstGelombang;
+import com.mpewpazi.android.awaljunisidang.masterData.MstJarakKedalaman;
+import com.mpewpazi.android.awaljunisidang.masterData.MstJenisProduksi;
+import com.mpewpazi.android.awaljunisidang.masterData.MstKabupaten;
+import com.mpewpazi.android.awaljunisidang.masterData.MstPasangSurut;
+import com.mpewpazi.android.awaljunisidang.masterData.MstPropinsi;
+import com.mpewpazi.android.awaljunisidang.masterData.MstSatuan;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
@@ -44,8 +51,15 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarM
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingGalpalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingKompalTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstAirPelayaranTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstArusTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstGelombangTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstJarakKedalamanTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstJenisProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstKabupatenTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstPasangSurutTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstPropinsiTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstSatuanTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PeriodeSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PerusahaanTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.SurveyAssignSurveyorTable;
@@ -76,16 +90,16 @@ public class DummyMaker {
         mContext=context.getApplicationContext();
         mDatabase=new BaseDBHelper(mContext).getWritableDatabase();
 
-        Propinsi propinsi=new Propinsi();
-        propinsi.setId(1);
-        propinsi.setKodeBps(11);
-        propinsi.setNama("Nangroe Aceh Darusalam");
-        propinsi.setKodeiso("ID-AC");
-        propinsi.setIbukota("Banda Aceh");
-        propinsi.setPulau("Sumatra");
-        addMstPropinsi(propinsi);
+        MstPropinsi mstPropinsi =new MstPropinsi();
+        mstPropinsi.setId(1);
+        mstPropinsi.setKodeBps(11);
+        mstPropinsi.setNama("Nangroe Aceh Darusalam");
+        mstPropinsi.setKodeiso("ID-AC");
+        mstPropinsi.setIbukota("Banda Aceh");
+        mstPropinsi.setPulau("Sumatra");
+        addMstPropinsi(mstPropinsi);
 
-        Propinsi propinsia=new Propinsi();
+        MstPropinsi propinsia=new MstPropinsi();
         propinsia.setId(2);
         propinsia.setKodeBps(11);
         propinsia.setNama("Sumatra Barat");
@@ -94,7 +108,7 @@ public class DummyMaker {
         propinsia.setPulau("Sumatra");
         addMstPropinsi(propinsia);
 
-        Propinsi propinsib=new Propinsi();
+        MstPropinsi propinsib=new MstPropinsi();
         propinsib.setId(3);
         propinsib.setKodeBps(11);
         propinsib.setNama("DKI Jakarta");
@@ -103,24 +117,24 @@ public class DummyMaker {
         propinsib.setPulau("Sumatra");
         addMstPropinsi(propinsib);
 
-        Kabupaten kabupaten=new Kabupaten();
-        kabupaten.setId(1);
-        kabupaten.setNama("Meulaboh");
-        kabupaten.setIbuKota("Kuningan");
-        kabupaten.setId_propinsi(1);
-        addMstKabupaten(kabupaten);
+        MstKabupaten mstKabupaten =new MstKabupaten();
+        mstKabupaten.setId(1);
+        mstKabupaten.setNama("Meulaboh");
+        mstKabupaten.setIbuKota("Kuningan");
+        mstKabupaten.setId_propinsi(1);
+        addMstKabupaten(mstKabupaten);
 
-        Kabupaten kabupaten1=new Kabupaten();
-        kabupaten1.setId(2);
-        kabupaten1.setNama("Padang");
-        kabupaten1.setId_propinsi(2);
-        addMstKabupaten(kabupaten1);
+        MstKabupaten mstKabupaten1 =new MstKabupaten();
+        mstKabupaten1.setId(2);
+        mstKabupaten1.setNama("Padang");
+        mstKabupaten1.setId_propinsi(2);
+        addMstKabupaten(mstKabupaten1);
 
-        Kabupaten kabupaten2=new Kabupaten();
-        kabupaten2.setId(3);
-        kabupaten2.setNama("Jakarta Barat");
-        kabupaten2.setId_propinsi(3);
-        addMstKabupaten(kabupaten2);
+        MstKabupaten mstKabupaten2 =new MstKabupaten();
+        mstKabupaten2.setId(3);
+        mstKabupaten2.setNama("Jakarta Barat");
+        mstKabupaten2.setId_propinsi(3);
+        addMstKabupaten(mstKabupaten2);
 
 
         User user=new User();
@@ -157,24 +171,24 @@ public class DummyMaker {
         Perusahaan perusahaan1=new Perusahaan();
         perusahaan1.setId(1);
         perusahaan1.setNamaPerusahaan("PT ABC");
-        perusahaan1.setIndustri("Galangan Kapal");
+        perusahaan1.setIndustri("Komponen Kapal");
         perusahaan1.setActive(1);
 
         Perusahaan perusahaan2=new Perusahaan();
         perusahaan2.setId(2);
-        perusahaan2.setNamaPerusahaan("PT EFG");
+        perusahaan2.setNamaPerusahaan("PT DEF");
         perusahaan2.setIndustri("Komponen Kapal");
         perusahaan2.setActive(1);
 
         Perusahaan perusahaan3=new Perusahaan();
         perusahaan3.setId(3);
-        perusahaan3.setNamaPerusahaan("PT ASP");
+        perusahaan3.setNamaPerusahaan("PT GHI");
         perusahaan3.setIndustri("Galangan Kapal");
         perusahaan3.setActive(1);
 
         Perusahaan perusahaan4=new Perusahaan();
         perusahaan4.setId(4);
-        perusahaan4.setNamaPerusahaan("PT ASFP");
+        perusahaan4.setNamaPerusahaan("PT JKL");
         perusahaan4.setIndustri("Galangan Kapal");
         perusahaan4.setActive(1);
         addPerusahaan(perusahaan1);
@@ -185,7 +199,7 @@ public class DummyMaker {
 
 
         KualifikasiSurvey kualifikasiSurvey=new KualifikasiSurvey();
-        kualifikasiSurvey.setKualifikasiSurveyId(20150101);
+        kualifikasiSurvey.setKualifikasiSurveyId(20150205);
         kualifikasiSurvey.setPerusahaanId(1);
         kualifikasiSurvey.setPeriodeSurveyId(2014);
         kualifikasiSurvey.setGalanganKapalId(1);
@@ -199,7 +213,7 @@ public class DummyMaker {
         }
 
         KualifikasiSurvey kualifikasiSurvey1=new KualifikasiSurvey();
-        kualifikasiSurvey1.setKualifikasiSurveyId(2);
+        kualifikasiSurvey1.setKualifikasiSurveyId(20150291);
         kualifikasiSurvey1.setPerusahaanId(2);
         kualifikasiSurvey1.setPeriodeSurveyId(2014);
         kualifikasiSurvey1.setGalanganKapalId(1);
@@ -212,7 +226,7 @@ public class DummyMaker {
         }
 
         KualifikasiSurvey kualifikasiSurvey2=new KualifikasiSurvey();
-        kualifikasiSurvey2.setKualifikasiSurveyId(3);
+        kualifikasiSurvey2.setKualifikasiSurveyId(20150101);
         kualifikasiSurvey2.setPerusahaanId(3);
         kualifikasiSurvey2.setPeriodeSurveyId(2014);
         kualifikasiSurvey2.setGalanganKapalId(1);
@@ -225,7 +239,7 @@ public class DummyMaker {
         }
 
         KualifikasiSurvey kualifikasiSurvey3=new KualifikasiSurvey();
-        kualifikasiSurvey3.setKualifikasiSurveyId(4);
+        kualifikasiSurvey3.setKualifikasiSurveyId(20150102);
         kualifikasiSurvey3.setPerusahaanId(4);
         kualifikasiSurvey3.setPeriodeSurveyId(2014);
         kualifikasiSurvey3.setGalanganKapalId(1);
@@ -245,22 +259,22 @@ public class DummyMaker {
         SurveyAssignSurveyor surveyAssignSurveyor=new SurveyAssignSurveyor();
         surveyAssignSurveyor.setSurveyAssignSurveyorId(1);
         surveyAssignSurveyor.setUserId("mpewpazi");
-        surveyAssignSurveyor.setKualifikasiSurveyId(20150101);
+        surveyAssignSurveyor.setKualifikasiSurveyId(20150205);
 
         SurveyAssignSurveyor surveyAssignSurveyor1=new SurveyAssignSurveyor();
         surveyAssignSurveyor1.setSurveyAssignSurveyorId(2);
         surveyAssignSurveyor1.setUserId("perinurpazri");
-        surveyAssignSurveyor1.setKualifikasiSurveyId(2);
+        surveyAssignSurveyor1.setKualifikasiSurveyId(20150291);
 
         SurveyAssignSurveyor surveyAssignSurveyor2=new SurveyAssignSurveyor();
         surveyAssignSurveyor2.setSurveyAssignSurveyorId(3);
         surveyAssignSurveyor2.setUserId("perinurpazri");
-        surveyAssignSurveyor2.setKualifikasiSurveyId(3);
+        surveyAssignSurveyor2.setKualifikasiSurveyId(20150101);
 
         SurveyAssignSurveyor surveyAssignSurveyor3=new SurveyAssignSurveyor();
         surveyAssignSurveyor3.setSurveyAssignSurveyorId(4);
         surveyAssignSurveyor3.setUserId("mpewpazi");
-        surveyAssignSurveyor3.setKualifikasiSurveyId(4);
+        surveyAssignSurveyor3.setKualifikasiSurveyId(20150102);
         addSurveyAssignSurveyor(surveyAssignSurveyor);
         addSurveyAssignSurveyor(surveyAssignSurveyor1);
         addSurveyAssignSurveyor(surveyAssignSurveyor2);
@@ -412,36 +426,143 @@ public class DummyMaker {
 
     }
 
-    public List<Propinsi> getMstPropinsis(){
-        List<Propinsi> propinsis=new ArrayList<>();
+    public List<MstPropinsi> getMstPropinsis(){
+        List<MstPropinsi> mstPropinsis =new ArrayList<>();
         CursorWrapperGal cursor=query(MstPropinsiTable.NAME,null,null);
         try{
             cursor.moveToFirst();
             while(!cursor.isAfterLast()){
-                propinsis.add(cursor.getPropinsi());
+                mstPropinsis.add(cursor.getPropinsi());
                 cursor.moveToNext();
             }
         }finally {
             cursor.close();
         }
-        return propinsis;
+        return mstPropinsis;
     }
 
-    public List<Kabupaten> getMstKabupaten(int idPropinsi){
-        List<Kabupaten> kabupatens=new ArrayList<>();
+    public List<MstKabupaten> getMstKabupatens(int idPropinsi){
+        List<MstKabupaten> mstKabupatens =new ArrayList<>();
         CursorWrapperGal cursor=querya(MstKabupatenTable.NAME,MstKabupatenTable.Cols.ID_PROPINSI+ "=?",
                 new String[] {String.valueOf(idPropinsi)},MstKabupatenTable.Cols.NAMA);
         try{
             cursor.moveToFirst();
             while(!cursor.isAfterLast()){
-                kabupatens.add(cursor.getKabupaten());
+                mstKabupatens.add(cursor.getKabupaten());
                 cursor.moveToNext();
             }
         }finally {
             cursor.close();
         }
-        return kabupatens;
+        return mstKabupatens;
     }
+
+    public List<MstAirPelayaran> getMstAirPelayarans(){
+        List<MstAirPelayaran> mstAirPelayarans =new ArrayList<>();
+        CursorWrapperGal cursor=query(MstAirPelayaranTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                mstAirPelayarans.add(cursor.getAirPelayaran());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return mstAirPelayarans;
+    }
+
+    public List<MstArus> getMstAruss(){
+        List<MstArus> mstAruss =new ArrayList<>();
+        CursorWrapperGal cursor=query(MstArusTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                mstAruss.add(cursor.getArus());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return mstAruss;
+    }
+
+    public List<MstGelombang> getMstGelombangs(){
+        List<MstGelombang> mstGelombangs =new ArrayList<>();
+        CursorWrapperGal cursor=query(MstGelombangTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                mstGelombangs.add(cursor.getGelombang());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return mstGelombangs;
+    }
+
+    public List<MstJarakKedalaman> getMstJarakKedalamans(){
+        List<MstJarakKedalaman> mstJarakKedalamans =new ArrayList<>();
+        CursorWrapperGal cursor=query(MstJarakKedalamanTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                mstJarakKedalamans.add(cursor.getJarakKedalaman());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return mstJarakKedalamans;
+    }
+
+    public List<MstJenisProduksi> getMstJenisProduksis(){
+        List<MstJenisProduksi> mstJenisProduksis =new ArrayList<>();
+        CursorWrapperGal cursor=query(MstJenisProduksiTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                mstJenisProduksis.add(cursor.getJenisProduksi());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return mstJenisProduksis;
+    }
+
+    public List<MstPasangSurut> getMstPasangSuruts(){
+        List<MstPasangSurut> mstPasangSuruts =new ArrayList<>();
+        CursorWrapperGal cursor=query(MstPasangSurutTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                mstPasangSuruts.add(cursor.getPasangSurut());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return mstPasangSuruts;
+    }
+
+    public List<MstSatuan> getMstSatuans(){
+        List<MstSatuan> mstSatuans =new ArrayList<>();
+        CursorWrapperGal cursor=query(MstSatuanTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                mstSatuans.add(cursor.getSatuan());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return mstSatuans;
+    }
+
+
 
 
     //memunculkan kualifikasi survey yang hanya bersangkutan dengan userId
@@ -741,9 +862,9 @@ public class DummyMaker {
         return kompalForms;
     }
 
-    private void addMstPropinsi(Propinsi propinsi){
-        ContentValues values=getMstPropinsiContentValues(propinsi);
-        int idPropinsi=propinsi.getId();
+    public void addMstPropinsi(MstPropinsi mstPropinsi){
+        ContentValues values=getContentValues(mstPropinsi);
+        int idPropinsi= mstPropinsi.getId();
 
         CursorWrapperGal cursor=query(MstPropinsiTable.NAME,MstPropinsiTable.Cols.ID_PROPINSI+ "=?",
                 new String[] {String.valueOf(idPropinsi)});
@@ -759,9 +880,9 @@ public class DummyMaker {
         }
     }
 
-    private void addMstKabupaten(Kabupaten kabupaten){
-        ContentValues values=getMstKabupatenContentValues(kabupaten);
-        int idKabupaten=kabupaten.getId();
+    public void addMstKabupaten(MstKabupaten mstKabupaten){
+        ContentValues values=getContentValues(mstKabupaten);
+        int idKabupaten= mstKabupaten.getId();
 
         CursorWrapperGal cursor=query(MstKabupatenTable.NAME,MstKabupatenTable.Cols.ID+ "=?",
                 new String[] {String.valueOf(idKabupaten)});
@@ -777,8 +898,129 @@ public class DummyMaker {
         }
     }
 
+    public void addMstAirPelayaran(MstAirPelayaran mstAirPelayaran){
+        ContentValues values=getContentValues(mstAirPelayaran);
+        int idAirPelayaran= mstAirPelayaran.getIdMstAirPelayaran();
+
+        CursorWrapperGal cursor=query(MstAirPelayaranTable.NAME,MstAirPelayaranTable.Cols.ID_MST_AIR_PELAYARAN+ "=?",
+                new String[] {String.valueOf(idAirPelayaran)});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(MstAirPelayaranTable.NAME,null,values);
+            }else{
+                mDatabase.update(MstAirPelayaranTable.NAME,values,MstAirPelayaranTable.Cols.ID_MST_AIR_PELAYARAN+" = ?",new String[]{String.valueOf(idAirPelayaran)});
+            }
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addMstArus(MstArus mstArus){
+        ContentValues values=getContentValues(mstArus);
+        int idArus= mstArus.getIdMstArus();
+
+        CursorWrapperGal cursor=query(MstArusTable.NAME,MstArusTable.Cols.ID_MST_ARUS+ "=?",
+                new String[] {String.valueOf(idArus)});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(MstArusTable.NAME,null,values);
+            }else{
+                mDatabase.update(MstArusTable.NAME,values,MstArusTable.Cols.ID_MST_ARUS+" = ?",new String[]{String.valueOf(idArus)});
+            }
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addMstGelombang(MstGelombang mstGelombang){
+        ContentValues values=getContentValues(mstGelombang);
+        int idGelombang= mstGelombang.getIdMstGelombang();
+
+        CursorWrapperGal cursor=query(MstGelombangTable.NAME,MstGelombangTable.Cols.ID_MST_GELOMBANG+ "=?",
+                new String[] {String.valueOf(idGelombang)});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(MstGelombangTable.NAME,null,values);
+            }else{
+                mDatabase.update(MstGelombangTable.NAME,values,MstGelombangTable.Cols.ID_MST_GELOMBANG+" = ?",new String[]{String.valueOf(idGelombang)});
+            }
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addMstJarakKedalaman(MstJarakKedalaman mstJarakKedalaman){
+        ContentValues values=getContentValues(mstJarakKedalaman);
+        int idJarakKedalaman= mstJarakKedalaman.getIdMstJarakKedalaman();
+
+        CursorWrapperGal cursor=query(MstJarakKedalamanTable.NAME,MstJarakKedalamanTable.Cols.ID_MST_JARAK_KEDALAMAN+ "=?",
+                new String[] {String.valueOf(idJarakKedalaman)});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(MstJarakKedalamanTable.NAME,null,values);
+            }else{
+                mDatabase.update(MstJarakKedalamanTable.NAME,values,MstJarakKedalamanTable.Cols.ID_MST_JARAK_KEDALAMAN+" = ?",new String[]{String.valueOf(idJarakKedalaman)});
+            }
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addMstJenisProduksi(MstJenisProduksi mstJenisProduksi){
+        ContentValues values=getContentValues(mstJenisProduksi);
+        int idJenisProduksi= mstJenisProduksi.getIdMstJenisProduksi();
+
+        CursorWrapperGal cursor=query(MstJenisProduksiTable.NAME,MstJenisProduksiTable.Cols.ID_MST_JENIS_PRODUKSI+ "=?",
+                new String[] {String.valueOf(idJenisProduksi)});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(MstJenisProduksiTable.NAME,null,values);
+            }else{
+                mDatabase.update(MstJenisProduksiTable.NAME,values,MstJenisProduksiTable.Cols.ID_MST_JENIS_PRODUKSI+" = ?",new String[]{String.valueOf(idJenisProduksi)});
+            }
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addPasangSurut(MstPasangSurut mstPasangSurut){
+        ContentValues values=getContentValues(mstPasangSurut);
+        int idPasangSurut= mstPasangSurut.getIdMstPasangSurut();
+
+        CursorWrapperGal cursor=query(MstPasangSurutTable.NAME,MstPasangSurutTable.Cols.ID_MST_PASANG_SURUT+ "=?",
+                new String[] {String.valueOf(idPasangSurut)});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(MstPasangSurutTable.NAME,null,values);
+            }else{
+                mDatabase.update(MstPasangSurutTable.NAME,values,MstPasangSurutTable.Cols.ID_MST_PASANG_SURUT+" = ?",new String[]{String.valueOf(idPasangSurut)});
+            }
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addSatuan(MstSatuan mstSatuan){
+        ContentValues values=getContentValues(mstSatuan);
+        int idSatuan= mstSatuan.getIdMstSatuan();
+
+        CursorWrapperGal cursor=query(MstSatuanTable.NAME,MstSatuanTable.Cols.ID_MST_SATUAN+ "=?",
+                new String[] {String.valueOf(idSatuan)});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(MstSatuanTable.NAME,null,values);
+            }else{
+                mDatabase.update(MstSatuanTable.NAME,values,MstSatuanTable.Cols.ID_MST_SATUAN+" = ?",new String[]{String.valueOf(idSatuan)});
+            }
+        }finally {
+            cursor.close();
+        }
+    }
+
+
+
     private void addSurveyAssignSurveyor(SurveyAssignSurveyor surveyAssignSurveyor) {
-        ContentValues values=getSurveyAssignSurveyorContentValues(surveyAssignSurveyor);
+        ContentValues values=getContentValues(surveyAssignSurveyor);
         int idSurveyAssignSurveyor=surveyAssignSurveyor.getSurveyAssignSurveyorId();
 
         CursorWrapperGal cursor=query(SurveyAssignSurveyorTable.NAME,SurveyAssignSurveyorTable.Cols.ID_SURVEY_ASSIGN_SURVEYOR+ "=?",
@@ -796,7 +1038,7 @@ public class DummyMaker {
     }
 
     public void addKualifikasiSurvey(KualifikasiSurvey kualifikasiSurvey) {
-        ContentValues values=getKualifikasiSurveyContentValues(kualifikasiSurvey);
+        ContentValues values=getContentValues(kualifikasiSurvey);
         int idKualifikasiSurvey=kualifikasiSurvey.getKualifikasiSurveyId();
 
         CursorWrapperGal cursor=query(KualifikasiSurveyTable.NAME,KualifikasiSurveyTable.Cols.ID_KUALIFIKASI_SURVEY+ "=?",
@@ -814,7 +1056,7 @@ public class DummyMaker {
     }
 
     public void addKualifikasiSurveya(KualifikasiSurvey kualifikasiSurvey) {
-        ContentValues values=getKualifikasiSurveyContentValues(kualifikasiSurvey);
+        ContentValues values=getContentValues(kualifikasiSurvey);
         int idKualifikasiSurvey=kualifikasiSurvey.getKualifikasiSurveyId();
 
         CursorWrapperGal cursor=query(KualifikasiSurveyTable.NAME,KualifikasiSurveyTable.Cols.ID_KUALIFIKASI_SURVEY+ "=?",
@@ -832,7 +1074,7 @@ public class DummyMaker {
     }
 
     private void addUser(User user){
-        ContentValues values=getUserContentValues(user);
+        ContentValues values=getContentValues(user);
         String userId=user.getUserId();
 
         CursorWrapperGal cursor=query(UserTable.NAME,UserTable.Cols.USERID+ "=?",
@@ -850,7 +1092,7 @@ public class DummyMaker {
     }
 
     private void addPeriodeSurvey(PeriodeSurvey periodeSurvey){
-        ContentValues values=getPeriodeSurveyContentValues(periodeSurvey);
+        ContentValues values=getContentValues(periodeSurvey);
         String idPeriodeSurvey=String.valueOf(periodeSurvey.getPeriodeSurveyId());
 
         CursorWrapperGal cursor=query(PeriodeSurveyTable.NAME,PeriodeSurveyTable.Cols.ID_PERIODE+ "=?",
@@ -869,7 +1111,7 @@ public class DummyMaker {
     }
 
     private void addPerusahaan(Perusahaan perusahaan){
-        ContentValues values=getPerusahaanContentValues(perusahaan);
+        ContentValues values=getContentValues(perusahaan);
         String idPerusahaan=String.valueOf(perusahaan.getId());
 
         CursorWrapperGal cursor=query(PerusahaanTable.NAME,PerusahaanTable.Cols.ID_PERUSAHAAN+ "=?",
@@ -887,7 +1129,7 @@ public class DummyMaker {
     }
 
     public void addMenuCheckingGalpal(MenuCheckingGalpal menuCheckingGalpal){
-        ContentValues values=getMenuCheckingGalpalContentValues(menuCheckingGalpal);
+        ContentValues values=getContentValues(menuCheckingGalpal);
         String idMenuCheckingGalpal=String.valueOf(menuCheckingGalpal.getIdMenuCheckingGalpal());
 
         CursorWrapperGal cursor=query(MenuCheckingGalpalTable.NAME,MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING+ "=?",
@@ -905,7 +1147,7 @@ public class DummyMaker {
     }
 
     private void addMenuCheckingGalpala(MenuCheckingGalpal menuCheckingGalpal){
-        ContentValues values=getMenuCheckingGalpalContentValues(menuCheckingGalpal);
+        ContentValues values=getContentValues(menuCheckingGalpal);
         String idMenuCheckingGalpal=String.valueOf(menuCheckingGalpal.getIdMenuCheckingGalpal());
 
         CursorWrapperGal cursor=query(MenuCheckingGalpalTable.NAME,MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING+ "=?",
@@ -923,7 +1165,7 @@ public class DummyMaker {
     }
 
     public void addMenuCheckingKompal(MenuCheckingKompal menuCheckingKompal){
-        ContentValues values=getMenuCheckingKompalContentValues(menuCheckingKompal);
+        ContentValues values=getContentValues(menuCheckingKompal);
         String idMenuCheckingKompal=String.valueOf(menuCheckingKompal.getIdMenuCheckingKompal());
 
         CursorWrapperGal cursor=query(MenuCheckingKompalTable.NAME,MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING+ "=?",
@@ -941,7 +1183,7 @@ public class DummyMaker {
     }
 
     private void addMenuCheckingKompala(MenuCheckingKompal menuCheckingKompal){
-        ContentValues values=getMenuCheckingKompalContentValues(menuCheckingKompal);
+        ContentValues values=getContentValues(menuCheckingKompal);
         String idMenuCheckingKompal=String.valueOf(menuCheckingKompal.getIdMenuCheckingKompal());
 
         CursorWrapperGal cursor=query(MenuCheckingKompalTable.NAME,MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING+ "=?",
@@ -959,7 +1201,7 @@ public class DummyMaker {
     }
 
     public void addFormGalpal1(FormGalpal1 formGalpal1){
-        ContentValues values=getFormGalpal1ContentValues(formGalpal1);
+        ContentValues values=getContentValues(formGalpal1);
         String formGalpal1Id=String.valueOf(formGalpal1.getIdentitasPerusahaanId());
 
         CursorWrapperGal cursor=query(FG1PerusahaanIdentitasTable.NAME,FG1PerusahaanIdentitasTable.Cols.ID_PERUSAHAAN_IDENTITAS+ "=?",
@@ -977,7 +1219,7 @@ public class DummyMaker {
     }
 
     public void addFormGalpal1a(FormGalpal1 formGalpal1){
-        ContentValues values=getFormGalpal1ContentValues(formGalpal1);
+        ContentValues values=getContentValues(formGalpal1);
         String formGalpal1Id=String.valueOf(formGalpal1.getIdentitasPerusahaanId());
 
         CursorWrapperGal cursor=query(FG1PerusahaanIdentitasTable.NAME,FG1PerusahaanIdentitasTable.Cols.ID_PERUSAHAAN_IDENTITAS+ "=?",
@@ -1001,7 +1243,7 @@ public class DummyMaker {
     }
 
     public void addFormGalpal3(FormGalpal3 formGalpal3){
-        ContentValues values=getFormGalpal3ContentValues(formGalpal3);
+        ContentValues values=getContentValues(formGalpal3);
         String formGalpal3Id=String.valueOf(formGalpal3.getIdentitasUmumGalanganId());
 
         CursorWrapperGal cursor=query(FG3GalanganKapalTable.NAME,FG3GalanganKapalTable.Cols.ID_GALANGAN_KAPAL+ "=?",
@@ -1020,7 +1262,7 @@ public class DummyMaker {
     }
 
     private void addFormGalpal3a(FormGalpal3 formGalpal3){
-        ContentValues values=getFormGalpal3ContentValues(formGalpal3);
+        ContentValues values=getContentValues(formGalpal3);
         String formGalpal3Id=String.valueOf(formGalpal3.getIdentitasUmumGalanganId());
 
         CursorWrapperGal cursor=query(FG3GalanganKapalTable.NAME,FG3GalanganKapalTable.Cols.ID_GALANGAN_KAPAL+ "=?",
@@ -1038,7 +1280,7 @@ public class DummyMaker {
     }
 
     public void addFormGalpal4(FormGalpal4 formGalpal4){
-        ContentValues values=getFormGalpal4ContentValues(formGalpal4);
+        ContentValues values=getContentValues(formGalpal4);
         String formGalpal4Id=String.valueOf(formGalpal4.getTinjauanWilayahMaritimId());
 
         CursorWrapperGal cursor=query(FG4TinjauanAreaTable.NAME,FG4TinjauanAreaTable.Cols.ID_F1_TINJAUAN_AREA+ "=?",
@@ -1056,7 +1298,7 @@ public class DummyMaker {
     }
 
     private void addFormGalpal4a(FormGalpal4 formGalpal4){
-        ContentValues values=getFormGalpal4ContentValues(formGalpal4);
+        ContentValues values=getContentValues(formGalpal4);
         String formGalpal4Id=String.valueOf(formGalpal4.getTinjauanWilayahMaritimId());
 
         CursorWrapperGal cursor=query(FG4TinjauanAreaTable.NAME,FG4TinjauanAreaTable.Cols.ID_F1_TINJAUAN_AREA+ "=?",
@@ -1074,7 +1316,7 @@ public class DummyMaker {
     }
 
     public void addFormGalpal6(FormGalpal6 formGalpal6){
-        ContentValues values=getFormGalpal6ContentValues(formGalpal6);
+        ContentValues values=getContentValues(formGalpal6);
         String formGalpal6Id=String.valueOf(formGalpal6.getIdPeralatanKerjaCrane());
 
         CursorWrapperGal cursor=query(FG6PeralatanKerjaLuarCraneTable.NAME,FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE+ "=?",
@@ -1092,7 +1334,7 @@ public class DummyMaker {
     }
 
     private void addFormGalpal6a(FormGalpal6 formGalpal6){
-        ContentValues values=getFormGalpal6ContentValues(formGalpal6);
+        ContentValues values=getContentValues(formGalpal6);
         String formGalpal6Id=String.valueOf(formGalpal6.getIdPeralatanKerjaCrane());
 
         CursorWrapperGal cursor=query(FG6PeralatanKerjaLuarCraneTable.NAME,FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE+ "=?",
@@ -1110,7 +1352,7 @@ public class DummyMaker {
     }
 
     public void addFormKompal3a(FormKompal3a formKompal3a){
-        ContentValues values=getFormKompal3aContentValues(formKompal3a);
+        ContentValues values=getContentValues(formKompal3a);
         String formKompal3aId=formKompal3a.getIdJenisKapasitasProduksi().toString();
 
         CursorWrapperGal cursor=query(FK3aJenisKapasitasProduksiTable.NAME,FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI+ "=?",
@@ -1128,7 +1370,7 @@ public class DummyMaker {
     }
 
     public void addFormKompal3aa(FormKompal3a formKompal3a){
-        ContentValues values=getFormKompal3aContentValues(formKompal3a);
+        ContentValues values=getContentValues(formKompal3a);
         String formKompal3aId=formKompal3a.getIdJenisKapasitasProduksi().toString();
 
         CursorWrapperGal cursor=query(FK3aJenisKapasitasProduksiTable.NAME,FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI+ "=?",
@@ -1146,7 +1388,7 @@ public class DummyMaker {
     }
 
     public void addFormKompal3b(FormKompal3b formKompal3b){
-        ContentValues values=getFormKompal3bContentValues(formKompal3b);
+        ContentValues values=getContentValues(formKompal3b);
         String formKompal3bId=formKompal3b.getIdjumlahProduksi().toString();
 
         CursorWrapperGal cursor=query(FK3bJumlahProduksiTable.NAME,FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI+ "=?",
@@ -1164,7 +1406,7 @@ public class DummyMaker {
     }
 
     public void addFormKompal3ba(FormKompal3b formKompal3b){
-        ContentValues values=getFormKompal3bContentValues(formKompal3b);
+        ContentValues values=getContentValues(formKompal3b);
         String formKompal3bId=formKompal3b.getIdjumlahProduksi().toString();
 
         CursorWrapperGal cursor=query(FK3bJumlahProduksiTable.NAME,FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI+ "=?",
@@ -1182,7 +1424,7 @@ public class DummyMaker {
     }
 
     public void addFormKompal3c(FormKompal3c formKompal3c){
-        ContentValues values=getFormKompal3cContentValues(formKompal3c);
+        ContentValues values=getContentValues(formKompal3c);
         String formKompal3cId=formKompal3c.getIdSistemBerproduksi().toString();
 
         CursorWrapperGal cursor=query(FK3cSistemBerproduksiTable.NAME,FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI+ "=?",
@@ -1200,7 +1442,7 @@ public class DummyMaker {
     }
 
     public void addFormKompal3ca(FormKompal3c formKompal3c){
-        ContentValues values=getFormKompal3cContentValues(formKompal3c);
+        ContentValues values=getContentValues(formKompal3c);
         String formKompal3cId=formKompal3c.getIdSistemBerproduksi().toString();
 
         CursorWrapperGal cursor=query(FK3cSistemBerproduksiTable.NAME,FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI+ "=?",
@@ -1218,7 +1460,7 @@ public class DummyMaker {
     }
 
     public void addFormKompal3d(FormKompal3d formKompal3d){
-        ContentValues values=getFormKompal3dContentValues(formKompal3d);
+        ContentValues values=getContentValues(formKompal3d);
         String formKompal3dId=formKompal3d.getIdStandarMutu().toString();
 
         CursorWrapperGal cursor=query(FK3dStandarMutuTableTable.NAME,FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU+ "=?",
@@ -1236,7 +1478,7 @@ public class DummyMaker {
     }
 
     public void addFormKompal3da(FormKompal3d formKompal3d){
-        ContentValues values=getFormKompal3dContentValues(formKompal3d);
+        ContentValues values=getContentValues(formKompal3d);
         String formKompal3dId=formKompal3d.getIdStandarMutu().toString();
 
         CursorWrapperGal cursor=query(FK3dStandarMutuTableTable.NAME,FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU+ "=?",
@@ -1338,7 +1580,7 @@ public class DummyMaker {
 
 
 
-    private static ContentValues getUserContentValues(User user){
+    private static ContentValues getContentValues(User user){
         ContentValues values=new ContentValues();
         values.put(UserTable.Cols.USERID, user.getUserId());
         values.put(UserTable.Cols.CODE_ID,user.getCodeId());
@@ -1352,9 +1594,9 @@ public class DummyMaker {
         return values;
     }
 
-    private static ContentValues getSurveyAssignSurveyorContentValues(SurveyAssignSurveyor surveyAssignSurveyor){
+    private static ContentValues getContentValues(SurveyAssignSurveyor surveyAssignSurveyor){
         ContentValues values=new ContentValues();
-        values.put(SurveyAssignSurveyorTable.Cols.ID_SURVEY_ASSIGN_SURVEYOR, surveyAssignSurveyor.getKualifikasiSurveyId());
+        values.put(SurveyAssignSurveyorTable.Cols.ID_SURVEY_ASSIGN_SURVEYOR, surveyAssignSurveyor.getSurveyAssignSurveyorId());
         values.put(SurveyAssignSurveyorTable.Cols.ID_KUALIFIKASI_SURVEY, surveyAssignSurveyor.getKualifikasiSurveyId());
         values.put(SurveyAssignSurveyorTable.Cols.USERID, surveyAssignSurveyor.getUserId());
 //        values.put(SurveyAssignSurveyorTable.Cols.ASSIGN_DATE, surveyAssignSurveyor.getAssignDate().getTime());
@@ -1363,7 +1605,7 @@ public class DummyMaker {
         return values;
     }
 
-    private static ContentValues getPeriodeSurveyContentValues(PeriodeSurvey periodeSurvey){
+    private static ContentValues getContentValues(PeriodeSurvey periodeSurvey){
         ContentValues values=new ContentValues();
         values.put(PeriodeSurveyTable.Cols.ID_PERIODE, periodeSurvey.getPeriodeSurveyId());
         values.put(PeriodeSurveyTable.Cols.TAHUN_KUALIFIKASI, periodeSurvey.getTahunKualifikasi());
@@ -1375,7 +1617,7 @@ public class DummyMaker {
         return values;
     }
 
-    private static ContentValues getPerusahaanContentValues(Perusahaan perusahaan){
+    private static ContentValues getContentValues(Perusahaan perusahaan){
         ContentValues values=new ContentValues();
         values.put(PerusahaanTable.Cols.ID_PERUSAHAAN, perusahaan.getId());
         values.put(PerusahaanTable.Cols.NAMA_PERUSAHAAN, perusahaan.getNamaPerusahaan());
@@ -1385,7 +1627,7 @@ public class DummyMaker {
         return values;
     }
 
-    private static ContentValues getKualifikasiSurveyContentValues(KualifikasiSurvey kualifikasiSurvey){
+    private static ContentValues getContentValues(KualifikasiSurvey kualifikasiSurvey){
         ContentValues values=new ContentValues();
         values.put(KualifikasiSurveyTable.Cols.ID_KUALIFIKASI_SURVEY, kualifikasiSurvey.getKualifikasiSurveyId());
         values.put(KualifikasiSurveyTable.Cols.ID_PERUSAHAAN, kualifikasiSurvey.getPerusahaanId());
@@ -1397,7 +1639,7 @@ public class DummyMaker {
         return values;
     }
 
-    private static ContentValues getFormGalpal1ContentValues(FormGalpal1 formGalpal1){
+    private static ContentValues getContentValues(FormGalpal1 formGalpal1){
         ContentValues contentValues=new ContentValues();
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.ID_PERUSAHAAN_IDENTITAS, formGalpal1.getIdentitasPerusahaanId());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.ID_PERUSAHAAN, formGalpal1.getPerusahaanId());
@@ -1421,7 +1663,7 @@ public class DummyMaker {
         return contentValues;
     }
 
-    private static ContentValues getFormGalpal3ContentValues(FormGalpal3 formGalpal3){
+    private static ContentValues getContentValues(FormGalpal3 formGalpal3){
         ContentValues contentValues=new ContentValues();
         contentValues.put(FG3GalanganKapalTable.Cols.ID_GALANGAN_KAPAL, formGalpal3.getIdentitasUmumGalanganId());
         contentValues.put(FG3GalanganKapalTable.Cols.ID_PERUSAHAAN, formGalpal3.getPerusahaanId());
@@ -1447,7 +1689,7 @@ public class DummyMaker {
         return contentValues;
     }
 
-    private static ContentValues getFormGalpal4ContentValues(FormGalpal4 formGalpal4){
+    private static ContentValues getContentValues(FormGalpal4 formGalpal4){
         ContentValues contentValues=new ContentValues();
         contentValues.put(FG4TinjauanAreaTable.Cols.ID_F1_TINJAUAN_AREA, formGalpal4.getTinjauanWilayahMaritimId());
         contentValues.put(FG4TinjauanAreaTable.Cols.ID_KUALIFIKASI_SURVEY, formGalpal4.getKualifikasiSurveyId());
@@ -1473,7 +1715,7 @@ public class DummyMaker {
         return contentValues;
     }
 
-    private static ContentValues getFormGalpal6ContentValues(FormGalpal6 formGalpal6){
+    private static ContentValues getContentValues(FormGalpal6 formGalpal6){
         ContentValues contentValues=new ContentValues();
         contentValues.put(FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE ,formGalpal6.getIdPeralatanKerjaCrane().toString());
         contentValues.put(FG6PeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY ,formGalpal6.getKualifikasiSurveyId());
@@ -1494,7 +1736,7 @@ public class DummyMaker {
 
 
 
-    private static ContentValues getFormKompal3aContentValues(FormKompal3a formKompal3a){
+    private static ContentValues getContentValues(FormKompal3a formKompal3a){
         ContentValues contentValues=new ContentValues();
         contentValues.put(FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI,formKompal3a.getIdJenisKapasitasProduksi().toString());
         contentValues.put(FK3aJenisKapasitasProduksiTable.Cols.ID_KUALIFIKASI_SURVEY,formKompal3a.getIdKualifikasiSurvey());
@@ -1505,7 +1747,7 @@ public class DummyMaker {
         return contentValues;
     }
 
-    private static ContentValues getFormKompal3bContentValues(FormKompal3b formKompal3b){
+    private static ContentValues getContentValues(FormKompal3b formKompal3b){
         ContentValues contentValues=new ContentValues();
         contentValues.put(FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI,formKompal3b.getIdjumlahProduksi().toString());
         contentValues.put(FK3bJumlahProduksiTable.Cols.ID_KUALIFIKASI_SURVEY,formKompal3b.getIdKualifikasiSurvey());
@@ -1523,7 +1765,7 @@ public class DummyMaker {
         return contentValues;
     }
 
-    private static ContentValues getFormKompal3cContentValues(FormKompal3c formKompal3c){
+    private static ContentValues getContentValues(FormKompal3c formKompal3c){
         ContentValues contentValues=new ContentValues();
         contentValues.put(FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI,formKompal3c.getIdSistemBerproduksi().toString());
         contentValues.put(FK3cSistemBerproduksiTable.Cols.ID_KUALIFIKASI_SURVEY,formKompal3c.getIdKualifikasiSurvey());
@@ -1536,7 +1778,7 @@ public class DummyMaker {
         return contentValues;
     }
 
-    private static ContentValues getFormKompal3dContentValues(FormKompal3d formKompal3d){
+    private static ContentValues getContentValues(FormKompal3d formKompal3d){
         ContentValues contentValues=new ContentValues();
         contentValues.put(FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU,formKompal3d.getIdStandarMutu().toString());
         contentValues.put(FK3dStandarMutuTableTable.Cols.ID_KUALIFIKASI_SURVEY,formKompal3d.getIdKualifikasiSurvey());
@@ -1545,7 +1787,7 @@ public class DummyMaker {
         return contentValues;
     }
 
-    private ContentValues getMenuCheckingGalpalContentValues(MenuCheckingGalpal menuCheckingGalpal){
+    private ContentValues getContentValues(MenuCheckingGalpal menuCheckingGalpal){
         ContentValues contentValues=new ContentValues();
         contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING,menuCheckingGalpal.getIdMenuCheckingGalpal().toString());
         contentValues.put(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY,menuCheckingGalpal.getIdKualifikasiSurvey());
@@ -1556,7 +1798,7 @@ public class DummyMaker {
         return contentValues;
     }
 
-    private ContentValues getMenuCheckingKompalContentValues(MenuCheckingKompal menuCheckingKompal){
+    private ContentValues getContentValues(MenuCheckingKompal menuCheckingKompal){
         ContentValues contentValues=new ContentValues();
         contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING,menuCheckingKompal.getIdMenuCheckingKompal().toString());
         contentValues.put(MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY,menuCheckingKompal.getIdKualifikasiSurvey());
@@ -1567,30 +1809,82 @@ public class DummyMaker {
         return contentValues;
     }
 
-    private ContentValues getMstPropinsiContentValues(Propinsi propinsi){
+    private ContentValues getContentValues(MstPropinsi mstPropinsi){
         ContentValues contentValues=new ContentValues();
-        contentValues.put(MstPropinsiTable.Cols.ID_PROPINSI,propinsi.getId());
-        contentValues.put(MstPropinsiTable.Cols.KODEBPS,propinsi.getKodeBps());
-        contentValues.put(MstPropinsiTable.Cols.NAMA,propinsi.getNama());
-        contentValues.put(MstPropinsiTable.Cols.KODEISO,propinsi.getKodeiso());
-        contentValues.put(MstPropinsiTable.Cols.IBUKOTA,propinsi.getIbukota());
-        contentValues.put(MstPropinsiTable.Cols.PULAU,propinsi.getPulau());
+        contentValues.put(MstPropinsiTable.Cols.ID_PROPINSI, mstPropinsi.getId());
+        contentValues.put(MstPropinsiTable.Cols.KODEBPS, mstPropinsi.getKodeBps());
+        contentValues.put(MstPropinsiTable.Cols.NAMA, mstPropinsi.getNama());
+        contentValues.put(MstPropinsiTable.Cols.KODEISO, mstPropinsi.getKodeiso());
+        contentValues.put(MstPropinsiTable.Cols.IBUKOTA, mstPropinsi.getIbukota());
+        contentValues.put(MstPropinsiTable.Cols.PULAU, mstPropinsi.getPulau());
 
         return contentValues;
     }
 
-    private ContentValues getMstKabupatenContentValues(Kabupaten kabupaten){
+    private ContentValues getContentValues(MstKabupaten mstKabupaten){
         ContentValues contentValues=new ContentValues();
-        contentValues.put(MstKabupatenTable.Cols.ID,kabupaten.getId());
-        contentValues.put(MstKabupatenTable.Cols.NAMA,kabupaten.getNama());
-        contentValues.put(MstKabupatenTable.Cols.IBU_KOTA,kabupaten.getIbuKota());
-        contentValues.put(MstKabupatenTable.Cols.ID_PROPINSI,kabupaten.getId_propinsi());
-        contentValues.put(MstKabupatenTable.Cols.IBUKOTAPROP,kabupaten.getIbuKotaPropinsi());
-        contentValues.put(MstKabupatenTable.Cols.JMLPENDUDUK,kabupaten.getJumlahPenduduk());
-        contentValues.put(MstKabupatenTable.Cols.KODEBPS,kabupaten.getKodebps());
-
+        contentValues.put(MstKabupatenTable.Cols.ID, mstKabupaten.getId());
+        contentValues.put(MstKabupatenTable.Cols.NAMA, mstKabupaten.getNama());
+        contentValues.put(MstKabupatenTable.Cols.IBU_KOTA, mstKabupaten.getIbuKota());
+        contentValues.put(MstKabupatenTable.Cols.ID_PROPINSI, mstKabupaten.getId_propinsi());
+        contentValues.put(MstKabupatenTable.Cols.IBUKOTAPROP, mstKabupaten.getIbuKotaPropinsi());
+        contentValues.put(MstKabupatenTable.Cols.JMLPENDUDUK, mstKabupaten.getJumlahPenduduk());
+        contentValues.put(MstKabupatenTable.Cols.KODEBPS, mstKabupaten.getKodebps());
         return contentValues;
     }
+
+    private ContentValues getContentValues(MstAirPelayaran mstAirPelayaran){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(MstAirPelayaranTable.Cols.ID_MST_AIR_PELAYARAN,mstAirPelayaran.getIdMstAirPelayaran());
+        contentValues.put(MstAirPelayaranTable.Cols.AIR_PELAYARAN,mstAirPelayaran.getAirPelayaran());
+        return contentValues;
+    }
+
+    private static ContentValues getContentValues(MstArus mstArus){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(MstArusTable.Cols.ID_MST_ARUS,mstArus.getIdMstArus());
+        contentValues.put(MstArusTable.Cols.ARUS,mstArus.getArus());
+        return contentValues;
+    }
+
+    private static ContentValues getContentValues(MstGelombang mstGelombang){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(MstGelombangTable.Cols.ID_MST_GELOMBANG,mstGelombang.getIdMstGelombang());
+        contentValues.put(MstGelombangTable.Cols.MST_GELOMBANG,mstGelombang.getMstGelombang());
+        return contentValues;
+    }
+
+    private static ContentValues getContentValues(MstJarakKedalaman mstJarakKedalaman){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(MstJarakKedalamanTable.Cols.ID_MST_JARAK_KEDALAMAN,mstJarakKedalaman.getIdMstJarakKedalaman());
+        contentValues.put(MstJarakKedalamanTable.Cols.JARAK_KEDALAMAN,mstJarakKedalaman.getJarakKedalaman());
+        return contentValues;
+    }
+
+    private static ContentValues getContentValues(MstJenisProduksi mstJenisProduksi){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(MstJenisProduksiTable.Cols.ID_MST_JENIS_PRODUKSI,mstJenisProduksi.getIdMstJenisProduksi());
+        contentValues.put(MstJenisProduksiTable.Cols.JENIS_PRODUKSI,mstJenisProduksi.getJenisProduksi());
+        contentValues.put(MstJenisProduksiTable.Cols.KKI,mstJenisProduksi.getKki());
+        return contentValues;
+    }
+
+    private static ContentValues getContentValues(MstPasangSurut mstPasangSurut){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(MstPasangSurutTable.Cols.ID_MST_PASANG_SURUT,mstPasangSurut.getIdMstPasangSurut());
+        contentValues.put(MstPasangSurutTable.Cols.PASANG_SURUT,mstPasangSurut.getPasangSurut());
+        return contentValues;
+    }
+
+    private static ContentValues getContentValues(MstSatuan mstSatuan){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(MstSatuanTable.Cols.ID_MST_SATUAN,mstSatuan.getIdMstSatuan());
+        contentValues.put(MstSatuanTable.Cols.SATUAN,mstSatuan.getSatuan());
+        return contentValues;
+    }
+
+
+
 
     /*TEMPLATE CONTENT VALUE
     private static ContentValues getDammyContentValues(Dammy dammy){

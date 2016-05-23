@@ -11,30 +11,42 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
  * Created by mpewpazi on 5/6/16.
  */
-public class FormKompal3cFragment extends Fragment {
+public class FormKompal3cFragment extends Fragment implements Validator.ValidationListener {
 
     private static final String ARG_FORMKOMPAL3c_ID="formkompal3c_id";
     private static final String ARG_FORMKOMPAL3c_KUALIFIKASI_SURVEY_ID="formkompal3c_kualifikasi_id";
 
+    private Validator mValidator;
+    private boolean isValidated;
+
     private Spinner mNamaProdukSpinner;
     private Spinner mSistemProduksiSpinner;
+    @NotEmpty
     private EditText mJumlahProduksithn1EditText;
+    @NotEmpty
     private EditText mJumlahProduksithn2EditText;
+    @NotEmpty
     private EditText mJumlahProduksithn3EditText;
+    @NotEmpty
     private EditText mJumlahProduksithn4EditText;
 
-    private Button mDeleteButton;
-    private boolean isDeleteButtonUnpressed=true;
+    private Button mSaveButton;
+    private boolean isSaveButtonUnpressed=true;
 
     private FormKompal3c mFormKompal3c;
 
@@ -64,6 +76,8 @@ public class FormKompal3cFragment extends Fragment {
         //----------------------------------------------- ----------------------------------------------- -----------------------------------------------
         mFormKompal3c= DummyMaker.get(getActivity()).getFormKompal3c(formKompal3cId);
 
+        mValidator=new Validator(this);
+        mValidator.setValidationListener(this);
     }
 
 
@@ -80,7 +94,7 @@ public class FormKompal3cFragment extends Fragment {
         mJumlahProduksithn3EditText=(EditText)rootView .findViewById(R.id.kompal3c_jumlah_prod_2013);
         mJumlahProduksithn4EditText=(EditText)rootView .findViewById(R.id.kompal3c_jumlah_prod_2014);
 
-        mDeleteButton=(Button)rootView.findViewById(R.id.kompal3a_btn_delete);
+        mSaveButton=(Button)rootView.findViewById(R.id.kompal3c_btn_save);
 
         mJumlahProduksithn1EditText.setText(String.valueOf(mFormKompal3c.getJumlahProduksiThn1()));
         mJumlahProduksithn1EditText.addTextChangedListener(new TextWatcher() {
@@ -158,12 +172,15 @@ public class FormKompal3cFragment extends Fragment {
 
 
 
-        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                DummyMaker.get(getActivity()).deleteFormKompal3c(mFormKompal3c);
-                isDeleteButtonUnpressed=false;
+                mValidator.validate();
+                if(!isValidated){
+                    return;
+                }
+                DummyMaker.get(getActivity()).addFormKompal3c(mFormKompal3c);
                 getActivity().finish();
 
             }
@@ -174,12 +191,26 @@ public class FormKompal3cFragment extends Fragment {
         return rootView;
     }
 
+
     @Override
-    public void onPause() {
-        super.onPause();
-        if(isDeleteButtonUnpressed) {
-            // ----------------------------------------------- ----------------------------------------------- -----------------------------------------------
-            DummyMaker.get(getActivity()).addFormKompal3c(mFormKompal3c);
+    public void onValidationSucceeded() {
+        isValidated=true;
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                EditText editText=((EditText) view);
+                editText.setError(message);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+            }
         }
+        isValidated=false;
     }
 }

@@ -1,14 +1,11 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,13 +13,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Domain;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
-import com.mpewpazi.android.awaljunisidang.masterData.Kabupaten;
-import com.mpewpazi.android.awaljunisidang.masterData.Propinsi;
+import com.mpewpazi.android.awaljunisidang.masterData.MstKabupaten;
+import com.mpewpazi.android.awaljunisidang.masterData.MstPropinsi;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 
@@ -34,23 +36,39 @@ import static android.widget.AdapterView.OnItemSelectedListener;
 /**
  * Created by mpewpazi on 3/27/16.
  */
-public class FormGalpal1Fragment extends SingleFragment  {
+public class FormGalpal1Fragment extends SingleFragment implements Validator.ValidationListener {
+
+    private boolean isValidated;
 
 
     private EditText mNamaPerusahaanEditText;
+
+    @NotEmpty
     private EditText mNomorTeleponEditText;
+    @NotEmpty
     private EditText mFaxEditText;
+    @NotEmpty
     private EditText mAlamatEditText;
+    @NotEmpty
     private EditText mKelurahanEditText;
+    @NotEmpty
     private EditText mKecamatanEditText;
+    @NotEmpty
     private EditText mKodePosEditText;
+    @NotEmpty
     private EditText mAnggotaAsosiasiEditText;
+    @NotEmpty
     private EditText mKategoriPerusahaanEditText;
+    @NotEmpty
     private EditText mContactPersonEditText;
+    @NotEmpty
     private EditText mNomorCpEditText;
+    @NotEmpty
     private EditText mJabatanEditText;
+    @Email
     private EditText mEmailEditText;
-    private TextInputLayout mEmailInputLayout;
+
+    @Domain
     private EditText mWebsiteEditText;
 
     private Spinner mPropinsiSpinner;
@@ -60,8 +78,8 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
 
 
-    private List<Propinsi> mPropinsis;
-    private List<Kabupaten> mKabupatens;
+    private List<MstPropinsi> mMstPropinsis;
+    private List<MstKabupaten> mMstKabupatens;
 
     private List<String> mPropinsiNames;
     private List<String> mKabupatenNames;
@@ -72,6 +90,8 @@ public class FormGalpal1Fragment extends SingleFragment  {
     private FormGalpal1 mFormGalpal1;
     private DummyMaker mDummyMaker;
     private MenuCheckingGalpal mMenuCheckingGalpal;
+
+    private Validator mValidator;
 
 
 
@@ -87,17 +107,19 @@ public class FormGalpal1Fragment extends SingleFragment  {
         mFormGalpal1=mDummyMaker.getFormGalpal1(DrawerFormActivity.kualifikasiSurveyId);
         mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,idMenu);
 
+        mValidator=new Validator(this);
+        mValidator.setValidationListener(this);
 
         mNamaPerusahaan=mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan();
 
         // memasukan master data propinsi
-        mPropinsis= DummyMaker.get(getActivity()).getMstPropinsis();
+        mMstPropinsis = DummyMaker.get(getActivity()).getMstPropinsis();
 
 
 
         mPropinsiNames=new ArrayList<>();
-        for(int a=0;a<mPropinsis.size();a++){
-            mPropinsiNames.add(mPropinsis.get(a).getNama());
+        for(int a = 0; a< mMstPropinsis.size(); a++){
+            mPropinsiNames.add(mMstPropinsis.get(a).getNama());
         }
 
 
@@ -128,7 +150,6 @@ public class FormGalpal1Fragment extends SingleFragment  {
         mNomorCpEditText=(EditText)rootView.findViewById(R.id.galpal1_contact_person_no);
         mJabatanEditText=(EditText)rootView.findViewById(R.id.galpal1_jabatan);
         mEmailEditText=(EditText)rootView.findViewById(R.id.galpal1_alamat_email);
-        mEmailInputLayout=(TextInputLayout)rootView.findViewById(R.id.galpal1_alamat_email_layout);
         mPropinsiSpinner=(Spinner)rootView.findViewById(R.id.galpal1_propinsi_spinner);
         mWebsiteEditText=(EditText)rootView.findViewById(R.id.galpal1_website);
         mKabupatenSpinner=(Spinner)rootView.findViewById(R.id.galpal1_kabupaten_spinner);
@@ -143,10 +164,10 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
 
         /*if(mFormGalpal1.getIdPropinsi()!=0){
-            mKabupatens=DummyMaker.get(getActivity()).getMstKabupaten(mFormGalpal1.getIdPropinsi());
+            mMstKabupatens=DummyMaker.get(getActivity()).getMstKabupaten(mFormGalpal1.getIdPropinsi());
             mKabupatenNames=new ArrayList<>();
-            for(int a=0;a<mKabupatens.size();a++){
-                mKabupatenNames.add(mKabupatens.get(a).getNama());
+            for(int a=0;a<mMstKabupatens.size();a++){
+                mKabupatenNames.add(mMstKabupatens.get(a).getNama());
             }
             ArrayAdapter<String> dataAdapter1=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,mKabupatenNames);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -397,7 +418,6 @@ public class FormGalpal1Fragment extends SingleFragment  {
 
             @Override
             public void afterTextChanged(Editable s) {
-                validateEmail();
                 mMenuCheckingGalpal.setFill(true);
                 mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
                 mCustomClickListener.clickListener();
@@ -438,10 +458,11 @@ public class FormGalpal1Fragment extends SingleFragment  {
             @Override
             public void onClick(View v) {
 
-                if (!validateEmail()) {
-                    Toast.makeText(getContext(),"Terdapat data yang tidak valid ", Toast.LENGTH_SHORT).show();
+                mValidator.validate();
+                if(!isValidated){
                     return;
                 }
+
 
                 if(!mMenuCheckingGalpal.isComplete()){
                     mMenuCheckingGalpal.setComplete(true);
@@ -469,31 +490,8 @@ public class FormGalpal1Fragment extends SingleFragment  {
         return rootView;
     }
 
-    private boolean validateEmail() {
-        String email = mEmailEditText.getText().toString().trim();
-
-        if (email.isEmpty() || !isValidEmail(email)) {
-            mEmailInputLayout.setError("Masukan email yang valid");
-            requestFocus(mEmailEditText);
-            return false;
-        } else {
-            mEmailInputLayout.setErrorEnabled(false);
-        }
-
-        return true;
-    }
 
 
-
-    private static boolean isValidEmail(String email) {
-        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
 
 
     @Override
@@ -525,5 +523,26 @@ public class FormGalpal1Fragment extends SingleFragment  {
     };
 
 
+    @Override
+    public void onValidationSucceeded() {
+        isValidated=true;
+    }
 
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                EditText editText=((EditText) view);
+                editText.setError(message);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+            }
+        }
+        isValidated=false;
+
+    }
 }
