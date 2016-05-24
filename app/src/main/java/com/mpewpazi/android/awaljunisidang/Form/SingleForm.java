@@ -7,10 +7,10 @@ import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
  */
 public abstract class SingleForm {
     protected String mNamaForm;
-
     protected boolean mSend;
     protected SingleFragment mFragment;
     protected int mKualifikasiSurveyId;
+
 
 
 
@@ -38,5 +38,8 @@ public abstract class SingleForm {
         return mFragment;
     }
 
-    public abstract String getKodeForm();
+    public abstract int getKodeForm();
+
+
+
 }

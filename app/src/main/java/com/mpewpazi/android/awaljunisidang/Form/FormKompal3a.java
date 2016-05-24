@@ -11,11 +11,13 @@ import java.util.UUID;
 public class FormKompal3a extends SingleForm {
     private int idJenisKapasitasProduksiServer;
     private UUID idJenisKapasitasProduksi;
+    private int idPeriode;
     private String jenisProduksi;
     private int kapasitasProduksi;
     private int satuan;
+    private String note;
 
-    public static final String kode="FK3a";
+    public static final int kode=3;
 
     public int getIdJenisKapasitasProduksiServer() {
         return idJenisKapasitasProduksiServer;
@@ -25,13 +27,29 @@ public class FormKompal3a extends SingleForm {
         this.idJenisKapasitasProduksiServer = idJenisKapasitasProduksiServer;
     }
 
+    public int getIdPeriode() {
+        return idPeriode;
+    }
+
+    public void setIdPeriode(int idPeriode) {
+        this.idPeriode = idPeriode;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     @Override
     public SingleFragment getFragment() {
         return new ListFormKompal3aFragment();
     }
 
     @Override
-    public String getKodeForm() {
+    public int getKodeForm() {
         return kode;
     }
 

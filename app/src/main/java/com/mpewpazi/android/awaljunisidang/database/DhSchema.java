@@ -72,6 +72,7 @@ public class DhSchema {
             public static final String ID_PERUSAHAAN_IDENTITAS = "id_perusahaan_identitas";
             public static final String ID_PERUSAHAAN = "id_perusahaan";
             public static final String ID_KUALIFIKASI_SURVEY = "id_kualifikasi_survey";
+            public static final String ID_PERIODE="id_periode";
             public static final String ALAMAT_PERUSAHAAN = "alamat_perusahaan";
             public static final String JALAN_DESA_PERUSAHAAN="jalan_desa_perusahaan";
             public static final String KELURAHAN_PERUSAHAAN="kelurahan_perusahaan";
@@ -169,6 +170,7 @@ public class DhSchema {
             public static final String IS_NEW_BUILDING="is_new_building";
             public static final String IS_REPAIR="is_repair";
             public static final String ID_KUALIFIKASI_SURVEY = "id_kualifikasi_survey";
+            public static final String ID_PERIODE="id_periode";
             public static final String ID_PERUSAHAAN="id_perusahaan";
             public static final String NOMOR_DOCK="nomor_dock";
             public static final String ALAMAT_GALANGAN = "alamat_galangan";

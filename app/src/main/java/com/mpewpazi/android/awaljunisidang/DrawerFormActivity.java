@@ -23,6 +23,7 @@ import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
    // private ListView mDrawerList;
     private RecyclerView mDrawerRecyclerView;
     public static SingleFormAdapter mAdapter;
-
+//a
     //untuk merubah kembali nama aplikasi
     private String mActivityTitle;
 
@@ -108,6 +109,9 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
     private void addDrawerItems(){
         if(mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getIndustri().equals("Galangan Kapal")){
             mSingleForms=mDummyMaker.getGalpalForms();
+            for(SingleForm singleForm:mSingleForms){
+                MenuCheckingGalpal menuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(kualifikasiSurveyId,singleForm.getKodeForm());
+            }
             mMenuCheckingSingles=mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId);
         }else{
             mSingleForms=mDummyMaker.getKompalForms();
@@ -204,21 +208,21 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
         private CustomClickListener mCustomClickListener;
 
         private SingleForm mSingleForm;
-        private SingleMenuChecking mMenuCheckingGalpal;
+        private SingleMenuChecking mMenuCheckingSingle;
 
-        public void bindSingleForm(SingleForm singleForm, SingleMenuChecking menuCheckingGalpal, int no){
+        public void bindSingleForm(SingleForm singleForm, SingleMenuChecking menuChecking, int no){
             mSingleForm=singleForm;
-            mMenuCheckingGalpal=menuCheckingGalpal;
+            mMenuCheckingSingle=menuChecking;
             mTittleTextView.setText(mSingleForm.getNamaForm());
             //mStatusTextView.setText("-");
             mNoTextView.setText(String.valueOf(no));
-            if(mMenuCheckingGalpal.isFill()){
+            if(mMenuCheckingSingle.isFill()){
                 mStatusFillTextView.setImageResource(R.drawable.ok_icon);
             }
-            if(mMenuCheckingGalpal.isComplete()){
+            if(mMenuCheckingSingle.isComplete()){
                 mStatusCompleteTextView.setImageResource(R.drawable.ok_icon);
             }
-            if(mMenuCheckingGalpal.isVerified()){
+            if(mMenuCheckingSingle.isVerified()){
                 mStatusVerifiedTextView.setImageResource(R.drawable.ok_icon);
             }
 

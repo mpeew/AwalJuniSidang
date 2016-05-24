@@ -11,10 +11,12 @@ import java.util.UUID;
 public class FormKompal3d extends SingleForm {
     private int idStandarMutuServer;
     private UUID idStandarMutu;
+    private int idPeriode;
     private String jenisStandarMutu;
     private String keterangan;
+    private String note;
 
-    public static final String kode="FK3d";
+    public static final int kode=6;
 
     public int getIdStandarMutuServer() {
         return idStandarMutuServer;
@@ -25,7 +27,7 @@ public class FormKompal3d extends SingleForm {
     }
 
     @Override
-    public String getKodeForm() {
+    public int getKodeForm() {
         return kode;
     }
 
@@ -69,5 +71,21 @@ public class FormKompal3d extends SingleForm {
 
     public void setJenisStandarMutu(String jenisStandarMutu) {
         this.jenisStandarMutu = jenisStandarMutu;
+    }
+
+    public int getIdPeriode() {
+        return idPeriode;
+    }
+
+    public void setIdPeriode(int idPeriode) {
+        this.idPeriode = idPeriode;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

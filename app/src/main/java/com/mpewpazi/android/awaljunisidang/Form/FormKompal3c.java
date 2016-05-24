@@ -11,6 +11,7 @@ import java.util.UUID;
 public class FormKompal3c extends SingleForm {
     private int idSistemBerproduksiServer;
     private UUID idSistemBerproduksi;
+    private int idPeriode;
     private String namaProduk;
     private int jenisProduksi;
     private int sistemProduksi;
@@ -18,8 +19,9 @@ public class FormKompal3c extends SingleForm {
     private int jumlahProduksiThn2;
     private int jumlahProduksiThn3;
     private int jumlahProduksiThn4;
+    private String note;
 
-    public static final String kode="FK3c";
+    public static final int kode=5;
 
     public int getIdSistemBerproduksiServer() {
         return idSistemBerproduksiServer;
@@ -30,7 +32,7 @@ public class FormKompal3c extends SingleForm {
     }
 
     @Override
-    public String getKodeForm() {
+    public int getKodeForm() {
         return kode;
     }
 
@@ -115,5 +117,21 @@ public class FormKompal3c extends SingleForm {
 
     public void setJumlahProduksiThn4(int jumlahProduksiThn4) {
         this.jumlahProduksiThn4 = jumlahProduksiThn4;
+    }
+
+    public int getIdPeriode() {
+        return idPeriode;
+    }
+
+    public void setIdPeriode(int idPeriode) {
+        this.idPeriode = idPeriode;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

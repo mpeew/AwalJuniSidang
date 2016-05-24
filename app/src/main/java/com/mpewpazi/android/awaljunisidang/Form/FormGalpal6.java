@@ -11,6 +11,7 @@ import java.util.UUID;
 public class FormGalpal6  extends SingleForm {
     private int idPeralatanKerjaCraneServer;
     private UUID idPeralatanKerjaCrane;
+    private int idPeriode;
     private String jenisMesin;
     private int tahunPembuatan;
     private String merek;
@@ -23,8 +24,25 @@ public class FormGalpal6  extends SingleForm {
     private String kondisi;
     private String lokasi;
     private String status;
+    private String note;
 
-    public static final String kode="FG6";
+    public int getIdPeriode() {
+        return idPeriode;
+    }
+
+    public void setIdPeriode(int idPeriode) {
+        this.idPeriode = idPeriode;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public static final int kode=6;
 
     public int getIdPeralatanKerjaCraneServer() {
         return idPeralatanKerjaCraneServer;
@@ -43,7 +61,7 @@ public class FormGalpal6  extends SingleForm {
     }
 
     @Override
-    public String getKodeForm() {
+    public int getKodeForm() {
         return kode;
     }
 

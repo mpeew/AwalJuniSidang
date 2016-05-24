@@ -79,15 +79,15 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
 
 
-        //new PushTask().execute();
-        for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys) {
+        new PushTask().execute();
+        /*for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys) {
             String jenisIndustri=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri();
             if(jenisIndustri.equals("Galangan Kapal")) {
                 new FetchFormGalpalTask(String.valueOf(kualifikasiSurvey.getKualifikasiSurveyId())).execute();
             }else{
                 new FetchFormKompalTask(String.valueOf(kualifikasiSurvey.getKualifikasiSurveyId())).execute();
             }
-        }
+        }*/
 
 
         mUsernameEditText=(EditText)findViewById(R.id.login_username);
@@ -151,7 +151,8 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
         @Override
         protected Void doInBackground(Void... params) {
-            new DataPusher().makePostRequest();
+
+            new DataPusher().makePostRequestFG1();
             return null;
         }
     }
@@ -214,19 +215,19 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 switch(singleForm.getKodeForm()){
                     case FormKompal3a.kode:
                         DummyMaker.get(getApplicationContext()).addFormKompal3a((FormKompal3a)singleForm);
-                        Log.i("A", FormKompal3a.kode );
+
                         break;
                     case FormKompal3b.kode:
                         DummyMaker.get(getApplicationContext()).addFormKompal3b((FormKompal3b)singleForm);
-                        Log.i("A", FormKompal3b.kode );
+
                         break;
                     case FormKompal3c.kode:
                         DummyMaker.get(getApplicationContext()).addFormKompal3c((FormKompal3c)singleForm);
-                        Log.i("A", FormKompal3c.kode );
+
                         break;
                     case FormKompal3d.kode:
                         DummyMaker.get(getApplicationContext()).addFormKompal3d((FormKompal3d)singleForm);
-                        Log.i("A", FormKompal3d.kode );
+
                         break;
                 }
             }

@@ -39,10 +39,10 @@ public class FormGalpal1 extends SingleForm {
     private String email;
     private String website;
 
-    public static final String kode="FG1";
+    public static final int kode=1;
 
     @Override
-    public String getKodeForm() {
+    public int getKodeForm() {
         return kode;
     }
 

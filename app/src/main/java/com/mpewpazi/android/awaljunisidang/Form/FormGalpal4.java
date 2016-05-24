@@ -8,6 +8,7 @@ import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
  */
 public class FormGalpal4 extends SingleForm {
     private int tinjauanWilayahMaritimId;
+    private int idPeriode;
     private int jarakKedalaman;
     private int AirPelayaran;
     private int pasangSurutPerairan;
@@ -27,12 +28,29 @@ public class FormGalpal4 extends SingleForm {
     private String nilaiEkonomi;
     private String perkembanganWilayah;
     private String rutrw;
+    private String note;
 
-    public static final String kode="FG4";
+    public static final int kode=4;
 
+
+    public int getIdPeriode() {
+        return idPeriode;
+    }
+
+    public void setIdPeriode(int idPeriode) {
+        this.idPeriode = idPeriode;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 
     @Override
-    public String getKodeForm() {
+    public int getKodeForm() {
         return kode;
     }
 
