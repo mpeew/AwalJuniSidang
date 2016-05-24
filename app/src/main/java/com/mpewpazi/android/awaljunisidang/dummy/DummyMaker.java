@@ -15,8 +15,11 @@ import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
+import com.mpewpazi.android.awaljunisidang.MenuF1;
+import com.mpewpazi.android.awaljunisidang.MenuF2;
 import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
 import com.mpewpazi.android.awaljunisidang.database.CursorWrapperGal;
+import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.masterData.MstAirPelayaran;
 import com.mpewpazi.android.awaljunisidang.masterData.MstArus;
 import com.mpewpazi.android.awaljunisidang.masterData.MstGelombang;
@@ -40,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.*;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG3GalanganKapalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG4TinjauanAreaTable;
@@ -759,6 +763,36 @@ public class DummyMaker {
         return menuCheckingKompals;
     }
 
+    public List<MenuF1> getMenuF1s(){
+        List<MenuF1> menuF1s =new ArrayList<>();
+        CursorWrapperGal cursor=query(MenuF1Table.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                menuF1s.add(cursor.getMenuF1());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return menuF1s;
+    }
+
+    public List<MenuF2> getMenuF2s(){
+        List<MenuF2> menuF2s =new ArrayList<>();
+        CursorWrapperGal cursor=query(MenuF2Table.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                menuF2s.add(cursor.getMenuF2());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return menuF2s;
+    }
+
     //form2 galpal 6 yang memiliki kualifikasi survey id tertentu
     public List<FormGalpal6> getFormGalpal6s(int idKualifikasiSurvey){
         List<FormGalpal6> formGalpal6s=new ArrayList<>();
@@ -1193,6 +1227,42 @@ public class DummyMaker {
                 mDatabase.insert(MenuCheckingKompalTable.NAME,null,values);
             }else{
                 //mDatabase.update(MenuCheckingKompalTable.NAME,values,MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING+" = ?",new String[]{idMenuCheckingKompal});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addMenuF1(MenuF1 menuF1){
+        ContentValues values=getContentValues(menuF1);
+        String menuF1Id=String.valueOf(menuF1.getIdMenuF1());
+
+        CursorWrapperGal cursor=query(MenuF1Table.NAME,MenuF1Table.Cols.ID_MENU_F1+ "=?",
+                new String[] {menuF1Id});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(MenuF1Table.NAME,null,values);
+            }else{
+                mDatabase.update(MenuF1Table.NAME,values,MenuF1Table.Cols.ID_MENU_F1+" = ?",new String[]{menuF1Id});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addMenuF2(MenuF2 menuF2){
+        ContentValues values=getContentValues(menuF2);
+        String menuF2Id=String.valueOf(menuF2.getIdMenuF2());
+
+        CursorWrapperGal cursor=query(MenuF2Table.NAME,MenuF2Table.Cols.ID_MENU_F2+ "=?",
+                new String[] {menuF2Id});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(MenuF2Table.NAME,null,values);
+            }else{
+                mDatabase.update(MenuF2Table.NAME,values,MenuF2Table.Cols.ID_MENU_F2+" = ?",new String[]{menuF2Id});
             }
 
         }finally {
@@ -1889,6 +1959,23 @@ public class DummyMaker {
         contentValues.put(MstSatuanTable.Cols.SATUAN,mstSatuan.getSatuan());
         return contentValues;
     }
+
+    private static ContentValues getContentValues(MenuF1 menuF1){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(MenuF1Table.Cols.ID_MENU_F1,menuF1.getIdMenuF1());
+        contentValues.put(MenuF1Table.Cols.NUMBER,menuF1.getNumber());
+        contentValues.put(MenuF1Table.Cols.NAMA_MENU,menuF1.getNamaMenu());
+        return contentValues;
+    }
+
+    private static ContentValues getContentValues(MenuF2 menuF2){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(MenuF2Table.Cols.ID_MENU_F2,menuF2.getIdMenuF2());
+        contentValues.put(MenuF2Table.Cols.NUMBER,menuF2.getNumber());
+        contentValues.put(MenuF2Table.Cols.NAMA_MENU,menuF2.getNamaMenu());
+        return contentValues;
+    }
+
 
 
 

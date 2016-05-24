@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -24,6 +25,7 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
@@ -605,6 +607,7 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
                 mDummyMaker.addFormGalpal3(mFormGalpal3);
                 mDummyMaker.addKualifikasiSurvey(mKualifikasiSurvey);
                 mCustomClickListener.clickListener();
+                new PushTask().execute();
 
             }
         });
@@ -670,5 +673,16 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
             }
         }
         isValidated =false;
+    }
+
+    private class PushTask extends AsyncTask<Void,Void,Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            new DataPusher().makePostRequestFG3(mFormGalpal3);
+            return null;
+        }
     }
 }

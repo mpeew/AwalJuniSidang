@@ -1004,6 +1004,24 @@ public class DhSchema {
         }
     }
 
+    public static final class MenuF1Table{
+        public static final String NAME="menu_f1";
+        public static final class Cols{
+            public static final String ID_MENU_F1="id_menu_f1";
+            public static final String NUMBER="number";
+            public static final String NAMA_MENU="nama_menu";
+        }
+    }
+
+    public static final class MenuF2Table{
+        public static final String NAME="menu_f2";
+        public static final class Cols{
+            public static final String ID_MENU_F2="id_menu_f2";
+            public static final String NUMBER="number";
+            public static final String NAMA_MENU="nama_menu";
+        }
+    }
+
 
 
 /*

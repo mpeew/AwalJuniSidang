@@ -39,6 +39,7 @@ import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements Validator.ValidationListener {
@@ -74,16 +75,15 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
         validator=new Validator(this);
         validator.setValidationListener(this);
-        new FetchMenuCheckingGalpalTask(String.valueOf(20150001)).execute();
-        new FetchMenuCheckingKompalTask(String.valueOf(20150001)).execute();
+       // new FetchMenuCheckingGalpalTask(String.valueOf(20150001)).execute();
+       // new FetchMenuCheckingKompalTask(String.valueOf(20150001)).execute();
        // new FetchMstDataTask().execute();
 
         mDummyMaker=DummyMaker.get(this);
         mKualifikasiSurveys=mDummyMaker.getKualifikasiSurveys();
 
 
-
-        new PushTask().execute();
+       // new PushTask().execute();
         /*for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys) {
             String jenisIndustri=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri();
             if(jenisIndustri.equals("Galangan Kapal")) {

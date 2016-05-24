@@ -11,6 +11,8 @@ import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
+import com.mpewpazi.android.awaljunisidang.MenuF1;
+import com.mpewpazi.android.awaljunisidang.MenuF2;
 import com.mpewpazi.android.awaljunisidang.masterData.MstAirPelayaran;
 import com.mpewpazi.android.awaljunisidang.masterData.MstArus;
 import com.mpewpazi.android.awaljunisidang.masterData.MstGelombang;
@@ -574,5 +576,31 @@ public class CursorWrapperGal extends CursorWrapper{
         mstSatuan.setSatuan(nama);
 
         return mstSatuan;
+    }
+
+    public MenuF1 getMenuF1(){
+        int id=getInt(getColumnIndex(MenuF1Table.Cols.ID_MENU_F1));
+        String number=getString(getColumnIndex(MenuF1Table.Cols.NUMBER));
+        String namaMenu=getString(getColumnIndex(MenuF1Table.Cols.NAMA_MENU));
+
+        MenuF1 menuF1=new MenuF1();
+        menuF1.setIdMenuF1(id);
+        menuF1.setNumber(number);
+        menuF1.setNamaMenu(namaMenu);
+
+        return menuF1;
+    }
+
+    public MenuF2 getMenuF2(){
+        int id=getInt(getColumnIndex(MenuF2Table.Cols.ID_MENU_F2));
+        String number=getString(getColumnIndex(MenuF2Table.Cols.NUMBER));
+        String namaMenu=getString(getColumnIndex(MenuF2Table.Cols.NAMA_MENU));
+
+        MenuF2 menuF2=new MenuF2();
+        menuF2.setIdMenuF2(id);
+        menuF2.setNumber(number);
+        menuF2.setNamaMenu(namaMenu);
+
+        return menuF2;
     }
 }
