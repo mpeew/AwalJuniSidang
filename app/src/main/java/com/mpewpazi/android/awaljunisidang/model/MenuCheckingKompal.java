@@ -1,25 +1,17 @@
 package com.mpewpazi.android.awaljunisidang.model;
 
-import java.util.UUID;
-
 /**
  * Created by mpewpazi on 5/11/16.
  */
 public class MenuCheckingKompal extends SingleMenuChecking {
-    private UUID idMenuCheckingKompal;
+    private int idMenuCheckingKompal;
 
 
-    public UUID getIdMenuCheckingKompal() {
+    public int getIdMenuCheckingKompal() {
         return idMenuCheckingKompal;
     }
 
-    public MenuCheckingKompal(){
-       idMenuCheckingKompal=UUID.randomUUID();
-   }
-
-    public MenuCheckingKompal(UUID uuid){
-        idMenuCheckingKompal=uuid;
+    public void setIdMenuCheckingKompal(int idMenuCheckingKompal) {
+        this.idMenuCheckingKompal = idMenuCheckingKompal;
     }
-
-
 }

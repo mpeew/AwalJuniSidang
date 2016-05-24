@@ -333,7 +333,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
 
         db.execSQL(
                 "create table "+MenuCheckingGalpalTable.NAME+
-                        "("+MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING+" text primary key ," +
+                        "("+MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING+" int primary key ," +
                         MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         MenuCheckingGalpalTable.Cols.ID_MENU_F1 +" integer ," +
                         MenuCheckingGalpalTable.Cols.IS_FILL +" ," +
@@ -343,7 +343,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
 
         db.execSQL(
                 "create table "+MenuCheckingKompalTable.NAME+
-                        "("+MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING+" text primary key ," +
+                        "("+MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING+" int primary key ," +
                         MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         MenuCheckingKompalTable.Cols.ID_MENU_F2 +" integer ," +
                         MenuCheckingKompalTable.Cols.IS_FILL +" ," +

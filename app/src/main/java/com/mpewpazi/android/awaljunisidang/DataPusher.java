@@ -10,6 +10,8 @@ import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -35,6 +37,7 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKap
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3cSistemBerproduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarMutuTableTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingGalpalTable;
 
 
 /**
@@ -50,10 +53,12 @@ public class DataPusher {
     private static final String urlPostFK3c="http://192.168.1.100/galpal/f2SistemBerproduksi/postapi/";
     private static final String urlPostFK3d="http://192.168.1.100/galpal/f2StandardMutu/postapi/";
 
+    private static final String urlPostMenuCheckingGalpal="http://192.168.1.100/galpal/menuF1EntryChecking/postapi/";
+    private static final String urlPostMenuCheckingKompal="http://192.168.1.100/galpal/menuF2EntryChecking/postapi/";
+
 
 
     public void makePostRequestFG1(FormGalpal1 formGalpal1) {
-
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFG1);
         HttpPost post = new HttpPost(postURL);
@@ -393,6 +398,71 @@ public class DataPusher {
         }
     }
 
+    public void makePostRequestMenuCheckingGalpal(MenuCheckingGalpal menuCheckingGalpal) {
+        HttpClient client = new DefaultHttpClient();
+        String postURL = (urlPostMenuCheckingGalpal);
+        HttpPost post = new HttpPost(postURL);
+        try {
+            // Add the data
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("Id", String.valueOf(menuCheckingGalpal.getIdMenuCheckingGalpal())));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(menuCheckingGalpal.getIdKualifikasiSurvey())));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.ID_MENU_F1), String.valueOf(menuCheckingGalpal.getIdMenu())));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.IS_FILL), String.valueOf(menuCheckingGalpal.isComplete() ? 1 : 0)));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.IS_COMPLETE), String.valueOf(menuCheckingGalpal.isComplete() ? 1 : 0)));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.IS_VERIFIED), String.valueOf(menuCheckingGalpal.isVerified() ? 1 : 0)));
+
+            UrlEncodedFormEntity uefe = new UrlEncodedFormEntity(pairs);
+            post.setEntity(uefe);
+            // Execute the HTTP Post Request
+            HttpResponse response = client.execute(post);
+            // Convert the response into a String
+            HttpEntity resEntity = response.getEntity();
+            if (resEntity != null) {
+                Log.i("RESPONSE1", EntityUtils.toString(resEntity));
+            }
+        } catch (UnsupportedEncodingException uee) {
+            uee.printStackTrace();
+        } catch (ClientProtocolException cpe) {
+            cpe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void makePostRequestMenuCheckingKompal(MenuCheckingKompal menuCheckingKompal) {
+        HttpClient client = new DefaultHttpClient();
+        String postURL = (urlPostMenuCheckingKompal);
+        HttpPost post = new HttpPost(postURL);
+        try {
+            // Add the data
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("Id", String.valueOf(menuCheckingKompal.getIdMenuCheckingKompal())));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(menuCheckingKompal.getIdKualifikasiSurvey())));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.ID_MENU_F1), String.valueOf(menuCheckingKompal.getIdMenu())));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.IS_FILL), String.valueOf(menuCheckingKompal.isComplete() ? 1 : 0)));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.IS_COMPLETE), String.valueOf(menuCheckingKompal.isComplete() ? 1 : 0)));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.IS_VERIFIED), String.valueOf(menuCheckingKompal.isVerified() ? 1 : 0)));
+
+            UrlEncodedFormEntity uefe = new UrlEncodedFormEntity(pairs);
+            post.setEntity(uefe);
+            // Execute the HTTP Post Request
+            HttpResponse response = client.execute(post);
+            // Convert the response into a String
+            HttpEntity resEntity = response.getEntity();
+            if (resEntity != null) {
+                Log.i("RESPONSE1", EntityUtils.toString(resEntity));
+            }
+        } catch (UnsupportedEncodingException uee) {
+            uee.printStackTrace();
+        } catch (ClientProtocolException cpe) {
+            cpe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+    }
+
 
     private String encapsulateFG1Cols(String cols){
         return "PerusahaanIdentitas["+cols+"]";
@@ -424,6 +494,14 @@ public class DataPusher {
 
     private String encapsulateFK3dCols(String cols){
         return "F2StandardMutu["+cols+"]";
+    }
+
+    private String encapsulateMenuCheckingGalpalCols(String cols){
+        return "MenuF1EntryChecking["+cols+"]";
+    }
+
+    private String encapsulateMenuCheckingKompalCols(String cols){
+        return "MenuF2EntryChecking["+cols+"]";
     }
 
 }

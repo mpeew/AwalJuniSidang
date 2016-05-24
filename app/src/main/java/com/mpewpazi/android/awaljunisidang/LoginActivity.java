@@ -36,6 +36,8 @@ import com.mpewpazi.android.awaljunisidang.masterData.MstPropinsi;
 import com.mpewpazi.android.awaljunisidang.masterData.MstSatuan;
 import com.mpewpazi.android.awaljunisidang.masterData.SingleMaster;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
 
 import java.util.List;
 
@@ -72,6 +74,8 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
         validator=new Validator(this);
         validator.setValidationListener(this);
+        new FetchMenuCheckingGalpalTask(String.valueOf(20150001)).execute();
+        new FetchMenuCheckingKompalTask(String.valueOf(20150001)).execute();
        // new FetchMstDataTask().execute();
 
         mDummyMaker=DummyMaker.get(this);
@@ -152,7 +156,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         @Override
         protected Void doInBackground(Void... params) {
 
-            new DataPusher().makePostRequestFG1();
+            //new DataPusher().makePostRequestFG1();
             return null;
         }
     }
@@ -281,6 +285,48 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             }
 
 
+        }
+    }
+
+    private class FetchMenuCheckingGalpalTask extends AsyncTask<Void,Void,List<MenuCheckingGalpal>> {
+        private String mIdKualifikasiSurvey;
+
+        private FetchMenuCheckingGalpalTask(String idKualifikasiSurvey){
+            mIdKualifikasiSurvey=idKualifikasiSurvey;
+        }
+
+        @Override
+        protected List<MenuCheckingGalpal> doInBackground(Void... params) {
+            Log.i("a", "Received JSON MenuCheckingGalpal: " + mIdKualifikasiSurvey);
+            return new DataFetcher().fetchMenuCheckingGalpal(mIdKualifikasiSurvey);
+        }
+
+
+
+        @Override
+        protected void onPostExecute(List<MenuCheckingGalpal> menuCheckingGalpals) {
+            Log.i("a",String.valueOf(menuCheckingGalpals.get(0).getIdKualifikasiSurvey()));
+        }
+    }
+
+    private class FetchMenuCheckingKompalTask extends AsyncTask<Void,Void,List<MenuCheckingKompal>> {
+        private String mIdKualifikasiSurvey;
+
+        private FetchMenuCheckingKompalTask(String idKualifikasiSurvey){
+            mIdKualifikasiSurvey=idKualifikasiSurvey;
+        }
+
+        @Override
+        protected List<MenuCheckingKompal> doInBackground(Void... params) {
+            Log.i("a", "Received JSON MenuCheckingKompal: " + mIdKualifikasiSurvey);
+            return new DataFetcher().fetchMenuCheckingKompals(mIdKualifikasiSurvey);
+        }
+
+
+
+        @Override
+        protected void onPostExecute(List<MenuCheckingKompal> menuCheckingKompals) {
+            Log.i("a",String.valueOf(menuCheckingKompals.get(0).getIdKualifikasiSurvey()));
         }
     }
 }

@@ -64,7 +64,7 @@ public class ListFormGalpal6Fragment extends SingleFragment {
         mDummyMaker=DummyMaker.get(getContext());
         mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
         mGalpalForms=mDummyMaker.getGalpalForms();
-        mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,idMenu);
+        mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,FormGalpal6.kode);
 
     }
 

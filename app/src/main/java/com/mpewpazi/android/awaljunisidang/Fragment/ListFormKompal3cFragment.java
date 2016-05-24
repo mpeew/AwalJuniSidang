@@ -54,7 +54,7 @@ public class ListFormKompal3cFragment extends SingleFragment {
         mDummyMaker=DummyMaker.get(getContext());
         mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
         mKompalForms=mDummyMaker.getKompalForms();
-        mMenuCheckingKompal=mDummyMaker.getMenuCheckingKompal(DrawerFormActivity.kualifikasiSurveyId,idMenu);
+        mMenuCheckingKompal=mDummyMaker.getMenuCheckingKompal(DrawerFormActivity.kualifikasiSurveyId,FormKompal3c.kode);
     }
 
     @Override

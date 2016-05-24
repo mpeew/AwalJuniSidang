@@ -9,13 +9,10 @@ import com.mpewpazi.android.awaljunisidang.CustomClickListener;
  */
 public class SingleFragment extends Fragment {
     protected CustomClickListener mCustomClickListener;
-    protected int idMenu;
+
 
     public void setCustomClickListener(CustomClickListener customClickListener){
         mCustomClickListener=customClickListener;
     }
 
-    public void setIdMenu(int idMenu) {
-        this.idMenu = idMenu;
-    }
 }

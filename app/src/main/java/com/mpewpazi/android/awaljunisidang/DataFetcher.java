@@ -24,6 +24,8 @@ import com.mpewpazi.android.awaljunisidang.masterData.MstPropinsi;
 import com.mpewpazi.android.awaljunisidang.masterData.MstSatuan;
 import com.mpewpazi.android.awaljunisidang.masterData.SingleMaster;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
 import com.mpewpazi.android.awaljunisidang.model.PeriodeSurvey;
 import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
 import com.mpewpazi.android.awaljunisidang.model.SurveyAssignSurveyor;
@@ -50,6 +52,15 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahPr
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3cSistemBerproduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarMutuTableTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstAirPelayaranTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstArusTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstGelombangTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstJarakKedalamanTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstJenisProduksiTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstKabupatenTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstPasangSurutTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstPropinsiTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstSatuanTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PeriodeSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PerusahaanTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.SurveyAssignSurveyorTable;
@@ -79,6 +90,9 @@ public class DataFetcher {
     private static final String MSTGelombangENDPOINT="http://192.168.1.100/galpal/mstGelombang/api";
     private static final String MSTSatuanENDPOINT="http://192.168.1.100/galpal/mstSatuan/api";
     private static final String MSTJenisProduksiENDPOINT="http://192.168.1.100/galpal/mstJenisProduksi/api";
+
+    private static final Uri MenuCheckingGalpalENDPOINT = Uri.parse("http://192.168.1.100/galpal/menuF1EntryChecking/api/id");
+    private static final Uri MenuCheckingKompalENDPOINT = Uri.parse("http://192.168.1.100/galpal/menuF2EntryChecking/api/id");
 
     //private static final String MSTENDPOINT="http://192.168.1.100/galpal/";
 
@@ -319,6 +333,8 @@ public class DataFetcher {
         return items;
     }
 
+
+
     public List<SingleForm> fetchFormKompals(String idKualifikasiSurvey) {
 
         List<SingleForm> items=new ArrayList<>();
@@ -508,7 +524,6 @@ public class DataFetcher {
 
 
     private void parseFormKompal3cs(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
-
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             FormKompal3c item = new FormKompal3c();
@@ -538,6 +553,7 @@ public class DataFetcher {
             items.add(item);
         }
     }
+
 
 
     public List<SingleMaster> fetchMasterDatas() {
@@ -601,12 +617,12 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             MstPropinsi item = new MstPropinsi();
-            item.setId(jsonObject.getInt(DhSchema.MstPropinsiTable.Cols.ID_PROPINSI));
-            item.setKodeBps(jsonObject.getInt(DhSchema.MstPropinsiTable.Cols.KODEBPS));
-            item.setNama(jsonObject.getString(DhSchema.MstPropinsiTable.Cols.NAMA));
-            item.setKodeiso(jsonObject.getString(DhSchema.MstPropinsiTable.Cols.KODEISO));
-            item.setIbukota(jsonObject.getString(DhSchema.MstPropinsiTable.Cols.IBUKOTA));
-            item.setPulau(jsonObject.getString(DhSchema.MstPropinsiTable.Cols.PULAU));
+            item.setId(jsonObject.getInt(MstPropinsiTable.Cols.ID_PROPINSI));
+            item.setKodeBps(jsonObject.getInt(MstPropinsiTable.Cols.KODEBPS));
+            item.setNama(jsonObject.getString(MstPropinsiTable.Cols.NAMA));
+            item.setKodeiso(jsonObject.getString(MstPropinsiTable.Cols.KODEISO));
+            item.setIbukota(jsonObject.getString(MstPropinsiTable.Cols.IBUKOTA));
+            item.setPulau(jsonObject.getString(MstPropinsiTable.Cols.PULAU));
             items.add(item);
         }
     }
@@ -616,13 +632,13 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             MstKabupaten item = new MstKabupaten();
-            item.setId(jsonObject.getInt(DhSchema.MstKabupatenTable.Cols.ID));
-            item.setNama(jsonObject.getString(DhSchema.MstKabupatenTable.Cols.NAMA));
-            item.setIbuKota(jsonObject.getString(DhSchema.MstKabupatenTable.Cols.IBU_KOTA));
-            item.setId_propinsi(jsonObject.getInt(DhSchema.MstKabupatenTable.Cols.ID_PROPINSI));
-            item.setIbuKotaPropinsi(jsonObject.getInt(DhSchema.MstKabupatenTable.Cols.IBUKOTAPROP));
-            item.setJumlahPenduduk(jsonObject.getInt(DhSchema.MstKabupatenTable.Cols.JMLPENDUDUK));
-            item.setKodebps(jsonObject.getInt(DhSchema.MstKabupatenTable.Cols.KODEBPS));
+            item.setId(jsonObject.getInt(MstKabupatenTable.Cols.ID));
+            item.setNama(jsonObject.getString(MstKabupatenTable.Cols.NAMA));
+            item.setIbuKota(jsonObject.getString(MstKabupatenTable.Cols.IBU_KOTA));
+            item.setId_propinsi(jsonObject.getInt(MstKabupatenTable.Cols.ID_PROPINSI));
+            item.setIbuKotaPropinsi(jsonObject.getInt(MstKabupatenTable.Cols.IBUKOTAPROP));
+            item.setJumlahPenduduk(jsonObject.getInt(MstKabupatenTable.Cols.JMLPENDUDUK));
+            item.setKodebps(jsonObject.getInt(MstKabupatenTable.Cols.KODEBPS));
             items.add(item);
         }
     }
@@ -632,8 +648,8 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             MstAirPelayaran item = new MstAirPelayaran();
-            item.setIdMstAirPelayaran(jsonObject.getInt(DhSchema.MstAirPelayaranTable.Cols.ID_MST_AIR_PELAYARAN));
-            item.setAirPelayaran(jsonObject.getString(DhSchema.MstAirPelayaranTable.Cols.AIR_PELAYARAN));
+            item.setIdMstAirPelayaran(jsonObject.getInt(MstAirPelayaranTable.Cols.ID_MST_AIR_PELAYARAN));
+            item.setAirPelayaran(jsonObject.getString(MstAirPelayaranTable.Cols.AIR_PELAYARAN));
             items.add(item);
         }
     }
@@ -643,8 +659,8 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             MstArus item = new MstArus();
-            item.setIdMstArus(jsonObject.getInt(DhSchema.MstArusTable.Cols.ID_MST_ARUS));
-            item.setArus(jsonObject.getString(DhSchema.MstArusTable.Cols.ARUS));
+            item.setIdMstArus(jsonObject.getInt(MstArusTable.Cols.ID_MST_ARUS));
+            item.setArus(jsonObject.getString(MstArusTable.Cols.ARUS));
             items.add(item);
         }
     }
@@ -654,8 +670,8 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             MstGelombang item = new MstGelombang();
-            item.setIdMstGelombang(jsonObject.getInt(DhSchema.MstGelombangTable.Cols.ID_MST_GELOMBANG));
-            item.setMstGelombang(jsonObject.getString(DhSchema.MstGelombangTable.Cols.MST_GELOMBANG));
+            item.setIdMstGelombang(jsonObject.getInt(MstGelombangTable.Cols.ID_MST_GELOMBANG));
+            item.setMstGelombang(jsonObject.getString(MstGelombangTable.Cols.MST_GELOMBANG));
             items.add(item);
         }
     }
@@ -665,8 +681,8 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             MstJarakKedalaman item = new MstJarakKedalaman();
-            item.setIdMstJarakKedalaman(jsonObject.getInt(DhSchema.MstJarakKedalamanTable.Cols.ID_MST_JARAK_KEDALAMAN));
-            item.setJarakKedalaman(jsonObject.getString(DhSchema.MstJarakKedalamanTable.Cols.JARAK_KEDALAMAN));
+            item.setIdMstJarakKedalaman(jsonObject.getInt(MstJarakKedalamanTable.Cols.ID_MST_JARAK_KEDALAMAN));
+            item.setJarakKedalaman(jsonObject.getString(MstJarakKedalamanTable.Cols.JARAK_KEDALAMAN));
             items.add(item);
         }
     }
@@ -676,9 +692,9 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             MstJenisProduksi item = new MstJenisProduksi();
-            item.setIdMstJenisProduksi(jsonObject.getInt(DhSchema.MstJenisProduksiTable.Cols.ID_MST_JENIS_PRODUKSI));
-            item.setJenisProduksi(jsonObject.getString(DhSchema.MstJenisProduksiTable.Cols.JENIS_PRODUKSI));
-            item.setKki(jsonObject.getString(DhSchema.MstJenisProduksiTable.Cols.KKI));
+            item.setIdMstJenisProduksi(jsonObject.getInt(MstJenisProduksiTable.Cols.ID_MST_JENIS_PRODUKSI));
+            item.setJenisProduksi(jsonObject.getString(MstJenisProduksiTable.Cols.JENIS_PRODUKSI));
+            item.setKki(jsonObject.getString(MstJenisProduksiTable.Cols.KKI));
             items.add(item);
         }
     }
@@ -688,8 +704,8 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             MstPasangSurut item = new MstPasangSurut();
-            item.setIdMstPasangSurut(jsonObject.getInt(DhSchema.MstPasangSurutTable.Cols.ID_MST_PASANG_SURUT));
-            item.setPasangSurut(jsonObject.getString(DhSchema.MstPasangSurutTable.Cols.PASANG_SURUT));
+            item.setIdMstPasangSurut(jsonObject.getInt(MstPasangSurutTable.Cols.ID_MST_PASANG_SURUT));
+            item.setPasangSurut(jsonObject.getString(MstPasangSurutTable.Cols.PASANG_SURUT));
             items.add(item);
         }
     }
@@ -699,11 +715,81 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             MstSatuan item = new MstSatuan();
-            item.setIdMstSatuan(jsonObject.getInt(DhSchema.MstSatuanTable.Cols.ID_MST_SATUAN));
-            item.setSatuan(jsonObject.getString(DhSchema.MstSatuanTable.Cols.SATUAN));
+            item.setIdMstSatuan(jsonObject.getInt(MstSatuanTable.Cols.ID_MST_SATUAN));
+            item.setSatuan(jsonObject.getString(MstSatuanTable.Cols.SATUAN));
             items.add(item);
         }
     }
+
+    public List<MenuCheckingKompal> fetchMenuCheckingKompals(String idKualifikasiSurvey) {
+        List<MenuCheckingKompal> items=new ArrayList<>();
+        String uriMenuCheckingKompal=buildUrl(MenuCheckingKompalENDPOINT,idKualifikasiSurvey);
+        try {
+            String jsonMenuCheckingKompalString=getUrlString(uriMenuCheckingKompal);
+            Log.i(TAG, "Received JSON: " + jsonMenuCheckingKompalString);
+
+            JSONArray jsonMenuCheckingKompalBody=new JSONArray(jsonMenuCheckingKompalString);
+            parseMenuCheckingKompals(items,jsonMenuCheckingKompalBody);
+
+        } catch (JSONException je){
+            Log.e(TAG, "Failed to parse JSON", je);
+        } catch (IOException ioe) {
+            Log.e(TAG, "Failed to fetch items", ioe);
+        }
+
+        return items;
+    }
+
+    public List<MenuCheckingGalpal> fetchMenuCheckingGalpal(String idKualifikasiSurvey) {
+        List<MenuCheckingGalpal> items=new ArrayList<>();
+        String uriMenuCheckingGalpal=buildUrl(MenuCheckingGalpalENDPOINT,idKualifikasiSurvey);
+        try {
+            String jsonMenuCheckingGalpalString=getUrlString(uriMenuCheckingGalpal);
+            Log.i(TAG, "Received JSON: " + jsonMenuCheckingGalpalString);
+
+            JSONArray jsonMenuCheckingGalpalBody=new JSONArray(jsonMenuCheckingGalpalString);
+            parseMenuCheckingGalpals(items,jsonMenuCheckingGalpalBody);
+
+        } catch (JSONException je){
+            Log.e(TAG, "Failed to parse JSON", je);
+        } catch (IOException ioe) {
+            Log.e(TAG, "Failed to fetch items", ioe);
+        }
+
+        return items;
+    }
+
+    private void parseMenuCheckingGalpals(List<MenuCheckingGalpal> items, JSONArray jsonBody) throws IOException, JSONException {
+
+        for (int i = 0; i < jsonBody.length(); i++) {
+            JSONObject jsonObject = jsonBody.getJSONObject(i);
+            MenuCheckingGalpal item = new MenuCheckingGalpal();
+            item.setIdMenuCheckingGalpal(jsonObject.getInt(DhSchema.MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING));
+            item.setIdKualifikasiSurvey(jsonObject.getInt(DhSchema.MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY));
+            item.setIdMenu(jsonObject.getInt(DhSchema.MenuCheckingGalpalTable.Cols.ID_MENU_F1));
+            item.setFill((jsonObject.getInt(DhSchema.MenuCheckingGalpalTable.Cols.IS_FILL)==1));
+            item.setComplete(jsonObject.getInt(DhSchema.MenuCheckingGalpalTable.Cols.IS_COMPLETE)==1);
+            item.setVerified(jsonObject.getInt(DhSchema.MenuCheckingGalpalTable.Cols.IS_VERIFIED)==1);
+            items.add(item);
+        }
+    }
+
+    private void parseMenuCheckingKompals(List<MenuCheckingKompal> items, JSONArray jsonBody) throws IOException, JSONException {
+
+        for (int i = 0; i < jsonBody.length(); i++) {
+            JSONObject jsonObject = jsonBody.getJSONObject(i);
+            MenuCheckingKompal item = new MenuCheckingKompal();
+            item.setIdMenuCheckingKompal(jsonObject.getInt(DhSchema.MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING));
+            item.setIdKualifikasiSurvey(jsonObject.getInt(DhSchema.MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY));
+            item.setIdMenu(jsonObject.getInt(DhSchema.MenuCheckingKompalTable.Cols.ID_MENU_F2));
+            item.setFill((jsonObject.getInt(DhSchema.MenuCheckingKompalTable.Cols.IS_FILL)==1));
+            item.setComplete(jsonObject.getInt(DhSchema.MenuCheckingKompalTable.Cols.IS_COMPLETE)==1);
+            item.setVerified(jsonObject.getInt(DhSchema.MenuCheckingKompalTable.Cols.IS_VERIFIED)==1);
+            items.add(item);
+        }
+    }
+
+
 
 
 

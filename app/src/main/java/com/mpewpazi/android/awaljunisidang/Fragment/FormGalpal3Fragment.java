@@ -112,7 +112,7 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
         mGalpalForms=DummyMaker.get(getActivity()).getGalpalForms();
 
         mNamaPerusahaan=mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan();
-        mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,idMenu);
+        mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,FormGalpal3.kode);
         mPhotoFile=mDummyMaker.getPhotoFile(mFormGalpal3);
 
         mValidator=new Validator(this);

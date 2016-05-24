@@ -24,8 +24,10 @@ import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
 import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DrawerFormActivity extends ActionBarActivity implements CustomClickListener {
@@ -85,7 +87,6 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
        // Fragment fragment=new FormGalpal1Fragment();
         SingleFragment fragment=mSingleForms.get(0).getFragment();
         fragment.setCustomClickListener(this);
-        fragment.setIdMenu(0);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
 
@@ -107,15 +108,19 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
     }
 
     private void addDrawerItems(){
+        mMenuCheckingSingles=new ArrayList<>();
         if(mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getIndustri().equals("Galangan Kapal")){
             mSingleForms=mDummyMaker.getGalpalForms();
             for(SingleForm singleForm:mSingleForms){
                 MenuCheckingGalpal menuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(kualifikasiSurveyId,singleForm.getKodeForm());
+                mMenuCheckingSingles.add(menuCheckingGalpal);
             }
-            mMenuCheckingSingles=mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId);
         }else{
             mSingleForms=mDummyMaker.getKompalForms();
-            mMenuCheckingSingles=mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId);
+            for(SingleForm singleForm:mSingleForms){
+                MenuCheckingKompal menuCheckingKompal=mDummyMaker.getMenuCheckingKompal(kualifikasiSurveyId,singleForm.getKodeForm());
+                mMenuCheckingSingles.add(menuCheckingKompal);
+            }
         }
 
 
@@ -249,8 +254,7 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
         @Override
         public void onClick(View v) {
             SingleFragment fragment=mSingleForm.getFragment();
-            fragment.setCustomClickListener(mCustomClickListener);
-            fragment.setIdMenu(getPosition());
+            fragment.setCustomClickListener(mCustomClickListener);;
             if (fragment != null) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
