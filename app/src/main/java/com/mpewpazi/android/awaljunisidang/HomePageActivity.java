@@ -1,13 +1,16 @@
 package com.mpewpazi.android.awaljunisidang;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
@@ -65,10 +68,14 @@ public class HomePageActivity extends AppCompatActivity {
         private TextView mNamaPerusahaanTextView;
         private TextView mJenisObjekTextView;
         private TextView mProgressTextView;
+        private TextView mStatusTextView;
+        private Button mSubmitButton;
+
+        int statusClick=0;
 
 
-        private KualifikasiSurvey mKualifikasiSurvey;
         public KualifikasiSurvey kualifikasiSurvey;
+
 
         public KualifikasiSurveyHolder(View itemView) {
             super(itemView);
@@ -77,20 +84,81 @@ public class HomePageActivity extends AppCompatActivity {
             mNamaPerusahaanTextView=(TextView)itemView.findViewById(R.id.survey_nama_perusahaan);
             mJenisObjekTextView=(TextView)itemView.findViewById(R.id.survey_jenis_objek_survey);
             mProgressTextView=(TextView)itemView.findViewById(R.id.survey_progres_persen);
-
+            mStatusTextView=(TextView)itemView.findViewById(R.id.survey_status_survey);
+            mSubmitButton=(Button)itemView.findViewById(R.id.survey_submit_button);
         }
 
-        public void bindSurvey(KualifikasiSurvey kualifikasiSurvey) {
+        public void bindSurvey(final KualifikasiSurvey kualifikasiSurvey) {
 
-            mKualifikasiSurvey = kualifikasiSurvey;
             String namaPerusahaan=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan();
-            String periodeSurvey=mDummyMaker.getPeriodeSurvey(kualifikasiSurvey.getPeriodeSurveyId()).getTahunKualifikasi();
             String jeisObjek=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri();
+            String statusKeterangan="";
+            String btnText="Kirim";
+            int color=0;
+
+            switch(kualifikasiSurvey.getStatus()){
+                case 0:
+                    statusClick=1;
+                    statusKeterangan="Belum Lengkap";
+                    color=getResources().getColor(android.R.color.holo_red_light);
+                    break;
+                case 1:
+                    statusKeterangan="Menunggu Verifikasi";
+
+                    color=getResources().getColor(android.R.color.darker_gray);
+                    btnText="-";
+                    mSubmitButton.setEnabled(false);
+                    break;
+                case 2:
+                    statusClick=4;
+                    statusKeterangan="Revisi";
+                    color=getResources().getColor(android.R.color.holo_red_light);
+                    break;
+                case 3:
+                    statusKeterangan="Terverifikasi";
+                    color=getResources().getColor(android.R.color.holo_green_light);
+                    btnText="-";
+                    mSubmitButton.setEnabled(false);
+                    break;
+                case 4:
+                    statusKeterangan="Telah Direvisi";
+                    color=getResources().getColor(android.R.color.darker_gray);
+                    btnText="-";
+                    mSubmitButton.setEnabled(false);
+                    break;
+            }
+
             mNamaPerusahaanTextView.setText(namaPerusahaan);
             mJenisObjekTextView.setText(jeisObjek);
             mProgressTextView.setText(String.valueOf(kualifikasiSurvey.getProgress())+"%");
+            mStatusTextView.setText(statusKeterangan);
+            mStatusTextView.setTextColor(color);
+            mSubmitButton.setBackgroundColor(color);
+            mSubmitButton.setText(btnText);
+            mSubmitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(HomePageActivity.this);
+                    alertDialogBuilder.setMessage("Apakah Anda Yakin Akan Mengirim Kualifikasi Survey Ini");
 
+                    alertDialogBuilder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            kualifikasiSurvey.setStatus(statusClick);
+                            mDummyMaker.addKualifikasiSurvey(kualifikasiSurvey);
+                            updateUi();
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
+                        }
+                    });
+
+                    alertDialogBuilder.show();
+                }
+            });
         }
 
         @Override

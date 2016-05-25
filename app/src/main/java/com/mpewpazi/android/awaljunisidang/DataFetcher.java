@@ -80,6 +80,7 @@ public class DataFetcher {
     private static final Uri FK3bENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2JumlahProduksi/api/id");
     private static final Uri FK3cENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2SistemBerproduksi/api/id");
     private static final Uri FK3dENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2StandardMutu/api/id");
+    private static final Uri KualifikasiSurveyENDPOINT=Uri.parse("http://192.168.1.100/galpal/kualifikasiSurvey/api/id");
 
     private static final String MSTPropinsiENDPOINT="http://192.168.1.100/galpal/mstPropinsi/api";
     private static final String MSTKabupatenENDPOINT="http://192.168.1.100/galpal/mstKabupatenkota/api";
@@ -91,7 +92,7 @@ public class DataFetcher {
     private static final String MSTSatuanENDPOINT="http://192.168.1.100/galpal/mstSatuan/api";
     private static final String MSTJenisProduksiENDPOINT="http://192.168.1.100/galpal/mstJenisProduksi/api";
 
-    private static final String KualifikasiSurveyENDPOINT="http://192.168.1.100/galpal/kualifikasiSurvey/api";
+    private static final String KualifikasiSurveysENDPOINT="http://192.168.1.100/galpal/kualifikasiSurvey/api";
 
     private static final Uri MenuCheckingGalpalENDPOINT = Uri.parse("http://192.168.1.100/galpal/menuF1EntryChecking/api/id");
     private static final Uri MenuCheckingKompalENDPOINT = Uri.parse("http://192.168.1.100/galpal/menuF2EntryChecking/api/id");
@@ -203,7 +204,7 @@ public class DataFetcher {
 
         try {
 
-            String jsonString = getUrlString(KualifikasiSurveyENDPOINT);
+            String jsonString = getUrlString(KualifikasiSurveysENDPOINT);
             Log.i(TAG, "Received JSON: " + jsonString);
             JSONArray jsonBody = new JSONArray(jsonString);
             parseKualifikasiSurveys(items,jsonBody);
@@ -214,6 +215,39 @@ public class DataFetcher {
         }
 
         return items;
+    }
+
+    public KualifikasiSurvey fetchKualifikasiSurvey(String idKualifikasiSurvey){
+
+        KualifikasiSurvey mKualifikasiSurvey=new KualifikasiSurvey();
+        String uriKualifikasiSurvey=buildUrl(KualifikasiSurveyENDPOINT,idKualifikasiSurvey);
+
+        try {
+            String jsonKualifikasiSurveyString=getUrlString(uriKualifikasiSurvey);
+
+            Log.i(TAG, "Received JSON: " + jsonKualifikasiSurveyString);
+
+            JSONObject jsonKualifikasiSurveyBody = new JSONObject(jsonKualifikasiSurveyString);
+
+            parseKualifikasiSurvey(mKualifikasiSurvey,jsonKualifikasiSurveyBody);
+
+
+        } catch (JSONException je){
+            Log.e(TAG, "Failed to parse JSON", je);
+        } catch (IOException ioe) {
+            Log.e(TAG, "Failed to fetch items", ioe);
+        }
+
+        return mKualifikasiSurvey;
+    }
+
+    private void parseKualifikasiSurvey(KualifikasiSurvey kualifikasiSurvey, JSONObject jsonObject) throws IOException, JSONException {
+        kualifikasiSurvey.setKualifikasiSurveyId(jsonObject.getInt(KualifikasiSurveyTable.Cols.ID_KUALIFIKASI_SURVEY));
+        kualifikasiSurvey.setPerusahaanId(jsonObject.getInt(KualifikasiSurveyTable.Cols.ID_PERUSAHAAN));
+        kualifikasiSurvey.setPeriodeSurveyId(jsonObject.getInt(KualifikasiSurveyTable.Cols.ID_PERIODE));
+        kualifikasiSurvey.setGalanganKapalId(jsonObject.getInt(KualifikasiSurveyTable.Cols.ID_GALANGAN_KAPAL));
+        kualifikasiSurvey.setStatus(jsonObject.getInt(KualifikasiSurveyTable.Cols.STATUS));
+
     }
 
     private void parseKualifikasiSurveys(List<KualifikasiSurvey> items, JSONArray jsonBody) throws IOException, JSONException {
@@ -229,6 +263,8 @@ public class DataFetcher {
             items.add(item);
         }
     }
+
+
 
     public List<PeriodeSurvey> fetchPeriodeSurveys() {
         List<PeriodeSurvey> items=new ArrayList<>();

@@ -60,7 +60,9 @@ public class ListFormKompal3cFragment extends SingleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_form_kompal3c_list, container, false);
-
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+            setViewEnabledFalse(view);
+        }
 
         mFormKompal3cRecyclerView = (RecyclerView) view.findViewById(R.id.form_kompal3c_recycler_view);
         mSubmitButton=(Button)view.findViewById(R.id.kompal3c_btn_submit);
@@ -137,6 +139,9 @@ public class ListFormKompal3cFragment extends SingleFragment {
             mNamaProdukTextView.setText(mFormKompal3c.getNamaProduk());
             mSistemProduksiTextView.setText(String.valueOf(mFormKompal3c.getSistemProduksi()));
             mNoTextView.setText(String.valueOf(no));
+            if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+                mDeleteButton.setVisibility(View.GONE);
+            }
             mDeleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -220,7 +225,9 @@ public class ListFormKompal3cFragment extends SingleFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_form_list, menu);
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2){
+            inflater.inflate(R.menu.fragment_form_list, menu);
+        }
     }
 
     @Override

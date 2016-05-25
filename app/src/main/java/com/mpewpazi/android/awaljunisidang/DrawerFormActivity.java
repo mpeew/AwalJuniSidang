@@ -270,6 +270,7 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
         private List<SingleForm> mSingleForms;
         private CustomClickListener mCustomClickListener;
         private List<SingleMenuChecking> mMenuCheckingSingles;
+
         public SingleFormAdapter(List<SingleForm> singleForms,List<SingleMenuChecking> menuCheckingGalpals,CustomClickListener customClickListener){
             mMenuCheckingSingles=menuCheckingGalpals;
             mSingleForms=singleForms;

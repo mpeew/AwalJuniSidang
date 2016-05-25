@@ -135,6 +135,10 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
 
         View rootView = inflater.inflate(R.layout.fragment_form_galpal1, container, false);
 
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+            setViewEnabledFalse(rootView);
+        }
+
 
 
         mNamaPerusahaanEditText=(EditText)rootView.findViewById(R.id.galpal1_nama_perusahaan);
@@ -545,4 +549,6 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
         isValidated=false;
 
     }
+
+
 }

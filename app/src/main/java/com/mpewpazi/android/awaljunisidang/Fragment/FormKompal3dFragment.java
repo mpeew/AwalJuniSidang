@@ -2,7 +2,6 @@ package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -18,6 +17,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +25,7 @@ import java.util.UUID;
 /**
  * Created by mpewpazi on 5/6/16.
  */
-public class FormKompal3dFragment extends Fragment implements Validator.ValidationListener {
+public class FormKompal3dFragment extends SingleFragment implements Validator.ValidationListener {
     private static final String ARG_FORMKOMPAL3d_ID="formkompal3d_id";
     private static final String ARG_FORMKOMPAL3d_KUALIFIKASI_SURVEY_ID="formkompal3d_kualifikasi_id";
 
@@ -41,6 +41,7 @@ public class FormKompal3dFragment extends Fragment implements Validator.Validati
     private boolean isSaveButtonUnpressed=true;
 
     private FormKompal3d mFormKompal3d;
+    private KualifikasiSurvey mKualifikasiSurvey;
 
 
 
@@ -66,6 +67,7 @@ public class FormKompal3dFragment extends Fragment implements Validator.Validati
         UUID formKompal3dId=(UUID)getArguments().getSerializable(ARG_FORMKOMPAL3d_ID);
 
         mFormKompal3d= DummyMaker.get(getActivity()).getFormKompal3d(formKompal3dId);
+        mKualifikasiSurvey=DummyMaker.get(getActivity()).getKualifikasiSurvey(kualifikasiSurveyId);
 
         mValidator=new Validator(this);
         mValidator.setValidationListener(this);
@@ -78,7 +80,9 @@ public class FormKompal3dFragment extends Fragment implements Validator.Validati
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_form_kompal3d, container, false);
-
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+            setViewEnabledFalse(rootView);
+        }
         mJenisStandarMutuEditText=(EditText)rootView.findViewById(R.id.kompal3d_jenis_standar_mutu);
         mKeteranganEditText=(EditText)rootView.findViewById(R.id.kompal3d_keterangan);
 

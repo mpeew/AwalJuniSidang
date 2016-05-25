@@ -2,7 +2,6 @@ package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -19,6 +18,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,7 +26,7 @@ import java.util.UUID;
 /**
  * Created by mpewpazi on 5/6/16.
  */
-public class FormKompal3cFragment extends Fragment implements Validator.ValidationListener {
+public class FormKompal3cFragment extends SingleFragment implements Validator.ValidationListener {
 
     private static final String ARG_FORMKOMPAL3c_ID="formkompal3c_id";
     private static final String ARG_FORMKOMPAL3c_KUALIFIKASI_SURVEY_ID="formkompal3c_kualifikasi_id";
@@ -49,6 +49,7 @@ public class FormKompal3cFragment extends Fragment implements Validator.Validati
     private boolean isSaveButtonUnpressed=true;
 
     private FormKompal3c mFormKompal3c;
+    private KualifikasiSurvey mKualifikasiSurvey;
 
 
 
@@ -73,8 +74,10 @@ public class FormKompal3cFragment extends Fragment implements Validator.Validati
         int kualifikasiSurveyId=getArguments().getInt(ARG_FORMKOMPAL3c_KUALIFIKASI_SURVEY_ID);
         UUID formKompal3cId=(UUID)getArguments().getSerializable(ARG_FORMKOMPAL3c_ID);
 
+
         //----------------------------------------------- ----------------------------------------------- -----------------------------------------------
         mFormKompal3c= DummyMaker.get(getActivity()).getFormKompal3c(formKompal3cId);
+        mKualifikasiSurvey=DummyMaker.get(getActivity()).getKualifikasiSurvey(kualifikasiSurveyId);
 
         mValidator=new Validator(this);
         mValidator.setValidationListener(this);
@@ -86,6 +89,9 @@ public class FormKompal3cFragment extends Fragment implements Validator.Validati
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_form_kompal3c, container, false);
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+            setViewEnabledFalse(rootView);
+        }
 
         mNamaProdukSpinner=(Spinner)rootView.findViewById(R.id.kompal3c_nama_produk);
         mSistemProduksiSpinner=(Spinner)rootView.findViewById(R.id.kompal3c_sistem_produksi);

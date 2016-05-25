@@ -203,6 +203,7 @@ public class DummyMaker {
         kualifikasiSurvey.setPerusahaanId(1);
         kualifikasiSurvey.setPeriodeSurveyId(2014);
         kualifikasiSurvey.setGalanganKapalId(1);
+        kualifikasiSurvey.setStatus(0);
         kualifikasiSurvey.setProgress(0);
         if(getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri().equals("Galangan Kapal")){
             addGalpalForms(1,kualifikasiSurvey.getKualifikasiSurveyId());
@@ -216,6 +217,7 @@ public class DummyMaker {
         kualifikasiSurvey1.setKualifikasiSurveyId(20150291);
         kualifikasiSurvey1.setPerusahaanId(2);
         kualifikasiSurvey1.setPeriodeSurveyId(2014);
+        kualifikasiSurvey1.setStatus(1);
         kualifikasiSurvey1.setGalanganKapalId(1);
         if(getPerusahaan(kualifikasiSurvey1.getPerusahaanId()).getIndustri().equals("Galangan Kapal")) {
            addGalpalForms(2, kualifikasiSurvey1.getKualifikasiSurveyId());
@@ -230,6 +232,7 @@ public class DummyMaker {
         kualifikasiSurvey2.setPerusahaanId(3);
         kualifikasiSurvey2.setPeriodeSurveyId(2014);
         kualifikasiSurvey2.setGalanganKapalId(1);
+        kualifikasiSurvey2.setStatus(2);
         if(getPerusahaan(kualifikasiSurvey2.getPerusahaanId()).getIndustri().equals("Galangan Kapal")) {
             addGalpalForms(3, kualifikasiSurvey2.getKualifikasiSurveyId());
             addMenuCheckingGalpals(kualifikasiSurvey2.getKualifikasiSurveyId());
@@ -243,6 +246,7 @@ public class DummyMaker {
         kualifikasiSurvey3.setPerusahaanId(4);
         kualifikasiSurvey3.setPeriodeSurveyId(2014);
         kualifikasiSurvey3.setGalanganKapalId(1);
+        kualifikasiSurvey3.setStatus(3);
         if(getPerusahaan(kualifikasiSurvey3.getPerusahaanId()).getIndustri().equals("Galangan Kapal")) {
             addGalpalForms(4, kualifikasiSurvey3.getKualifikasiSurveyId());
             addMenuCheckingGalpals(kualifikasiSurvey3.getKualifikasiSurveyId());

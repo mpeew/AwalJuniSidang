@@ -2,7 +2,6 @@ package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -19,6 +18,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,7 +26,7 @@ import java.util.UUID;
 /**
  * Created by mpewpazi on 5/6/16.
  */
-public class FormKompal3bFragment extends Fragment implements Validator.ValidationListener {
+public class FormKompal3bFragment extends SingleFragment implements Validator.ValidationListener {
     private static final String ARG_FORMKOMPAL3b_ID="formkompal3b_id";
     private static final String ARG_FORMKOMPAL3b_KUALIFIKASI_SURVEY_ID="formkompal3b_kualifikasi_id";
 
@@ -58,6 +58,7 @@ public class FormKompal3bFragment extends Fragment implements Validator.Validati
     private boolean isSaveButtonUnpressed=true;
 
     private FormKompal3b mFormKompal3b;
+    private KualifikasiSurvey mKualifikasiSurvey;
 
 
 
@@ -84,6 +85,7 @@ public class FormKompal3bFragment extends Fragment implements Validator.Validati
 
         //----------------------------------------------- ----------------------------------------------- -----------------------------------------------
         mFormKompal3b= DummyMaker.get(getActivity()).getFormKompal3b(formKompal3bId);
+        mKualifikasiSurvey=DummyMaker.get(getActivity()).getKualifikasiSurvey(kualifikasiSurveyId);
 
         mValidator=new Validator(this);
         mValidator.setValidationListener(this);
@@ -95,6 +97,9 @@ public class FormKompal3bFragment extends Fragment implements Validator.Validati
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_form_kompal3b, container, false);
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+            setViewEnabledFalse(rootView);
+        }
 
         mjenisProdukSpinner=(Spinner)rootView.findViewById(R.id.kompal3b_jenis_produk);
         mJumlahProduksiThn1EditText=(EditText)rootView.findViewById(R.id.kompal3b_jumlah_prod_2011);

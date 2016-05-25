@@ -91,6 +91,9 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
 
 
         View rootView = inflater.inflate(R.layout.fragment_form_galpal4, container, false);
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+            setViewEnabledFalse(rootView);
+        }
 
         mJarakKedalamanSpinner=(Spinner)rootView.findViewById(R.id.kompal1_jarak_kedalaman_spinner);
         mAirPelayaranSpinner=(Spinner)rootView.findViewById(R.id.kompal1_air_pelayaran_spinner);

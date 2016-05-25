@@ -71,7 +71,9 @@ public class ListFormGalpal6Fragment extends SingleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_form_galpal6_list, container, false);
-
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+            setViewEnabledFalse(view);
+        }
 
         mFormGalpal6RecyclerView = (RecyclerView) view.findViewById(R.id.form_galpal6_recycler_view);
 
@@ -157,6 +159,9 @@ public class ListFormGalpal6Fragment extends SingleFragment {
             mJenisMesinTextView.setText(mFormGalpal6.getJenisMesin());
             mMerekTextView.setText(mFormGalpal6.getMerek());
             mNoTextView.setText(String.valueOf(no));
+            if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+                mDeleteButton.setVisibility(View.GONE);
+            }
             mDeleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -218,6 +223,7 @@ public class ListFormGalpal6Fragment extends SingleFragment {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             View view = layoutInflater
                     .inflate(R.layout.list_item_form_galpal6, parent, false);
+
             return new FormGalpal6Holder(view);
         }
 
@@ -240,7 +246,9 @@ public class ListFormGalpal6Fragment extends SingleFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_form_list, menu);
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2){
+            inflater.inflate(R.menu.fragment_form_list, menu);
+        }
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -26,7 +25,7 @@ import java.util.UUID;
 /**
  * Created by mpewpazi on 4/18/16.
  */
-public class FormGalpal6Fragment extends Fragment implements Validator.ValidationListener {
+public class FormGalpal6Fragment extends SingleFragment implements Validator.ValidationListener {
     private final static String NAMA_FORM="Peralatan Ruang Kerja Luar Ruang Cranes";
     private static final String ARG_FORMGALPAL6_ID="formgalpal6_id";
     private static final String ARG_FORMGALPAL6_KUALIFIKASI_SURVEY_ID="formgalpal6_kualifikasi_id";
@@ -90,6 +89,7 @@ public class FormGalpal6Fragment extends Fragment implements Validator.Validatio
         int kualifikasiSurveyId=getArguments().getInt(ARG_FORMGALPAL6_KUALIFIKASI_SURVEY_ID);
         UUID formGalpal6Id=(UUID)getArguments().getSerializable(ARG_FORMGALPAL6_ID);
 
+        mKualifikasiSurvey=DummyMaker.get(getActivity()).getKualifikasiSurvey(kualifikasiSurveyId);
         mFormGalpal6= DummyMaker.get(getActivity()).getFormGalpal6(formGalpal6Id);
 
         mValidator=new Validator(this);
@@ -103,6 +103,9 @@ public class FormGalpal6Fragment extends Fragment implements Validator.Validatio
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_form_galpal6, container, false);
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+            setViewEnabledFalse(rootView);
+        }
 
         mJenisMesinEditText=(EditText)rootView.findViewById(R.id.galpal6_jenis_mesin);
         mTahunPembuatanEditText=(EditText)rootView.findViewById(R.id.galpal6_tahun_pembuatan);
