@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_margin="7dp"
+    android:layout_margin="4dp"
     android:padding="5dp"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="4dp">
+    card_view:cardCornerRadius="7dp">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -20,46 +20,51 @@
             android:layout_marginLeft="5dp"
             android:padding="5dp"
             android:orientation="vertical"
-            android:layout_weight="65"
+            android:layout_weight="79"
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/survey_nama_perusahaan"
                 android:textSize="18dp"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="PT XYZ"/>
+                tools:text="PT Inti Perkasa Sejahtera"/>
 
             <TextView
                 android:id="@+id/survey_jenis_objek_survey"
-                android:textSize="11dp"
-                android:textStyle="italic"
+                android:textSize="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/survey_periode_survey"
+                android:id="@+id/survey_status_survey"
+                android:textSize="13dp"
+                android:textStyle="italic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="20 Oktober"/>
+                android:text="Belum Lengkap"
+                android:textColor="@android:color/holo_green_light"/>
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_weight="15"
-            android:padding="5dp"
-            android:id="@+id/survey_gembok_image"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
 
         <TextView
             android:gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="20"
+            android:layout_weight="18"
             android:textSize="27dp"
-            android:padding="5dp"
+            android:paddingLeft="10dp"
             android:id="@+id/survey_progres_persen"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            tools:text="15%"/>
+
+        <Button
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_red_light"
+            android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
 

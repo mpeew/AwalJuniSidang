@@ -30,7 +30,7 @@ public class FormGalpal4 extends SingleForm {
     private String rutrw;
     private String note;
 
-    public static final int kode=4;
+    public static final int kode=5;
 
 
     public int getIdPeriode() {

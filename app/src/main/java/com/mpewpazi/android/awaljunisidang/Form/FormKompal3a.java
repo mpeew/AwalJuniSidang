@@ -17,7 +17,7 @@ public class FormKompal3a extends SingleForm {
     private int satuan;
     private String note;
 
-    public static final int kode=3;
+    public static final int kode=4;
 
     public int getIdJenisKapasitasProduksiServer() {
         return idJenisKapasitasProduksiServer;

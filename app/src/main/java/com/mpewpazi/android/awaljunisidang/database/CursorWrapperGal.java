@@ -131,6 +131,7 @@ public class CursorWrapperGal extends CursorWrapper{
         int idPerusahaan=getInt(getColumnIndex(KualifikasiSurveyTable.Cols.ID_PERUSAHAAN));
         int idPeriodeSurvey=getInt(getColumnIndex(KualifikasiSurveyTable.Cols.ID_PERIODE));
         int idGalangan=getInt(getColumnIndex(KualifikasiSurveyTable.Cols.ID_GALANGAN_KAPAL));
+        int status=getInt(getColumnIndex(KualifikasiSurveyTable.Cols.STATUS));
         int progress=getInt(getColumnIndex(KualifikasiSurveyTable.Cols.PROGRESS));
 
         KualifikasiSurvey kualifikasiSurvey=new KualifikasiSurvey();
@@ -138,6 +139,7 @@ public class CursorWrapperGal extends CursorWrapper{
         kualifikasiSurvey.setPerusahaanId(idPerusahaan);
         kualifikasiSurvey.setPeriodeSurveyId(idPeriodeSurvey);
         kualifikasiSurvey.setGalanganKapalId(idGalangan);
+        kualifikasiSurvey.setStatus(status);
         kualifikasiSurvey.setProgress(progress);
 
         return kualifikasiSurvey;

@@ -91,6 +91,8 @@ public class DataFetcher {
     private static final String MSTSatuanENDPOINT="http://192.168.1.100/galpal/mstSatuan/api";
     private static final String MSTJenisProduksiENDPOINT="http://192.168.1.100/galpal/mstJenisProduksi/api";
 
+    private static final String KualifikasiSurveyENDPOINT="http://192.168.1.100/galpal/kualifikasiSurvey/api";
+
     private static final Uri MenuCheckingGalpalENDPOINT = Uri.parse("http://192.168.1.100/galpal/menuF1EntryChecking/api/id");
     private static final Uri MenuCheckingKompalENDPOINT = Uri.parse("http://192.168.1.100/galpal/menuF2EntryChecking/api/id");
 
@@ -201,7 +203,7 @@ public class DataFetcher {
 
         try {
 
-            String jsonString = getUrlString("http://192.168.1.102/galpal/");
+            String jsonString = getUrlString(KualifikasiSurveyENDPOINT);
             Log.i(TAG, "Received JSON: " + jsonString);
             JSONArray jsonBody = new JSONArray(jsonString);
             parseKualifikasiSurveys(items,jsonBody);

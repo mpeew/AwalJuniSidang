@@ -16,7 +16,7 @@ public class FormKompal3d extends SingleForm {
     private String keterangan;
     private String note;
 
-    public static final int kode=6;
+    public static final int kode=7;
 
     public int getIdStandarMutuServer() {
         return idStandarMutuServer;

@@ -42,7 +42,7 @@ public class FormGalpal6  extends SingleForm {
         this.note = note;
     }
 
-    public static final int kode=6;
+    public static final int kode=7;
 
     public int getIdPeralatanKerjaCraneServer() {
         return idPeralatanKerjaCraneServer;

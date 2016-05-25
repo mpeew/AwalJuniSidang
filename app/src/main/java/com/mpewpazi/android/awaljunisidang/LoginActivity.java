@@ -74,16 +74,13 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
         validator=new Validator(this);
         validator.setValidationListener(this);
-        new FetchMenuCheckingGalpalTask(String.valueOf(20150001)).execute();
-        new FetchMenuCheckingKompalTask(String.valueOf(20150001)).execute();
-       // new FetchMstDataTask().execute();
 
         mDummyMaker=DummyMaker.get(this);
         mKualifikasiSurveys=mDummyMaker.getKualifikasiSurveys();
 
 
 
-        new PushTask().execute();
+        //new PushTask().execute();
         /*for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys) {
             String jenisIndustri=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri();
             if(jenisIndustri.equals("Galangan Kapal")) {
@@ -156,7 +153,14 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         @Override
         protected Void doInBackground(Void... params) {
 
-            //new DataPusher().makePostRequestFG1();
+            MenuCheckingGalpal menuCheckingGalpal=new MenuCheckingGalpal();
+            menuCheckingGalpal.setIdMenu(1);
+            menuCheckingGalpal.setIdKualifikasiSurvey(222);
+            menuCheckingGalpal.setFill(true);
+            menuCheckingGalpal.setComplete(true);
+            menuCheckingGalpal.setVerified(false);
+            new DataPusher().makePostRequestMenuCheckingGalpal(menuCheckingGalpal);
+
             return null;
         }
     }
@@ -327,6 +331,23 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         @Override
         protected void onPostExecute(List<MenuCheckingKompal> menuCheckingKompals) {
             Log.i("a",String.valueOf(menuCheckingKompals.get(0).getIdKualifikasiSurvey()));
+        }
+    }
+
+    private class FetchKualifikasiSurveyTask extends AsyncTask<Void,Void,List<KualifikasiSurvey>> {
+
+
+        @Override
+        protected List<KualifikasiSurvey> doInBackground(Void... params) {
+            Log.i("a", "Received JSON ");
+            return new DataFetcher().fetchKualifikasiSurveys();
+        }
+
+
+
+        @Override
+        protected void onPostExecute(List<KualifikasiSurvey> kualifikasiSurveys) {
+            Log.i("a",String.valueOf(kualifikasiSurveys.get(0).getKualifikasiSurveyId()));
         }
     }
 }

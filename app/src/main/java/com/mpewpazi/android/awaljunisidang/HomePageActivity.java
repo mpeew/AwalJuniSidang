@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
@@ -64,10 +63,9 @@ public class HomePageActivity extends AppCompatActivity {
         private static final String EXTRA_ID_SURVEY_KUALIFIKASI="test";
 
         private TextView mNamaPerusahaanTextView;
-        private TextView mPeriodeSurveyTextView;
         private TextView mJenisObjekTextView;
         private TextView mProgressTextView;
-        private ImageView mImageViewGembok;
+
 
         private KualifikasiSurvey mKualifikasiSurvey;
         public KualifikasiSurvey kualifikasiSurvey;
@@ -77,10 +75,9 @@ public class HomePageActivity extends AppCompatActivity {
             itemView.setOnClickListener(this);
 
             mNamaPerusahaanTextView=(TextView)itemView.findViewById(R.id.survey_nama_perusahaan);
-            mPeriodeSurveyTextView=(TextView)itemView.findViewById(R.id.survey_periode_survey);
             mJenisObjekTextView=(TextView)itemView.findViewById(R.id.survey_jenis_objek_survey);
             mProgressTextView=(TextView)itemView.findViewById(R.id.survey_progres_persen);
-            mImageViewGembok=(ImageView)itemView.findViewById(R.id.survey_gembok_image);
+
         }
 
         public void bindSurvey(KualifikasiSurvey kualifikasiSurvey) {
@@ -91,9 +88,8 @@ public class HomePageActivity extends AppCompatActivity {
             String jeisObjek=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri();
             mNamaPerusahaanTextView.setText(namaPerusahaan);
             mJenisObjekTextView.setText(jeisObjek);
-            mPeriodeSurveyTextView.setText(periodeSurvey);
             mProgressTextView.setText(String.valueOf(kualifikasiSurvey.getProgress())+"%");
-            mImageViewGembok.setImageResource(R.drawable.lock);
+
 
         }
 

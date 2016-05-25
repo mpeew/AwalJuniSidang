@@ -21,7 +21,7 @@ public class FormKompal3c extends SingleForm {
     private int jumlahProduksiThn4;
     private String note;
 
-    public static final int kode=5;
+    public static final int kode=6;
 
     public int getIdSistemBerproduksiServer() {
         return idSistemBerproduksiServer;
