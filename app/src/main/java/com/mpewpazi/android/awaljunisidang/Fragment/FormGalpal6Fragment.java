@@ -1,5 +1,6 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
@@ -312,6 +314,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
                     return;
                 }
                 DummyMaker.get(getActivity()).addFormGalpal6(mFormGalpal6);
+                new PushTask().execute();
                 getActivity().finish();
 
             }
@@ -345,5 +348,16 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
             }
         }
         isValidated=false;
+    }
+
+    private class PushTask extends AsyncTask<Void,Void,Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            new DataPusher().makePostRequestFG6(mFormGalpal6);
+            return null;
+        }
     }
 }

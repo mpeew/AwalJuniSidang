@@ -1,5 +1,6 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
@@ -135,6 +137,7 @@ public class FormKompal3dFragment extends SingleFragment implements Validator.Va
                     return;
                 }
                 DummyMaker.get(getActivity()).addFormKompal3d(mFormKompal3d);
+                new PushTask().execute();
                 getActivity().finish();
 
             }
@@ -168,4 +171,16 @@ public class FormKompal3dFragment extends SingleFragment implements Validator.Va
         }
         isValidated=false;
     }
+
+    private class PushTask extends AsyncTask<Void,Void,Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            new DataPusher().makePostRequestFK3d(mFormKompal3d);
+            return null;
+        }
+    }
+
 }

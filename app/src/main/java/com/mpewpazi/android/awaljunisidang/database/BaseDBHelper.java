@@ -416,6 +416,20 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                 MstJenisProduksiTable.Cols.KKI+" )"
         );
 
+        db.execSQL(
+                "create table "+MenuF1Table.NAME+
+                        "("+MenuF1Table.Cols.ID_MENU_F1+" integer primary key ," +
+                        MenuF1Table.Cols.NUMBER+" ," +
+                        MenuF1Table.Cols.NAMA_MENU+" )"
+        );
+
+        db.execSQL(
+                "create table "+MenuF2Table.NAME+
+                        "("+MenuF2Table.Cols.ID_MENU_F2+" integer primary key ," +
+                        MenuF2Table.Cols.NUMBER+" ," +
+                        MenuF2Table.Cols.NAMA_MENU+" )"
+        );
+
 
 
        /* contoh
