@@ -19,28 +19,28 @@
 
 
             <TextView
-                android:id="@+id/list_item_galpal6_no"
+                android:id="@+id/list_item_galpal_peralatan_no"
                 android:layout_weight="10"
                 android:layout_width="0dp"
                 android:layout_margin="10dp"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/list_item_galpal6_jenis_mesin"
+                android:id="@+id/list_item_galpal_peralatan_jenis_mesin"
                 android:layout_weight="45"
                 android:layout_width="0dp"
                 android:layout_margin="10dp"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/list_item_galpal6_merek"
+                android:id="@+id/list_item_galpal_peralatan_merek"
                 android:layout_weight="45"
                 android:layout_width="0dp"
                 android:layout_margin="10dp"
                 android:layout_height="wrap_content"/>
 
             <ImageButton
-                android:id="@+id/list_item_galpal6_delete"
+                android:id="@+id/list_item_galpal_peralatan_delete"
                 android:background="@android:color/white"
                 android:src="@drawable/delete_icon"
                 android:layout_weight="15"

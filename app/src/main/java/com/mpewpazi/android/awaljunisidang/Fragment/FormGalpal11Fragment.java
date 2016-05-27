@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal11;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
@@ -24,12 +24,11 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Created by mpewpazi on 4/18/16.
+ * Created by mpewpazi on 5/27/16.
  */
-public class FormGalpal6Fragment extends SingleFragment implements Validator.ValidationListener {
-
-    private static final String ARG_FORMGALPAL6_ID="formgalpal6_id";
-    private static final String ARG_FORMGALPAL6_KUALIFIKASI_SURVEY_ID="formgalpal6_kualifikasi_id";
+public class FormGalpal11Fragment extends SingleFragment implements Validator.ValidationListener {
+    private static final String ARG_FORMGALPAL11_ID="formgalpal11_id";
+    private static final String ARG_FORMGALPAL11_KUALIFIKASI_SURVEY_ID="formgalpal11_kualifikasi_id";
 
     private Validator mValidator;
     private boolean isValidated;
@@ -60,8 +59,8 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
     private Button mSaveButton;
 
 
-    private List<FormGalpal6> mFormGalpal6s;
-    private FormGalpal6 mFormGalpal6;
+    private List<FormGalpal11> mFormGalpal11s;
+    private FormGalpal11 mFormGalpal11;
 
     private KualifikasiSurvey mKualifikasiSurvey;
     private MenuCheckingGalpal mMenuCheckingGalpal;
@@ -69,15 +68,15 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
 
 
-    public static FormGalpal6Fragment newInstance(UUID id, int kualifikasiSurveyId){
+    public static FormGalpal11Fragment newInstance(UUID id, int kualifikasiSurveyId){
         //bundle itu berisi key-value fair seperti intent
 
         //bundle tidak jauh seperti intent penggunannya
         Bundle args=new Bundle();
-        args.putSerializable(ARG_FORMGALPAL6_ID, id);
-        args.putInt(ARG_FORMGALPAL6_KUALIFIKASI_SURVEY_ID, kualifikasiSurveyId);
+        args.putSerializable(ARG_FORMGALPAL11_ID, id);
+        args.putInt(ARG_FORMGALPAL11_KUALIFIKASI_SURVEY_ID, kualifikasiSurveyId);
 
-        FormGalpal6Fragment fragment=new FormGalpal6Fragment();
+        FormGalpal11Fragment fragment=new FormGalpal11Fragment();
         fragment.setArguments(args);
 
         return fragment;
@@ -88,12 +87,12 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
         super.onCreate(savedInstanceState);
 
         //sementara
-        int kualifikasiSurveyId=getArguments().getInt(ARG_FORMGALPAL6_KUALIFIKASI_SURVEY_ID);
-        UUID formGalpal6Id=(UUID)getArguments().getSerializable(ARG_FORMGALPAL6_ID);
+        int kualifikasiSurveyId=getArguments().getInt(ARG_FORMGALPAL11_KUALIFIKASI_SURVEY_ID);
+        UUID formGalpal11Id=(UUID)getArguments().getSerializable(ARG_FORMGALPAL11_ID);
 
-        mKualifikasiSurvey=DummyMaker.get(getActivity()).getKualifikasiSurvey(kualifikasiSurveyId);
-        mFormGalpal6= DummyMaker.get(getActivity()).getFormGalpal6(formGalpal6Id);
-        mMenuCheckingGalpal=DummyMaker.get(getActivity()).getMenuCheckingGalpal(kualifikasiSurveyId,mFormGalpal6.getKodeForm());
+        mKualifikasiSurvey= DummyMaker.get(getActivity()).getKualifikasiSurvey(kualifikasiSurveyId);
+        mFormGalpal11= DummyMaker.get(getActivity()).getFormGalpal11(formGalpal11Id);
+        mMenuCheckingGalpal=DummyMaker.get(getActivity()).getMenuCheckingGalpal(kualifikasiSurveyId,mFormGalpal11.getKodeForm());
 
 
         mValidator=new Validator(this);
@@ -126,7 +125,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
         mSaveButton=(Button)rootView.findViewById(R.id.galpal_peralatan_btn_save);
 
 
-        mJenisMesinEditText.setText(mFormGalpal6.getJenisMesin());
+        mJenisMesinEditText.setText(mFormGalpal11.getJenisMesin());
         mJenisMesinEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -135,7 +134,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setJenisMesin(s.toString());
+                mFormGalpal11.setJenisMesin(s.toString());
             }
 
             @Override
@@ -144,7 +143,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
             }
         });
 
-        mTahunPembuatanEditText.setText(String.valueOf(mFormGalpal6.getTahunPembuatan()));
+        mTahunPembuatanEditText.setText(String.valueOf(mFormGalpal11.getTahunPembuatan()));
         mTahunPembuatanEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -153,7 +152,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setTahunPembuatan(11);
+                mFormGalpal11.setTahunPembuatan(11);
             }
 
             @Override
@@ -162,7 +161,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
             }
         });
 
-        mMerekEditText.setText(mFormGalpal6.getMerek());
+        mMerekEditText.setText(mFormGalpal11.getMerek());
         mMerekEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -171,7 +170,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setMerek(s.toString());
+                mFormGalpal11.setMerek(s.toString());
             }
 
             @Override
@@ -180,7 +179,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
             }
         });
 
-        mKapasitasTerpasangEditText.setText(String.valueOf(mFormGalpal6.getKapasitasTerpasang()));
+        mKapasitasTerpasangEditText.setText(String.valueOf(mFormGalpal11.getKapasitasTerpasang()));
         mKapasitasTerpasangEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -189,7 +188,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setKapasitasTerpasang(11);
+                mFormGalpal11.setKapasitasTerpasang(11);
             }
 
             @Override
@@ -198,7 +197,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
             }
         });
 
-        mDimensiEditText.setText(mFormGalpal6.getDimensi());
+        mDimensiEditText.setText(mFormGalpal11.getDimensi());
         mDimensiEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -207,7 +206,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setDimensi(s.toString());
+                mFormGalpal11.setDimensi(s.toString());
             }
 
             @Override
@@ -216,7 +215,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
             }
         });
 
-        mJumlahEditText.setText(String.valueOf(mFormGalpal6.getJumlah()));
+        mJumlahEditText.setText(String.valueOf(mFormGalpal11.getJumlah()));
         mJumlahEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -225,7 +224,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setJumlah(11);
+                mFormGalpal11.setJumlah(11);
             }
 
             @Override
@@ -234,7 +233,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
             }
         });
 
-        mKondisiEditText.setText(mFormGalpal6.getKondisi());
+        mKondisiEditText.setText(mFormGalpal11.getKondisi());
         mKondisiEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -243,7 +242,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setKondisi(s.toString());
+                mFormGalpal11.setKondisi(s.toString());
             }
 
             @Override
@@ -252,7 +251,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
             }
         });
 
-        mLokasiEditText.setText(mFormGalpal6.getLokasi());
+        mLokasiEditText.setText(mFormGalpal11.getLokasi());
         mLokasiEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -261,7 +260,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setLokasi(s.toString());
+                mFormGalpal11.setLokasi(s.toString());
             }
 
             @Override
@@ -270,7 +269,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
             }
         });
 
-        mStatusEditText.setText(mFormGalpal6.getStatus());
+        mStatusEditText.setText(mFormGalpal11.getStatus());
         mStatusEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -279,7 +278,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setStatus(s.toString());
+                mFormGalpal11.setStatus(s.toString());
             }
 
             @Override
@@ -288,7 +287,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
             }
         });
 
-        mKapasitasTerpakaiEditText.setText(String.valueOf(mFormGalpal6.getKapasitasTerpakai()));
+        mKapasitasTerpakaiEditText.setText(String.valueOf(mFormGalpal11.getKapasitasTerpakai()));
         mKapasitasTerpakaiEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -297,7 +296,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setKapasitasTerpakai(11);
+                mFormGalpal11.setKapasitasTerpakai(11);
             }
 
             @Override
@@ -315,7 +314,7 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
                 if(!isValidated){
                     return;
                 }
-                DummyMaker.get(getActivity()).addFormGalpal6(mFormGalpal6);
+                DummyMaker.get(getActivity()).addFormGalpal11(mFormGalpal11);
                 getActivity().finish();
 
             }
@@ -350,6 +349,4 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
         }
         isValidated=false;
     }
-
-
 }

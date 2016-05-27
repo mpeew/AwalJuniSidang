@@ -2,10 +2,12 @@ package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,14 +18,18 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.mpewpazi.android.awaljunisidang.DataFetcher;
+import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormKompal3aPagerActivity;
 import com.mpewpazi.android.awaljunisidang.R;
+import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
+import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
 import java.util.List;
 
@@ -155,6 +161,8 @@ public class ListFormKompal3aFragment extends SingleFragment {
                         public void onClick(DialogInterface dialog, int which) {
                             DummyMaker.get(getActivity()).deleteFormKompal3a(formKompal3a);
                             updateUI();
+                            new DeleteTask(formKompal3a.getFormServerId()).execute();
+
                         }
                     });
                     alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -226,7 +234,7 @@ public class ListFormKompal3aFragment extends SingleFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2){
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||mMenuCheckingKompal.isVerified()){
             inflater.inflate(R.menu.fragment_form_list, menu);
         }
     }
@@ -245,6 +253,60 @@ public class ListFormKompal3aFragment extends SingleFragment {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mDummyMaker=DummyMaker.get(getActivity());
+        mFormKompal3as=mDummyMaker.getFormKompal3as(DrawerFormActivity.kualifikasiSurveyId);
+        mMenuCheckingKompal=mDummyMaker.getMenuCheckingKompal(DrawerFormActivity.kualifikasiSurveyId,FormKompal3a.kode);
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingKompal.isVerified()){
+            new PushTask(mFormKompal3as,mMenuCheckingKompal).execute();
+        }
+    }
+
+    private class PushTask extends AsyncTask<Void,Void,List<FormKompal3a>> {
+        private List<FormKompal3a> mFormKompal3as;
+        private SingleMenuChecking mSingleMenuChecking;
+
+        public PushTask(List<FormKompal3a> formKompal3as, SingleMenuChecking singleMenuChecking){
+            mFormKompal3as=formKompal3as;
+            mSingleMenuChecking=singleMenuChecking;
+        }
+
+        @Override
+        protected List<FormKompal3a> doInBackground(Void... params) {
+            if(mFormKompal3as.size()>0) {
+                for (FormKompal3a formKompal3a : mFormKompal3as) {
+                    new DataPusher().makePostRequestFK3a(formKompal3a, DataFetcher.FK3aENDPOINT, DhSchema.FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI_SERVER);
+                }
+            }
+            new DataPusher().makePostRequestMenuCheckingKompal((MenuCheckingKompal) mSingleMenuChecking);
+            return mFormKompal3as;
+        }
+
+        @Override
+        protected void onPostExecute(List<FormKompal3a> formKompal3as) {
+            for(FormKompal3a formKompal3a:formKompal3as) {
+                DummyMaker.get(getActivity()).addFormKompal3a(formKompal3a);
+                Log.i("INAZ",String.valueOf(formKompal3a.getFormServerId()));
+            }
+        }
+    }
+
+    private class DeleteTask extends AsyncTask<Void,Void,Void> {
+       private int mIdForm;
+
+        public DeleteTask(int idForm){
+            mIdForm=idForm;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            new DataFetcher().deleteForm(mIdForm,DataFetcher.DELETEFK3aENDPOINT);
+            return null;
         }
     }
 }

@@ -23,6 +23,7 @@ import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
 import java.util.List;
 
@@ -93,7 +94,7 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
 
 
         View rootView = inflater.inflate(R.layout.fragment_form_galpal4, container, false);
-        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4|mMenuCheckingGalpal.isVerified()){
             setViewEnabledFalse(rootView);
         }
 
@@ -165,11 +166,12 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mValidator.validate();
-                if(!isValidated){
-                    return;
-                }
+
                 if(!mMenuCheckingGalpal.isComplete()){
+                    mValidator.validate();
+                    if(!isValidated){
+                        return;
+                    }
                     mMenuCheckingGalpal.setComplete(true);
                     mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mGalpalForms.size());
                     mSubmitButton.setText(R.string.belum_lengkap);
@@ -185,7 +187,7 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
                 mDummyMaker.addFormGalpal4(mFormGalpal4);
                 mDummyMaker.addKualifikasiSurvey(mKualifikasiSurvey);
                 mCustomClickListener.clickListener();
-                new PushTask().execute();
+
 
             }
         });
@@ -197,8 +199,10 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
     @Override
     public void onPause() {
         super.onPause();
-        mDummyMaker.addFormGalpal4(mFormGalpal4);
-
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2){
+            mDummyMaker.addFormGalpal4(mFormGalpal4);
+            new PushTask(mFormGalpal4,mMenuCheckingGalpal).execute();
+        }
     }
 
     @Override
@@ -223,13 +227,20 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
         isValidated =false;
     }
 
-    private class PushTask extends AsyncTask<Void,Void,Void> {
 
+    private class PushTask extends AsyncTask<Void,Void,Void> {
+        private FormGalpal4 mFormGalpal4;
+        private SingleMenuChecking mSingleMenuChecking;
+
+        public PushTask(FormGalpal4 formGalpal4, SingleMenuChecking singleMenuChecking){
+            mFormGalpal4=formGalpal4;
+            mSingleMenuChecking=singleMenuChecking;
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
-
             new DataPusher().makePostRequestFG4(mFormGalpal4);
+            new DataPusher().makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
             return null;
         }
     }

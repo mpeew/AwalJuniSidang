@@ -1,6 +1,5 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -22,9 +21,9 @@ import android.widget.TextView;
 import com.mpewpazi.android.awaljunisidang.DataFetcher;
 import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal8;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.FormGalpal6PagerActivity;
+import com.mpewpazi.android.awaljunisidang.FormGalpal8PagerActivity;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
@@ -35,18 +34,17 @@ import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 import java.util.List;
 
 /**
- * Created by mpewpazi on 4/22/16.
+ * Created by mpewpazi on 5/27/16.
  */
-public class ListFormGalpal6Fragment extends SingleFragment {
+public class ListFormGalpal8Fragment extends SingleFragment {
+    private final static String EXTRA_KUALIFIKASISURVEY_FORMGALPAL8="extra_kualifikasisurvey_form_galpal8";
+    private final static String EXTRA_ID_FORMGALPAL8="extra_id_form_galpal8";
 
-    private final static String EXTRA_KUALIFIKASISURVEY_FORMGALPAL6="extra_kualifikasisurvey_form_galpal6";
-    private final static String EXTRA_ID_FORMGALPAL6="extra_id_form_galpal6";
 
+    private List<FormGalpal8> mFormGalpal8s;
 
-    private List<FormGalpal6> mFormGalpal6s;
-
-    private RecyclerView mFormGalpal6RecyclerView;
-    private FormGalpal6Adapter mAdapter;
+    private RecyclerView mFormGalpal8RecyclerView;
+    private FormGalpal8Adapter mAdapter;
     private DummyMaker mDummyMaker;
 
 
@@ -57,7 +55,7 @@ public class ListFormGalpal6Fragment extends SingleFragment {
 
     private Button mSubmitButton;
 
-    public ListFormGalpal6Fragment (){
+    public ListFormGalpal8Fragment (){
 
     }
 
@@ -69,7 +67,7 @@ public class ListFormGalpal6Fragment extends SingleFragment {
         mDummyMaker=DummyMaker.get(getContext());
         mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
         mGalpalForms=mDummyMaker.getGalpalForms();
-        mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,FormGalpal6.kode);
+        mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,FormGalpal8.kode);
 
     }
 
@@ -80,13 +78,13 @@ public class ListFormGalpal6Fragment extends SingleFragment {
             setViewEnabledFalse(view);
         }
 
-        mFormGalpal6RecyclerView = (RecyclerView) view.findViewById(R.id.form_galpal_peralatan_recycler_view);
+        mFormGalpal8RecyclerView = (RecyclerView) view.findViewById(R.id.form_galpal_peralatan_recycler_view);
 
 
         //recycler view butuh layoutmanager untuk mempossionig item di screen
         //ada banyak macam layout manager, kalau linear itu untuk vertikal posisioningnya
         //kedepanya ada gridLayoutManager
-        mFormGalpal6RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mFormGalpal8RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         Log.d("updateG","true");
         updateUI();
 
@@ -128,12 +126,12 @@ public class ListFormGalpal6Fragment extends SingleFragment {
 
     private void updateUI() {
         mDummyMaker=DummyMaker.get(getActivity());
-        mFormGalpal6s=mDummyMaker.getFormGalpal6s(DrawerFormActivity.kualifikasiSurveyId);
+        mFormGalpal8s=mDummyMaker.getFormGalpal8s(DrawerFormActivity.kualifikasiSurveyId);
 
         //if (mAdapter == null) {
-        mAdapter = new FormGalpal6Adapter(mFormGalpal6s);
-        mFormGalpal6RecyclerView.setAdapter(mAdapter);
-        if(mFormGalpal6s.size()>0){
+        mAdapter = new FormGalpal8Adapter(mFormGalpal8s);
+        mFormGalpal8RecyclerView.setAdapter(mAdapter);
+        if(mFormGalpal8s.size()>0){
             mMenuCheckingGalpal.setFill(true);
         }else{
             mMenuCheckingGalpal.setFill(false);
@@ -145,24 +143,24 @@ public class ListFormGalpal6Fragment extends SingleFragment {
 
         // reload all the item in he list
         //Log.d("updateGui","else");
-        //mAdapter.setData(mFormGalpal6s);
+        //mAdapter.setData(mFormGalpal8s);
         //mAdapter.notifyDataSetChanged();
         //}
     }
 
-    private class FormGalpal6Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class FormGalpal8Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mNoTextView;
         private TextView mJenisMesinTextView;
         private TextView mMerekTextView;
         private ImageButton mDeleteButton;
 
-        private FormGalpal6 mFormGalpal6;
+        private FormGalpal8 mFormGalpal8;
 
-        public void bindFormGalpal6(final FormGalpal6 formGalpal6, int no) {
-            mFormGalpal6 = formGalpal6;
-            mJenisMesinTextView.setText(mFormGalpal6.getJenisMesin());
-            mMerekTextView.setText(mFormGalpal6.getMerek());
+        public void bindFormGalpal8(final FormGalpal8 formGalpal8, int no) {
+            mFormGalpal8 = formGalpal8;
+            mJenisMesinTextView.setText(mFormGalpal8.getJenisMesin());
+            mMerekTextView.setText(mFormGalpal8.getMerek());
             mNoTextView.setText(String.valueOf(no));
             if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
                 mDeleteButton.setVisibility(View.GONE);
@@ -176,9 +174,9 @@ public class ListFormGalpal6Fragment extends SingleFragment {
                     alertDialogBuilder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            DummyMaker.get(getActivity()).deleteFormGalpal6(formGalpal6);
+                            DummyMaker.get(getActivity()).deleteFormGalpal8(formGalpal8);
                             updateUI();
-                            new DeleteTask(formGalpal6.getFormServerId()).execute();
+                            new DeleteTask(formGalpal8.getFormServerId()).execute();
                         }
                     });
                     alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -194,7 +192,7 @@ public class ListFormGalpal6Fragment extends SingleFragment {
 
         }
 
-        public FormGalpal6Holder(View itemView) {
+        public FormGalpal8Holder(View itemView) {
             //setiap ada yang masuk ke super , reference setiap wideget dibuat oleh parent
             super(itemView);
             itemView.setOnClickListener(this);
@@ -210,42 +208,42 @@ public class ListFormGalpal6Fragment extends SingleFragment {
 
         @Override
         public void onClick(View v) {
-            Intent intent=new Intent(getActivity(),FormGalpal6PagerActivity.class);
-            intent.putExtra(EXTRA_ID_FORMGALPAL6,mFormGalpal6.getIdPeralatanKerjaCrane());
-            intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMGALPAL6,mFormGalpal6.getKualifikasiSurveyId());
+            Intent intent=new Intent(getActivity(),FormGalpal8PagerActivity.class);
+            intent.putExtra(EXTRA_ID_FORMGALPAL8,mFormGalpal8.getIdPeralatanKerjaProdMesin());
+            intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMGALPAL8,mFormGalpal8.getKualifikasiSurveyId());
             startActivity(intent);
         }
     }
 
-    private class FormGalpal6Adapter extends RecyclerView.Adapter<FormGalpal6Holder> {
-        private List<FormGalpal6> mFormGalpal6s;
+    private class FormGalpal8Adapter extends RecyclerView.Adapter<FormGalpal8Holder> {
+        private List<FormGalpal8> mFormGalpal8s;
 
-        public FormGalpal6Adapter(List<FormGalpal6> formGalpal6s) {
-            mFormGalpal6s = formGalpal6s;
+        public FormGalpal8Adapter(List<FormGalpal8> formGalpal8s) {
+            mFormGalpal8s = formGalpal8s;
         }
 
         @Override
-        public FormGalpal6Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public FormGalpal8Holder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             View view = layoutInflater
                     .inflate(R.layout.list_item_form_galpal_peralatan, parent, false);
 
-            return new FormGalpal6Holder(view);
+            return new FormGalpal8Holder(view);
         }
 
         @Override
-        public void onBindViewHolder(FormGalpal6Holder holder, int position) {
-            FormGalpal6 formGalpal6 = mFormGalpal6s.get(position);
-            holder.bindFormGalpal6(formGalpal6,position+1);
+        public void onBindViewHolder(FormGalpal8Holder holder, int position) {
+            FormGalpal8 formGalpal8 = mFormGalpal8s.get(position);
+            holder.bindFormGalpal8(formGalpal8,position+1);
         }
 
         @Override
         public int getItemCount() {
-            return mFormGalpal6s.size();
+            return mFormGalpal8s.size();
         }
 
-        public void setData(List<FormGalpal6> formGalpal6s){
-            mFormGalpal6s=formGalpal6s;
+        public void setData(List<FormGalpal8> formGalpal8s){
+            mFormGalpal8s=formGalpal8s;
         }
     }
 
@@ -261,12 +259,12 @@ public class ListFormGalpal6Fragment extends SingleFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_item_new_crime:
-                FormGalpal6 formGalpal6=new FormGalpal6();
-                formGalpal6.setKualifikasiSurveyId(DrawerFormActivity.kualifikasiSurveyId);
-                DummyMaker.get(getActivity()).addFormGalpal6(formGalpal6);
-                Intent intent=new Intent(getActivity(),FormGalpal6PagerActivity.class);
-                intent.putExtra(EXTRA_ID_FORMGALPAL6,formGalpal6.getIdPeralatanKerjaCrane());
-                intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMGALPAL6,formGalpal6.getKualifikasiSurveyId());
+                FormGalpal8 formGalpal8=new FormGalpal8();
+                formGalpal8.setKualifikasiSurveyId(DrawerFormActivity.kualifikasiSurveyId);
+                DummyMaker.get(getActivity()).addFormGalpal8(formGalpal8);
+                Intent intent=new Intent(getActivity(),FormGalpal8PagerActivity.class);
+                intent.putExtra(EXTRA_ID_FORMGALPAL8,formGalpal8.getIdPeralatanKerjaProdMesin());
+                intent.putExtra(EXTRA_KUALIFIKASISURVEY_FORMGALPAL8,formGalpal8.getKualifikasiSurveyId());
                 startActivity(intent);
                 return true;
             default:
@@ -278,34 +276,34 @@ public class ListFormGalpal6Fragment extends SingleFragment {
     public void onPause() {
         super.onPause();
         if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingGalpal.isVerified()){
-            new PushTask(mFormGalpal6s,mMenuCheckingGalpal).execute();
+            new PushTask(mFormGalpal8s,mMenuCheckingGalpal).execute();
         }
     }
 
-    private class PushTask extends AsyncTask<Void,Void,List<FormGalpal6>> {
-        private List<FormGalpal6> mFormGalpal6s;
+    private class PushTask extends AsyncTask<Void,Void,List<FormGalpal8>> {
+        private List<FormGalpal8> mFormGalpal8s;
         private SingleMenuChecking mSingleMenuChecking;
 
-        public PushTask(List<FormGalpal6> formGalpal6s, SingleMenuChecking singleMenuChecking){
-            mFormGalpal6s=formGalpal6s;
+        public PushTask(List<FormGalpal8> formGalpal8s, SingleMenuChecking singleMenuChecking){
+            mFormGalpal8s=formGalpal8s;
             mSingleMenuChecking=singleMenuChecking;
         }
 
         @Override
-        protected List<FormGalpal6> doInBackground(Void... params) {
-            if(mFormGalpal6s.size()>0) {
-                for (FormGalpal6 formGalpal6 : mFormGalpal6s) {
-                    new DataPusher().makePostRequestFG6(formGalpal6, DataFetcher.FG6ENDPOINT, DhSchema.FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_SERVER);
+        protected List<FormGalpal8> doInBackground(Void... params) {
+            if(mFormGalpal8s.size()>0) {
+                for (FormGalpal8 formGalpal8 : mFormGalpal8s) {
+                    new DataPusher().makePostRequestFG8(formGalpal8, DataFetcher.FG8ENDPOINT, DhSchema.FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN_SERVER);
                 }
             }
             new DataPusher().makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
-            return mFormGalpal6s;
+            return mFormGalpal8s;
         }
 
         @Override
-        protected void onPostExecute(List<FormGalpal6> formGalpal6s) {
-            for(FormGalpal6 formGalpal6:formGalpal6s) {
-                DummyMaker.get(getActivity()).addFormGalpal6(formGalpal6);
+        protected void onPostExecute(List<FormGalpal8> formGalpal8s) {
+            for(FormGalpal8 formGalpal8:formGalpal8s) {
+                DummyMaker.get(getActivity()).addFormGalpal8(formGalpal8);
             }
         }
     }
@@ -319,13 +317,9 @@ public class ListFormGalpal6Fragment extends SingleFragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            new DataFetcher().deleteForm(mIdForm,DataFetcher.DELETEFG6ENDPOINT);
+            new DataFetcher().deleteForm(mIdForm,DataFetcher.DELETEFG8ENDPOINT);
             return null;
         }
     }
-
-
-
-
 
 }

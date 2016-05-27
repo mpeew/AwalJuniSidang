@@ -6,10 +6,10 @@ import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
 import java.util.UUID;
 
 /**
- * Created by mpewpazi on 4/18/16.
+ * Created by mpewpazi on 5/27/16.
  */
-public class FormGalpal6  extends SingleForm {
-    private UUID idPeralatanKerjaCrane;
+public class FormGalpal11 extends SingleForm {
+    private UUID idPeralatanKerjaProdPengecatan;
     private int idPeriode;
     private String jenisMesin;
     private int tahunPembuatan;
@@ -25,8 +25,8 @@ public class FormGalpal6  extends SingleForm {
     private String status;
     private String note;
 
-    public static final int kode=7;
-    public static final String kodeAsync="FG6";
+    public static final int kode=12;
+    public static final String kodeAsync="FG11";
 
     @Override
     public int getKodeForm() {
@@ -45,15 +45,15 @@ public class FormGalpal6  extends SingleForm {
 
     @Override
     public String getNamaForm() {
-        return "Peralatan Kerja Luar Ruang Cranes";
+        return "Peralatan Kerja Produksi Pengecatan";
     }
 
-    public FormGalpal6(){
+    public FormGalpal11(){
         this(UUID.randomUUID());
     }
 
-    public FormGalpal6(UUID id){
-        idPeralatanKerjaCrane=id;
+    public FormGalpal11(UUID id){
+        idPeralatanKerjaProdPengecatan=id;
     }
 
     public int getIdPeriode() {
@@ -72,8 +72,8 @@ public class FormGalpal6  extends SingleForm {
         this.note = note;
     }
 
-    public UUID getIdPeralatanKerjaCrane() {
-        return idPeralatanKerjaCrane;
+    public UUID getIdPeralatanKerjaProdPengecatan() {
+        return idPeralatanKerjaProdPengecatan;
     }
 
     public String getJenisMesin() {

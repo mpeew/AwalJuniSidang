@@ -40,10 +40,16 @@ public class FormGalpal1 extends SingleForm {
     private String website;
 
     public static final int kode=1;
+    public static final String kodeAsync="FG1";
 
     @Override
     public int getKodeForm() {
         return kode;
+    }
+
+    @Override
+    public String getKodeAsync() {
+        return kodeAsync;
     }
 
     @Override

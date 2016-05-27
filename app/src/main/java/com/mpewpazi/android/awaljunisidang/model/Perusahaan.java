@@ -7,7 +7,9 @@ public class Perusahaan {
     int id;
     String namaPerusahaan;
     String industri;
-    int isActive;
+    boolean isActive;
+    public static final String industriGalpal="GALANGAN KAPAL";
+    public static final String industriKompal="KOMPONEN";
 
     public int getId() {
         return id;
@@ -33,11 +35,11 @@ public class Perusahaan {
         this.industri = industri;
     }
 
-    public int isActive() {
+    public boolean isActive() {
         return isActive;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         isActive = active;
     }
 }

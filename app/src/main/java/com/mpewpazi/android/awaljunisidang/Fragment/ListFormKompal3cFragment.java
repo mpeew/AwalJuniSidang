@@ -2,6 +2,7 @@ package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,14 +17,18 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.mpewpazi.android.awaljunisidang.DataFetcher;
+import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormKompal3cPagerActivity;
 import com.mpewpazi.android.awaljunisidang.R;
+import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
+import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
 import java.util.List;
 
@@ -153,6 +158,7 @@ public class ListFormKompal3cFragment extends SingleFragment {
                         public void onClick(DialogInterface dialog, int which) {
                             DummyMaker.get(getActivity()).deleteFormKompal3c(formKompal3c);
                             updateUI();
+                            new DeleteTask(formKompal3c.getFormServerId()).execute();
                         }
                     });
                     alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -244,6 +250,58 @@ public class ListFormKompal3cFragment extends SingleFragment {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mDummyMaker=DummyMaker.get(getActivity());
+        mFormKompal3cs=mDummyMaker.getFormKompal3cs(DrawerFormActivity.kualifikasiSurveyId);
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2|!mMenuCheckingKompal.isVerified()){
+            new PushTask(mFormKompal3cs,mMenuCheckingKompal).execute();
+        }
+    }
+
+    private class PushTask extends AsyncTask<Void,Void,List<FormKompal3c>> {
+        private List<FormKompal3c> mFormKompal3cs;
+        private SingleMenuChecking mSingleMenuChecking;
+
+        public PushTask(List<FormKompal3c> formKompal3cs, SingleMenuChecking singleMenuChecking){
+            mFormKompal3cs=formKompal3cs;
+            mSingleMenuChecking=singleMenuChecking;
+        }
+
+        @Override
+        protected List<FormKompal3c> doInBackground(Void... params) {
+            new DataPusher().makePostRequestMenuCheckingKompal((MenuCheckingKompal) mSingleMenuChecking);
+            if(mFormKompal3cs.size()>0) {
+                for (FormKompal3c formKompal3c : mFormKompal3cs) {
+                    new DataPusher().makePostRequestFK3c(formKompal3c, DataFetcher.FK3cENDPOINT, DhSchema.FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI_SERVER);
+                }
+            }
+            return mFormKompal3cs;
+        }
+
+        @Override
+        protected void onPostExecute(List<FormKompal3c> formKompal3cs) {
+            for(FormKompal3c formKompal3c:formKompal3cs) {
+                DummyMaker.get(getActivity()).addFormKompal3c(formKompal3c);
+            }
+        }
+    }
+
+    private class DeleteTask extends AsyncTask<Void,Void,Void> {
+        private int mIdForm;
+
+        public DeleteTask(int idForm){
+            mIdForm=idForm;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            new DataFetcher().deleteForm(mIdForm,DataFetcher.DELETEFK3cENDPOINT);
+            return null;
         }
     }
 }

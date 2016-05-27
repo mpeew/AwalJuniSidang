@@ -299,7 +299,8 @@ public class DhSchema {
     public static final class FG7PeralatanKerjaLuarTugboatTable {
         public static final String NAME="f1_peralatan_kerja_lr_tug";
         public static final class Cols{
-            public static final String ID_F1_PERALATAN_KERJA_LR_TUG="id_f1_peralatan_kerja_lr_tug";
+            public static final String ID_F1_PERALATAN_KERJA_LR_TUG="id_f1_peralatan_kerja_lr_tug_local";
+            public static final String ID_F1_PERALATAN_KERJA_LR_TUG_SERVER="id_f1_peralatan_kerja_lr_tug";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_PERIODE="id_periode";
             public static final String JENIS_MESIN="jenis_mesin";
@@ -328,7 +329,8 @@ public class DhSchema {
     public static final class FG8PeralatanKerjaProduksiMesinTable {
         public static final String NAME="f1_peralatan_kerja_prod_mesin";
         public static final class Cols{
-            public static final String ID_F1_PERALATAN_KERJA_PROD_MESIN="id_f1_peralatan_kerja_prod_mesin";
+            public static final String ID_F1_PERALATAN_KERJA_PROD_MESIN="id_f1_peralatan_kerja_prod_mesin_local";
+            public static final String ID_F1_PERALATAN_KERJA_PROD_MESIN_SERVER="id_f1_peralatan_kerja_prod_mesin";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_PERIODE="id_periode";
             public static final String JENIS_MESIN="jenis_mesin";
@@ -356,7 +358,8 @@ public class DhSchema {
     public static final class FG9PeralatanKerjaProduksiKontruksi {
         public static final String NAME="f1_peralatan_kerja_prod_kontruksi";
         public static final class Cols{
-            public static final String ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI="id_f1_peralatan_kerja_prod_kontruksi";
+            public static final String ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI="id_f1_peralatan_kerja_prod_kontruksi_local";
+            public static final String ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI_SERVER="id_f1_peralatan_kerja_prod_kontruksi";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_PERIODE="id_periode";
             public static final String JENIS_MESIN="jenis_mesin";
@@ -385,7 +388,8 @@ public class DhSchema {
     public static final class FG10PeralatanKerjaProduksiElektrikalMekanikal {
         public static final String NAME="f1_peralatan_kerja_prod_elmek";
         public static final class Cols{
-            public static final String ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK="id_f1_peralatan_kerja_prod_elmek";
+            public static final String ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK="id_f1_peralatan_kerja_prod_elmek_local";
+            public static final String ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK_SERVER="id_f1_peralatan_kerja_prod_elmek";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_PERIODE="id_periode";
             public static final String JENIS_MESIN="jenis_mesin";
@@ -414,7 +418,8 @@ public class DhSchema {
     public static final class FG11PeralatanKerjaProduksiPengecatan {
         public static final String NAME="f1_peralatan_kerja_prod_cat";
         public static final class Cols{
-            public static final String ID_F1_PERALATAN_KERJA_PRODUKSI_CAT="id_f1_peralatan_kerja_prod_cat";
+            public static final String ID_F1_PERALATAN_KERJA_PRODUKSI_CAT="id_f1_peralatan_kerja_prod_cat_local";
+            public static final String ID_F1_PERALATAN_KERJA_PRODUKSI_CAT_SERVER="id_f1_peralatan_kerja_prod_cat";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_PERIODE="id_periode";
             public static final String JENIS_MESIN="jenis_mesin";

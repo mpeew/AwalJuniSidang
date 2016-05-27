@@ -9,7 +9,7 @@ import java.util.UUID;
  * Created by mpewpazi on 5/6/16.
  */
 public class FormKompal3d extends SingleForm {
-    private int idStandarMutuServer;
+
     private UUID idStandarMutu;
     private int idPeriode;
     private String jenisStandarMutu;
@@ -17,18 +17,17 @@ public class FormKompal3d extends SingleForm {
     private String note;
 
     public static final int kode=7;
+    public static final String kodeAsync="FK3d";
 
-    public int getIdStandarMutuServer() {
-        return idStandarMutuServer;
-    }
-
-    public void setIdStandarMutuServer(int idStandarMutuServer) {
-        this.idStandarMutuServer = idStandarMutuServer;
-    }
 
     @Override
     public int getKodeForm() {
         return kode;
+    }
+
+    @Override
+    public String getKodeAsync() {
+        return kodeAsync;
     }
 
     @Override

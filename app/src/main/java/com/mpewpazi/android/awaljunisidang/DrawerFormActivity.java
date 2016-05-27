@@ -25,6 +25,7 @@ import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
+import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
 import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
 import java.util.ArrayList;
@@ -109,7 +110,7 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
 
     private void addDrawerItems(){
         mMenuCheckingSingles=new ArrayList<>();
-        if(mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getIndustri().equals("Galangan Kapal")){
+        if(mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getIndustri().equals(Perusahaan.industriGalpal)){
             mSingleForms=mDummyMaker.getGalpalForms();
             for(SingleForm singleForm:mSingleForms){
                 MenuCheckingGalpal menuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(kualifikasiSurveyId,singleForm.getKodeForm());

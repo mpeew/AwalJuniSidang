@@ -1,6 +1,5 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -16,11 +15,11 @@ import android.widget.Toast;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
 
 import java.util.List;
 import java.util.UUID;
@@ -46,6 +45,7 @@ public class FormKompal3aFragment extends SingleFragment implements Validator.Va
 
     private FormKompal3a mFormKompal3a;
     private KualifikasiSurvey mKualifikasiSurvey;
+    private MenuCheckingKompal mMenuCheckingKompal;
 
 
 
@@ -73,6 +73,7 @@ public class FormKompal3aFragment extends SingleFragment implements Validator.Va
         //----------------------------------------------- ----------------------------------------------- -----------------------------------------------
         mFormKompal3a= DummyMaker.get(getActivity()).getFormKompal3a(formKompal3aId);
         mKualifikasiSurvey=DummyMaker.get(getActivity()).getKualifikasiSurvey(kualifikasiSurveyId);
+        mMenuCheckingKompal=DummyMaker.get(getActivity()).getMenuCheckingKompal(kualifikasiSurveyId,mFormKompal3a.getKodeForm());
 
         mValidator=new Validator(this);
         mValidator.setValidationListener(this);
@@ -85,7 +86,7 @@ public class FormKompal3aFragment extends SingleFragment implements Validator.Va
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_form_kompal3a, container, false);
-        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4||mMenuCheckingKompal.isVerified()){
             setViewEnabledFalse(rootView);
         }
 
@@ -142,7 +143,6 @@ public class FormKompal3aFragment extends SingleFragment implements Validator.Va
                     return;
                 }
                 DummyMaker.get(getActivity()).addFormKompal3a(mFormKompal3a);
-                new PushTask().execute();
                 getActivity().finish();
 
             }
@@ -177,15 +177,6 @@ public class FormKompal3aFragment extends SingleFragment implements Validator.Va
         isValidated=false;
     }
 
-    private class PushTask extends AsyncTask<Void,Void,Void> {
 
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            new DataPusher().makePostRequestFK3a(mFormKompal3a);
-            return null;
-        }
-    }
 
 }

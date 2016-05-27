@@ -1,17 +1,17 @@
 package com.mpewpazi.android.awaljunisidang.Form;
 
-import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal6Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal7Fragment;
 import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
 
 import java.util.UUID;
 
 /**
- * Created by mpewpazi on 4/18/16.
+ * Created by mpewpazi on 5/27/16.
  */
-public class FormGalpal6  extends SingleForm {
-    private UUID idPeralatanKerjaCrane;
+public class FormGalpal7 extends SingleForm {
+    private UUID idPeralatanKerjaTugboat;
     private int idPeriode;
-    private String jenisMesin;
+    private String jenisPeralatan;
     private int tahunPembuatan;
     private String merek;
     private int kapasitasTerpasang;
@@ -25,8 +25,8 @@ public class FormGalpal6  extends SingleForm {
     private String status;
     private String note;
 
-    public static final int kode=7;
-    public static final String kodeAsync="FG6";
+    public static final int kode=8;
+    public static final String kodeAsync="FG7";
 
     @Override
     public int getKodeForm() {
@@ -40,20 +40,24 @@ public class FormGalpal6  extends SingleForm {
 
     @Override
     public SingleFragment getFragment() {
-        return new ListFormGalpal6Fragment();
+        return new ListFormGalpal7Fragment();
     }
 
     @Override
     public String getNamaForm() {
-        return "Peralatan Kerja Luar Ruang Cranes";
+        return "Peralatan Kerja Luar Ruang Tugboat";
     }
 
-    public FormGalpal6(){
+    public FormGalpal7(){
         this(UUID.randomUUID());
     }
 
-    public FormGalpal6(UUID id){
-        idPeralatanKerjaCrane=id;
+    public FormGalpal7(UUID id){
+        idPeralatanKerjaTugboat=id;
+    }
+
+    public UUID getIdPeralatanKerjaTugboat() {
+        return idPeralatanKerjaTugboat;
     }
 
     public int getIdPeriode() {
@@ -72,16 +76,12 @@ public class FormGalpal6  extends SingleForm {
         this.note = note;
     }
 
-    public UUID getIdPeralatanKerjaCrane() {
-        return idPeralatanKerjaCrane;
+    public String getJenisPeralatan() {
+        return jenisPeralatan;
     }
 
-    public String getJenisMesin() {
-        return jenisMesin;
-    }
-
-    public void setJenisMesin(String jenisMesin) {
-        this.jenisMesin = jenisMesin;
+    public void setJenisPeralatan(String jenisPeralatan) {
+        this.jenisPeralatan = jenisPeralatan;
     }
 
     public int getTahunPembuatan() {

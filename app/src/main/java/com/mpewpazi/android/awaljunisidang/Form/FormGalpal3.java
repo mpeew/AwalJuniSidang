@@ -29,10 +29,16 @@ public class FormGalpal3 extends SingleForm {
     private String email;
     private String imagePath;
     public static final int kode=3;
+    public static final String kodeAsync="FG3";
 
     @Override
     public int getKodeForm() {
         return kode;
+    }
+
+    @Override
+    public String getKodeAsync() {
+        return kodeAsync;
     }
 
     @Override

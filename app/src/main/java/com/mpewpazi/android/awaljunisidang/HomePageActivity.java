@@ -2,6 +2,7 @@ package com.mpewpazi.android.awaljunisidang;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -47,9 +48,8 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void updateUi() {
-        String userId=getIntent().getStringExtra(EXTRA_ID_USER);
         mDummyMaker= DummyMaker.get(this);
-        mKualifikasiSurveys=mDummyMaker.getKualifikasiSurveys(userId);
+        mKualifikasiSurveys=mDummyMaker.getKualifikasiSurveys();
         if(mKualifikasiSurveyAdapter==null) {
             mKualifikasiSurveyAdapter = new KualifikasiSurveyAdapter(mKualifikasiSurveys);
             mRecyclerView.setAdapter(mKualifikasiSurveyAdapter);
@@ -145,6 +145,7 @@ public class HomePageActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             kualifikasiSurvey.setStatus(statusClick);
+                            new PushKualifikasiSurveyTask(kualifikasiSurvey).execute();
                             mDummyMaker.addKualifikasiSurvey(kualifikasiSurvey);
                             updateUi();
                         }
@@ -205,6 +206,20 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         updateUi();
+    }
+
+    private class PushKualifikasiSurveyTask extends AsyncTask<Void,Void,Void> {
+        private KualifikasiSurvey mKualifikasiSurvey;
+
+        public PushKualifikasiSurveyTask(KualifikasiSurvey kualifikasiSurvey){
+            mKualifikasiSurvey=kualifikasiSurvey;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            new DataPusher().makePostRequestKualifikasiSurvey(mKualifikasiSurvey);
+            return null;
+        }
     }
 
 

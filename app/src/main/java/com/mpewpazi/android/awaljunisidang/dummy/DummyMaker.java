@@ -7,9 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal10;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal11;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal7;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal8;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal9;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
@@ -19,7 +24,6 @@ import com.mpewpazi.android.awaljunisidang.MenuF1;
 import com.mpewpazi.android.awaljunisidang.MenuF2;
 import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
 import com.mpewpazi.android.awaljunisidang.database.CursorWrapperGal;
-import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.masterData.MstAirPelayaran;
 import com.mpewpazi.android.awaljunisidang.masterData.MstArus;
 import com.mpewpazi.android.awaljunisidang.masterData.MstGelombang;
@@ -43,11 +47,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.mpewpazi.android.awaljunisidang.database.DhSchema.*;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG10PeralatanKerjaProduksiElektrikalMekanikal;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG11PeralatanKerjaProduksiPengecatan;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG3GalanganKapalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG4TinjauanAreaTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6PeralatanKerjaLuarCraneTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG7PeralatanKerjaLuarTugboatTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG8PeralatanKerjaProduksiMesinTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG9PeralatanKerjaProduksiKontruksi;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKapasitasProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3cSistemBerproduksiTable;
@@ -55,6 +63,8 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarM
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingGalpalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingKompalTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuF1Table;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuF2Table;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstAirPelayaranTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstArusTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstGelombangTable;
@@ -94,207 +104,7 @@ public class DummyMaker {
         mContext=context.getApplicationContext();
         mDatabase=new BaseDBHelper(mContext).getWritableDatabase();
 
-        MstPropinsi mstPropinsi =new MstPropinsi();
-        mstPropinsi.setId(1);
-        mstPropinsi.setKodeBps(11);
-        mstPropinsi.setNama("Nangroe Aceh Darusalam");
-        mstPropinsi.setKodeiso("ID-AC");
-        mstPropinsi.setIbukota("Banda Aceh");
-        mstPropinsi.setPulau("Sumatra");
-        addMstPropinsi(mstPropinsi);
-
-        MstPropinsi propinsia=new MstPropinsi();
-        propinsia.setId(2);
-        propinsia.setKodeBps(11);
-        propinsia.setNama("Sumatra Barat");
-        propinsia.setKodeiso("ID-AC");
-        propinsia.setIbukota("Banda Aceh");
-        propinsia.setPulau("Sumatra");
-        addMstPropinsi(propinsia);
-
-        MstPropinsi propinsib=new MstPropinsi();
-        propinsib.setId(3);
-        propinsib.setKodeBps(11);
-        propinsib.setNama("DKI Jakarta");
-        propinsib.setKodeiso("ID-AC");
-        propinsib.setIbukota("Banda Aceh");
-        propinsib.setPulau("Sumatra");
-        addMstPropinsi(propinsib);
-
-        MstKabupaten mstKabupaten =new MstKabupaten();
-        mstKabupaten.setId(1);
-        mstKabupaten.setNama("Meulaboh");
-        mstKabupaten.setIbuKota("Kuningan");
-        mstKabupaten.setId_propinsi(1);
-        addMstKabupaten(mstKabupaten);
-
-        MstKabupaten mstKabupaten1 =new MstKabupaten();
-        mstKabupaten1.setId(2);
-        mstKabupaten1.setNama("Padang");
-        mstKabupaten1.setId_propinsi(2);
-        addMstKabupaten(mstKabupaten1);
-
-        MstKabupaten mstKabupaten2 =new MstKabupaten();
-        mstKabupaten2.setId(3);
-        mstKabupaten2.setNama("Jakarta Barat");
-        mstKabupaten2.setId_propinsi(3);
-        addMstKabupaten(mstKabupaten2);
-
-
-        User user=new User();
-        user.setUserId("mpewpazi");
-        user.setFullName("Peri Nurpazri");
-        user.setEmail("a");
-        user.setAnswerSecretQuestion("a");
-        user.setCodeId("a");
-        user.setPassword("a");
-        user.setSecurityCode("a");
-        user.setType("a");
-        user.setCompanyName(1);
-
-        User user1=new User();
-        user1.setUserId("perinurpazri");
-        user1.setFullName("Mpew Nurpazri");
-        user1.setEmail("a");
-        user1.setAnswerSecretQuestion("a");
-        user1.setCodeId("a");
-        user1.setPassword("a");
-        user1.setSecurityCode("a");
-        user1.setType("a");
-        user1.setCompanyName(1);
-        user1.setCompanyName(1);
-        addUser(user);
-        addUser(user1);
-
-        PeriodeSurvey periodeSurvey1=new PeriodeSurvey();
-        periodeSurvey1.setPeriodeSurveyId(2014);
-        periodeSurvey1.setTahunKualifikasi("2014");
-        periodeSurvey1.setActivePeriode(1);
-        addPeriodeSurvey(periodeSurvey1);
-
-        Perusahaan perusahaan1=new Perusahaan();
-        perusahaan1.setId(1);
-        perusahaan1.setNamaPerusahaan("PT INTI PERKASA SEJAHTERA");
-        perusahaan1.setIndustri("Komponen Kapal");
-        perusahaan1.setActive(1);
-
-        Perusahaan perusahaan2=new Perusahaan();
-        perusahaan2.setId(2);
-        perusahaan2.setNamaPerusahaan("PT GALANGAN PUTRA TANJUNG PURA");
-        perusahaan2.setIndustri("Komponen Kapal");
-        perusahaan2.setActive(1);
-
-        Perusahaan perusahaan3=new Perusahaan();
-        perusahaan3.setId(3);
-        perusahaan3.setNamaPerusahaan("PT FERI PRIMA INTRI SINERGI");
-        perusahaan3.setIndustri("Galangan Kapal");
-        perusahaan3.setActive(1);
-
-        Perusahaan perusahaan4=new Perusahaan();
-        perusahaan4.setId(4);
-        perusahaan4.setNamaPerusahaan("PT SEDAP MALAM TANPA PULANG");
-        perusahaan4.setIndustri("Galangan Kapal");
-        perusahaan4.setActive(1);
-        addPerusahaan(perusahaan1);
-        addPerusahaan(perusahaan2);
-        addPerusahaan(perusahaan3);
-        addPerusahaan(perusahaan4);
-
-
-
-        KualifikasiSurvey kualifikasiSurvey=new KualifikasiSurvey();
-        kualifikasiSurvey.setKualifikasiSurveyId(20150205);
-        kualifikasiSurvey.setPerusahaanId(1);
-        kualifikasiSurvey.setPeriodeSurveyId(2014);
-        kualifikasiSurvey.setGalanganKapalId(1);
-        kualifikasiSurvey.setStatus(0);
-        kualifikasiSurvey.setProgress(0);
-        if(getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri().equals("Galangan Kapal")){
-            addGalpalForms(1,kualifikasiSurvey.getKualifikasiSurveyId());
-            addMenuCheckingGalpals(kualifikasiSurvey.getKualifikasiSurveyId());
-        }else{
-           addKompalForms(1,kualifikasiSurvey.getKualifikasiSurveyId());
-           addMenuCheckingKompals(kualifikasiSurvey.getKualifikasiSurveyId());
-        }
-
-        KualifikasiSurvey kualifikasiSurvey1=new KualifikasiSurvey();
-        kualifikasiSurvey1.setKualifikasiSurveyId(20150291);
-        kualifikasiSurvey1.setPerusahaanId(2);
-        kualifikasiSurvey1.setPeriodeSurveyId(2014);
-        kualifikasiSurvey1.setStatus(1);
-        kualifikasiSurvey1.setGalanganKapalId(1);
-        if(getPerusahaan(kualifikasiSurvey1.getPerusahaanId()).getIndustri().equals("Galangan Kapal")) {
-           addGalpalForms(2, kualifikasiSurvey1.getKualifikasiSurveyId());
-           addMenuCheckingGalpals(kualifikasiSurvey1.getKualifikasiSurveyId());
-        }else {
-           addKompalForms(2, kualifikasiSurvey1.getKualifikasiSurveyId());
-           addMenuCheckingKompals(kualifikasiSurvey1.getKualifikasiSurveyId());
-        }
-
-        KualifikasiSurvey kualifikasiSurvey2=new KualifikasiSurvey();
-        kualifikasiSurvey2.setKualifikasiSurveyId(20150101);
-        kualifikasiSurvey2.setPerusahaanId(3);
-        kualifikasiSurvey2.setPeriodeSurveyId(2014);
-        kualifikasiSurvey2.setGalanganKapalId(1);
-        kualifikasiSurvey2.setStatus(2);
-        if(getPerusahaan(kualifikasiSurvey2.getPerusahaanId()).getIndustri().equals("Galangan Kapal")) {
-            addGalpalForms(3, kualifikasiSurvey2.getKualifikasiSurveyId());
-            addMenuCheckingGalpals(kualifikasiSurvey2.getKualifikasiSurveyId());
-        }else {
-           addMenuCheckingKompals(kualifikasiSurvey2.getKualifikasiSurveyId());
-           addKompalForms(3, kualifikasiSurvey2.getKualifikasiSurveyId());
-        }
-
-        KualifikasiSurvey kualifikasiSurvey3=new KualifikasiSurvey();
-        kualifikasiSurvey3.setKualifikasiSurveyId(20150102);
-        kualifikasiSurvey3.setPerusahaanId(4);
-        kualifikasiSurvey3.setPeriodeSurveyId(2014);
-        kualifikasiSurvey3.setGalanganKapalId(1);
-        kualifikasiSurvey3.setStatus(3);
-        if(getPerusahaan(kualifikasiSurvey3.getPerusahaanId()).getIndustri().equals("Galangan Kapal")) {
-            addGalpalForms(4, kualifikasiSurvey3.getKualifikasiSurveyId());
-            addMenuCheckingGalpals(kualifikasiSurvey3.getKualifikasiSurveyId());
-        }else {
-            addKompalForms(4, kualifikasiSurvey3.getKualifikasiSurveyId());
-            addMenuCheckingKompals(kualifikasiSurvey3.getKualifikasiSurveyId());
-        }
-
-        addKualifikasiSurveya(kualifikasiSurvey);
-        addKualifikasiSurveya(kualifikasiSurvey1);
-        addKualifikasiSurveya(kualifikasiSurvey2);
-        addKualifikasiSurveya(kualifikasiSurvey3);
-
-        SurveyAssignSurveyor surveyAssignSurveyor=new SurveyAssignSurveyor();
-        surveyAssignSurveyor.setSurveyAssignSurveyorId(1);
-        surveyAssignSurveyor.setUserId("mpewpazi");
-        surveyAssignSurveyor.setKualifikasiSurveyId(20150205);
-
-        SurveyAssignSurveyor surveyAssignSurveyor1=new SurveyAssignSurveyor();
-        surveyAssignSurveyor1.setSurveyAssignSurveyorId(2);
-        surveyAssignSurveyor1.setUserId("perinurpazri");
-        surveyAssignSurveyor1.setKualifikasiSurveyId(20150291);
-
-        SurveyAssignSurveyor surveyAssignSurveyor2=new SurveyAssignSurveyor();
-        surveyAssignSurveyor2.setSurveyAssignSurveyorId(3);
-        surveyAssignSurveyor2.setUserId("perinurpazri");
-        surveyAssignSurveyor2.setKualifikasiSurveyId(20150101);
-
-        SurveyAssignSurveyor surveyAssignSurveyor3=new SurveyAssignSurveyor();
-        surveyAssignSurveyor3.setSurveyAssignSurveyorId(4);
-        surveyAssignSurveyor3.setUserId("mpewpazi");
-        surveyAssignSurveyor3.setKualifikasiSurveyId(20150102);
-        addSurveyAssignSurveyor(surveyAssignSurveyor);
-        addSurveyAssignSurveyor(surveyAssignSurveyor1);
-        addSurveyAssignSurveyor(surveyAssignSurveyor2);
-        addSurveyAssignSurveyor(surveyAssignSurveyor3);
-
-
-
     }
-
-
-
-
 
     public Perusahaan getPerusahaan(int idPerusahaan){
         CursorWrapperGal cursor=query(PerusahaanTable.NAME,PerusahaanTable.Cols.ID_PERUSAHAAN+ "=?",
@@ -649,6 +459,86 @@ public class DummyMaker {
         }
     }
 
+    public FormGalpal7 getFormGalpal7(UUID idFormGalpal7){
+        CursorWrapperGal cursor=query(FG7PeralatanKerjaLuarTugboatTable.NAME,FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG+ "=?",
+                new String[] {idFormGalpal7.toString()});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+
+            }
+
+            cursor.moveToFirst();
+            return cursor.getFormGalpal7();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public FormGalpal8 getFormGalpal8(UUID idFormGalpal8){
+        CursorWrapperGal cursor=query(FG8PeralatanKerjaProduksiMesinTable.NAME,FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN+ "=?",
+                new String[] {idFormGalpal8.toString()});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+
+            }
+
+            cursor.moveToFirst();
+            return cursor.getFormGalpal8();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public FormGalpal9 getFormGalpal9(UUID idFormGalpal9){
+        CursorWrapperGal cursor=query(FG9PeralatanKerjaProduksiKontruksi.NAME,FG9PeralatanKerjaProduksiKontruksi.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI+ "=?",
+                new String[] {idFormGalpal9.toString()});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+
+            }
+
+            cursor.moveToFirst();
+            return cursor.getFormGalpal9();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public FormGalpal10 getFormGalpal10(UUID idFormGalpal10){
+        CursorWrapperGal cursor=query(FG10PeralatanKerjaProduksiElektrikalMekanikal.NAME,FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK+ "=?",
+                new String[] {idFormGalpal10.toString()});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+
+            }
+
+            cursor.moveToFirst();
+            return cursor.getFormGalpal10();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public FormGalpal11 getFormGalpal11(UUID idFormGalpal11){
+        CursorWrapperGal cursor=query(FG11PeralatanKerjaProduksiPengecatan.NAME,FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT+ "=?",
+                new String[] {idFormGalpal11.toString()});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+
+            }
+
+            cursor.moveToFirst();
+            return cursor.getFormGalpal11();
+        }finally {
+            cursor.close();
+        }
+    }
+
     public FormKompal3a getFormKompal3a(UUID idFormKompal3a){
         CursorWrapperGal cursor=query(FK3aJenisKapasitasProduksiTable.NAME,FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI+ "=?",
                 new String[] {idFormKompal3a.toString()});
@@ -814,6 +704,86 @@ public class DummyMaker {
         return formGalpal6s;
     }
 
+    public List<FormGalpal7> getFormGalpal7s(int idKualifikasiSurvey){
+        List<FormGalpal7> formGalpal7s=new ArrayList<>();
+        CursorWrapperGal cursor=query(FG7PeralatanKerjaLuarTugboatTable.NAME,FG7PeralatanKerjaLuarTugboatTable.Cols.ID_KUALIFIKASI_SURVEY+"=?"
+                ,new String[] {String.valueOf(idKualifikasiSurvey)});
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                formGalpal7s.add(cursor.getFormGalpal7());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return formGalpal7s;
+    }
+
+    public List<FormGalpal8> getFormGalpal8s(int idKualifikasiSurvey){
+        List<FormGalpal8> formGalpal8s=new ArrayList<>();
+        CursorWrapperGal cursor=query(FG8PeralatanKerjaProduksiMesinTable.NAME,FG8PeralatanKerjaProduksiMesinTable.Cols.ID_KUALIFIKASI_SURVEY+"=?"
+                ,new String[] {String.valueOf(idKualifikasiSurvey)});
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                formGalpal8s.add(cursor.getFormGalpal8());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return formGalpal8s;
+    }
+
+    public List<FormGalpal9> getFormGalpal9s(int idKualifikasiSurvey){
+        List<FormGalpal9> formGalpal9s=new ArrayList<>();
+        CursorWrapperGal cursor=query(FG9PeralatanKerjaProduksiKontruksi.NAME,FG9PeralatanKerjaProduksiKontruksi.Cols.ID_KUALIFIKASI_SURVEY+"=?"
+                ,new String[] {String.valueOf(idKualifikasiSurvey)});
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                formGalpal9s.add(cursor.getFormGalpal9());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return formGalpal9s;
+    }
+
+    public List<FormGalpal10> getFormGalpal10s(int idKualifikasiSurvey){
+        List<FormGalpal10> formGalpal10s=new ArrayList<>();
+        CursorWrapperGal cursor=query(FG10PeralatanKerjaProduksiElektrikalMekanikal.NAME,FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_KUALIFIKASI_SURVEY+"=?"
+                ,new String[] {String.valueOf(idKualifikasiSurvey)});
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                formGalpal10s.add(cursor.getFormGalpal10());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return formGalpal10s;
+    }
+
+    public List<FormGalpal11> getFormGalpal11s(int idKualifikasiSurvey){
+        List<FormGalpal11> formGalpal11s=new ArrayList<>();
+        CursorWrapperGal cursor=query(FG11PeralatanKerjaProduksiPengecatan.NAME,FG11PeralatanKerjaProduksiPengecatan.Cols.ID_KUALIFIKASI_SURVEY+"=?"
+                ,new String[] {String.valueOf(idKualifikasiSurvey)});
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                formGalpal11s.add(cursor.getFormGalpal11());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return formGalpal11s;
+    }
+
     //form2 kompal 3a yang memiliki kualifikasi survey id tertentu
     public List<FormKompal3a> getFormKompal3as(int idKualifikasiSurvey){
         List<FormKompal3a> formKompal3as=new ArrayList<>();
@@ -888,6 +858,11 @@ public class DummyMaker {
         galpalForms.add(new FormGalpal3());
         galpalForms.add(new FormGalpal4());
         galpalForms.add(new FormGalpal6());
+        galpalForms.add(new FormGalpal7());
+        galpalForms.add(new FormGalpal8());
+        galpalForms.add(new FormGalpal9());
+        galpalForms.add(new FormGalpal10());
+        galpalForms.add(new FormGalpal11());
         return galpalForms;
     }
 
@@ -1093,23 +1068,7 @@ public class DummyMaker {
         }
     }
 
-    public void addKualifikasiSurveya(KualifikasiSurvey kualifikasiSurvey) {
-        ContentValues values=getContentValues(kualifikasiSurvey);
-        int idKualifikasiSurvey=kualifikasiSurvey.getKualifikasiSurveyId();
 
-        CursorWrapperGal cursor=query(KualifikasiSurveyTable.NAME,KualifikasiSurveyTable.Cols.ID_KUALIFIKASI_SURVEY+ "=?",
-                new String[] {String.valueOf(idKualifikasiSurvey)});
-        try{
-            if(cursor.getCount()==0){
-                mDatabase.insert(KualifikasiSurveyTable.NAME,null,values);
-            }else{
-            //    mDatabase.update(KualifikasiSurveyTable.NAME,values,KualifikasiSurveyTable.Cols.ID_KUALIFIKASI_SURVEY+" = ?",new String[]{String.valueOf(idKualifikasiSurvey)});
-            }
-
-        }finally {
-            cursor.close();
-        }
-    }
 
     private void addUser(User user){
         ContentValues values=getContentValues(user);
@@ -1148,7 +1107,7 @@ public class DummyMaker {
 
     }
 
-    private void addPerusahaan(Perusahaan perusahaan){
+    public void addPerusahaan(Perusahaan perusahaan){
         ContentValues values=getContentValues(perusahaan);
         String idPerusahaan=String.valueOf(perusahaan.getId());
 
@@ -1184,23 +1143,7 @@ public class DummyMaker {
         }
     }
 
-    private void addMenuCheckingGalpala(MenuCheckingGalpal menuCheckingGalpal){
-        ContentValues values=getContentValues(menuCheckingGalpal);
-        String idMenuCheckingGalpal=String.valueOf(menuCheckingGalpal.getIdMenuCheckingGalpal());
 
-        CursorWrapperGal cursor=query(MenuCheckingGalpalTable.NAME,MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING+ "=?",
-                new String[] {idMenuCheckingGalpal});
-        try{
-            if(cursor.getCount()==0){
-                mDatabase.insert(MenuCheckingGalpalTable.NAME,null,values);
-            }else{
-                //mDatabase.update(MenuCheckingGalpalTable.NAME,values,MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING+" = ?",new String[]{idMenuCheckingGalpal});
-            }
-
-        }finally {
-            cursor.close();
-        }
-    }
 
     public void addMenuCheckingKompal(MenuCheckingKompal menuCheckingKompal){
         ContentValues values=getContentValues(menuCheckingKompal);
@@ -1220,23 +1163,7 @@ public class DummyMaker {
         }
     }
 
-    private void addMenuCheckingKompala(MenuCheckingKompal menuCheckingKompal){
-        ContentValues values=getContentValues(menuCheckingKompal);
-        String idMenuCheckingKompal=String.valueOf(menuCheckingKompal.getIdMenuCheckingKompal());
 
-        CursorWrapperGal cursor=query(MenuCheckingKompalTable.NAME,MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING+ "=?",
-                new String[] {idMenuCheckingKompal});
-        try{
-            if(cursor.getCount()==0){
-                mDatabase.insert(MenuCheckingKompalTable.NAME,null,values);
-            }else{
-                //mDatabase.update(MenuCheckingKompalTable.NAME,values,MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING+" = ?",new String[]{idMenuCheckingKompal});
-            }
-
-        }finally {
-            cursor.close();
-        }
-    }
 
     public void addMenuF1(MenuF1 menuF1){
         ContentValues values=getContentValues(menuF1);
@@ -1292,29 +1219,7 @@ public class DummyMaker {
         }
     }
 
-    public void addFormGalpal1a(FormGalpal1 formGalpal1){
-        ContentValues values=getContentValues(formGalpal1);
-        String formGalpal1Id=String.valueOf(formGalpal1.getIdentitasPerusahaanId());
 
-        CursorWrapperGal cursor=query(FG1PerusahaanIdentitasTable.NAME,FG1PerusahaanIdentitasTable.Cols.ID_PERUSAHAAN_IDENTITAS+ "=?",
-                new String[] {formGalpal1Id});
-        try{
-            if(cursor.getCount()==0){
-                mDatabase.insert(FG1PerusahaanIdentitasTable.NAME,null,values);
-            }else{
-                //mDatabase.update(FG1PerusahaanIdentitasTable.NAME,values,FG1PerusahaanIdentitasTable.Cols.ID_PERUSAHAAN_IDENTITAS+" = ?",new String[]{formGalpal1Id});
-            }
-
-        }finally {
-            cursor.close();
-        }
-    }
-
-    public void addFormGalpal1s(List<FormGalpal1> formGalpal1s){
-        for(FormGalpal1 formGalpal1:formGalpal1s){
-            addFormGalpal1(formGalpal1);
-        }
-    }
 
     public void addFormGalpal3(FormGalpal3 formGalpal3){
         ContentValues values=getContentValues(formGalpal3);
@@ -1335,23 +1240,7 @@ public class DummyMaker {
         }
     }
 
-    private void addFormGalpal3a(FormGalpal3 formGalpal3){
-        ContentValues values=getContentValues(formGalpal3);
-        String formGalpal3Id=String.valueOf(formGalpal3.getIdentitasUmumGalanganId());
 
-        CursorWrapperGal cursor=query(FG3GalanganKapalTable.NAME,FG3GalanganKapalTable.Cols.ID_GALANGAN_KAPAL+ "=?",
-                new String[] {formGalpal3Id});
-        try{
-            if(cursor.getCount()==0){
-                mDatabase.insert(FG3GalanganKapalTable.NAME,null,values);
-            }else{
-                //mDatabase.update(FG3GalanganKapalTable.NAME,values,FG3GalanganKapalTable.Cols.ID_GALANGAN_KAPAL+" = ?",new String[]{formGalpal3Id});
-            }
-
-        }finally {
-            cursor.close();
-        }
-    }
 
     public void addFormGalpal4(FormGalpal4 formGalpal4){
         ContentValues values=getContentValues(formGalpal4);
@@ -1371,23 +1260,6 @@ public class DummyMaker {
         }
     }
 
-    private void addFormGalpal4a(FormGalpal4 formGalpal4){
-        ContentValues values=getContentValues(formGalpal4);
-        String formGalpal4Id=String.valueOf(formGalpal4.getTinjauanWilayahMaritimId());
-
-        CursorWrapperGal cursor=query(FG4TinjauanAreaTable.NAME,FG4TinjauanAreaTable.Cols.ID_F1_TINJAUAN_AREA+ "=?",
-                new String[] {formGalpal4Id});
-        try{
-            if(cursor.getCount()==0){
-                mDatabase.insert(FG4TinjauanAreaTable.NAME,null,values);
-            }else{
-                //mDatabase.update(FG4TinjauanAreaTable.NAME,values,FG4TinjauanAreaTable.Cols.ID_F1_TINJAUAN_AREA+" = ?",new String[]{formGalpal4Id});
-            }
-
-        }finally {
-            cursor.close();
-        }
-    }
 
     public void addFormGalpal6(FormGalpal6 formGalpal6){
         ContentValues values=getContentValues(formGalpal6);
@@ -1409,7 +1281,7 @@ public class DummyMaker {
 
     public void addFormGalpal6Server(FormGalpal6 formGalpal6){
         ContentValues values=getContentValues(formGalpal6);
-        String formGalpal6IdServer=String.valueOf(formGalpal6.getIdPeralatanKerjaCraneServer());
+        String formGalpal6IdServer=String.valueOf(formGalpal6.getFormServerId());
 
         CursorWrapperGal cursor=query(FG6PeralatanKerjaLuarCraneTable.NAME,FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_SERVER+ "=?",
                 new String[] {formGalpal6IdServer});
@@ -1424,6 +1296,190 @@ public class DummyMaker {
             cursor.close();
         }
     }
+
+    public void addFormGalpal7(FormGalpal7 formGalpal7){
+        ContentValues values=getContentValues(formGalpal7);
+        String formGalpal6Id=String.valueOf(formGalpal7.getIdPeralatanKerjaTugboat());
+
+        CursorWrapperGal cursor=query(FG7PeralatanKerjaLuarTugboatTable.NAME,FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG+ "=?",
+                new String[] {formGalpal6Id});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(FG7PeralatanKerjaLuarTugboatTable.NAME,null,values);
+            }else{
+                mDatabase.update(FG7PeralatanKerjaLuarTugboatTable.NAME,values,FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG+" = ?",new String[]{formGalpal6Id});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addFormGalpal7Server(FormGalpal7 formGalpal7){
+        ContentValues values=getContentValues(formGalpal7);
+        String formGalpal6Id=String.valueOf(formGalpal7.getFormServerId());
+
+        CursorWrapperGal cursor=query(FG7PeralatanKerjaLuarTugboatTable.NAME,FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG_SERVER+ "=?",
+                new String[] {formGalpal6Id});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(FG7PeralatanKerjaLuarTugboatTable.NAME,null,values);
+            }else{
+                mDatabase.update(FG7PeralatanKerjaLuarTugboatTable.NAME,values,FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG_SERVER+" = ?",new String[]{formGalpal6Id});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addFormGalpal8(FormGalpal8 formGalpal8){
+        ContentValues values=getContentValues(formGalpal8);
+        String formGalpal8Id=String.valueOf(formGalpal8.getIdPeralatanKerjaProdMesin());
+
+        CursorWrapperGal cursor=query(FG8PeralatanKerjaProduksiMesinTable.NAME,FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN+ "=?",
+                new String[] {formGalpal8Id});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(FG8PeralatanKerjaProduksiMesinTable.NAME,null,values);
+            }else{
+                mDatabase.update(FG8PeralatanKerjaProduksiMesinTable.NAME,values,FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN+" = ?",new String[]{formGalpal8Id});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addFormGalpal8Server(FormGalpal8 formGalpal8){
+        ContentValues values=getContentValues(formGalpal8);
+        String formGalpal8Id=String.valueOf(formGalpal8.getFormServerId());
+
+        CursorWrapperGal cursor=query(FG8PeralatanKerjaProduksiMesinTable.NAME,FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN_SERVER+ "=?",
+                new String[] {formGalpal8Id});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(FG8PeralatanKerjaProduksiMesinTable.NAME,null,values);
+            }else{
+                mDatabase.update(FG8PeralatanKerjaProduksiMesinTable.NAME,values,FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN_SERVER+" = ?",new String[]{formGalpal8Id});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addFormGalpal9(FormGalpal9 formGalpal9){
+        ContentValues values=getContentValues(formGalpal9);
+        String formGalpal9Id=String.valueOf(formGalpal9.getIdPeralatanKerjaProduksiKontruksi());
+
+        CursorWrapperGal cursor=query(FG9PeralatanKerjaProduksiKontruksi.NAME,FG9PeralatanKerjaProduksiKontruksi.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI+ "=?",
+                new String[] {formGalpal9Id});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(FG9PeralatanKerjaProduksiKontruksi.NAME,null,values);
+            }else{
+                mDatabase.update(FG9PeralatanKerjaProduksiKontruksi.NAME,values,FG9PeralatanKerjaProduksiKontruksi.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI+" = ?",new String[]{formGalpal9Id});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addFormGalpal9Server(FormGalpal9 formGalpal9){
+        ContentValues values=getContentValues(formGalpal9);
+        String formGalpal9Id=String.valueOf(formGalpal9.getFormServerId());
+
+        CursorWrapperGal cursor=query(FG9PeralatanKerjaProduksiKontruksi.NAME,FG9PeralatanKerjaProduksiKontruksi.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI_SERVER+ "=?",
+                new String[] {formGalpal9Id});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(FG9PeralatanKerjaProduksiKontruksi.NAME,null,values);
+            }else{
+                mDatabase.update(FG9PeralatanKerjaProduksiKontruksi.NAME,values,FG9PeralatanKerjaProduksiKontruksi.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI_SERVER+" = ?",new String[]{formGalpal9Id});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addFormGalpal10(FormGalpal10 formGalpal10){
+        ContentValues values=getContentValues(formGalpal10);
+        String formGalpal10Id=String.valueOf(formGalpal10.getIdPeralatanKerjaProdElektrikal());
+
+        CursorWrapperGal cursor=query(FG10PeralatanKerjaProduksiElektrikalMekanikal.NAME,FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK+ "=?",
+                new String[] {formGalpal10Id});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(FG10PeralatanKerjaProduksiElektrikalMekanikal.NAME,null,values);
+            }else{
+                mDatabase.update(FG10PeralatanKerjaProduksiElektrikalMekanikal.NAME,values,FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK+" = ?",new String[]{formGalpal10Id});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addFormGalpal10Server(FormGalpal10 formGalpal10){
+        ContentValues values=getContentValues(formGalpal10);
+        String formGalpal10Id=String.valueOf(formGalpal10.getFormServerId());
+
+        CursorWrapperGal cursor=query(FG10PeralatanKerjaProduksiElektrikalMekanikal.NAME,FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK_SERVER+ "=?",
+                new String[] {formGalpal10Id});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(FG10PeralatanKerjaProduksiElektrikalMekanikal.NAME,null,values);
+            }else{
+                mDatabase.update(FG10PeralatanKerjaProduksiElektrikalMekanikal.NAME,values,FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK_SERVER+" = ?",new String[]{formGalpal10Id});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addFormGalpal11(FormGalpal11 formGalpal11){
+        ContentValues values=getContentValues(formGalpal11);
+        String formGalpal11Id=String.valueOf(formGalpal11.getIdPeralatanKerjaProdPengecatan());
+
+        CursorWrapperGal cursor=query(FG11PeralatanKerjaProduksiPengecatan.NAME,FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT+ "=?",
+                new String[] {formGalpal11Id});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(FG11PeralatanKerjaProduksiPengecatan.NAME,null,values);
+            }else{
+                mDatabase.update(FG11PeralatanKerjaProduksiPengecatan.NAME,values,FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT+" = ?",new String[]{formGalpal11Id});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addFormGalpal11Server(FormGalpal11 formGalpal11){
+        ContentValues values=getContentValues(formGalpal11);
+        String formGalpal11Id=String.valueOf(formGalpal11.getFormServerId());
+
+        CursorWrapperGal cursor=query(FG11PeralatanKerjaProduksiPengecatan.NAME,FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT_SERVER+ "=?",
+                new String[] {formGalpal11Id});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(FG11PeralatanKerjaProduksiPengecatan.NAME,null,values);
+            }else{
+                mDatabase.update(FG11PeralatanKerjaProduksiPengecatan.NAME,values,FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT_SERVER+" = ?",new String[]{formGalpal11Id});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+
+
+
 
     public void addFormKompal3a(FormKompal3a formKompal3a){
         ContentValues values=getContentValues(formKompal3a);
@@ -1445,7 +1501,7 @@ public class DummyMaker {
 
     public void addFormKompal3aServer(FormKompal3a formKompal3a){
         ContentValues values=getContentValues(formKompal3a);
-        String formKompal3aIdServer=String.valueOf(formKompal3a.getIdJenisKapasitasProduksiServer());
+        String formKompal3aIdServer=String.valueOf(formKompal3a.getFormServerId());
 
         CursorWrapperGal cursor=query(FK3aJenisKapasitasProduksiTable.NAME,FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI_SERVER+ "=?",
                 new String[] {formKompal3aIdServer});
@@ -1481,7 +1537,7 @@ public class DummyMaker {
 
     public void addFormKompal3bServer(FormKompal3b formKompal3b){
         ContentValues values=getContentValues(formKompal3b);
-        String formKompal3bIdServer=String.valueOf(formKompal3b.getIdJumlahProduksiServer());
+        String formKompal3bIdServer=String.valueOf(formKompal3b.getFormServerId());
 
         CursorWrapperGal cursor=query(FK3bJumlahProduksiTable.NAME,FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI_SERVER+ "=?",
                 new String[] {formKompal3bIdServer});
@@ -1517,7 +1573,7 @@ public class DummyMaker {
 
     public void addFormKompal3cServer(FormKompal3c formKompal3c){
         ContentValues values=getContentValues(formKompal3c);
-        String formKompal3cIdServer=String.valueOf(formKompal3c.getIdSistemBerproduksiServer());
+        String formKompal3cIdServer=String.valueOf(formKompal3c.getFormServerId());
 
         CursorWrapperGal cursor=query(FK3cSistemBerproduksiTable.NAME,FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI_SERVER+ "=?",
                 new String[] {formKompal3cIdServer});
@@ -1553,7 +1609,7 @@ public class DummyMaker {
 
     public void addFormKompal3dServer(FormKompal3d formKompal3d){
         ContentValues values=getContentValues(formKompal3d);
-        String formKompal3dIdServer=String.valueOf(formKompal3d.getIdStandarMutuServer());
+        String formKompal3dIdServer=String.valueOf(formKompal3d.getFormServerId());
 
         CursorWrapperGal cursor=query(FK3dStandarMutuTableTable.NAME,FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU_SERVER+ "=?",
                 new String[] {formKompal3dIdServer});
@@ -1569,54 +1625,6 @@ public class DummyMaker {
         }
     }
 
-    private void addGalpalForms(int formGalpalId,int kualifikasiSurveyId){
-        FormGalpal1 formGalpal1=new FormGalpal1();
-        formGalpal1.setIdentitasPerusahaanId(kualifikasiSurveyId);
-        formGalpal1.setKualifikasiSurveyId(kualifikasiSurveyId);
-
-        FormGalpal3 formGalpal3=new FormGalpal3();
-        formGalpal3.setIdentitasUmumGalanganId(kualifikasiSurveyId);
-        formGalpal3.setKualifikasiSurveyId(kualifikasiSurveyId);
-
-        FormGalpal4 formGalpal4=new FormGalpal4();
-        formGalpal4.setTinjauanWilayahMaritimId(kualifikasiSurveyId);
-        formGalpal4.setKualifikasiSurveyId(kualifikasiSurveyId);
-
-
-        addFormGalpal1a(formGalpal1);
-        addFormGalpal3a(formGalpal3);
-        addFormGalpal4a(formGalpal4);
-
-
-    }
-
-    private void addKompalForms(int formKompalId,int kualifikasiSurveyId){
-        //form kompal3a,3b,3c,3d ditambahnya oleh user
-
-    }
-
-    private void addMenuCheckingGalpals(int kualifikasiSurveyId){
-        List<SingleForm> mGalpalForms=getGalpalForms();
-        for(SingleForm singleForm:mGalpalForms){
-            MenuCheckingGalpal menuCheckingGalpal=new MenuCheckingGalpal();
-            menuCheckingGalpal.setIdKualifikasiSurvey(kualifikasiSurveyId);
-            menuCheckingGalpal.setIdMenu(singleForm.getKodeForm());
-            addMenuCheckingGalpala(menuCheckingGalpal);
-            //
-        }
-    }
-
-    private void addMenuCheckingKompals(int kualifikasiSurveyId){
-        List<SingleForm> mKompalForms=getKompalForms();
-        for(SingleForm singleForm:mKompalForms){
-            MenuCheckingKompal menuCheckingKompal=new MenuCheckingKompal();
-            menuCheckingKompal.setIdKualifikasiSurvey(kualifikasiSurveyId);
-            menuCheckingKompal.setIdMenu(singleForm.getKodeForm());
-            addMenuCheckingKompala(menuCheckingKompal);
-        }
-    }
-
-
 
 
 
@@ -1624,6 +1632,36 @@ public class DummyMaker {
         String formGalpal6Id=String.valueOf(formGalpal6.getIdPeralatanKerjaCrane());
         mDatabase.delete(FG6PeralatanKerjaLuarCraneTable.NAME,FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE+ "=?",
                 new String[] {formGalpal6Id});
+    }
+
+    public void deleteFormGalpal7(FormGalpal7 formGalpal7){
+        String formGalpal7Id=String.valueOf(formGalpal7.getIdPeralatanKerjaTugboat());
+        mDatabase.delete(FG7PeralatanKerjaLuarTugboatTable.NAME,FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG+ "=?",
+                new String[] {formGalpal7Id});
+    }
+
+    public void deleteFormGalpal8(FormGalpal8 formGalpal8){
+        String formGalpal8Id=String.valueOf(formGalpal8.getIdPeralatanKerjaProdMesin());
+        mDatabase.delete(FG8PeralatanKerjaProduksiMesinTable.NAME,FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN+ "=?",
+                new String[] {formGalpal8Id});
+    }
+
+    public void deleteFormGalpal9(FormGalpal9 formGalpal9){
+        String formGalpal9Id=String.valueOf(formGalpal9.getIdPeralatanKerjaProduksiKontruksi());
+        mDatabase.delete(FG8PeralatanKerjaProduksiMesinTable.NAME,FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN+ "=?",
+                new String[] {formGalpal9Id});
+    }
+
+    public void deleteFormGalpal10(FormGalpal10 formGalpal10){
+        String formGalpal10Id=String.valueOf(formGalpal10.getIdPeralatanKerjaProdElektrikal());
+        mDatabase.delete(FG10PeralatanKerjaProduksiElektrikalMekanikal.NAME,FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK+ "=?",
+                new String[] {formGalpal10Id});
+    }
+
+    public void deleteFormGalpal11(FormGalpal11 formGalpal11){
+        String formGalpal11Id=String.valueOf(formGalpal11.getIdPeralatanKerjaProdPengecatan());
+        mDatabase.delete(FG11PeralatanKerjaProduksiPengecatan.NAME,FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT+ "=?",
+                new String[] {formGalpal11Id});
     }
 
     public void deleteFormKompal3a(FormKompal3a formKompal3a){
@@ -1698,7 +1736,7 @@ public class DummyMaker {
         values.put(PerusahaanTable.Cols.ID_PERUSAHAAN, perusahaan.getId());
         values.put(PerusahaanTable.Cols.NAMA_PERUSAHAAN, perusahaan.getNamaPerusahaan());
         values.put(PerusahaanTable.Cols.INDUSTRI, perusahaan.getIndustri());
-        values.put(PerusahaanTable.Cols.IS_ACTIV, perusahaan.isActive());
+        values.put(PerusahaanTable.Cols.IS_ACTIV, perusahaan.isActive() ? 1 : 0);
 
         return values;
     }
@@ -1790,10 +1828,11 @@ public class DummyMaker {
         return contentValues;
     }
 
+
     private static ContentValues getContentValues(FormGalpal6 formGalpal6){
         ContentValues contentValues=new ContentValues();
         contentValues.put(FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE ,formGalpal6.getIdPeralatanKerjaCrane().toString());
-        contentValues.put(FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_SERVER,formGalpal6.getIdPeralatanKerjaCraneServer());
+        contentValues.put(FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_SERVER,formGalpal6.getFormServerId());
         contentValues.put(FG6PeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY ,formGalpal6.getKualifikasiSurveyId());
         contentValues.put(FG6PeralatanKerjaLuarCraneTable.Cols.JENIS_MESIN ,formGalpal6.getJenisMesin());
         contentValues.put(FG6PeralatanKerjaLuarCraneTable.Cols.TAHUN_PEMBUATAN ,formGalpal6.getTahunPembuatan());
@@ -1810,12 +1849,114 @@ public class DummyMaker {
         return contentValues;
     }
 
+    private static ContentValues getContentValues(FormGalpal7 formGalpal7){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG ,formGalpal7.getIdPeralatanKerjaTugboat().toString());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG_SERVER,formGalpal7.getFormServerId());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.ID_KUALIFIKASI_SURVEY ,formGalpal7.getKualifikasiSurveyId());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.JENIS_MESIN ,formGalpal7.getJenisPeralatan());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.TAHUN_PEMBUATAN ,formGalpal7.getTahunPembuatan());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.MERK ,formGalpal7.getMerek());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.KAPASAITAS_TERPASANG ,formGalpal7.getKapasitasTerpasang());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.KAPASITAS_TERPAKAI ,formGalpal7.getKapasitasTerpakai());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.DIMENSI ,formGalpal7.getDimensi());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.JUMLAH ,formGalpal7.getJumlah());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.KONDISI ,formGalpal7.getKondisi());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.LOKASI ,formGalpal7.getLokasi());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.STATUS ,formGalpal7.getStatus());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPAKAI ,formGalpal7.getSatuanKapasitasTerpakai());
+        contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPASANG ,formGalpal7.getSatuanKapastiasTerpasang());
+        return contentValues;
+    }
+
+    private static ContentValues getContentValues(FormGalpal8 formGalpal8){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN ,formGalpal8.getIdPeralatanKerjaProdMesin().toString());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN_SERVER,formGalpal8.getFormServerId());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.ID_KUALIFIKASI_SURVEY ,formGalpal8.getKualifikasiSurveyId());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.JENIS_MESIN ,formGalpal8.getJenisMesin());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.TAHUN_PEMBUATAN ,formGalpal8.getTahunPembuatan());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.MERK ,formGalpal8.getMerek());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.KAPASAITAS_TERPASANG ,formGalpal8.getKapasitasTerpasang());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.KAPASITAS_TERPAKAI ,formGalpal8.getKapasitasTerpakai());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.DIMENSI ,formGalpal8.getDimensi());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.JUMLAH ,formGalpal8.getJumlah());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.KONDISI ,formGalpal8.getKondisi());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.LOKASI ,formGalpal8.getLokasi());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.STATUS ,formGalpal8.getStatus());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.SATUAN_KAPASITAS_TERPAKAI ,formGalpal8.getSatuanKapasitasTerpakai());
+        contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.SATUAN_KAPASITAS_TERPASANG ,formGalpal8.getSatuanKapastiasTerpasang());
+        return contentValues;
+    }
+
+    private static ContentValues getContentValues(FormGalpal9 formGalpal9){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI ,formGalpal9.getIdPeralatanKerjaProduksiKontruksi().toString());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI_SERVER,formGalpal9.getFormServerId());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.ID_KUALIFIKASI_SURVEY ,formGalpal9.getKualifikasiSurveyId());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.JENIS_MESIN ,formGalpal9.getJenisMesin());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.TAHUN_PEMBUATAN ,formGalpal9.getTahunPembuatan());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.MERK ,formGalpal9.getMerek());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.KAPASAITAS_TERPASANG ,formGalpal9.getKapasitasTerpasang());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.KAPASITAS_TERPAKAI ,formGalpal9.getKapasitasTerpakai());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.DIMENSI ,formGalpal9.getDimensi());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.JUMLAH ,formGalpal9.getJumlah());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.KONDISI ,formGalpal9.getKondisi());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.LOKASI ,formGalpal9.getLokasi());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.STATUS ,formGalpal9.getStatus());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.SATUAN_KAPASITAS_TERPAKAI ,formGalpal9.getSatuanKapasitasTerpakai());
+        contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.SATUAN_KAPASITAS_TERPASANG ,formGalpal9.getSatuanKapastiasTerpasang());
+        return contentValues;
+    }
+
+    private static ContentValues getContentValues(FormGalpal10 formGalpal10){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK ,formGalpal10.getIdPeralatanKerjaProdElektrikal().toString());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK_SERVER,formGalpal10.getFormServerId());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_KUALIFIKASI_SURVEY ,formGalpal10.getKualifikasiSurveyId());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.JENIS_MESIN ,formGalpal10.getJenisMesin());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.TAHUN_PEMBUATAN ,formGalpal10.getTahunPembuatan());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.MERK ,formGalpal10.getMerek());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.KAPASAITAS_TERPASANG ,formGalpal10.getKapasitasTerpasang());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.KAPASITAS_TERPAKAI ,formGalpal10.getKapasitasTerpakai());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.DIMENSI ,formGalpal10.getDimensi());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.JUMLAH ,formGalpal10.getJumlah());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.KONDISI ,formGalpal10.getKondisi());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.LOKASI ,formGalpal10.getLokasi());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.STATUS ,formGalpal10.getStatus());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.SATUAN_KAPASITAS_TERPAKAI ,formGalpal10.getSatuanKapasitasTerpakai());
+        contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.SATUAN_KAPASITAS_TERPASANG ,formGalpal10.getSatuanKapastiasTerpasang());
+        return contentValues;
+    }
+
+    private static ContentValues getContentValues(FormGalpal11 formGalpal11){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT ,formGalpal11.getIdPeralatanKerjaProdPengecatan().toString());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT_SERVER,formGalpal11.getFormServerId());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.ID_KUALIFIKASI_SURVEY ,formGalpal11.getKualifikasiSurveyId());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.JENIS_MESIN ,formGalpal11.getJenisMesin());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.TAHUN_PEMBUATAN ,formGalpal11.getTahunPembuatan());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.MERK ,formGalpal11.getMerek());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.KAPASAITAS_TERPASANG ,formGalpal11.getKapasitasTerpasang());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.KAPASITAS_TERPAKAI ,formGalpal11.getKapasitasTerpakai());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.DIMENSI ,formGalpal11.getDimensi());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.JUMLAH ,formGalpal11.getJumlah());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.KONDISI ,formGalpal11.getKondisi());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.LOKASI ,formGalpal11.getLokasi());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.STATUS ,formGalpal11.getStatus());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.SATUAN_KAPASITAS_TERPAKAI ,formGalpal11.getSatuanKapasitasTerpakai());
+        contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.SATUAN_KAPASITAS_TERPASANG ,formGalpal11.getSatuanKapastiasTerpasang());
+        return contentValues;
+    }
+
+
+
 
 
     private static ContentValues getContentValues(FormKompal3a formKompal3a){
         ContentValues contentValues=new ContentValues();
         contentValues.put(FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI,formKompal3a.getIdJenisKapasitasProduksi().toString());
-        contentValues.put(FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI_SERVER,formKompal3a.getIdJenisKapasitasProduksiServer());
+        contentValues.put(FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI_SERVER, formKompal3a.getFormServerId());
         contentValues.put(FK3aJenisKapasitasProduksiTable.Cols.ID_KUALIFIKASI_SURVEY,formKompal3a.getKualifikasiSurveyId());
         contentValues.put(FK3aJenisKapasitasProduksiTable.Cols.JENIS_PRODUKSI,formKompal3a.getJenisProduksi());
         contentValues.put(FK3aJenisKapasitasProduksiTable.Cols.KAPASITAS_PRODUKSI,formKompal3a.getKapasitasProduksi());
@@ -1827,7 +1968,7 @@ public class DummyMaker {
     private static ContentValues getContentValues(FormKompal3b formKompal3b){
         ContentValues contentValues=new ContentValues();
         contentValues.put(FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI,formKompal3b.getIdjumlahProduksi().toString());
-        contentValues.put(FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI_SERVER,formKompal3b.getIdJumlahProduksiServer());
+        contentValues.put(FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI_SERVER,formKompal3b.getFormServerId());
         contentValues.put(FK3bJumlahProduksiTable.Cols.ID_KUALIFIKASI_SURVEY,formKompal3b.getKualifikasiSurveyId());
         contentValues.put(FK3bJumlahProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI,formKompal3b.getJenisProdukId());
         contentValues.put(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN1,formKompal3b.getJumlahProdThn1());
@@ -1846,7 +1987,7 @@ public class DummyMaker {
     private static ContentValues getContentValues(FormKompal3c formKompal3c){
         ContentValues contentValues=new ContentValues();
         contentValues.put(FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI,formKompal3c.getIdSistemBerproduksi().toString());
-        contentValues.put(FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI_SERVER,formKompal3c.getIdSistemBerproduksiServer());
+        contentValues.put(FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI_SERVER,formKompal3c.getFormServerId());
         contentValues.put(FK3cSistemBerproduksiTable.Cols.ID_KUALIFIKASI_SURVEY,formKompal3c.getKualifikasiSurveyId());
         contentValues.put(FK3cSistemBerproduksiTable.Cols.NAMA_PRODUK,formKompal3c.getNamaProduk());
         contentValues.put(FK3cSistemBerproduksiTable.Cols.ID_MST_JENIS_PRODUKSI,formKompal3c.getSistemProduksi());
@@ -1860,7 +2001,7 @@ public class DummyMaker {
     private static ContentValues getContentValues(FormKompal3d formKompal3d){
         ContentValues contentValues=new ContentValues();
         contentValues.put(FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU,formKompal3d.getIdStandarMutu().toString());
-        contentValues.put(FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU_SERVER,formKompal3d.getIdStandarMutuServer());
+        contentValues.put(FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU_SERVER,formKompal3d.getFormServerId());
         contentValues.put(FK3dStandarMutuTableTable.Cols.ID_KUALIFIKASI_SURVEY,formKompal3d.getKualifikasiSurveyId());
         contentValues.put(FK3dStandarMutuTableTable.Cols.JENIS_STANDAR_MUTU,formKompal3d.getJenisStandarMutu());
         contentValues.put(FK3dStandarMutuTableTable.Cols.KETERANGAN,formKompal3d.getKeterangan());
@@ -1869,7 +2010,7 @@ public class DummyMaker {
 
     private ContentValues getContentValues(MenuCheckingGalpal menuCheckingGalpal){
         ContentValues contentValues=new ContentValues();
-        //contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING,menuCheckingGalpal.getIdMenuCheckingGalpal());
+        contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING,menuCheckingGalpal.getIdMenuCheckingGalpal());
         contentValues.put(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY,menuCheckingGalpal.getIdKualifikasiSurvey());
         contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1,menuCheckingGalpal.getIdMenu());
         contentValues.put(MenuCheckingGalpalTable.Cols.IS_FILL,menuCheckingGalpal.isFill() ? 1 : 0);
@@ -1880,7 +2021,7 @@ public class DummyMaker {
 
     private ContentValues getContentValues(MenuCheckingKompal menuCheckingKompal){
         ContentValues contentValues=new ContentValues();
-        //contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING,menuCheckingKompal.getIdMenuCheckingKompal());
+        contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING,menuCheckingKompal.getIdMenuCheckingKompal());
         contentValues.put(MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY,menuCheckingKompal.getIdKualifikasiSurvey());
         contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2,menuCheckingKompal.getIdMenu());
         contentValues.put(MenuCheckingKompalTable.Cols.IS_FILL,menuCheckingKompal.isFill() ? 1 : 0);

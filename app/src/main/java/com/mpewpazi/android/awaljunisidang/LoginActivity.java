@@ -1,5 +1,6 @@
 package com.mpewpazi.android.awaljunisidang;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -38,6 +39,8 @@ import com.mpewpazi.android.awaljunisidang.masterData.SingleMaster;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
+import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
+import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     private Button mSignInButton;
 
     private DummyMaker mDummyMaker;
-    private List<KualifikasiSurvey> mKualifikasiSurveys;
+
 
     @NotEmpty
     private EditText mUsernameEditText;
@@ -77,10 +80,11 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         validator.setValidationListener(this);
 
         mDummyMaker=DummyMaker.get(this);
-        mKualifikasiSurveys=mDummyMaker.getKualifikasiSurveys();
 
 
-        new FetchKualifikasiSurveyTask().execute();
+
+
+new PushTask().execute();
         //new FetchMstDataTask().execute();
 
         mUsernameEditText=(EditText)findViewById(R.id.login_username);
@@ -97,22 +101,14 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 if(!isValidated){
                     return;
                 }
-
                 mUserId=mUsernameEditText.getText().toString();
+                FetchKualifikasiSurveyTask fetchKualifikasiSurveyTask;
                 if(mUserId.equals("perinurpazri")){
-                    Intent intent=new Intent(LoginActivity.this,HomePageActivity.class);
-                    intent.putExtra(EXTRA_ID_USER,mUserId);
-                    for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys) {
-                        String jenisIndustri=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri();
-                        if(jenisIndustri.equals("Galangan Kapal")) {
-                            new FetchFormGalpalTask(String.valueOf(kualifikasiSurvey.getKualifikasiSurveyId())).execute();
-                        }else{
-                            new FetchFormKompalTask(String.valueOf(kualifikasiSurvey.getKualifikasiSurveyId())).execute();
-                        }
-                    }
-                    startActivity(intent);
+                    fetchKualifikasiSurveyTask=new FetchKualifikasiSurveyTask(20150205,20150291);
+                    fetchKualifikasiSurveyTask.execute();
                 }else if(mUserId.equals("mpewpazi")){
-
+                    fetchKualifikasiSurveyTask=new FetchKualifikasiSurveyTask(20150101,20150102);
+                    fetchKualifikasiSurveyTask.execute();
                 }else{
                     Toast.makeText(getApplicationContext(),"Salah",Toast.LENGTH_SHORT).show();
                     return;
@@ -149,35 +145,27 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
     }
 
-    private class PushTask extends AsyncTask<Void,Void,Void> {
 
 
-        @Override
-        protected Void doInBackground(Void... params) {
+    private class FetchFormsTask extends AsyncTask<Void,Void,List<SingleForm>> {
+        private List<KualifikasiSurvey> mKualifikasiSurveys;
+        private List<SingleForm> mSingleForms=new ArrayList<>();
 
-            KualifikasiSurvey kualifikasiSurvey=new KualifikasiSurvey();
-            kualifikasiSurvey.setKualifikasiSurveyId(20150330);
-            kualifikasiSurvey.setStatus(1111);
-            kualifikasiSurvey.setGalanganKapalId(11111);
-            kualifikasiSurvey.setPeriodeSurveyId(111);
-            kualifikasiSurvey.setPerusahaanId(1111);
-            new DataPusher().makePostRequestKualifikasiSurvey(kualifikasiSurvey);
-
-            return null;
-        }
-    }
-
-    private class FetchFormGalpalTask extends AsyncTask<Void,Void,List<SingleForm>> {
-        private String mIdKualifikasiSurvey;
-
-        private FetchFormGalpalTask(String idKualifikasiSurvey){
-            mIdKualifikasiSurvey=idKualifikasiSurvey;
+        private FetchFormsTask(List<KualifikasiSurvey> kualifikasiSurveys){
+            mKualifikasiSurveys=kualifikasiSurveys;
         }
 
         @Override
         protected List<SingleForm> doInBackground(Void... params) {
-            Log.i("a", "Received JSON Galpal: " + mIdKualifikasiSurvey);
-            return new DataFetcher().fetchFormGalpals(mIdKualifikasiSurvey);
+            for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys) {
+                String jenisIndustri=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri();
+                if(jenisIndustri.equals(Perusahaan.industriGalpal)) {
+                    mSingleForms.addAll(new DataFetcher().fetchFormGalpals(String.valueOf(kualifikasiSurvey.getKualifikasiSurveyId())));
+                }else{
+                    mSingleForms.addAll(new DataFetcher().fetchFormKompals(String.valueOf(kualifikasiSurvey.getKualifikasiSurveyId())));
+                }
+            }
+            return mSingleForms;
         }
 
 
@@ -185,68 +173,46 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         @Override
         protected void onPostExecute(List<SingleForm> singleForms) {
             for(SingleForm singleForm:singleForms){
-                switch(singleForm.getKodeForm()){
-                    case FormGalpal1.kode:
+                switch(singleForm.getKodeAsync()){
+                    case FormGalpal1.kodeAsync:
                         DummyMaker.get(getApplicationContext()).addFormGalpal1((FormGalpal1)singleForm);
                         break;
-                    case FormGalpal3.kode:
+                    case FormGalpal3.kodeAsync:
                         DummyMaker.get(getApplicationContext()).addFormGalpal3((FormGalpal3)singleForm);
                         break;
-                    case FormGalpal4.kode:
+                    case FormGalpal4.kodeAsync:
                         DummyMaker.get(getApplicationContext()).addFormGalpal4((FormGalpal4)singleForm);
                         break;
-                    case FormGalpal6.kode:
+                    case FormGalpal6.kodeAsync:
                         DummyMaker.get(getApplicationContext()).addFormGalpal6Server((FormGalpal6)singleForm);
                         break;
-                }
-            }
-
-        }
-    }
-
-    private class FetchFormKompalTask extends AsyncTask<Void,Void,List<SingleForm>> {
-        private String mIdKualifikasiSurvey;
-
-        private FetchFormKompalTask(String idKualifikasiSurvey){
-            mIdKualifikasiSurvey=idKualifikasiSurvey;
-        }
-
-        @Override
-        protected List<SingleForm> doInBackground(Void... params) {
-            Log.i("a", "Received JSON Kompal: " + mIdKualifikasiSurvey);
-            return new DataFetcher().fetchFormKompals(mIdKualifikasiSurvey);
-        }
-
-
-
-        @Override
-        protected void onPostExecute(List<SingleForm> singleForms) {
-            for(SingleForm singleForm:singleForms){
-                switch(singleForm.getKodeForm()){
-                    case FormKompal3a.kode:
-                        DummyMaker.get(getApplicationContext()).addFormKompal3a((FormKompal3a)singleForm);
-
+                    case FormKompal3a.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addFormKompal3aServer((FormKompal3a)singleForm);
                         break;
-                    case FormKompal3b.kode:
-                        DummyMaker.get(getApplicationContext()).addFormKompal3b((FormKompal3b)singleForm);
-
+                    case FormKompal3b.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addFormKompal3bServer((FormKompal3b)singleForm);
                         break;
-                    case FormKompal3c.kode:
-                        DummyMaker.get(getApplicationContext()).addFormKompal3c((FormKompal3c)singleForm);
-
+                    case FormKompal3c.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addFormKompal3cServer((FormKompal3c)singleForm);
                         break;
-                    case FormKompal3d.kode:
-                        DummyMaker.get(getApplicationContext()).addFormKompal3d((FormKompal3d)singleForm);
-
+                    case FormKompal3d.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addFormKompal3dServer((FormKompal3d)singleForm);
                         break;
                 }
             }
 
         }
     }
+
 
     private class FetchMstDataTask extends AsyncTask<Void,Void,List<SingleMaster>> {
+        ProgressDialog mProgressDialog=new ProgressDialog(LoginActivity.this);
 
+        @Override
+        protected void onPreExecute() {
+            mProgressDialog.setMessage("Please Wait..");
+            mProgressDialog.show();
+        }
 
         @Override
         protected List<SingleMaster> doInBackground(Void... params) {
@@ -289,86 +255,78 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         break;
                 }
             }
+            mProgressDialog.dismiss();
 
 
         }
     }
 
-    private class FetchMenuCheckingGalpalTask extends AsyncTask<Void,Void,List<MenuCheckingGalpal>> {
-        private String mIdKualifikasiSurvey;
 
-        private FetchMenuCheckingGalpalTask(String idKualifikasiSurvey){
-            mIdKualifikasiSurvey=idKualifikasiSurvey;
+    private class FetchMenuCheckingTask extends AsyncTask<Void,Void,List<SingleMenuChecking>> {
+        private List<KualifikasiSurvey> mKualifikasiSurveys;
+        private List<SingleMenuChecking> mSingleMenuCheckings=new ArrayList<>();
+
+        private FetchMenuCheckingTask(List<KualifikasiSurvey> kualifikasiSurveys){
+            mKualifikasiSurveys=kualifikasiSurveys;
         }
 
         @Override
-        protected List<MenuCheckingGalpal> doInBackground(Void... params) {
-            Log.i("a", "Received JSON MenuCheckingGalpal: " + mIdKualifikasiSurvey);
-            return new DataFetcher().fetchMenuCheckingGalpal(mIdKualifikasiSurvey);
+        protected List<SingleMenuChecking> doInBackground(Void... params) {
+            for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys) {
+                String jenisIndustri=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri();
+                if(jenisIndustri.equals(Perusahaan.industriGalpal)) {
+                    mSingleMenuCheckings.addAll(new DataFetcher().fetchMenuCheckingGalpal(String.valueOf(kualifikasiSurvey.getKualifikasiSurveyId())));
+                }else{
+                    mSingleMenuCheckings.addAll(new DataFetcher().fetchMenuCheckingKompals(String.valueOf(kualifikasiSurvey.getKualifikasiSurveyId())));
+                }
+            }
+            return mSingleMenuCheckings;
         }
 
 
 
         @Override
-        protected void onPostExecute(List<MenuCheckingGalpal> menuCheckingGalpals) {
-            Log.i("a",String.valueOf(menuCheckingGalpals.get(0).getIdKualifikasiSurvey()));
+        protected void onPostExecute(List<SingleMenuChecking> singleMenuCheckings) {
+            for(SingleMenuChecking singleMenuChecking:singleMenuCheckings){
+                switch(singleMenuChecking.kodeAsync()){
+                    case MenuCheckingGalpal.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addMenuCheckingGalpal((MenuCheckingGalpal) singleMenuChecking);
+                        break;
+                    case MenuCheckingKompal.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addMenuCheckingKompal((MenuCheckingKompal) singleMenuChecking);
+                        break;
+                }
+            }
+
         }
     }
 
-    private class FetchMenuCheckingKompalTask extends AsyncTask<Void,Void,List<MenuCheckingKompal>> {
-        private String mIdKualifikasiSurvey;
-
-        private FetchMenuCheckingKompalTask(String idKualifikasiSurvey){
-            mIdKualifikasiSurvey=idKualifikasiSurvey;
-        }
-
-        @Override
-        protected List<MenuCheckingKompal> doInBackground(Void... params) {
-            Log.i("a", "Received JSON MenuCheckingKompal: " + mIdKualifikasiSurvey);
-            return new DataFetcher().fetchMenuCheckingKompals(mIdKualifikasiSurvey);
-        }
-
-
-
-        @Override
-        protected void onPostExecute(List<MenuCheckingKompal> menuCheckingKompals) {
-            Log.i("a",String.valueOf(menuCheckingKompals.get(0).getIdKualifikasiSurvey()));
-        }
-    }
-
-    private class FetchKualifikasiSurveysTask extends AsyncTask<Void,Void,List<KualifikasiSurvey>> {
-
-
-        @Override
-        protected List<KualifikasiSurvey> doInBackground(Void... params) {
-            Log.i("a", "Received JSON ");
-            return new DataFetcher().fetchKualifikasiSurveys();
-        }
-
-
-
-        @Override
-        protected void onPostExecute(List<KualifikasiSurvey> kualifikasiSurveys) {
-            Log.i("a",String.valueOf(kualifikasiSurveys.get(0).getKualifikasiSurveyId()));
-        }
-    }
 
     private class FetchKualifikasiSurveyTask extends AsyncTask<Void,Void,List<KualifikasiSurvey>> {
+        private int mKualifikasiSurveyId1;
+        private int mKualifikasiSurveyId2;
+        private ProgressDialog dialog=new ProgressDialog(LoginActivity.this);
 
+        public FetchKualifikasiSurveyTask(int kualifikasiSurveyId1,int kualifikasiSurveyId2){
+            mKualifikasiSurveyId1=kualifikasiSurveyId1;
+            mKualifikasiSurveyId2=kualifikasiSurveyId2;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage("Please Wait...");
+            dialog.show();
+        }
 
         @Override
         protected List<KualifikasiSurvey> doInBackground(Void... params) {
             Log.i("a", "Received JSON ");
             List<KualifikasiSurvey> kualifikasiSurveys=new ArrayList<>();
             DataFetcher dataFetcher=new DataFetcher();
-            KualifikasiSurvey kualifikasiSurvey1=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150205));
-            KualifikasiSurvey kualifikasiSurvey2=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150291));
-            KualifikasiSurvey kualifikasiSurvey3=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150101));
-            KualifikasiSurvey kualifikasiSurvey4=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150102));
+            KualifikasiSurvey kualifikasiSurvey1=dataFetcher.fetchKualifikasiSurvey(String.valueOf(mKualifikasiSurveyId1));
+            KualifikasiSurvey kualifikasiSurvey2=dataFetcher.fetchKualifikasiSurvey(String.valueOf(mKualifikasiSurveyId2));
             kualifikasiSurveys.add(kualifikasiSurvey1);
             kualifikasiSurveys.add(kualifikasiSurvey2);
-            kualifikasiSurveys.add(kualifikasiSurvey3);
-            kualifikasiSurveys.add(kualifikasiSurvey4);
             return kualifikasiSurveys;
         }
 
@@ -376,7 +334,60 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
         @Override
         protected void onPostExecute(List<KualifikasiSurvey> kualifikasiSurveys) {
-            Log.i("a",String.valueOf(kualifikasiSurveys.get(0).getKualifikasiSurveyId()));
+            for(KualifikasiSurvey kualifikasiSurvey:kualifikasiSurveys) {
+                DummyMaker.get(getApplicationContext()).addKualifikasiSurvey(kualifikasiSurvey);
+            }
+
+            new FetchPerusahaanTask(kualifikasiSurveys).execute();
+            dialog.dismiss();
         }
+    }
+
+    private class FetchPerusahaanTask extends AsyncTask<Void,Void,List<Perusahaan>> {
+        private List<KualifikasiSurvey> mKualifikasiSurveys;
+        List<Perusahaan> perusahaans=new ArrayList<>();
+
+        public FetchPerusahaanTask(List <KualifikasiSurvey> kualifikasiSurveys){
+            mKualifikasiSurveys=kualifikasiSurveys;
+        }
+
+
+
+        @Override
+        protected List<Perusahaan> doInBackground(Void... params) {
+            DataFetcher dataFetcher=new DataFetcher();
+            for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys){
+                Perusahaan perusahaan=dataFetcher.fetchPerusahaan(String.valueOf(kualifikasiSurvey.getPerusahaanId()));
+                perusahaans.add(perusahaan);
+            }
+            return perusahaans;
+        }
+
+
+
+        @Override
+        protected void onPostExecute(List<Perusahaan> perusahaans) {
+            for(Perusahaan perusahaan:perusahaans) {
+                DummyMaker.get(getApplicationContext()).addPerusahaan(perusahaan);
+            }
+            new FetchFormsTask(mKualifikasiSurveys).execute();
+            new FetchMenuCheckingTask(mKualifikasiSurveys).execute();
+            Intent intent=new Intent(LoginActivity.this,HomePageActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    private class PushTask extends AsyncTask<Void,Void,Void> {
+
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            FormKompal3c formKompal3c=new FormKompal3c();
+            new DataPusher().makePostRequestFK3c(formKompal3c,DataFetcher.FK3dENDPOINT,"a");
+            return null;
+        }
+
+
     }
 }

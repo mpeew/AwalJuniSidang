@@ -4,15 +4,19 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal10;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal11;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal7;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal8;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal9;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.masterData.MstAirPelayaran;
 import com.mpewpazi.android.awaljunisidang.masterData.MstArus;
 import com.mpewpazi.android.awaljunisidang.masterData.MstGelombang;
@@ -43,15 +47,22 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG10PeralatanKerjaProduksiElektrikalMekanikal;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG11PeralatanKerjaProduksiPengecatan;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG3GalanganKapalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG4TinjauanAreaTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6PeralatanKerjaLuarCraneTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG7PeralatanKerjaLuarTugboatTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG8PeralatanKerjaProduksiMesinTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG9PeralatanKerjaProduksiKontruksi;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKapasitasProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3cSistemBerproduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarMutuTableTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingGalpalTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingKompalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstAirPelayaranTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstArusTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstGelombangTable;
@@ -75,12 +86,32 @@ public class DataFetcher {
     private static final Uri FG1ENDPOINT = Uri.parse("http://192.168.1.100/galpal/perusahaanIdentitas/perusahaanidentitasapi/id");
     private static final Uri FG3ENDPOINT = Uri.parse("http://192.168.1.100/galpal/galanganKapal/galangankapalapi/id");
     private static final Uri FG4ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1TinjauanArea/api/id");
-    private static final Uri FG6ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaLrCrane/api/id");
-    private static final Uri FK3aENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2JenisKapasitasProduksi/api/id");
-    private static final Uri FK3bENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2JumlahProduksi/api/id");
-    private static final Uri FK3cENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2SistemBerproduksi/api/id");
-    private static final Uri FK3dENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2StandardMutu/api/id");
+    public static final Uri FG6ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaLrCrane/api/id");
+    public static final Uri FG7ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaLrTug/api/id");
+    public static final Uri FG8ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaProdMesin/api/id");
+    public static final Uri FG9ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaProdKonstruksi/api/id");
+    public static final Uri FG10ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaProdElmek/api/id");
+    public static final Uri FG11ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaProdCat/api/id");
+
+    public static final Uri FK3aENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2JenisKapasitasProduksi/api/id");
+    public static final Uri FK3bENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2JumlahProduksi/api/id");
+    public static final Uri FK3cENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2SistemBerproduksi/api/id");
+    public static final Uri FK3dENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2StandardMutu/api/id");
+
+
     private static final Uri KualifikasiSurveyENDPOINT=Uri.parse("http://192.168.1.100/galpal/kualifikasiSurvey/api/id");
+    private static final Uri PerusahaanENDPOINT=Uri.parse("http://192.168.1.100/galpal/perusahaan/api/id");
+
+    public static final Uri DELETEFG6ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaLrCrane/deleteapi/id");
+    public static final Uri DELETEFG7ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaLrTug/deleteapi/id");
+    public static final Uri DELETEFG8ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaProdMesin/deleteapi/id");
+    public static final Uri DELETEFG9ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaProdKonstruksi/deleteapi/id");
+    public static final Uri DELETEFG10ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaProdElmek/deleteapi/id");
+    public static final Uri DELETEFG11ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaProdCat/deleteapi/id");
+    public static final Uri DELETEFK3aENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2JenisKapasitasProduksi/deleteapi/id");
+    public static final Uri DELETEFK3bENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2JumlahProduksi/deleteapi/id");
+    public static final Uri DELETEFK3cENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2SistemBerproduksi/deleteapi/id");
+    public static final Uri DELETEFK3dENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2StandardMutu/deleteapi/id");
 
     private static final String MSTPropinsiENDPOINT="http://192.168.1.100/galpal/mstPropinsi/api";
     private static final String MSTKabupatenENDPOINT="http://192.168.1.100/galpal/mstKabupatenkota/api";
@@ -133,6 +164,16 @@ public class DataFetcher {
     public String getUrlString(String urlSpec) throws  IOException{
         return new String(getUrlBytes(urlSpec));
     }
+
+    public void deleteForm(int idFormKompal3aServer,Uri uriFormDelete) {
+        try {
+            String uriFormKompal3a=buildUrl(uriFormDelete,String.valueOf(idFormKompal3aServer));
+            getUrlString(uriFormKompal3a);
+        } catch (IOException ioe) {
+            Log.e(TAG, "Failed to fetch items", ioe);
+        }
+    }
+
 
     public List<SurveyAssignSurveyor> fetchSurveyAssignSurveyors() {
         List<SurveyAssignSurveyor> items=new ArrayList<>();
@@ -198,6 +239,39 @@ public class DataFetcher {
             items.add(item);
         }
     }
+
+    public Perusahaan fetchPerusahaan(String idPerusahaan){
+
+        Perusahaan mPerusahaan=new Perusahaan();
+        String uriPerusahaan=buildUrl(PerusahaanENDPOINT,idPerusahaan);
+
+        try {
+            String jsonPerusahaanString=getUrlString(uriPerusahaan);
+
+            Log.i(TAG, "Received JSON: " + jsonPerusahaanString);
+
+            JSONObject jsonPerusahaanBody = new JSONObject(jsonPerusahaanString);
+
+            parsePerusahaan(mPerusahaan,jsonPerusahaanBody);
+
+
+        } catch (JSONException je){
+            Log.e(TAG, "Failed to parse JSON", je);
+        } catch (IOException ioe) {
+            Log.e(TAG, "Failed to fetch items", ioe);
+        }
+
+        return mPerusahaan;
+    }
+
+
+    private void parsePerusahaan(Perusahaan perusahaan, JSONObject jsonObject) throws IOException, JSONException {
+        perusahaan.setId(jsonObject.getInt(PerusahaanTable.Cols.ID_PERUSAHAAN));
+        perusahaan.setIndustri(jsonObject.getString(PerusahaanTable.Cols.INDUSTRI));
+        perusahaan.setNamaPerusahaan(jsonObject.getString(PerusahaanTable.Cols.NAMA_PERUSAHAAN));
+        perusahaan.setActive(jsonObject.getInt(PerusahaanTable.Cols.IS_ACTIV)==1);
+    }
+
 
     public List<KualifikasiSurvey> fetchKualifikasiSurveys() {
         List<KualifikasiSurvey> items=new ArrayList<>();
@@ -324,7 +398,7 @@ public class DataFetcher {
             item.setId(jsonObject.getInt(PerusahaanTable.Cols.ID_PERUSAHAAN));
             item.setNamaPerusahaan(jsonObject.getString(PerusahaanTable.Cols.NAMA_PERUSAHAAN));
             item.setIndustri(jsonObject.getString(PerusahaanTable.Cols.INDUSTRI));
-            item.setActive(jsonObject.getInt(PerusahaanTable.Cols.IS_ACTIV));
+            item.setActive(jsonObject.getInt(PerusahaanTable.Cols.IS_ACTIV)==1);
             items.add(item);
         }
     }
@@ -336,17 +410,27 @@ public class DataFetcher {
         String uriFormGalpal3=buildUrl(FG3ENDPOINT,idKualifikasiSurvey);
         String uriFormGalpal4=buildUrl(FG4ENDPOINT,idKualifikasiSurvey);
         String uriFormGalpal6=buildUrl(FG6ENDPOINT,idKualifikasiSurvey);
+        String uriFormGalpal7=buildUrl(FG7ENDPOINT,idKualifikasiSurvey);
+        String uriFormGalpal8=buildUrl(FG8ENDPOINT,idKualifikasiSurvey);
+        String uriFormGalpal9=buildUrl(FG9ENDPOINT,idKualifikasiSurvey);
+        String uriFormGalpal10=buildUrl(FG10ENDPOINT,idKualifikasiSurvey);
+        String uriFormGalpal11=buildUrl(FG11ENDPOINT,idKualifikasiSurvey);
 
         try {
             String jsonFormGalpal1String=getUrlString(uriFormGalpal1);
             String jsonFormGalpal3String=getUrlString(uriFormGalpal3);
             String jsonFormGalpal4String=getUrlString(uriFormGalpal4);
             String jsonFormGalpal6String=getUrlString(uriFormGalpal6);
+            String jsonFormGalpal7String=getUrlString(uriFormGalpal7);
+            String jsonFormGalpal8String=getUrlString(uriFormGalpal8);
+            String jsonFormGalpal9String=getUrlString(uriFormGalpal9);
+            String jsonFormGalpal10String=getUrlString(uriFormGalpal10);
+            String jsonFormGalpal11String=getUrlString(uriFormGalpal11);
 
 
-           // Log.i(TAG, "Received JSON: " + jsonFormGalpal1String);
-           // Log.i(TAG, "Received JSON: " + jsonFormGalpal3String);
-           // Log.i(TAG, "Received JSON: " + jsonFormGalpal4String);
+           Log.i(TAG, "Received JSON: " + jsonFormGalpal1String);
+           Log.i(TAG, "Received JSON: " + jsonFormGalpal3String);
+           Log.i(TAG, "Received JSON: " + jsonFormGalpal4String);
             //Log.i(TAG, "Received JSON: " + jsonFormGalpal6String);
 
 
@@ -354,7 +438,11 @@ public class DataFetcher {
             JSONObject jsonFormGalpal3Body = new JSONObject(jsonFormGalpal3String);
             JSONArray jsonFormGalpal4Body = new JSONArray(jsonFormGalpal4String);
             //JSONArray jsonFormGalpal6Body = new JSONArray(jsonFormGalpal6String);
-
+            JSONArray jsonFormGalpal7Body = new JSONArray(jsonFormGalpal7String);
+            JSONArray jsonFormGalpal8Body = new JSONArray(jsonFormGalpal8String);
+            JSONArray jsonFormGalpal9Body = new JSONArray(jsonFormGalpal9String);
+            JSONArray jsonFormGalpal10Body = new JSONArray(jsonFormGalpal10String);
+            JSONArray jsonFormGalpal11Body = new JSONArray(jsonFormGalpal11String);
 
             parseFormGalpal3(items,jsonFormGalpal3Body);
             parseFormGalpal1(items,jsonFormGalpal1Body);
@@ -413,6 +501,32 @@ public class DataFetcher {
 
         return items;
     }
+
+    public void fetchFormLastInsert(SingleForm singleForm,Uri ENDPOINT,String formServerIdNameCols) {
+        String idKualifikasiSurvey=String.valueOf(singleForm.getKualifikasiSurveyId());
+        String uriForm=buildUrl(ENDPOINT,idKualifikasiSurvey);
+
+        try {
+
+            String jsonFormString=getUrlString(uriForm);
+            // Log.i(TAG, "Received JSON: " + jsonFormKompal3aString);
+            JSONArray jsonFormBody=new JSONArray(jsonFormString);
+
+            parseFormLast(singleForm,jsonFormBody,formServerIdNameCols);
+
+
+        } catch (JSONException je){
+            Log.e(TAG, "Failed to parse JSON", je);
+        } catch (IOException ioe) {
+            Log.e(TAG, "Failed to fetch items", ioe);
+        }
+    }
+
+    private void parseFormLast(SingleForm singleForm, JSONArray jsonBody, String serverIdName) throws IOException, JSONException {
+        JSONObject jsonObject = jsonBody.getJSONObject((jsonBody.length())-1);
+        singleForm.setFormServerId(jsonObject.getInt(serverIdName));
+    }
+
 
     private void parseFormGalpal1(List<SingleForm> items, JSONObject jsonObject) throws IOException, JSONException {
 
@@ -500,7 +614,7 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             FormGalpal6 item = new FormGalpal6();
-            item.setIdPeralatanKerjaCraneServer(jsonObject.getInt(FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_SERVER));
+            item.setFormServerId(jsonObject.getInt(FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_SERVER));
             item.setKualifikasiSurveyId(jsonObject.getInt(FG6PeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY));
             item.setJenisMesin(jsonObject.getString(FG6PeralatanKerjaLuarCraneTable.Cols.JENIS_MESIN));
             item.setTahunPembuatan(jsonObject.getInt(FG6PeralatanKerjaLuarCraneTable.Cols.TAHUN_PEMBUATAN));
@@ -518,14 +632,127 @@ public class DataFetcher {
         }
     }
 
+    private void parseFormGalpal7s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
 
+        for (int i = 0; i < jsonBody.length(); i++) {
+            JSONObject jsonObject = jsonBody.getJSONObject(i);
+            FormGalpal7 item = new FormGalpal7();
+            item.setFormServerId(jsonObject.getInt(FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG_SERVER));
+            item.setKualifikasiSurveyId(jsonObject.getInt(FG7PeralatanKerjaLuarTugboatTable.Cols.ID_KUALIFIKASI_SURVEY));
+            item.setJenisPeralatan(jsonObject.getString(FG7PeralatanKerjaLuarTugboatTable.Cols.JENIS_MESIN));
+            item.setTahunPembuatan(jsonObject.getInt(FG7PeralatanKerjaLuarTugboatTable.Cols.TAHUN_PEMBUATAN));
+            item.setMerek(jsonObject.getString(FG7PeralatanKerjaLuarTugboatTable.Cols.MERK));
+            item.setKapasitasTerpakai(jsonObject.getInt(FG7PeralatanKerjaLuarTugboatTable.Cols.KAPASITAS_TERPAKAI));
+            item.setSatuanKapasitasTerpakai(jsonObject.getString(FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPAKAI));
+            item.setKapasitasTerpasang(jsonObject.getInt(FG7PeralatanKerjaLuarTugboatTable.Cols.KAPASAITAS_TERPASANG));
+            item.setSatuanKapastiasTerpasang(jsonObject.getString(FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPASANG));
+            item.setDimensi(jsonObject.getString(FG7PeralatanKerjaLuarTugboatTable.Cols.DIMENSI));
+            item.setJumlah(jsonObject.getInt(FG7PeralatanKerjaLuarTugboatTable.Cols.JUMLAH));
+            item.setKondisi(jsonObject.getString(FG7PeralatanKerjaLuarTugboatTable.Cols.KONDISI));
+            item.setLokasi(jsonObject.getString(FG7PeralatanKerjaLuarTugboatTable.Cols.LOKASI));
+            item.setStatus(jsonObject.getString(FG7PeralatanKerjaLuarTugboatTable.Cols.STATUS));
+            items.add(item);
+        }
+    }
+
+    private void parseFormGalpal8s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+
+        for (int i = 0; i < jsonBody.length(); i++) {
+            JSONObject jsonObject = jsonBody.getJSONObject(i);
+            FormGalpal8 item = new FormGalpal8();
+            item.setFormServerId(jsonObject.getInt(FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN_SERVER));
+            item.setKualifikasiSurveyId(jsonObject.getInt(FG8PeralatanKerjaProduksiMesinTable.Cols.ID_KUALIFIKASI_SURVEY));
+            item.setJenisMesin(jsonObject.getString(FG8PeralatanKerjaProduksiMesinTable.Cols.JENIS_MESIN));
+            item.setTahunPembuatan(jsonObject.getInt(FG8PeralatanKerjaProduksiMesinTable.Cols.TAHUN_PEMBUATAN));
+            item.setMerek(jsonObject.getString(FG8PeralatanKerjaProduksiMesinTable.Cols.MERK));
+            item.setKapasitasTerpakai(jsonObject.getInt(FG8PeralatanKerjaProduksiMesinTable.Cols.KAPASITAS_TERPAKAI));
+            item.setSatuanKapasitasTerpakai(jsonObject.getString(FG8PeralatanKerjaProduksiMesinTable.Cols.SATUAN_KAPASITAS_TERPAKAI));
+            item.setKapasitasTerpasang(jsonObject.getInt(FG8PeralatanKerjaProduksiMesinTable.Cols.KAPASAITAS_TERPASANG));
+            item.setSatuanKapastiasTerpasang(jsonObject.getString(FG8PeralatanKerjaProduksiMesinTable.Cols.SATUAN_KAPASITAS_TERPASANG));
+            item.setDimensi(jsonObject.getString(FG8PeralatanKerjaProduksiMesinTable.Cols.DIMENSI));
+            item.setJumlah(jsonObject.getInt(FG8PeralatanKerjaProduksiMesinTable.Cols.JUMLAH));
+            item.setKondisi(jsonObject.getString(FG8PeralatanKerjaProduksiMesinTable.Cols.KONDISI));
+            item.setLokasi(jsonObject.getString(FG8PeralatanKerjaProduksiMesinTable.Cols.LOKASI));
+            item.setStatus(jsonObject.getString(FG8PeralatanKerjaProduksiMesinTable.Cols.STATUS));
+            items.add(item);
+        }
+    }
+
+    private void parseFormGalpal9s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+
+        for (int i = 0; i < jsonBody.length(); i++) {
+            JSONObject jsonObject = jsonBody.getJSONObject(i);
+            FormGalpal9 item = new FormGalpal9();
+            item.setFormServerId(jsonObject.getInt(FG9PeralatanKerjaProduksiKontruksi.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI_SERVER));
+            item.setKualifikasiSurveyId(jsonObject.getInt(FG9PeralatanKerjaProduksiKontruksi.Cols.ID_KUALIFIKASI_SURVEY));
+            item.setJenisMesin(jsonObject.getString(FG9PeralatanKerjaProduksiKontruksi.Cols.JENIS_MESIN));
+            item.setTahunPembuatan(jsonObject.getInt(FG9PeralatanKerjaProduksiKontruksi.Cols.TAHUN_PEMBUATAN));
+            item.setMerek(jsonObject.getString(FG9PeralatanKerjaProduksiKontruksi.Cols.MERK));
+            item.setKapasitasTerpakai(jsonObject.getInt(FG9PeralatanKerjaProduksiKontruksi.Cols.KAPASITAS_TERPAKAI));
+            item.setSatuanKapasitasTerpakai(jsonObject.getString(FG9PeralatanKerjaProduksiKontruksi.Cols.SATUAN_KAPASITAS_TERPAKAI));
+            item.setKapasitasTerpasang(jsonObject.getInt(FG9PeralatanKerjaProduksiKontruksi.Cols.KAPASAITAS_TERPASANG));
+            item.setSatuanKapastiasTerpasang(jsonObject.getString(FG9PeralatanKerjaProduksiKontruksi.Cols.SATUAN_KAPASITAS_TERPASANG));
+            item.setDimensi(jsonObject.getString(FG9PeralatanKerjaProduksiKontruksi.Cols.DIMENSI));
+            item.setJumlah(jsonObject.getInt(FG9PeralatanKerjaProduksiKontruksi.Cols.JUMLAH));
+            item.setKondisi(jsonObject.getString(FG9PeralatanKerjaProduksiKontruksi.Cols.KONDISI));
+            item.setLokasi(jsonObject.getString(FG9PeralatanKerjaProduksiKontruksi.Cols.LOKASI));
+            item.setStatus(jsonObject.getString(FG9PeralatanKerjaProduksiKontruksi.Cols.STATUS));
+            items.add(item);
+        }
+    }
+
+    private void parseFormGalpal10s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+
+        for (int i = 0; i < jsonBody.length(); i++) {
+            JSONObject jsonObject = jsonBody.getJSONObject(i);
+            FormGalpal10 item = new FormGalpal10();
+            item.setFormServerId(jsonObject.getInt(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK_SERVER));
+            item.setKualifikasiSurveyId(jsonObject.getInt(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_KUALIFIKASI_SURVEY));
+            item.setJenisMesin(jsonObject.getString(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.JENIS_MESIN));
+            item.setTahunPembuatan(jsonObject.getInt(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.TAHUN_PEMBUATAN));
+            item.setMerek(jsonObject.getString(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.MERK));
+            item.setKapasitasTerpakai(jsonObject.getInt(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.KAPASITAS_TERPAKAI));
+            item.setSatuanKapasitasTerpakai(jsonObject.getString(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.SATUAN_KAPASITAS_TERPAKAI));
+            item.setKapasitasTerpasang(jsonObject.getInt(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.KAPASAITAS_TERPASANG));
+            item.setSatuanKapastiasTerpasang(jsonObject.getString(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.SATUAN_KAPASITAS_TERPASANG));
+            item.setDimensi(jsonObject.getString(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.DIMENSI));
+            item.setJumlah(jsonObject.getInt(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.JUMLAH));
+            item.setKondisi(jsonObject.getString(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.KONDISI));
+            item.setLokasi(jsonObject.getString(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.LOKASI));
+            item.setStatus(jsonObject.getString(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.STATUS));
+            items.add(item);
+        }
+    }
+
+    private void parseFormGalpal11s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+
+        for (int i = 0; i < jsonBody.length(); i++) {
+            JSONObject jsonObject = jsonBody.getJSONObject(i);
+            FormGalpal11 item = new FormGalpal11();
+            item.setFormServerId(jsonObject.getInt(FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT_SERVER));
+            item.setKualifikasiSurveyId(jsonObject.getInt(FG11PeralatanKerjaProduksiPengecatan.Cols.ID_KUALIFIKASI_SURVEY));
+            item.setJenisMesin(jsonObject.getString(FG11PeralatanKerjaProduksiPengecatan.Cols.JENIS_MESIN));
+            item.setTahunPembuatan(jsonObject.getInt(FG11PeralatanKerjaProduksiPengecatan.Cols.TAHUN_PEMBUATAN));
+            item.setMerek(jsonObject.getString(FG11PeralatanKerjaProduksiPengecatan.Cols.MERK));
+            item.setKapasitasTerpakai(jsonObject.getInt(FG11PeralatanKerjaProduksiPengecatan.Cols.KAPASITAS_TERPAKAI));
+            item.setSatuanKapasitasTerpakai(jsonObject.getString(FG11PeralatanKerjaProduksiPengecatan.Cols.SATUAN_KAPASITAS_TERPAKAI));
+            item.setKapasitasTerpasang(jsonObject.getInt(FG11PeralatanKerjaProduksiPengecatan.Cols.KAPASAITAS_TERPASANG));
+            item.setSatuanKapastiasTerpasang(jsonObject.getString(FG11PeralatanKerjaProduksiPengecatan.Cols.SATUAN_KAPASITAS_TERPASANG));
+            item.setDimensi(jsonObject.getString(FG11PeralatanKerjaProduksiPengecatan.Cols.DIMENSI));
+            item.setJumlah(jsonObject.getInt(FG11PeralatanKerjaProduksiPengecatan.Cols.JUMLAH));
+            item.setKondisi(jsonObject.getString(FG11PeralatanKerjaProduksiPengecatan.Cols.KONDISI));
+            item.setLokasi(jsonObject.getString(FG11PeralatanKerjaProduksiPengecatan.Cols.LOKASI));
+            item.setStatus(jsonObject.getString(FG11PeralatanKerjaProduksiPengecatan.Cols.STATUS));
+            items.add(item);
+        }
+    }
 
     private void parseFormKompal3as(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
 
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             FormKompal3a item = new FormKompal3a();
-            item.setIdJenisKapasitasProduksiServer(jsonObject.getInt(FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI_SERVER));
+            item.setFormServerId(jsonObject.getInt(FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI_SERVER));
             item.setKualifikasiSurveyId(jsonObject.getInt(FK3aJenisKapasitasProduksiTable.Cols.ID_KUALIFIKASI_SURVEY));
             item.setJenisProduksi(jsonObject.getString(FK3aJenisKapasitasProduksiTable.Cols.JENIS_PRODUKSI));
             item.setKapasitasProduksi(jsonObject.getInt(FK3aJenisKapasitasProduksiTable.Cols.KAPASITAS_PRODUKSI));
@@ -541,7 +768,7 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             FormKompal3b item = new FormKompal3b();
-            item.setIdJumlahProduksiServer(jsonObject.getInt(FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI_SERVER));
+            item.setFormServerId(jsonObject.getInt(FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI_SERVER));
             item.setKualifikasiSurveyId(jsonObject.getInt(FK3bJumlahProduksiTable.Cols.ID_KUALIFIKASI_SURVEY));
             item.setJenisProdukId(jsonObject.getInt(FK3bJumlahProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI));
             item.setJumlahProdThn4(jsonObject.getInt(FK3bJumlahProduksiTable.Cols.JUMLAH_PROD_NMIN4));
@@ -565,7 +792,7 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             FormKompal3c item = new FormKompal3c();
-            item.setIdSistemBerproduksiServer(jsonObject.getInt(FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI_SERVER));
+            item.setFormServerId(jsonObject.getInt(FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI_SERVER));
             item.setKualifikasiSurveyId(jsonObject.getInt(FK3cSistemBerproduksiTable.Cols.ID_KUALIFIKASI_SURVEY));
             item.setNamaProduk(jsonObject.getString(FK3cSistemBerproduksiTable.Cols.NAMA_PRODUK));
             item.setSistemProduksi(jsonObject.getInt(FK3cSistemBerproduksiTable.Cols.ID_MST_JENIS_BERPRODUKSI));
@@ -584,7 +811,7 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             FormKompal3d item = new FormKompal3d();
-            item.setIdStandarMutuServer(jsonObject.getInt(FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU_SERVER));
+            item.setFormServerId(jsonObject.getInt(FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU_SERVER));
             item.setKualifikasiSurveyId(jsonObject.getInt(FK3dStandarMutuTableTable.Cols.ID_KUALIFIKASI_SURVEY));
             item.setJenisStandarMutu(jsonObject.getString(FK3dStandarMutuTableTable.Cols.JENIS_STANDAR_MUTU));
             item.setKeterangan(jsonObject.getString(FK3dStandarMutuTableTable.Cols.KETERANGAN));
@@ -802,12 +1029,12 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             MenuCheckingGalpal item = new MenuCheckingGalpal();
-            item.setIdMenuCheckingGalpal(jsonObject.getInt(DhSchema.MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING));
-            item.setIdKualifikasiSurvey(jsonObject.getInt(DhSchema.MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY));
-            item.setIdMenu(jsonObject.getInt(DhSchema.MenuCheckingGalpalTable.Cols.ID_MENU_F1));
-            item.setFill((jsonObject.getInt(DhSchema.MenuCheckingGalpalTable.Cols.IS_FILL)==1));
-            item.setComplete(jsonObject.getInt(DhSchema.MenuCheckingGalpalTable.Cols.IS_COMPLETE)==1);
-            item.setVerified(jsonObject.getInt(DhSchema.MenuCheckingGalpalTable.Cols.IS_VERIFIED)==1);
+            item.setIdMenuCheckingGalpal(jsonObject.getInt(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING));
+            item.setIdKualifikasiSurvey(jsonObject.getInt(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY));
+            item.setIdMenu(jsonObject.getInt(MenuCheckingGalpalTable.Cols.ID_MENU_F1));
+            item.setFill((jsonObject.getInt(MenuCheckingGalpalTable.Cols.IS_FILL)==1));
+            item.setComplete(jsonObject.getInt(MenuCheckingGalpalTable.Cols.IS_COMPLETE)==1);
+            item.setVerified(jsonObject.getInt(MenuCheckingGalpalTable.Cols.IS_VERIFIED)==1);
             items.add(item);
         }
     }
@@ -817,12 +1044,12 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             MenuCheckingKompal item = new MenuCheckingKompal();
-            item.setIdMenuCheckingKompal(jsonObject.getInt(DhSchema.MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING));
-            item.setIdKualifikasiSurvey(jsonObject.getInt(DhSchema.MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY));
-            item.setIdMenu(jsonObject.getInt(DhSchema.MenuCheckingKompalTable.Cols.ID_MENU_F2));
-            item.setFill((jsonObject.getInt(DhSchema.MenuCheckingKompalTable.Cols.IS_FILL)==1));
-            item.setComplete(jsonObject.getInt(DhSchema.MenuCheckingKompalTable.Cols.IS_COMPLETE)==1);
-            item.setVerified(jsonObject.getInt(DhSchema.MenuCheckingKompalTable.Cols.IS_VERIFIED)==1);
+            item.setIdMenuCheckingKompal(jsonObject.getInt(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING));
+            item.setIdKualifikasiSurvey(jsonObject.getInt(MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY));
+            item.setIdMenu(jsonObject.getInt(MenuCheckingKompalTable.Cols.ID_MENU_F2));
+            item.setFill((jsonObject.getInt(MenuCheckingKompalTable.Cols.IS_FILL)==1));
+            item.setComplete(jsonObject.getInt(MenuCheckingKompalTable.Cols.IS_COMPLETE)==1);
+            item.setVerified(jsonObject.getInt(MenuCheckingKompalTable.Cols.IS_VERIFIED)==1);
             items.add(item);
         }
     }

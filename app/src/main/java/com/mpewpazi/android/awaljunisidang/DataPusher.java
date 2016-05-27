@@ -1,11 +1,17 @@
 package com.mpewpazi.android.awaljunisidang;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal10;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal11;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal7;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal8;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal9;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
@@ -30,10 +36,15 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG10PeralatanKerjaProduksiElektrikalMekanikal;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG11PeralatanKerjaProduksiPengecatan;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG3GalanganKapalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG4TinjauanAreaTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG6PeralatanKerjaLuarCraneTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG7PeralatanKerjaLuarTugboatTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG8PeralatanKerjaProduksiMesinTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG9PeralatanKerjaProduksiKontruksi;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKapasitasProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3cSistemBerproduksiTable;
@@ -50,13 +61,21 @@ public class DataPusher {
     private static final String urlPostFG3="http://192.168.1.100/galpal/galanganKapal/postgalangankapalapi/";
     private static final String urlPostFG4="http://192.168.1.100/galpal/f1TinjauanArea/postapi/";
     private static final String urlPostFG6="http://192.168.1.100/galpal/f1PeralatanKerjaLrCrane/postapi/";
+    private static final String urlPostFG7="http://192.168.1.100/galpal/f1PeralatanKerjaLrTug/postapi/";
+    private static final String urlPostFG8="http://192.168.1.100/galpal/f1PeralatanKerjaProdMesin/postapi/";
+    private static final String urlPostFG9="http://192.168.1.100/galpal/f1PeralatanKerjaProdKonstruksi/postapi/";
+    private static final String urlPostFG10="http://192.168.1.100/galpal/f1PeralatanKerjaProdElmek/postapi/";
+    private static final String urlPostFG11="http://192.168.1.100/galpal/f1PeralatanKerjaProdCat/postapi/";
+
     private static final String urlPostFK3a="http://192.168.1.100/galpal/f2JenisKapasitasProduksi/postapi/";
     private static final String urlPostFK3b="http://192.168.1.100/galpal/f2JumlahProduksi/postapi/";
     private static final String urlPostFK3c="http://192.168.1.100/galpal/f2SistemBerproduksi/postapi/";
     private static final String urlPostFK3d="http://192.168.1.100/galpal/f2StandardMutu/postapi/";
 
-    private static final String urlPostMenuCheckingGalpal="http://192.168.1.100/galpal/menuF1EntryChecking/postapi/";
-    private static final String urlPostMenuCheckingKompal="http://192.168.1.100/galpal/menuF2EntryChecking/postapi/";
+
+
+    private static final String urlPostMenuCheckingGalpal="http://192.168.1.100/galpal/menuF1EntryChecking/postapichecking/";
+    private static final String urlPostMenuCheckingKompal="http://192.168.1.100/galpal/menuF2EntryChecking/postapichecking/";
 
     private static final String urlPostKualifikasiSurvey="http://192.168.1.100/galpal/kualifikasiSurvey/postapi/";
 
@@ -69,7 +88,7 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("Id", String.valueOf(formGalpal1.getIdentitasPerusahaanId())));
+            pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal1.getIdentitasPerusahaanId())));
             pairs.add(new BasicNameValuePair(encapsulateFG1Cols(FG1PerusahaanIdentitasTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpal1.getKualifikasiSurveyId())));
             pairs.add(new BasicNameValuePair(encapsulateFG1Cols(FG1PerusahaanIdentitasTable.Cols.ALAMAT_PERUSAHAAN), formGalpal1.getAlamat()));
             pairs.add(new BasicNameValuePair(encapsulateFG1Cols(FG1PerusahaanIdentitasTable.Cols.STATUS_KEPEMILIKAN_USAHA), formGalpal1.getStatusKepemilikanUsaha()));
@@ -114,7 +133,7 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("Id", String.valueOf(formGalpal3.getIdentitasUmumGalanganId())));
+            pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal3.getIdentitasUmumGalanganId())));
             pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpal3.getKualifikasiSurveyId())));
 
             pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.NAMA_GALANGAN), formGalpal3.getNamaGalangan()));
@@ -162,7 +181,7 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("Id", String.valueOf(formGalpal4.getTinjauanWilayahMaritimId())));
+            pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal4.getTinjauanWilayahMaritimId())));
             pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
             pairs.add(new BasicNameValuePair("password", "49916022Peri"));
             pairs.add(new BasicNameValuePair(encapsulateFG4Cols(FG4TinjauanAreaTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpal4.getKualifikasiSurveyId())));
@@ -207,7 +226,7 @@ public class DataPusher {
 
     }
 
-    public void makePostRequestFG6(FormGalpal6 formGalpal6) {
+    public void makePostRequestFG6(FormGalpal6 formGalpal6,Uri ENDPOINT,String colsName) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFG6);
@@ -217,7 +236,9 @@ public class DataPusher {
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
             pairs.add(new BasicNameValuePair("password", "49916022Peri"));
-            pairs.add(new BasicNameValuePair("Id", String.valueOf(formGalpal6.getIdPeralatanKerjaCraneServer())));
+            if(formGalpal6.getFormServerId()!=0) {
+                pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal6.getFormServerId())));
+            }
             pairs.add(new BasicNameValuePair(encapsulateFG6Cols(FG6PeralatanKerjaLuarCraneTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpal6.getKualifikasiSurveyId())));
             pairs.add(new BasicNameValuePair(encapsulateFG6Cols(FG6PeralatanKerjaLuarCraneTable.Cols.ID_PERIODE), String.valueOf(formGalpal6.getIdPeriode())));
             pairs.add(new BasicNameValuePair(encapsulateFG6Cols(FG6PeralatanKerjaLuarCraneTable.Cols.JENIS_MESIN), formGalpal6.getJenisMesin()));
@@ -242,6 +263,9 @@ public class DataPusher {
             if (resEntity != null) {
                 Log.i("RESPONSE6", EntityUtils.toString(resEntity));
             }
+            if(formGalpal6.getFormServerId()==0) {
+                new DataFetcher().fetchFormLastInsert(formGalpal6,ENDPOINT,colsName);
+            }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
         } catch (ClientProtocolException cpe) {
@@ -251,7 +275,253 @@ public class DataPusher {
         }
     }
 
-    public void makePostRequestFK3a(FormKompal3a formKompal3a) {
+    public void makePostRequestFG7(FormGalpal7 formGalpal7, Uri ENDPOINT, String colsName) {
+
+        HttpClient client = new DefaultHttpClient();
+        String postURL = (urlPostFG7);
+        HttpPost post = new HttpPost(postURL);
+        try {
+            // Add the data
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
+            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            if(formGalpal7.getFormServerId()!=0) {
+                pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal7.getFormServerId())));
+            }
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpal7.getKualifikasiSurveyId())));
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.ID_PERIODE), String.valueOf(formGalpal7.getIdPeriode())));
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.JENIS_MESIN), formGalpal7.getJenisPeralatan()));
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.TAHUN_PEMBUATAN), String.valueOf(formGalpal7.getTahunPembuatan())));
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.MERK), formGalpal7.getMerek()));
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.KAPASAITAS_TERPASANG), String.valueOf(formGalpal7.getKapasitasTerpasang())));
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPASANG), formGalpal7.getSatuanKapastiasTerpasang()));
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPAKAI), formGalpal7.getSatuanKapasitasTerpakai()));
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.KAPASITAS_TERPAKAI), String.valueOf(formGalpal7.getKapasitasTerpakai())));
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.DIMENSI), formGalpal7.getDimensi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.JUMLAH), String.valueOf(formGalpal7.getJumlah())));
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.KONDISI), formGalpal7.getKondisi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.LOKASI), formGalpal7.getLokasi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG7Cols(FG7PeralatanKerjaLuarTugboatTable.Cols.STATUS), formGalpal7.getStatus()));
+
+            UrlEncodedFormEntity uefe = new UrlEncodedFormEntity(pairs);
+            post.setEntity(uefe);
+            // Execute the HTTP Post Request
+            HttpResponse response = client.execute(post);
+            // Convert the response into a String
+            HttpEntity resEntity = response.getEntity();
+            if (resEntity != null) {
+                Log.i("RESPONSE7", EntityUtils.toString(resEntity));
+            }
+            if(formGalpal7.getFormServerId()==0) {
+                new DataFetcher().fetchFormLastInsert(formGalpal7,ENDPOINT,colsName);
+            }
+        } catch (UnsupportedEncodingException uee) {
+            uee.printStackTrace();
+        } catch (ClientProtocolException cpe) {
+            cpe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void makePostRequestFG8(FormGalpal8 formGalpal8, Uri ENDPOINT, String colsName) {
+
+        HttpClient client = new DefaultHttpClient();
+        String postURL = (urlPostFG8);
+        HttpPost post = new HttpPost(postURL);
+        try {
+            // Add the data
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
+            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            if(formGalpal8.getFormServerId()!=0) {
+                pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal8.getFormServerId())));
+            }
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpal8.getKualifikasiSurveyId())));
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.ID_PERIODE), String.valueOf(formGalpal8.getIdPeriode())));
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.JENIS_MESIN), formGalpal8.getJenisMesin()));
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.TAHUN_PEMBUATAN), String.valueOf(formGalpal8.getTahunPembuatan())));
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.MERK), formGalpal8.getMerek()));
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.KAPASAITAS_TERPASANG), String.valueOf(formGalpal8.getKapasitasTerpasang())));
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.SATUAN_KAPASITAS_TERPASANG), formGalpal8.getSatuanKapastiasTerpasang()));
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.SATUAN_KAPASITAS_TERPAKAI), formGalpal8.getSatuanKapasitasTerpakai()));
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.KAPASITAS_TERPAKAI), String.valueOf(formGalpal8.getKapasitasTerpakai())));
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.DIMENSI), formGalpal8.getDimensi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.JUMLAH), String.valueOf(formGalpal8.getJumlah())));
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.KONDISI), formGalpal8.getKondisi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.LOKASI), formGalpal8.getLokasi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG8Cols(FG8PeralatanKerjaProduksiMesinTable.Cols.STATUS), formGalpal8.getStatus()));
+
+            UrlEncodedFormEntity uefe = new UrlEncodedFormEntity(pairs);
+            post.setEntity(uefe);
+            // Execute the HTTP Post Request
+            HttpResponse response = client.execute(post);
+            // Convert the response into a String
+            HttpEntity resEntity = response.getEntity();
+            if (resEntity != null) {
+                Log.i("RESPONSE8", EntityUtils.toString(resEntity));
+            }
+            if(formGalpal8.getFormServerId()==0) {
+                new DataFetcher().fetchFormLastInsert(formGalpal8,ENDPOINT,colsName);
+            }
+        } catch (UnsupportedEncodingException uee) {
+            uee.printStackTrace();
+        } catch (ClientProtocolException cpe) {
+            cpe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void makePostRequestFG9(FormGalpal9 formGalpal9, Uri ENDPOINT, String colsName) {
+        HttpClient client = new DefaultHttpClient();
+        String postURL = (urlPostFG9);
+        HttpPost post = new HttpPost(postURL);
+        try {
+            // Add the data
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
+            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            if(formGalpal9.getFormServerId()!=0) {
+                pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal9.getFormServerId())));
+            }
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpal9.getKualifikasiSurveyId())));
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.ID_PERIODE), String.valueOf(formGalpal9.getIdPeriode())));
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.JENIS_MESIN), formGalpal9.getJenisMesin()));
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.TAHUN_PEMBUATAN), String.valueOf(formGalpal9.getTahunPembuatan())));
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.MERK), formGalpal9.getMerek()));
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.KAPASAITAS_TERPASANG), String.valueOf(formGalpal9.getKapasitasTerpasang())));
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.SATUAN_KAPASITAS_TERPASANG), formGalpal9.getSatuanKapastiasTerpasang()));
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.SATUAN_KAPASITAS_TERPAKAI), formGalpal9.getSatuanKapasitasTerpakai()));
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.KAPASITAS_TERPAKAI), String.valueOf(formGalpal9.getKapasitasTerpakai())));
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.DIMENSI), formGalpal9.getDimensi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.JUMLAH), String.valueOf(formGalpal9.getJumlah())));
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.KONDISI), formGalpal9.getKondisi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.LOKASI), formGalpal9.getLokasi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG9Cols(FG9PeralatanKerjaProduksiKontruksi.Cols.STATUS), formGalpal9.getStatus()));
+
+            UrlEncodedFormEntity uefe = new UrlEncodedFormEntity(pairs);
+            post.setEntity(uefe);
+            // Execute the HTTP Post Request
+            HttpResponse response = client.execute(post);
+            // Convert the response into a String
+            HttpEntity resEntity = response.getEntity();
+            if (resEntity != null) {
+                Log.i("RESPONSE9", EntityUtils.toString(resEntity));
+            }
+            if(formGalpal9.getFormServerId()==0) {
+                new DataFetcher().fetchFormLastInsert(formGalpal9,ENDPOINT,colsName);
+            }
+        } catch (UnsupportedEncodingException uee) {
+            uee.printStackTrace();
+        } catch (ClientProtocolException cpe) {
+            cpe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void makePostRequestFG10(FormGalpal10 formGalpal10, Uri ENDPOINT, String colsName) {
+
+        HttpClient client = new DefaultHttpClient();
+        String postURL = (urlPostFG10);
+        HttpPost post = new HttpPost(postURL);
+        try {
+            // Add the data
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
+            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            if(formGalpal10.getFormServerId()!=0) {
+                pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal10.getFormServerId())));
+            }
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpal10.getKualifikasiSurveyId())));
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_PERIODE), String.valueOf(formGalpal10.getIdPeriode())));
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.JENIS_MESIN), formGalpal10.getJenisMesin()));
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.TAHUN_PEMBUATAN), String.valueOf(formGalpal10.getTahunPembuatan())));
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.MERK), formGalpal10.getMerek()));
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.KAPASAITAS_TERPASANG), String.valueOf(formGalpal10.getKapasitasTerpasang())));
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.SATUAN_KAPASITAS_TERPASANG), formGalpal10.getSatuanKapastiasTerpasang()));
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.SATUAN_KAPASITAS_TERPAKAI), formGalpal10.getSatuanKapasitasTerpakai()));
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.KAPASITAS_TERPAKAI), String.valueOf(formGalpal10.getKapasitasTerpakai())));
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.DIMENSI), formGalpal10.getDimensi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.JUMLAH), String.valueOf(formGalpal10.getJumlah())));
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.KONDISI), formGalpal10.getKondisi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.LOKASI), formGalpal10.getLokasi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG10Cols(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.STATUS), formGalpal10.getStatus()));
+
+            UrlEncodedFormEntity uefe = new UrlEncodedFormEntity(pairs);
+            post.setEntity(uefe);
+            // Execute the HTTP Post Request
+            HttpResponse response = client.execute(post);
+            // Convert the response into a String
+            HttpEntity resEntity = response.getEntity();
+            if (resEntity != null) {
+                Log.i("RESPONSE10", EntityUtils.toString(resEntity));
+            }
+            if(formGalpal10.getFormServerId()==0) {
+                new DataFetcher().fetchFormLastInsert(formGalpal10,ENDPOINT,colsName);
+            }
+        } catch (UnsupportedEncodingException uee) {
+            uee.printStackTrace();
+        } catch (ClientProtocolException cpe) {
+            cpe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void makePostRequestFG11(FormGalpal11 formGalpal11, Uri ENDPOINT, String colsName) {
+
+        HttpClient client = new DefaultHttpClient();
+        String postURL = (urlPostFG11);
+        HttpPost post = new HttpPost(postURL);
+        try {
+            // Add the data
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
+            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            if(formGalpal11.getFormServerId()!=0) {
+                pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal11.getFormServerId())));
+            }
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpal11.getKualifikasiSurveyId())));
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.ID_PERIODE), String.valueOf(formGalpal11.getIdPeriode())));
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.JENIS_MESIN), formGalpal11.getJenisMesin()));
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.TAHUN_PEMBUATAN), String.valueOf(formGalpal11.getTahunPembuatan())));
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.MERK), formGalpal11.getMerek()));
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.KAPASAITAS_TERPASANG), String.valueOf(formGalpal11.getKapasitasTerpasang())));
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.SATUAN_KAPASITAS_TERPASANG), formGalpal11.getSatuanKapastiasTerpasang()));
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.SATUAN_KAPASITAS_TERPAKAI), formGalpal11.getSatuanKapasitasTerpakai()));
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.KAPASITAS_TERPAKAI), String.valueOf(formGalpal11.getKapasitasTerpakai())));
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.DIMENSI), formGalpal11.getDimensi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.JUMLAH), String.valueOf(formGalpal11.getJumlah())));
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.KONDISI), formGalpal11.getKondisi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.LOKASI), formGalpal11.getLokasi()));
+            pairs.add(new BasicNameValuePair(encapsulateFG11Cols(FG11PeralatanKerjaProduksiPengecatan.Cols.STATUS), formGalpal11.getStatus()));
+
+            UrlEncodedFormEntity uefe = new UrlEncodedFormEntity(pairs);
+            post.setEntity(uefe);
+            // Execute the HTTP Post Request
+            HttpResponse response = client.execute(post);
+            // Convert the response into a String
+            HttpEntity resEntity = response.getEntity();
+            if (resEntity != null) {
+                Log.i("RESPONSE11", EntityUtils.toString(resEntity));
+            }
+            if(formGalpal11.getFormServerId()==0) {
+                new DataFetcher().fetchFormLastInsert(formGalpal11,ENDPOINT,colsName);
+            }
+        } catch (UnsupportedEncodingException uee) {
+            uee.printStackTrace();
+        } catch (ClientProtocolException cpe) {
+            cpe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+
+
+    public void makePostRequestFK3a(FormKompal3a formKompal3a, Uri ENDPOINT, String formServerIdNameCols) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFK3a);
@@ -261,7 +531,9 @@ public class DataPusher {
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
             pairs.add(new BasicNameValuePair("password", "49916022Peri"));
-            pairs.add(new BasicNameValuePair("Id", String.valueOf(formKompal3a.getIdJenisKapasitasProduksiServer())));
+            if(formKompal3a.getFormServerId()!=0) {
+                pairs.add(new BasicNameValuePair("id", String.valueOf(formKompal3a.getFormServerId())));
+            }
             pairs.add(new BasicNameValuePair(encapsulateFK3aCols(FK3aJenisKapasitasProduksiTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formKompal3a.getKualifikasiSurveyId())));
             pairs.add(new BasicNameValuePair(encapsulateFK3aCols(FK3aJenisKapasitasProduksiTable.Cols.ID_PERIODE), String.valueOf(formKompal3a.getIdPeriode())));
             pairs.add(new BasicNameValuePair(encapsulateFK3aCols(FK3aJenisKapasitasProduksiTable.Cols.JENIS_PRODUKSI), formKompal3a.getJenisProduksi()));
@@ -277,6 +549,9 @@ public class DataPusher {
             if (resEntity != null) {
                 Log.i("RESPONSE3A", EntityUtils.toString(resEntity));
             }
+            if(formKompal3a.getFormServerId()==0) {
+                new DataFetcher().fetchFormLastInsert(formKompal3a,ENDPOINT,formServerIdNameCols);
+            }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
         } catch (ClientProtocolException cpe) {
@@ -286,7 +561,9 @@ public class DataPusher {
         }
     }
 
-    public void makePostRequestFK3b(FormKompal3b formKompal3b) {
+
+
+    public void makePostRequestFK3b(FormKompal3b formKompal3b,Uri ENDPOINT, String colsName) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFK3b);
@@ -296,7 +573,9 @@ public class DataPusher {
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
             pairs.add(new BasicNameValuePair("password", "49916022Peri"));
-            pairs.add(new BasicNameValuePair("Id", String.valueOf(formKompal3b.getIdJumlahProduksiServer())));
+            if(formKompal3b.getFormServerId()!=0) {
+                pairs.add(new BasicNameValuePair("id", String.valueOf(formKompal3b.getFormServerId())));
+            }
             pairs.add(new BasicNameValuePair(encapsulateFK3bCols(FK3bJumlahProduksiTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formKompal3b.getKualifikasiSurveyId())));
             pairs.add(new BasicNameValuePair(encapsulateFK3bCols(FK3bJumlahProduksiTable.Cols.ID_PERIODE), String.valueOf(formKompal3b.getIdPeriode())));
             pairs.add(new BasicNameValuePair(encapsulateFK3bCols(FK3bJumlahProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI), String.valueOf(formKompal3b.getJenisProdukId())));
@@ -320,6 +599,9 @@ public class DataPusher {
             if (resEntity != null) {
                 Log.i("RESPONSE3B", EntityUtils.toString(resEntity));
             }
+            if(formKompal3b.getFormServerId()==0) {
+               new DataFetcher().fetchFormLastInsert(formKompal3b,ENDPOINT,colsName);
+            }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
         } catch (ClientProtocolException cpe) {
@@ -329,7 +611,7 @@ public class DataPusher {
         }
     }
 
-    public void makePostRequestFK3c(FormKompal3c formKompal3c) {
+    public void makePostRequestFK3c(FormKompal3c formKompal3c,Uri ENDPOINT,String colsName) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFK3c);
@@ -339,7 +621,9 @@ public class DataPusher {
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
             pairs.add(new BasicNameValuePair("password", "49916022Peri"));
-            pairs.add(new BasicNameValuePair("Id", String.valueOf(formKompal3c.getIdSistemBerproduksiServer())));
+            if(formKompal3c.getFormServerId()!=0) {
+                pairs.add(new BasicNameValuePair("id", String.valueOf(formKompal3c.getFormServerId())));
+            }
             pairs.add(new BasicNameValuePair(encapsulateFK3cCols(FK3cSistemBerproduksiTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formKompal3c.getKualifikasiSurveyId())));
             pairs.add(new BasicNameValuePair(encapsulateFK3cCols(FK3cSistemBerproduksiTable.Cols.ID_PERIODE), String.valueOf(formKompal3c.getIdPeriode())));
             pairs.add(new BasicNameValuePair(encapsulateFK3cCols(FK3cSistemBerproduksiTable.Cols.NAMA_PRODUK), formKompal3c.getNamaProduk()));
@@ -359,6 +643,9 @@ public class DataPusher {
             if (resEntity != null) {
                 Log.i("RESPONSE3C", EntityUtils.toString(resEntity));
             }
+            if(formKompal3c.getFormServerId()==0) {
+                new DataFetcher().fetchFormLastInsert(formKompal3c,ENDPOINT,colsName);
+            }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
         } catch (ClientProtocolException cpe) {
@@ -368,7 +655,7 @@ public class DataPusher {
         }
     }
 
-    public void makePostRequestFK3d(FormKompal3d formKompal3d) {
+    public void makePostRequestFK3d(FormKompal3d formKompal3d,Uri ENDPOINT,String colsName) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFK3d);
@@ -378,7 +665,9 @@ public class DataPusher {
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
             pairs.add(new BasicNameValuePair("password", "49916022Peri"));
-            pairs.add(new BasicNameValuePair("Id", String.valueOf(formKompal3d.getIdStandarMutuServer())));
+            if(formKompal3d.getFormServerId()!=0) {
+                pairs.add(new BasicNameValuePair("id", String.valueOf(formKompal3d.getFormServerId())));
+            }
             pairs.add(new BasicNameValuePair(encapsulateFK3dCols(FK3dStandarMutuTableTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formKompal3d.getKualifikasiSurveyId())));
             pairs.add(new BasicNameValuePair(encapsulateFK3dCols(FK3dStandarMutuTableTable.Cols.ID_PERIODE), String.valueOf(formKompal3d.getIdPeriode())));
             pairs.add(new BasicNameValuePair(encapsulateFK3dCols(FK3dStandarMutuTableTable.Cols.JENIS_STANDAR_MUTU), formKompal3d.getJenisStandarMutu()));
@@ -392,6 +681,9 @@ public class DataPusher {
             HttpEntity resEntity = response.getEntity();
             if (resEntity != null) {
                 Log.i("RESPONSE3D", EntityUtils.toString(resEntity));
+            }
+            if(formKompal3d.getFormServerId()==0) {
+                new DataFetcher().fetchFormLastInsert(formKompal3d,ENDPOINT,colsName);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
@@ -411,10 +703,10 @@ public class DataPusher {
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
             pairs.add(new BasicNameValuePair("password", "49916022Peri"));
-            pairs.add(new BasicNameValuePair("Id", String.valueOf(menuCheckingGalpal.getIdMenuCheckingGalpal())));
+            pairs.add(new BasicNameValuePair("id", String.valueOf(menuCheckingGalpal.getIdMenuCheckingGalpal())));
             pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(menuCheckingGalpal.getIdKualifikasiSurvey())));
             pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.ID_MENU_F1), String.valueOf(menuCheckingGalpal.getIdMenu())));
-            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.IS_FILL), String.valueOf(menuCheckingGalpal.isComplete() ? 1 : 0)));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.IS_FILL), String.valueOf(menuCheckingGalpal.isFill() ? 1 : 0)));
             pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.IS_COMPLETE), String.valueOf(menuCheckingGalpal.isComplete() ? 1 : 0)));
             pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.IS_VERIFIED), String.valueOf(menuCheckingGalpal.isVerified() ? 1 : 0)));
 
@@ -445,10 +737,10 @@ public class DataPusher {
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
             pairs.add(new BasicNameValuePair("password", "49916022Peri"));
-            pairs.add(new BasicNameValuePair("Id", String.valueOf(menuCheckingKompal.getIdMenuCheckingKompal())));
+            pairs.add(new BasicNameValuePair("id", String.valueOf(menuCheckingKompal.getIdMenuCheckingKompal())));
             pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(menuCheckingKompal.getIdKualifikasiSurvey())));
             pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.ID_MENU_F1), String.valueOf(menuCheckingKompal.getIdMenu())));
-            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.IS_FILL), String.valueOf(menuCheckingKompal.isComplete() ? 1 : 0)));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.IS_FILL), String.valueOf(menuCheckingKompal.isFill() ? 1 : 0)));
             pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.IS_COMPLETE), String.valueOf(menuCheckingKompal.isComplete() ? 1 : 0)));
             pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.IS_VERIFIED), String.valueOf(menuCheckingKompal.isVerified() ? 1 : 0)));
 
@@ -480,7 +772,7 @@ public class DataPusher {
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
             pairs.add(new BasicNameValuePair("password", "49916022Peri"));
-            pairs.add(new BasicNameValuePair("Id", String.valueOf(kualifikasiSurvey.getKualifikasiSurveyId())));
+            pairs.add(new BasicNameValuePair("id", String.valueOf(kualifikasiSurvey.getKualifikasiSurveyId())));
             pairs.add(new BasicNameValuePair(encapsulateKualifikasiSurveyCols(KualifikasiSurveyTable.Cols.ID_PERUSAHAAN), String.valueOf(kualifikasiSurvey.getPerusahaanId())));
             pairs.add(new BasicNameValuePair(encapsulateKualifikasiSurveyCols(KualifikasiSurveyTable.Cols.ID_PERIODE), String.valueOf(kualifikasiSurvey.getPeriodeSurveyId())));
             pairs.add(new BasicNameValuePair(encapsulateKualifikasiSurveyCols(KualifikasiSurveyTable.Cols.ID_GALANGAN_KAPAL), String.valueOf(kualifikasiSurvey.getGalanganKapalId())));
@@ -520,6 +812,26 @@ public class DataPusher {
 
     private String encapsulateFG6Cols(String cols){
         return "F1PeralatanKerjaLrCrane["+cols+"]";
+    }
+
+    private String encapsulateFG7Cols(String cols){
+        return "F1PeralatanKerjaLrTug["+cols+"]";
+    }
+
+    private String encapsulateFG8Cols(String cols){
+        return "F1PeralatanKerjaProdMesin["+cols+"]";
+    }
+
+    private String encapsulateFG9Cols(String cols){
+        return "F1PeralatanKerjaProdKonstruksi["+cols+"]";
+    }
+
+    private String encapsulateFG10Cols(String cols){
+        return "F1PeralatanKerjaProdElmek["+cols+"]";
+    }
+
+    private String encapsulateFG11Cols(String cols){
+        return "F1PeralatanKerjaProdCat["+cols+"]";
     }
 
     private String encapsulateFK3aCols(String cols){

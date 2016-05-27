@@ -10,9 +10,16 @@ public abstract class SingleForm {
     protected boolean mSend;
     protected SingleFragment mFragment;
     protected int mKualifikasiSurveyId;
+    protected int mFormServerId;
 
 
+    public int getFormServerId() {
+        return mFormServerId;
+    }
 
+    public void setFormServerId(int formServerId) {
+        mFormServerId = formServerId;
+    }
 
     public int getKualifikasiSurveyId() {
         return mKualifikasiSurveyId;
@@ -39,6 +46,7 @@ public abstract class SingleForm {
     }
 
     public abstract int getKodeForm();
+    public abstract String getKodeAsync();
 
 
 

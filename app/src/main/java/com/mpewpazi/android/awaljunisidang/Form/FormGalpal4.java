@@ -31,6 +31,7 @@ public class FormGalpal4 extends SingleForm {
     private String note;
 
     public static final int kode=5;
+    public static final String kodeAsync="FG4";
 
 
     public int getIdPeriode() {
@@ -52,6 +53,11 @@ public class FormGalpal4 extends SingleForm {
     @Override
     public int getKodeForm() {
         return kode;
+    }
+
+    @Override
+    public String getKodeAsync() {
+        return kodeAsync;
     }
 
     @Override

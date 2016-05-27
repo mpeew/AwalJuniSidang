@@ -8,6 +8,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
+        android:id="@+id/galpal_peralatan_judul"
         android:layout_margin="20dp"
         android:padding="10dp"
         android:textColor="@android:color/white"
@@ -37,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
-                    android:id="@+id/galpal6_jenis_mesin"
+                    android:id="@+id/galpal_peralatan_jenis_mesin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -51,7 +52,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/galpal6_tahun_pembuatan"
+                    android:id="@+id/galpal_peralatan_tahun_pembuatan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Tahun Pembuatan" />
@@ -63,7 +64,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/galpal6_merek"
+                    android:id="@+id/galpal_peralatan_merek"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Merek" />
@@ -74,7 +75,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/galpal6_kapasitas_terpasang"
+                    android:id="@+id/galpal_peralatan_kapasitas_terpasang"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Kapasitas Terpasang" />
@@ -85,7 +86,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/galpal6_kapasitas_terpakai"
+                    android:id="@+id/galpal_peralatan_kapasitas_terpakai"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Kapasitas Terpakai" />
@@ -96,7 +97,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/galpal6_dimensi"
+                    android:id="@+id/galpal_peralatan_dimensi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Dimensi" />
@@ -107,7 +108,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/galpal6_jumlah"
+                    android:id="@+id/galpal_peralatan_jumlah"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Jumlah" />
@@ -118,7 +119,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/galpal6_kondisi"
+                    android:id="@+id/galpal_peralatan_kondisi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Kondisi" />
@@ -129,7 +130,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/galpal6_lokasi"
+                    android:id="@+id/galpal_peralatan_lokasi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="lokasi" />
@@ -140,7 +141,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/galpal6_status"
+                    android:id="@+id/galpal_peralatan_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="status" />
@@ -150,7 +151,7 @@
     </ScrollView>
 
 
-    <Button android:id="@+id/galpal6_btn_save"
+    <Button android:id="@+id/galpal_peralatan_btn_save"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="9"

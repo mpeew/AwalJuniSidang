@@ -219,6 +219,8 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG4TinjauanAreaTable.Cols.MODIFIED_IP_ADDRESS +" text)"
         );
 
+
+
         //create tabel formgalpal6
         db.execSQL(
                 "create table "+FG6PeralatanKerjaLuarCraneTable.NAME+
@@ -245,6 +247,147 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG6PeralatanKerjaLuarCraneTable.Cols.MODIFIED_USER +" ," +
                         FG6PeralatanKerjaLuarCraneTable.Cols.MODIFIED_IP_ADDRESS +" )"
         );
+
+
+        //FG7
+        db.execSQL(
+                "create table "+ FG7PeralatanKerjaLuarTugboatTable.NAME+
+                        "("+FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG+" text primary key ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG_SERVER +" integer ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.ID_PERIODE +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.JENIS_MESIN +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.TAHUN_PEMBUATAN +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.MERK +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.KAPASAITAS_TERPASANG +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPASANG +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.KAPASITAS_TERPAKAI +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPAKAI +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.DIMENSI +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.JUMLAH +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.KONDISI +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.LOKASI +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.STATUS +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.CREATED_DATE +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.CREATED_USER +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.CREATED_IP_ADDRESS +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.MODIFIED_DATE +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.MODIFIED_USER +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.MODIFIED_IP_ADDRESS +" )"
+        );
+
+
+        //FG8
+        db.execSQL(
+                "create table "+FG8PeralatanKerjaProduksiMesinTable.NAME+
+                        "("+FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN+" text primary key ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN_SERVER +" integer ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.ID_PERIODE +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.JENIS_MESIN +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.TAHUN_PEMBUATAN +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.MERK +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.KAPASAITAS_TERPASANG +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.SATUAN_KAPASITAS_TERPASANG +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.KAPASITAS_TERPAKAI +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.SATUAN_KAPASITAS_TERPAKAI +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.DIMENSI +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.JUMLAH +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.KONDISI +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.LOKASI +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.STATUS +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.CREATED_DATE +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.CREATED_USER +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.CREATED_IP_ADDRESS +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.MODIFIED_DATE +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.MODIFIED_USER +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.MODIFIED_IP_ADDRESS +" )"
+        );
+
+        //FG9
+        db.execSQL(
+                "create table "+FG9PeralatanKerjaProduksiKontruksi.NAME+
+                        "("+FG9PeralatanKerjaProduksiKontruksi.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI+" text primary key ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI_SERVER +" integer ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.ID_PERIODE +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.JENIS_MESIN +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.TAHUN_PEMBUATAN +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.MERK +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.KAPASAITAS_TERPASANG +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.SATUAN_KAPASITAS_TERPASANG +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.KAPASITAS_TERPAKAI +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.SATUAN_KAPASITAS_TERPAKAI +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.DIMENSI +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.JUMLAH +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.KONDISI +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.LOKASI +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.STATUS +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.CREATED_DATE +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.CREATED_USER +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.CREATED_IP_ADDRESS +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.MODIFIED_DATE +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.MODIFIED_USER +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.MODIFIED_IP_ADDRESS +" )"
+        );
+
+        //FG10
+        db.execSQL(
+                "create table "+FG10PeralatanKerjaProduksiElektrikalMekanikal.NAME+
+                        "("+FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK+" text primary key ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK_SERVER +" integer ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_PERIODE +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.JENIS_MESIN +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.TAHUN_PEMBUATAN +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.MERK +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.KAPASAITAS_TERPASANG +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.SATUAN_KAPASITAS_TERPASANG +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.KAPASITAS_TERPAKAI +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.SATUAN_KAPASITAS_TERPAKAI +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.DIMENSI +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.JUMLAH +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.KONDISI +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.LOKASI +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.STATUS +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.CREATED_DATE +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.CREATED_USER +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.CREATED_IP_ADDRESS +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.MODIFIED_DATE +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.MODIFIED_USER +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.MODIFIED_IP_ADDRESS +" )"
+        );
+
+        //FG11
+        db.execSQL(
+                "create table "+FG11PeralatanKerjaProduksiPengecatan.NAME+
+                        "("+FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT+" text primary key ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT_SERVER +" integer ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.ID_PERIODE +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.JENIS_MESIN +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.TAHUN_PEMBUATAN +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.MERK +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.KAPASAITAS_TERPASANG +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.SATUAN_KAPASITAS_TERPASANG +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.KAPASITAS_TERPAKAI +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.SATUAN_KAPASITAS_TERPAKAI +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.DIMENSI +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.JUMLAH +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.KONDISI +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.LOKASI +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.STATUS +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.CREATED_DATE +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.CREATED_USER +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.CREATED_IP_ADDRESS +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.MODIFIED_DATE +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.MODIFIED_USER +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.MODIFIED_IP_ADDRESS +" )"
+        );
+
+
+
+
 
 
 
@@ -334,7 +477,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
 
         db.execSQL(
                 "create table "+MenuCheckingGalpalTable.NAME+
-                        "("+MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING+" integer primary key autoincrement ," +
+                        "("+MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING+" integer primary key ," +
                         MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         MenuCheckingGalpalTable.Cols.ID_MENU_F1 +" integer ," +
                         MenuCheckingGalpalTable.Cols.IS_FILL +" ," +
@@ -344,7 +487,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
 
         db.execSQL(
                 "create table "+MenuCheckingKompalTable.NAME+
-                        "("+MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING+" integer primary key autoincrement ," +
+                        "("+MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING+" integer primary key ," +
                         MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY +" integer ," +
                         MenuCheckingKompalTable.Cols.ID_MENU_F2 +" integer ," +
                         MenuCheckingKompalTable.Cols.IS_FILL +" ," +

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -24,6 +25,7 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
@@ -32,6 +34,7 @@ import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
 import java.io.File;
 import java.util.List;
@@ -130,7 +133,7 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_form_galpal3, container, false);
-        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4|mMenuCheckingGalpal.isVerified()){
             setViewEnabledFalse(rootView);
         }
 
@@ -588,11 +591,12 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mValidator.validate();
-                if(!isValidated){
-                    return;
-                }
+
                 if(!mMenuCheckingGalpal.isComplete()){
+                    mValidator.validate();
+                    if(!isValidated){
+                        return;
+                    }
                     mMenuCheckingGalpal.setComplete(true);
                     mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mGalpalForms.size());
                     mSubmitButton.setText(R.string.belum_lengkap);
@@ -619,8 +623,10 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
     @Override
     public void onPause() {
         super.onPause();
-        mDummyMaker.addFormGalpal3(mFormGalpal3);
-
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2){
+            mDummyMaker.addFormGalpal3(mFormGalpal3);
+            new PushTask(mFormGalpal3,mMenuCheckingGalpal).execute();
+        }
     }
 
     private void updatePhotoView(){
@@ -673,6 +679,23 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
             }
         }
         isValidated =false;
+    }
+
+    private class PushTask extends AsyncTask<Void,Void,Void> {
+        private FormGalpal3 mFormGalpal3;
+        private SingleMenuChecking mSingleMenuChecking;
+
+        public PushTask(FormGalpal3 formGalpal3, SingleMenuChecking singleMenuChecking){
+            mFormGalpal3=formGalpal3;
+            mSingleMenuChecking=singleMenuChecking;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            new DataPusher().makePostRequestFG3(mFormGalpal3);
+            new DataPusher().makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
+            return null;
+        }
     }
 
 

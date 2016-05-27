@@ -1,5 +1,6 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +19,7 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Domain;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
@@ -27,6 +29,7 @@ import com.mpewpazi.android.awaljunisidang.masterData.MstKabupaten;
 import com.mpewpazi.android.awaljunisidang.masterData.MstPropinsi;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,7 +138,7 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
 
         View rootView = inflater.inflate(R.layout.fragment_form_galpal1, container, false);
 
-        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4|mMenuCheckingGalpal.isVerified()){
             setViewEnabledFalse(rootView);
         }
 
@@ -462,13 +465,12 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
             @Override
             public void onClick(View v) {
 
-                mValidator.validate();
-                if(!isValidated){
-                    return;
-                }
-
 
                 if(!mMenuCheckingGalpal.isComplete()){
+                    mValidator.validate();
+                    if(!isValidated){
+                        return;
+                    }
                     mMenuCheckingGalpal.setComplete(true);
                     mKualifikasiSurvey.setProgress(mKualifikasiSurvey.getProgress()+100/mGalpalForms.size());
                     mSubmitButton.setText(R.string.belum_lengkap);
@@ -501,8 +503,10 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
     @Override
     public void onPause() {
         super.onPause();
-        mDummyMaker.addFormGalpal1(mFormGalpal1);
-
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2){
+            mDummyMaker.addFormGalpal1(mFormGalpal1);
+            new PushTask(mFormGalpal1,mMenuCheckingGalpal).execute();
+        }
     }
 
     OnItemSelectedListener myListener=new OnItemSelectedListener() {
@@ -548,6 +552,23 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
         }
         isValidated=false;
 
+    }
+
+    private class PushTask extends AsyncTask<Void,Void,Void> {
+        private FormGalpal1 mFormGalpal1;
+        private SingleMenuChecking mSingleMenuChecking;
+
+        public PushTask(FormGalpal1 formGalpal1, SingleMenuChecking singleMenuChecking){
+            mFormGalpal1=formGalpal1;
+            mSingleMenuChecking=singleMenuChecking;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            new DataPusher().makePostRequestFG1(mFormGalpal1);
+            new DataPusher().makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
+            return null;
+        }
     }
 
 

@@ -3,7 +3,7 @@ package com.mpewpazi.android.awaljunisidang.model;
 /**
  * Created by mpewpazi on 5/12/16.
  */
-public class SingleMenuChecking {
+public abstract class SingleMenuChecking {
     private int idKualifikasiSurvey;
     private int idMenu;
     private boolean fill;
@@ -49,4 +49,6 @@ public class SingleMenuChecking {
     public void setVerified(boolean verified) {
         this.verified = verified;
     }
+
+    public abstract String kodeAsync();
 }

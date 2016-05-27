@@ -9,23 +9,17 @@ import java.util.UUID;
  * Created by mpewpazi on 5/6/16.
  */
 public class FormKompal3a extends SingleForm {
-    private int idJenisKapasitasProduksiServer;
     private UUID idJenisKapasitasProduksi;
     private int idPeriode;
     private String jenisProduksi;
     private int kapasitasProduksi;
-    private int satuan;
+    private int satuan=1;
     private String note;
 
     public static final int kode=4;
+    public static final String kodeAsync="FK3a";
 
-    public int getIdJenisKapasitasProduksiServer() {
-        return idJenisKapasitasProduksiServer;
-    }
 
-    public void setIdJenisKapasitasProduksiServer(int idJenisKapasitasProduksiServer) {
-        this.idJenisKapasitasProduksiServer = idJenisKapasitasProduksiServer;
-    }
 
     public int getIdPeriode() {
         return idPeriode;
@@ -51,6 +45,11 @@ public class FormKompal3a extends SingleForm {
     @Override
     public int getKodeForm() {
         return kode;
+    }
+
+    @Override
+    public String getKodeAsync() {
+        return kodeAsync;
     }
 
     @Override
