@@ -71,6 +71,10 @@ public class ListFormGalpal7Fragment extends SingleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_form_galpal_peralatan_list, container, false);
+        TextView mJudulTextView=(TextView)view.findViewById(R.id.galpal_peralatan_judul_list);
+        FormGalpal7 formGalpal7=new FormGalpal7();
+        mJudulTextView.setText(formGalpal7.getNamaForm());
+
         if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
             setViewEnabledFalse(view);
         }
@@ -173,7 +177,7 @@ public class ListFormGalpal7Fragment extends SingleFragment {
                         public void onClick(DialogInterface dialog, int which) {
                             DummyMaker.get(getActivity()).deleteFormGalpal7(formGalpal7);
                             updateUI();
-                            //new DeleteTask(formGalpal7.getFormServerId()).execute();
+                            new DeleteTask(formGalpal7.getFormServerId()).execute();
                         }
                     });
                     alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -273,7 +277,7 @@ public class ListFormGalpal7Fragment extends SingleFragment {
     public void onPause() {
         super.onPause();
         if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingGalpal.isVerified()){
-            //new PushTask(mFormGalpal7s,mMenuCheckingGalpal).execute();
+            new PushTask(mFormGalpal7s,mMenuCheckingGalpal).execute();
         }
     }
 

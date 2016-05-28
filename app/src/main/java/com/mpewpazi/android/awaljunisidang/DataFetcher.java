@@ -431,13 +431,19 @@ public class DataFetcher {
            Log.i(TAG, "Received JSON: " + jsonFormGalpal1String);
            Log.i(TAG, "Received JSON: " + jsonFormGalpal3String);
            Log.i(TAG, "Received JSON: " + jsonFormGalpal4String);
-            //Log.i(TAG, "Received JSON: " + jsonFormGalpal6String);
+            Log.i(TAG, "Received JSON: " + jsonFormGalpal6String);
+            Log.i(TAG, "Received JSON: " + jsonFormGalpal7String);
+            Log.i(TAG, "Received JSON: " + jsonFormGalpal8String);
+            Log.i(TAG, "Received JSON: " + jsonFormGalpal9String);
+            Log.i(TAG, "Received JSON: " + jsonFormGalpal10String);
+            Log.i(TAG, "Received JSON: " + jsonFormGalpal11String);
+
 
 
             JSONObject jsonFormGalpal1Body = new JSONObject(jsonFormGalpal1String);
             JSONObject jsonFormGalpal3Body = new JSONObject(jsonFormGalpal3String);
             JSONArray jsonFormGalpal4Body = new JSONArray(jsonFormGalpal4String);
-            //JSONArray jsonFormGalpal6Body = new JSONArray(jsonFormGalpal6String);
+            JSONArray jsonFormGalpal6Body = new JSONArray(jsonFormGalpal6String);
             JSONArray jsonFormGalpal7Body = new JSONArray(jsonFormGalpal7String);
             JSONArray jsonFormGalpal8Body = new JSONArray(jsonFormGalpal8String);
             JSONArray jsonFormGalpal9Body = new JSONArray(jsonFormGalpal9String);
@@ -447,7 +453,12 @@ public class DataFetcher {
             parseFormGalpal3(items,jsonFormGalpal3Body);
             parseFormGalpal1(items,jsonFormGalpal1Body);
             parseFormGalpal4(items,jsonFormGalpal4Body);
-            //parseFormGalpal6s(items,jsonFormGalpal6Body);
+            parseFormGalpal6s(items,jsonFormGalpal6Body);
+            parseFormGalpal7s(items,jsonFormGalpal7Body);
+            parseFormGalpal8s(items,jsonFormGalpal8Body);
+            parseFormGalpal9s(items,jsonFormGalpal9Body);
+            parseFormGalpal10s(items,jsonFormGalpal10Body);
+            parseFormGalpal11s(items,jsonFormGalpal11Body);
 
 
         } catch (JSONException je){

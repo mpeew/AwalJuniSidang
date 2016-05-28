@@ -74,6 +74,9 @@ public class ListFormGalpal11Fragment extends SingleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_form_galpal_peralatan_list, container, false);
+        TextView mJudulTextView=(TextView)view.findViewById(R.id.galpal_peralatan_judul_list);
+        FormGalpal11 formGalpal11=new FormGalpal11();
+        mJudulTextView.setText(formGalpal11.getNamaForm());
         if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
             setViewEnabledFalse(view);
         }

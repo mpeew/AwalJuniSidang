@@ -17,9 +17,14 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal10;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal11;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal7;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal8;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpal9;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
@@ -185,6 +190,21 @@ new PushTask().execute();
                         break;
                     case FormGalpal6.kodeAsync:
                         DummyMaker.get(getApplicationContext()).addFormGalpal6Server((FormGalpal6)singleForm);
+                        break;
+                    case FormGalpal7.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addFormGalpal7Server((FormGalpal7)singleForm);
+                        break;
+                    case FormGalpal8.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addFormGalpal8Server((FormGalpal8)singleForm);
+                        break;
+                    case FormGalpal9.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addFormGalpal9Server((FormGalpal9)singleForm);
+                        break;
+                    case FormGalpal10.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addFormGalpal10Server((FormGalpal10)singleForm);
+                        break;
+                    case FormGalpal11.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addFormGalpal11Server((FormGalpal11)singleForm);
                         break;
                     case FormKompal3a.kodeAsync:
                         DummyMaker.get(getApplicationContext()).addFormKompal3aServer((FormKompal3a)singleForm);

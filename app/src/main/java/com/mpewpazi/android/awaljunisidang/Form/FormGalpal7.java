@@ -15,9 +15,9 @@ public class FormGalpal7 extends SingleForm {
     private int tahunPembuatan;
     private String merek;
     private int kapasitasTerpasang;
-    private String satuanKapastiasTerpasang;
+    private String satuanKapastiasTerpasang="-";
     private int kapasitasTerpakai;
-    private String satuanKapasitasTerpakai;
+    private String satuanKapasitasTerpakai="-";
     private String dimensi;
     private int jumlah;
     private String kondisi;

@@ -1,6 +1,6 @@
 package com.mpewpazi.android.awaljunisidang.Form;
 
-import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal6Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal8Fragment;
 import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
 
 import java.util.UUID;
@@ -15,9 +15,9 @@ public class FormGalpal8 extends SingleForm {
     private int tahunPembuatan;
     private String merek;
     private int kapasitasTerpasang;
-    private String satuanKapastiasTerpasang;
+    private String satuanKapastiasTerpasang="-";
     private int kapasitasTerpakai;
-    private String satuanKapasitasTerpakai;
+    private String satuanKapasitasTerpakai="-";
     private String dimensi;
     private int jumlah;
     private String kondisi;
@@ -40,7 +40,7 @@ public class FormGalpal8 extends SingleForm {
 
     @Override
     public SingleFragment getFragment() {
-        return new ListFormGalpal6Fragment();
+        return new ListFormGalpal8Fragment();
     }
 
     @Override

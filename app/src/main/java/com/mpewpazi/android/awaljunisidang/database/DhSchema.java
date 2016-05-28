@@ -276,7 +276,7 @@ public class DhSchema {
             public static final String KAPASAITAS_TERPASANG="kapasitas_terpasang";
             public static final String SATUAN_KAPASITAS_TERPASANG="satuan_kapasitas_terpasang";
             public static final String KAPASITAS_TERPAKAI="kapasitas_terpakai";
-            public static final String SATUAN_KAPASITAS_TERPAKAI="satuan_kapastas_terpakai";
+            public static final String SATUAN_KAPASITAS_TERPAKAI="satuan_kapasitas_terpakai";
             public static final String DIMENSI="dimensi";
             public static final String JUMLAH="jumlah";
             public static final String KONDISI="kondisi";
@@ -309,7 +309,7 @@ public class DhSchema {
             public static final String KAPASAITAS_TERPASANG="kapasitas_terpasang";
             public static final String SATUAN_KAPASITAS_TERPASANG="satuan_kapasitas_terpasang";
             public static final String KAPASITAS_TERPAKAI="kapasitas_terpakai";
-            public static final String SATUAN_KAPASITAS_TERPAKAI="satuan_kapastas_terpakai";
+            public static final String SATUAN_KAPASITAS_TERPAKAI="satuan_kapasitas_terpakai";
             public static final String DIMENSI="dimensi";
             public static final String JUMLAH="jumlah";
             public static final String KONDISI="kondisi";
@@ -339,7 +339,7 @@ public class DhSchema {
             public static final String KAPASAITAS_TERPASANG="kapasitas_terpasang";
             public static final String SATUAN_KAPASITAS_TERPASANG="satuan_kapasitas_terpasang";
             public static final String KAPASITAS_TERPAKAI="kapasitas_terpakai";
-            public static final String SATUAN_KAPASITAS_TERPAKAI="satuan_kapastas_terpakai";
+            public static final String SATUAN_KAPASITAS_TERPAKAI="satuan_kapasitas_terpakai";
             public static final String DIMENSI="dimensi";
             public static final String JUMLAH="jumlah";
             public static final String KONDISI="kondisi";
@@ -356,10 +356,10 @@ public class DhSchema {
 
     //FORM GALPAL 9
     public static final class FG9PeralatanKerjaProduksiKontruksi {
-        public static final String NAME="f1_peralatan_kerja_prod_kontruksi";
+        public static final String NAME="f1_peralatan_kerja_prod_konstruksi";
         public static final class Cols{
-            public static final String ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI="id_f1_peralatan_kerja_prod_kontruksi_local";
-            public static final String ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI_SERVER="id_f1_peralatan_kerja_prod_kontruksi";
+            public static final String ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI="id_f1_peralatan_kerja_prod_konstruksi_local";
+            public static final String ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI_SERVER="id_f1_peralatan_kerja_prod_konstruksi";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_PERIODE="id_periode";
             public static final String JENIS_MESIN="jenis_mesin";
@@ -368,7 +368,7 @@ public class DhSchema {
             public static final String KAPASAITAS_TERPASANG="kapasitas_terpasang";
             public static final String SATUAN_KAPASITAS_TERPASANG="satuan_kapasitas_terpasang";
             public static final String KAPASITAS_TERPAKAI="kapasitas_terpakai";
-            public static final String SATUAN_KAPASITAS_TERPAKAI="satuan_kapastas_terpakai";
+            public static final String SATUAN_KAPASITAS_TERPAKAI="satuan_kapasitas_terpakai";
             public static final String DIMENSI="dimensi";
             public static final String JUMLAH="jumlah";
             public static final String KONDISI="kondisi";
@@ -398,7 +398,7 @@ public class DhSchema {
             public static final String KAPASAITAS_TERPASANG="kapasitas_terpasang";
             public static final String SATUAN_KAPASITAS_TERPASANG="satuan_kapasitas_terpasang";
             public static final String KAPASITAS_TERPAKAI="kapasitas_terpakai";
-            public static final String SATUAN_KAPASITAS_TERPAKAI="satuan_kapastas_terpakai";
+            public static final String SATUAN_KAPASITAS_TERPAKAI="satuan_kapasitas_terpakai";
             public static final String DIMENSI="dimensi";
             public static final String JUMLAH="jumlah";
             public static final String KONDISI="kondisi";
@@ -428,7 +428,7 @@ public class DhSchema {
             public static final String KAPASAITAS_TERPASANG="kapasitas_terpasang";
             public static final String SATUAN_KAPASITAS_TERPASANG="satuan_kapasitas_terpasang";
             public static final String KAPASITAS_TERPAKAI="kapasitas_terpakai";
-            public static final String SATUAN_KAPASITAS_TERPAKAI="satuan_kapastas_terpakai";
+            public static final String SATUAN_KAPASITAS_TERPAKAI="satuan_kapasitas_terpakai";
             public static final String DIMENSI="dimensi";
             public static final String JUMLAH="jumlah";
             public static final String KONDISI="kondisi";

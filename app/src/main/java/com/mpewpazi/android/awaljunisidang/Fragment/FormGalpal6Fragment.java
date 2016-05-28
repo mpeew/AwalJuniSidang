@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -110,6 +111,10 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
         if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4||mMenuCheckingGalpal.isVerified()){
             setViewEnabledFalse(rootView);
         }
+
+        TextView mJudulTextView=(TextView)rootView.findViewById(R.id.galpal_peralatan_judul);
+        FormGalpal6 formGalpal6=new FormGalpal6();
+        mJudulTextView.setText(formGalpal6.getNamaForm());
 
         mJenisMesinEditText=(EditText)rootView.findViewById(R.id.galpal_peralatan_jenis_mesin);
         mTahunPembuatanEditText=(EditText)rootView.findViewById(R.id.galpal_peralatan_tahun_pembuatan);
