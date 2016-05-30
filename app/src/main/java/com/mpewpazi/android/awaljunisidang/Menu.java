@@ -3,7 +3,7 @@ package com.mpewpazi.android.awaljunisidang;
 /**
  * Created by asputra on 5/24/16.
  */
-public class Menu {
+public abstract class Menu {
     protected String number;
     protected String namaMenu;
 
@@ -22,4 +22,6 @@ public class Menu {
     public void setNamaMenu(String namaMenu) {
         this.namaMenu = namaMenu;
     }
+
+    public abstract String getKodeAsync();
 }

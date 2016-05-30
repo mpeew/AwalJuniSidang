@@ -252,7 +252,7 @@ public class ListFormGalpal7Fragment extends SingleFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2){
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2 && !mMenuCheckingGalpal.isVerified()){
             inflater.inflate(R.menu.fragment_form_list, menu);
         }
     }
@@ -277,7 +277,7 @@ public class ListFormGalpal7Fragment extends SingleFragment {
     @Override
     public void onPause() {
         super.onPause();
-        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingGalpal.isVerified()){
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2 && !mMenuCheckingGalpal.isVerified()){
             if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
                 PushGalpalService.setServiceAlarm(getActivity(),true);
             }else {

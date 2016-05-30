@@ -234,7 +234,7 @@ public class ListFormKompal3dFragment extends SingleFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2){
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2 && !mMenuCheckingKompal.isVerified()){
             inflater.inflate(R.menu.fragment_form_list, menu);
         }
     }
@@ -259,7 +259,7 @@ public class ListFormKompal3dFragment extends SingleFragment {
     @Override
     public void onPause() {
         super.onPause();
-        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingKompal.isVerified()){
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2 && !mMenuCheckingKompal.isVerified()){
             if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
                 PushKompalService.setServiceAlarm(getActivity(),true);
             }else {

@@ -254,6 +254,7 @@ public class HomePageActivity extends AppCompatActivity {
             startActivity(i);
             mDummyMaker.deleteGalpalFormsMenus();
             mDummyMaker.deleteKompalFormsMenus();
+            mDummyMaker.deleteKualifikasiSurveys();
             return true;
         }
 

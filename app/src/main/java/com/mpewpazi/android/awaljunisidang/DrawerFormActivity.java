@@ -3,30 +3,32 @@ package com.mpewpazi.android.awaljunisidang;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
-import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
+import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal1Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal3Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.FormGalpal4Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal10Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal11Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal6Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal7Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal8Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal9Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormKompal3aFragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormKompal3bFragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormKompal3cFragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormKompal3dFragment;
 import com.mpewpazi.android.awaljunisidang.Fragment.SingleFragment;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
-import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
-import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
 import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
 import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
@@ -39,34 +41,24 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
 
 
     private DrawerLayout mDrawerLayout;
-   // private ListView mDrawerList;
-    private RecyclerView mDrawerRecyclerView;
-    public static SingleFormAdapter mAdapter;
-//a
-    //untuk merubah kembali nama aplikasi
-    private String mActivityTitle;
+    private ListView mDrawerListView;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+
+    public static CustomDrawerAdapter mAdapter;
+
 
     private KualifikasiSurvey mKualifikasiSurvey;
-
-
-    private List<String> mNamaFormList;
-    private List<Fragment> mFragmentList;
-
-
     public static int kualifikasiSurveyId;
-
     private DummyMaker mDummyMaker;
-
-    private List<SingleForm> mSingleForms;
     private List<SingleMenuChecking> mMenuCheckingSingles;
 
+    private boolean isGalpalIndustri;
 
 
 
-    //array adapter untuk list item di drawer
-    private ArrayAdapter<String> mArrayAdapter;
-
-    private ActionBarDrawerToggle mDrawerToggle;
 
 
     @Override
@@ -81,27 +73,27 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
         mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(kualifikasiSurveyId);
 
         mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
-        mDrawerRecyclerView=(RecyclerView)findViewById(R.id.nav_recycler_view);
-        mDrawerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mDrawerListView=(ListView) findViewById(R.id.nav_list_view);
+
+        GalKomSharedPreference.setPositionClicked(getApplicationContext(),0);
+        mDrawerListView.setItemChecked(GalKomSharedPreference.getPositionClicked(getApplicationContext()),true);
+
+
         addDrawerItems();
+        mDrawerListView.setOnItemClickListener(new DrawerItemClickListener(isGalpalIndustri));
 
 
         //munculkan fragmen 0
        // Fragment fragment=new FormGalpal1Fragment();
-        SingleFragment fragment=mSingleForms.get(0).getFragment();
-        fragment.setCustomClickListener(this);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
-
-
-
-
-
-        mActivityTitle=getTitle().toString();
-
+        if (savedInstanceState == null) {
+            if(isGalpalIndustri) {
+                SelectItemGalpal(0);
+            }else{
+                SelectItemKompal(0);
+            }
+        }
 
         setupDrawer();
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan());
@@ -113,23 +105,17 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
     private void addDrawerItems(){
         mMenuCheckingSingles=new ArrayList<>();
         if(mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getIndustri().equals(Perusahaan.industriGalpal)){
-            mSingleForms=mDummyMaker.getGalpalForms();
-            for(SingleForm singleForm:mSingleForms){
-                MenuCheckingGalpal menuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(kualifikasiSurveyId,singleForm.getKodeForm());
-                mMenuCheckingSingles.add(menuCheckingGalpal);
-            }
+            mMenuCheckingSingles=mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId);
+            isGalpalIndustri=true;
         }else{
-            mSingleForms=mDummyMaker.getKompalForms();
-            for(SingleForm singleForm:mSingleForms){
-                MenuCheckingKompal menuCheckingKompal=mDummyMaker.getMenuCheckingKompal(kualifikasiSurveyId,singleForm.getKodeForm());
-                mMenuCheckingSingles.add(menuCheckingKompal);
-            }
+            mMenuCheckingSingles=mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId);
+            isGalpalIndustri=false;
         }
 
-
-
-        mAdapter=new SingleFormAdapter(mSingleForms,mMenuCheckingSingles,this);
-        mDrawerRecyclerView.setAdapter(mAdapter);
+        mAdapter=new CustomDrawerAdapter(DrawerFormActivity.this,R.layout.list_item_single_form,mMenuCheckingSingles,isGalpalIndustri);
+        mDrawerListView.setAdapter(mAdapter);
+        mDrawerListView.setItemChecked(GalKomSharedPreference.getPositionClicked(getApplicationContext()),true);
+        mDrawerListView.smoothScrollToPosition(GalKomSharedPreference.getPositionClicked(getApplicationContext()));
 
     }
 
@@ -197,6 +183,7 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
             startActivity(i);
             mDummyMaker.deleteGalpalFormsMenus();
             mDummyMaker.deleteKompalFormsMenus();
+            mDummyMaker.deleteKualifikasiSurveys();
             return true;
         }
 
@@ -213,105 +200,98 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
         addDrawerItems();
     }
 
-    private class SingleFormHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public void SelectItemGalpal(int position){
+        SingleFragment fragment=null;
+        Bundle args=new Bundle();
+        switch (position){
+            case 0:
+                fragment= new FormGalpal1Fragment();
+                break;
+            case 1:
+                fragment= new FormGalpal3Fragment();
+                break;
+            case 2:
+                fragment= new FormGalpal4Fragment();
+                break;
+            case 3:
+                fragment= new ListFormGalpal6Fragment();
+                break;
+            case 4:
+                fragment= new ListFormGalpal7Fragment();
+                break;
+            case 5:
+                fragment= new ListFormGalpal8Fragment();
+                break;
+            case 6:
+                fragment= new ListFormGalpal9Fragment();
+                break;
+            case 7:
+                fragment= new ListFormGalpal10Fragment();
+                break;
+            case 8:
+                fragment= new ListFormGalpal11Fragment();
+                break;
+            default:
+                break;
+        }
+        fragment.setCustomClickListener(this);
+        FragmentManager frgManager = getSupportFragmentManager();
+        frgManager.beginTransaction().replace(R.id.fragment_container, fragment)
+                .commit();
 
-        private LinearLayout mItemLayout;
-        private TextView mNoTextView;
-        private TextView mTittleTextView;
-        private ImageView mStatusFillTextView;
-        private ImageView mStatusCompleteTextView;
-        private ImageView mStatusVerifiedTextView;
-        private CustomClickListener mCustomClickListener;
+        mDrawerListView.setItemChecked(position, true);
+        GalKomSharedPreference.setPositionClicked(getApplicationContext(),position);
+        //setTitle(dataList.get(possition).getItemName());
+        mDrawerLayout.closeDrawer(mDrawerListView);
+    }
 
-        private SingleForm mSingleForm;
-        private SingleMenuChecking mMenuCheckingSingle;
-
-        public void bindSingleForm(SingleForm singleForm, SingleMenuChecking menuChecking, int no){
-            mSingleForm=singleForm;
-            mMenuCheckingSingle=menuChecking;
-            mTittleTextView.setText(mSingleForm.getNamaForm());
-            //mStatusTextView.setText("-");
-            mNoTextView.setText(String.valueOf(no));
-            if(mMenuCheckingSingle.isFill()){
-                mStatusFillTextView.setImageResource(R.drawable.ok_icon);
-            }
-            if(mMenuCheckingSingle.isComplete()){
-                mStatusCompleteTextView.setImageResource(R.drawable.ok_icon);
-            }
-            if(mMenuCheckingSingle.isVerified()){
-                mStatusVerifiedTextView.setImageResource(R.drawable.ok_icon);
-            }
-
-
+    public void SelectItemKompal(int position){
+        SingleFragment fragment=null;
+        switch (position){
+            case 0:
+                fragment= new ListFormKompal3aFragment();
+                break;
+            case 1:
+                fragment= new ListFormKompal3bFragment();
+                break;
+            case 2:
+                fragment= new ListFormKompal3cFragment();
+                break;
+            case 3:
+                fragment= new ListFormKompal3dFragment();
+                break;
         }
 
-        public SingleFormHolder(View itemView,CustomClickListener customClickListener) {
-            //setiap ada yang masuk ke super , reference setiap wideget dibuat oleh parent
-            super(itemView);
-            itemView.setOnClickListener(this);
+        fragment.setCustomClickListener(this);
+        FragmentManager frgManager = getSupportFragmentManager();
+        frgManager.beginTransaction().replace(R.id.fragment_container, fragment)
+                .commit();
 
-            mNoTextView=(TextView) itemView.findViewById(R.id.list_item_single_form_no);
-            mTittleTextView=(TextView) itemView.findViewById(R.id.list_item_single_form_title);
-            mStatusFillTextView=(ImageView) itemView.findViewById(R.id.list_item_single_form_status_fill);
-            mStatusCompleteTextView=(ImageView) itemView.findViewById(R.id.list_item_single_form_status_complete);
-            mStatusVerifiedTextView=(ImageView)itemView.findViewById(R.id.list_item_single_form_status_verified);
-            mItemLayout=(LinearLayout)itemView.findViewById(R.id.list_item_single_form_layout);
-            mCustomClickListener=customClickListener;
+        mDrawerListView.setItemChecked(position, true);
+        GalKomSharedPreference.setPositionClicked(getApplicationContext(),position);
+        //setTitle(dataList.get(possition).getItemName());
+        mDrawerLayout.closeDrawer(mDrawerListView);
+    }
 
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        private boolean isGalpalIndustri;
 
+        private DrawerItemClickListener(boolean isGalpalIndustri){
+            this.isGalpalIndustri=isGalpalIndustri;
         }
-
-
 
         @Override
-        public void onClick(View v) {
-
-            SingleFragment fragment=mSingleForm.getFragment();
-            fragment.setCustomClickListener(mCustomClickListener);
-            mItemLayout.setBackgroundColor(getResources().getColor(R.color.cardview_dark_background));
-            if (fragment != null) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
-                mDrawerLayout.closeDrawer(mDrawerRecyclerView);
-
-            } else {
-                Log.e("DrawerFormActivity", "Error in creating fragment");
-            }
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+           if(isGalpalIndustri) {
+               SelectItemGalpal(position);
+           }else{
+               SelectItemKompal(position);
+           }
 
         }
     }
 
-    private class SingleFormAdapter extends RecyclerView.Adapter<SingleFormHolder>{
-        private List<SingleForm> mSingleForms;
-        private CustomClickListener mCustomClickListener;
-        private List<SingleMenuChecking> mMenuCheckingSingles;
 
-        public SingleFormAdapter(List<SingleForm> singleForms,List<SingleMenuChecking> menuCheckingGalpals,CustomClickListener customClickListener){
-            mMenuCheckingSingles=menuCheckingGalpals;
-            mSingleForms=singleForms;
-            mCustomClickListener=customClickListener;
-        }
-
-        @Override
-        public SingleFormHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(DrawerFormActivity.this);
-            View view = layoutInflater
-                    .inflate(R.layout.list_item_single_form, parent, false);
-            return new SingleFormHolder(view,mCustomClickListener);
-        }
-        @Override
-        public void onBindViewHolder(SingleFormHolder holder, int position) {
-            SingleForm singleForm = mSingleForms.get(position);
-            SingleMenuChecking menuCheckingGalpal=mMenuCheckingSingles.get(position);
-            holder.bindSingleForm(singleForm,menuCheckingGalpal,position+1);
-        }
-        @Override
-        public int getItemCount() {
-            return mSingleForms.size();
-        }
-
-
-    }
 
 
 }

@@ -876,6 +876,36 @@ public class DummyMaker {
         return menuCheckingKompals;
     }
 
+    public MenuF1 getMenuF1(int idMenuF1){
+        CursorWrapperGal cursor=query(MenuF1Table.NAME,MenuF1Table.Cols.ID_MENU_F1+ "=?",
+                new String[] {String.valueOf(idMenuF1)});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getMenuF1();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public MenuF2 getMenuF2(int idMenuF2){
+        CursorWrapperGal cursor=query(MenuF2Table.NAME,MenuF2Table.Cols.ID_MENU_F2+ "=?",
+                new String[] {String.valueOf(idMenuF2)});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getMenuF2();
+        }finally {
+            cursor.close();
+        }
+    }
+
     //form2 galpal 6 yang memiliki kualifikasi survey id tertentu
     public List<FormGalpal6> getFormGalpal6s(int idKualifikasiSurvey){
         List<FormGalpal6> formGalpal6s=new ArrayList<>();
@@ -1898,6 +1928,10 @@ public class DummyMaker {
         mDatabase.delete(FK3cSistemBerproduksiTable.NAME,null,null);
         mDatabase.delete(FK3dStandarMutuTableTable.NAME,null,null);
         mDatabase.delete(MenuCheckingKompalTable.NAME,null,null);
+    }
+
+    public void deleteKualifikasiSurveys(){
+        mDatabase.delete(KualifikasiSurveyTable.NAME,null,null);
     }
 
 

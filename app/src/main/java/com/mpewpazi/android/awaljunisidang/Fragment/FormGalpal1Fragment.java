@@ -506,7 +506,7 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
     @Override
     public void onPause() {
         super.onPause();
-        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingGalpal.isVerified()){
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2 && !mMenuCheckingGalpal.isVerified()){
             mDummyMaker.addFormGalpal1(mFormGalpal1);
             if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
                 PushGalpalService.setServiceAlarm(getActivity(),true);

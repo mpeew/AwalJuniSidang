@@ -63,6 +63,8 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarM
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingGalpalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingKompalTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuF1Table;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuF2Table;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstAirPelayaranTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstArusTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstGelombangTable;
@@ -127,6 +129,9 @@ public class DataFetcher {
 
     private static final Uri MenuCheckingGalpalENDPOINT = Uri.parse("http://192.168.1.100/galpal/menuF1EntryChecking/api/id");
     private static final Uri MenuCheckingKompalENDPOINT = Uri.parse("http://192.168.1.100/galpal/menuF2EntryChecking/api/id");
+    private static final String MenuF1ENDPOINT="http://192.168.1.100/galpal/menuF1/api";
+    private static final String MenuF2ENDPOINT="http://192.168.1.100/galpal/menuF2/api";
+
 
     //private static final String MSTENDPOINT="http://192.168.1.100/galpal/";
 
@@ -888,6 +893,8 @@ public class DataFetcher {
         return items;
     }
 
+
+
     private void parsePropinsis(List<SingleMaster> items, JSONArray jsonBody) throws IOException, JSONException {
 
         for (int i = 0; i < jsonBody.length(); i++) {
@@ -1061,6 +1068,55 @@ public class DataFetcher {
             item.setFill((jsonObject.getInt(MenuCheckingKompalTable.Cols.IS_FILL)==1));
             item.setComplete(jsonObject.getInt(MenuCheckingKompalTable.Cols.IS_COMPLETE)==1);
             item.setVerified(jsonObject.getInt(MenuCheckingKompalTable.Cols.IS_VERIFIED)==1);
+            items.add(item);
+        }
+    }
+
+    public List<Menu> fetchMenus() {
+        List<Menu> items=new ArrayList<>();
+
+        try {
+
+            String jsonMenuF1String = getUrlString(MenuF1ENDPOINT);
+            String jsonMenuF2String = getUrlString(MenuF2ENDPOINT);
+
+            Log.i(TAG, "Received JSON: " + jsonMenuF1String);
+            Log.i(TAG, "Received JSON: " + jsonMenuF1String);
+
+            JSONArray jsonMenuF1Body = new JSONArray(jsonMenuF1String);
+            JSONArray jsonMenuF2Body = new JSONArray(jsonMenuF2String);
+
+            parseMenuF1s(items,jsonMenuF1Body);
+            parseMenuF2s(items,jsonMenuF2Body);
+
+
+        } catch (JSONException je){
+            Log.e(TAG, "Failed to parse JSON", je);
+        } catch (IOException ioe) {
+            Log.e(TAG, "Failed to fetch items", ioe);
+        }
+
+        return items;
+    }
+
+    private void parseMenuF1s(List<Menu> items, JSONArray jsonBody) throws IOException, JSONException {
+        for (int i = 0; i < jsonBody.length(); i++) {
+            JSONObject jsonObject = jsonBody.getJSONObject(i);
+            MenuF1 item = new MenuF1();
+            item.setIdMenuF1(jsonObject.getInt(MenuF1Table.Cols.ID_MENU_F1));
+            item.setNamaMenu(jsonObject.getString(MenuF1Table.Cols.NAMA_MENU));
+            item.setNumber(jsonObject.getString(MenuF1Table.Cols.NUMBER));
+            items.add(item);
+        }
+    }
+
+    private void parseMenuF2s(List<Menu> items, JSONArray jsonBody) throws IOException, JSONException {
+        for (int i = 0; i < jsonBody.length(); i++) {
+            JSONObject jsonObject = jsonBody.getJSONObject(i);
+            MenuF2 item = new MenuF2();
+            item.setIdMenuF2(jsonObject.getInt(MenuF2Table.Cols.ID_MENU_F2));
+            item.setNamaMenu(jsonObject.getString(MenuF2Table.Cols.NAMA_MENU));
+            item.setNumber(jsonObject.getString(MenuF2Table.Cols.NUMBER));
             items.add(item);
         }
     }

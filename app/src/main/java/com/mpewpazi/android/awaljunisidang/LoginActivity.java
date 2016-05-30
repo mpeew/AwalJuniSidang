@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         mDummyMaker=DummyMaker.get(this);
 
 
-
+        new FetchMenuTask().execute();
         new FetchMstDataTask().execute();
 
         mUsernameEditText=(EditText)findViewById(R.id.login_username);
@@ -311,6 +311,32 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         break;
                     case MenuCheckingKompal.kodeAsync:
                         DummyMaker.get(getApplicationContext()).addMenuCheckingKompal((MenuCheckingKompal) singleMenuChecking);
+                        break;
+                }
+            }
+
+        }
+    }
+
+    private class FetchMenuTask extends AsyncTask<Void,Void,List<Menu>> {
+
+        @Override
+        protected List<Menu> doInBackground(Void... params) {
+
+            return new DataFetcher().fetchMenus();
+        }
+
+
+
+        @Override
+        protected void onPostExecute(List<Menu> menus) {
+            for(Menu menu:menus){
+                switch(menu.getKodeAsync()){
+                    case MenuF1.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addMenuF1((MenuF1) menu);
+                        break;
+                    case MenuF2.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addMenuF2((MenuF2) menu);
                         break;
                 }
             }
