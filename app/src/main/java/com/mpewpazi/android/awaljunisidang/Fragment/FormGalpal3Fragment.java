@@ -25,11 +25,13 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mpewpazi.android.awaljunisidang.ConnectionDetector;
 import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.PictureUtils;
+import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
@@ -623,9 +625,13 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
     @Override
     public void onPause() {
         super.onPause();
-        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2){
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingGalpal.isVerified()){
             mDummyMaker.addFormGalpal3(mFormGalpal3);
-            new PushTask(mFormGalpal3,mMenuCheckingGalpal).execute();
+            if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
+                PushGalpalService.setServiceAlarm(getActivity(),true);
+            }else {
+                new PushTask(mFormGalpal3, mMenuCheckingGalpal).execute();
+            }
         }
     }
 

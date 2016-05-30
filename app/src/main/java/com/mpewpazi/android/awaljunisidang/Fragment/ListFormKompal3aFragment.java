@@ -18,14 +18,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.mpewpazi.android.awaljunisidang.ConnectionDetector;
 import com.mpewpazi.android.awaljunisidang.DataFetcher;
 import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormKompal3aPagerActivity;
+import com.mpewpazi.android.awaljunisidang.PushKompalService;
 import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
@@ -259,11 +260,12 @@ public class ListFormKompal3aFragment extends SingleFragment {
     @Override
     public void onPause() {
         super.onPause();
-        mDummyMaker=DummyMaker.get(getActivity());
-        mFormKompal3as=mDummyMaker.getFormKompal3as(DrawerFormActivity.kualifikasiSurveyId);
-        mMenuCheckingKompal=mDummyMaker.getMenuCheckingKompal(DrawerFormActivity.kualifikasiSurveyId,FormKompal3a.kode);
         if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingKompal.isVerified()){
-            new PushTask(mFormKompal3as,mMenuCheckingKompal).execute();
+            if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
+                PushKompalService.setServiceAlarm(getActivity(),true);
+            }else {
+                new PushTask(mFormKompal3as, mMenuCheckingKompal).execute();
+            }
         }
     }
 
@@ -280,7 +282,7 @@ public class ListFormKompal3aFragment extends SingleFragment {
         protected List<FormKompal3a> doInBackground(Void... params) {
             if(mFormKompal3as.size()>0) {
                 for (FormKompal3a formKompal3a : mFormKompal3as) {
-                    new DataPusher().makePostRequestFK3a(formKompal3a, DataFetcher.FK3aENDPOINT, DhSchema.FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI_SERVER);
+                    new DataPusher().makePostRequestFK3a(formKompal3a);
                 }
             }
             new DataPusher().makePostRequestMenuCheckingKompal((MenuCheckingKompal) mSingleMenuChecking);
@@ -309,4 +311,6 @@ public class ListFormKompal3aFragment extends SingleFragment {
             return null;
         }
     }
+
+
 }

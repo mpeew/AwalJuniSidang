@@ -15,10 +15,12 @@ import android.widget.Toast;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mpewpazi.android.awaljunisidang.ConnectionDetector;
 import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
+import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
@@ -128,11 +130,14 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //mFormGalpal4.setPanjangWaterfront(s.toString());
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(s.toString().length()>0) {
+                    mFormGalpal4.setPanjangWaterfront(Integer.parseInt(s.toString()));
+                }
                 mMenuCheckingGalpal.setFill(true);
                 mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
                 mCustomClickListener.clickListener();
@@ -148,11 +153,14 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //mFormGalpal4.setLuasLahan(s.toString());
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(s.toString().length()>0) {
+                    mFormGalpal4.setLuasLahan(Integer.parseInt(s.toString()));
+                }
                 mMenuCheckingGalpal.setFill(true);
                 mDummyMaker.addMenuCheckingGalpal(mMenuCheckingGalpal);
                 mCustomClickListener.clickListener();
@@ -199,9 +207,13 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
     @Override
     public void onPause() {
         super.onPause();
-        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2){
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingGalpal.isVerified()) {
             mDummyMaker.addFormGalpal4(mFormGalpal4);
-            new PushTask(mFormGalpal4,mMenuCheckingGalpal).execute();
+            if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
+                PushGalpalService.setServiceAlarm(getActivity(),true);
+            }else {
+                new PushTask(mFormGalpal4, mMenuCheckingGalpal).execute();
+            }
         }
     }
 

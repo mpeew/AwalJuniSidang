@@ -18,14 +18,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.mpewpazi.android.awaljunisidang.ConnectionDetector;
 import com.mpewpazi.android.awaljunisidang.DataFetcher;
 import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal7;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormGalpal7PagerActivity;
+import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
@@ -277,7 +278,11 @@ public class ListFormGalpal7Fragment extends SingleFragment {
     public void onPause() {
         super.onPause();
         if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingGalpal.isVerified()){
-            new PushTask(mFormGalpal7s,mMenuCheckingGalpal).execute();
+            if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
+                PushGalpalService.setServiceAlarm(getActivity(),true);
+            }else {
+                new PushTask(mFormGalpal7s, mMenuCheckingGalpal).execute();
+            }
         }
     }
 
@@ -294,7 +299,7 @@ public class ListFormGalpal7Fragment extends SingleFragment {
         protected List<FormGalpal7> doInBackground(Void... params) {
             if(mFormGalpal7s.size()>0) {
                 for (FormGalpal7 formGalpal7 : mFormGalpal7s) {
-                    new DataPusher().makePostRequestFG7(formGalpal7, DataFetcher.FG7ENDPOINT, DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG_SERVER);
+                    new DataPusher().makePostRequestFG7(formGalpal7);
                 }
             }
             new DataPusher().makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);

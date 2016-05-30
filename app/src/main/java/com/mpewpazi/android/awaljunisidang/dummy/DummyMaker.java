@@ -396,6 +396,8 @@ public class DummyMaker {
         return kualifikasiSurveys;
     }
 
+
+
     public FormGalpal1 getFormGalpal1(int idKualifikasiSurvey){
         CursorWrapperGal cursor=query(FG1PerusahaanIdentitasTable.NAME,FG1PerusahaanIdentitasTable.Cols.ID_KUALIFIKASI_SURVEY+ "=?",
                 new String[] {String.valueOf(idKualifikasiSurvey)});
@@ -409,6 +411,21 @@ public class DummyMaker {
         }finally {
             cursor.close();
         }
+    }
+
+    public List<FormGalpal1> getFormGalpal1s(){
+        List<FormGalpal1> formGalpal1s=new ArrayList<>();
+        CursorWrapperGal cursor=query(FG1PerusahaanIdentitasTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                formGalpal1s.add(cursor.getFormGalpal1());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return formGalpal1s;
     }
 
     public FormGalpal3 getFormGalpal3(int idKualifikasiSurvey){
@@ -427,20 +444,48 @@ public class DummyMaker {
         }
     }
 
+    public List<FormGalpal3> getFormGalpal3s(){
+        List<FormGalpal3> form=new ArrayList<>();
+        CursorWrapperGal cursor=query(FG3GalanganKapalTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                form.add(cursor.getFormGalpal3());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return form;
+    }
+
     public FormGalpal4 getFormGalpal4(int idKualifikasiSurvey){
         CursorWrapperGal cursor=query(FG4TinjauanAreaTable.NAME,FG4TinjauanAreaTable.Cols.ID_KUALIFIKASI_SURVEY+ "=?",
                 new String[] {String.valueOf(idKualifikasiSurvey)});
         try{
             if(cursor.getCount()==0){
                 return null;
-
             }
-
             cursor.moveToFirst();
             return cursor.getFormGalpal4();
         }finally {
             cursor.close();
         }
+    }
+
+    public List<FormGalpal4> getFormGalpal4s(){
+        List<FormGalpal4> form =new ArrayList<>();
+        CursorWrapperGal cursor=query(FG4TinjauanAreaTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                form.add(cursor.getFormGalpal4());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return form;
     }
 
     public FormGalpal6 getFormGalpal6(UUID idFormGalpal6){
@@ -449,14 +494,27 @@ public class DummyMaker {
         try{
             if(cursor.getCount()==0){
                 return null;
-
             }
-
             cursor.moveToFirst();
             return cursor.getFormGalpal6();
         }finally {
             cursor.close();
         }
+    }
+
+    public List<FormGalpal6> getFormGalpal6s(){
+        List<FormGalpal6> form =new ArrayList<>();
+        CursorWrapperGal cursor=query(FG6PeralatanKerjaLuarCraneTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                form.add(cursor.getFormGalpal6());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return form;
     }
 
     public FormGalpal7 getFormGalpal7(UUID idFormGalpal7){
@@ -465,14 +523,27 @@ public class DummyMaker {
         try{
             if(cursor.getCount()==0){
                 return null;
-
             }
-
             cursor.moveToFirst();
             return cursor.getFormGalpal7();
         }finally {
             cursor.close();
         }
+    }
+
+    public List<FormGalpal7> getFormGalpal7s(){
+        List<FormGalpal7> form =new ArrayList<>();
+        CursorWrapperGal cursor=query(FG7PeralatanKerjaLuarTugboatTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                form.add(cursor.getFormGalpal7());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return form;
     }
 
     public FormGalpal8 getFormGalpal8(UUID idFormGalpal8){
@@ -491,6 +562,21 @@ public class DummyMaker {
         }
     }
 
+    public List<FormGalpal8> getFormGalpal8s(){
+        List<FormGalpal8> form =new ArrayList<>();
+        CursorWrapperGal cursor=query(FG8PeralatanKerjaProduksiMesinTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                form.add(cursor.getFormGalpal8());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return form;
+    }
+
     public FormGalpal9 getFormGalpal9(UUID idFormGalpal9){
         CursorWrapperGal cursor=query(FG9PeralatanKerjaProduksiKontruksi.NAME,FG9PeralatanKerjaProduksiKontruksi.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI+ "=?",
                 new String[] {idFormGalpal9.toString()});
@@ -505,6 +591,21 @@ public class DummyMaker {
         }finally {
             cursor.close();
         }
+    }
+
+    public List<FormGalpal9> getFormGalpal9s(){
+        List<FormGalpal9> form =new ArrayList<>();
+        CursorWrapperGal cursor=query(FG9PeralatanKerjaProduksiKontruksi.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                form.add(cursor.getFormGalpal9());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return form;
     }
 
     public FormGalpal10 getFormGalpal10(UUID idFormGalpal10){
@@ -523,6 +624,21 @@ public class DummyMaker {
         }
     }
 
+    public List<FormGalpal10> getFormGalpal10s(){
+        List<FormGalpal10> form =new ArrayList<>();
+        CursorWrapperGal cursor=query(FG10PeralatanKerjaProduksiElektrikalMekanikal.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                form.add(cursor.getFormGalpal10());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return form;
+    }
+
     public FormGalpal11 getFormGalpal11(UUID idFormGalpal11){
         CursorWrapperGal cursor=query(FG11PeralatanKerjaProduksiPengecatan.NAME,FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT+ "=?",
                 new String[] {idFormGalpal11.toString()});
@@ -537,6 +653,21 @@ public class DummyMaker {
         }finally {
             cursor.close();
         }
+    }
+
+    public List<FormGalpal11> getFormGalpal11s(){
+        List<FormGalpal11> form =new ArrayList<>();
+        CursorWrapperGal cursor=query(FG11PeralatanKerjaProduksiPengecatan.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                form.add(cursor.getFormGalpal11());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return form;
     }
 
     public FormKompal3a getFormKompal3a(UUID idFormKompal3a){
@@ -555,6 +686,21 @@ public class DummyMaker {
         }
     }
 
+    public List<FormKompal3a> getFormKompal3as(){
+        List<FormKompal3a> form =new ArrayList<>();
+        CursorWrapperGal cursor=query(FK3aJenisKapasitasProduksiTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                form.add(cursor.getFormKompal3a());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return form;
+    }
+
     public FormKompal3b getFormKompal3b(UUID idFormKompal3b){
         CursorWrapperGal cursor=query(FK3bJumlahProduksiTable.NAME,FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI+ "=?",
                 new String[] {idFormKompal3b.toString()});
@@ -571,20 +717,48 @@ public class DummyMaker {
         }
     }
 
+    public List<FormKompal3b> getFormKompal3bs(){
+        List<FormKompal3b> form =new ArrayList<>();
+        CursorWrapperGal cursor=query(FK3bJumlahProduksiTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                form.add(cursor.getFormKompal3b());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return form;
+    }
+
     public FormKompal3c getFormKompal3c(UUID idFormKompal3c){
         CursorWrapperGal cursor=query(FK3cSistemBerproduksiTable.NAME,FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI+ "=?",
                 new String[] {idFormKompal3c.toString()});
         try{
             if(cursor.getCount()==0){
                 return null;
-
             }
-
             cursor.moveToFirst();
             return cursor.getFormKompal3c();
         }finally {
             cursor.close();
         }
+    }
+
+    public List<FormKompal3c> getFormKompal3cs(){
+        List<FormKompal3c> form =new ArrayList<>();
+        CursorWrapperGal cursor=query(FK3cSistemBerproduksiTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                form.add(cursor.getFormKompal3c());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return form;
     }
 
     public FormKompal3d getFormKompal3d(UUID idFormKompal3d){
@@ -601,6 +775,21 @@ public class DummyMaker {
         }finally {
             cursor.close();
         }
+    }
+
+    public List<FormKompal3d> getFormKompal3ds(){
+        List<FormKompal3d> form =new ArrayList<>();
+        CursorWrapperGal cursor=query(FK3dStandarMutuTableTable.NAME,null,null);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                form.add(cursor.getFormKompal3d());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return form;
     }
 
     public MenuCheckingGalpal getMenuCheckingGalpal(int idKualifikasiSurvey,int idMenu){
@@ -657,34 +846,34 @@ public class DummyMaker {
         return menuCheckingKompals;
     }
 
-    public List<MenuF1> getMenuF1s(){
-        List<MenuF1> menuF1s =new ArrayList<>();
-        CursorWrapperGal cursor=query(MenuF1Table.NAME,null,null);
+    public List<MenuCheckingGalpal> getMenuCheckingGalpals(){
+        List<MenuCheckingGalpal> menuCheckingGalpals=new ArrayList<>();
+        CursorWrapperGal cursor=querya(MenuCheckingGalpalTable.NAME,null,null,null);
         try{
             cursor.moveToFirst();
             while(!cursor.isAfterLast()){
-                menuF1s.add(cursor.getMenuF1());
+                menuCheckingGalpals.add(cursor.getMenuCheckingGalpal());
                 cursor.moveToNext();
             }
         }finally {
             cursor.close();
         }
-        return menuF1s;
+        return menuCheckingGalpals;
     }
 
-    public List<MenuF2> getMenuF2s(){
-        List<MenuF2> menuF2s =new ArrayList<>();
-        CursorWrapperGal cursor=query(MenuF2Table.NAME,null,null);
+    public List<MenuCheckingKompal> getMenuCheckingKompals(){
+        List<MenuCheckingKompal> menuCheckingKompals=new ArrayList<>();
+        CursorWrapperGal cursor=querya(MenuCheckingKompalTable.NAME,null,null,null);
         try{
             cursor.moveToFirst();
             while(!cursor.isAfterLast()){
-                menuF2s.add(cursor.getMenuF2());
+                menuCheckingKompals.add(cursor.getMenuCheckingKompal());
                 cursor.moveToNext();
             }
         }finally {
             cursor.close();
         }
-        return menuF2s;
+        return menuCheckingKompals;
     }
 
     //form2 galpal 6 yang memiliki kualifikasi survey id tertentu
@@ -1628,6 +1817,8 @@ public class DummyMaker {
 
 
 
+
+
     public void deleteFormGalpal6(FormGalpal6 formGalpal6){
         String formGalpal6Id=String.valueOf(formGalpal6.getIdPeralatanKerjaCrane());
         mDatabase.delete(FG6PeralatanKerjaLuarCraneTable.NAME,FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE+ "=?",
@@ -1686,6 +1877,27 @@ public class DummyMaker {
         String formKompal3dId=formKompal3d.getIdStandarMutu().toString();
         mDatabase.delete(FK3dStandarMutuTableTable.NAME,FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU+ "=?",
                 new String[] {formKompal3dId});
+    }
+
+    public void deleteGalpalFormsMenus(){
+        mDatabase.delete(FG1PerusahaanIdentitasTable.NAME,null,null);
+        mDatabase.delete(FG3GalanganKapalTable.NAME,null,null);
+        mDatabase.delete(FG4TinjauanAreaTable.NAME,null,null);
+        mDatabase.delete(FG6PeralatanKerjaLuarCraneTable.NAME,null,null);
+        mDatabase.delete(FG7PeralatanKerjaLuarTugboatTable.NAME,null,null);
+        mDatabase.delete(FG8PeralatanKerjaProduksiMesinTable.NAME,null,null);
+        mDatabase.delete(FG9PeralatanKerjaProduksiKontruksi.NAME,null,null);
+        mDatabase.delete(FG10PeralatanKerjaProduksiElektrikalMekanikal.NAME,null,null);
+        mDatabase.delete(FG11PeralatanKerjaProduksiPengecatan.NAME,null,null);
+        mDatabase.delete(MenuCheckingGalpalTable.NAME,null,null);
+    }
+
+    public void deleteKompalFormsMenus(){
+        mDatabase.delete(FK3aJenisKapasitasProduksiTable.NAME,null,null);
+        mDatabase.delete(FK3bJumlahProduksiTable.NAME,null,null);
+        mDatabase.delete(FK3cSistemBerproduksiTable.NAME,null,null);
+        mDatabase.delete(FK3dStandarMutuTableTable.NAME,null,null);
+        mDatabase.delete(MenuCheckingKompalTable.NAME,null,null);
     }
 
 

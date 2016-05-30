@@ -1,6 +1,5 @@
 package com.mpewpazi.android.awaljunisidang;
 
-import android.net.Uri;
 import android.util.Log;
 
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
@@ -226,7 +225,7 @@ public class DataPusher {
 
     }
 
-    public void makePostRequestFG6(FormGalpal6 formGalpal6,Uri ENDPOINT,String colsName) {
+    public void makePostRequestFG6(FormGalpal6 formGalpal6) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFG6);
@@ -264,7 +263,7 @@ public class DataPusher {
                 Log.i("RESPONSE6", EntityUtils.toString(resEntity));
             }
             if(formGalpal6.getFormServerId()==0) {
-                new DataFetcher().fetchFormLastInsert(formGalpal6,ENDPOINT,colsName);
+                new DataFetcher().fetchFormLastInsert(formGalpal6,DataFetcher.FG6ENDPOINT, FG6PeralatanKerjaLuarCraneTable.Cols.ID_F1_PERALATAN_KERJA_LR_CRANE_SERVER);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
@@ -275,7 +274,7 @@ public class DataPusher {
         }
     }
 
-    public void makePostRequestFG7(FormGalpal7 formGalpal7, Uri ENDPOINT, String colsName) {
+    public void makePostRequestFG7(FormGalpal7 formGalpal7) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFG7);
@@ -313,7 +312,7 @@ public class DataPusher {
                 Log.i("RESPONSE7", EntityUtils.toString(resEntity));
             }
             if(formGalpal7.getFormServerId()==0) {
-                new DataFetcher().fetchFormLastInsert(formGalpal7,ENDPOINT,colsName);
+                new DataFetcher().fetchFormLastInsert(formGalpal7,DataFetcher.FG7ENDPOINT,FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG_SERVER);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
@@ -324,7 +323,7 @@ public class DataPusher {
         }
     }
 
-    public void makePostRequestFG8(FormGalpal8 formGalpal8, Uri ENDPOINT, String colsName) {
+    public void makePostRequestFG8(FormGalpal8 formGalpal8) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFG8);
@@ -362,7 +361,7 @@ public class DataPusher {
                 Log.i("RESPONSE8", EntityUtils.toString(resEntity));
             }
             if(formGalpal8.getFormServerId()==0) {
-                new DataFetcher().fetchFormLastInsert(formGalpal8,ENDPOINT,colsName);
+                new DataFetcher().fetchFormLastInsert(formGalpal8,DataFetcher.FG8ENDPOINT,FG8PeralatanKerjaProduksiMesinTable.Cols.ID_F1_PERALATAN_KERJA_PROD_MESIN_SERVER);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
@@ -373,7 +372,7 @@ public class DataPusher {
         }
     }
 
-    public void makePostRequestFG9(FormGalpal9 formGalpal9, Uri ENDPOINT, String colsName) {
+    public void makePostRequestFG9(FormGalpal9 formGalpal9) {
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFG9);
         HttpPost post = new HttpPost(postURL);
@@ -410,7 +409,7 @@ public class DataPusher {
                 Log.i("RESPONSE9", EntityUtils.toString(resEntity));
             }
             if(formGalpal9.getFormServerId()==0) {
-                new DataFetcher().fetchFormLastInsert(formGalpal9,ENDPOINT,colsName);
+                new DataFetcher().fetchFormLastInsert(formGalpal9,DataFetcher.FG9ENDPOINT,FG9PeralatanKerjaProduksiKontruksi.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_KONTRUKSI_SERVER);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
@@ -421,7 +420,7 @@ public class DataPusher {
         }
     }
 
-    public void makePostRequestFG10(FormGalpal10 formGalpal10, Uri ENDPOINT, String colsName) {
+    public void makePostRequestFG10(FormGalpal10 formGalpal10) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFG10);
@@ -459,7 +458,7 @@ public class DataPusher {
                 Log.i("RESPONSE10", EntityUtils.toString(resEntity));
             }
             if(formGalpal10.getFormServerId()==0) {
-                new DataFetcher().fetchFormLastInsert(formGalpal10,ENDPOINT,colsName);
+                new DataFetcher().fetchFormLastInsert(formGalpal10,DataFetcher.FG10ENDPOINT,FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_ELMEK_SERVER);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
@@ -470,7 +469,7 @@ public class DataPusher {
         }
     }
 
-    public void makePostRequestFG11(FormGalpal11 formGalpal11, Uri ENDPOINT, String colsName) {
+    public void makePostRequestFG11(FormGalpal11 formGalpal11) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFG11);
@@ -508,7 +507,7 @@ public class DataPusher {
                 Log.i("RESPONSE11", EntityUtils.toString(resEntity));
             }
             if(formGalpal11.getFormServerId()==0) {
-                new DataFetcher().fetchFormLastInsert(formGalpal11,ENDPOINT,colsName);
+                new DataFetcher().fetchFormLastInsert(formGalpal11,DataFetcher.FG11ENDPOINT,FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT_SERVER);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
@@ -521,7 +520,7 @@ public class DataPusher {
 
 
 
-    public void makePostRequestFK3a(FormKompal3a formKompal3a, Uri ENDPOINT, String formServerIdNameCols) {
+    public void makePostRequestFK3a(FormKompal3a formKompal3a) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFK3a);
@@ -550,7 +549,7 @@ public class DataPusher {
                 Log.i("RESPONSE3A", EntityUtils.toString(resEntity));
             }
             if(formKompal3a.getFormServerId()==0) {
-                new DataFetcher().fetchFormLastInsert(formKompal3a,ENDPOINT,formServerIdNameCols);
+                new DataFetcher().fetchFormLastInsert(formKompal3a,DataFetcher.FK3aENDPOINT,FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI_SERVER);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
@@ -563,7 +562,7 @@ public class DataPusher {
 
 
 
-    public void makePostRequestFK3b(FormKompal3b formKompal3b,Uri ENDPOINT, String colsName) {
+    public void makePostRequestFK3b(FormKompal3b formKompal3b) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFK3b);
@@ -600,7 +599,7 @@ public class DataPusher {
                 Log.i("RESPONSE3B", EntityUtils.toString(resEntity));
             }
             if(formKompal3b.getFormServerId()==0) {
-               new DataFetcher().fetchFormLastInsert(formKompal3b,ENDPOINT,colsName);
+               new DataFetcher().fetchFormLastInsert(formKompal3b,DataFetcher.FK3bENDPOINT,FK3bJumlahProduksiTable.Cols.ID_F2_JUMLAH_PRODUKSI_SERVER);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
@@ -611,7 +610,7 @@ public class DataPusher {
         }
     }
 
-    public void makePostRequestFK3c(FormKompal3c formKompal3c,Uri ENDPOINT,String colsName) {
+    public void makePostRequestFK3c(FormKompal3c formKompal3c) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFK3c);
@@ -644,7 +643,7 @@ public class DataPusher {
                 Log.i("RESPONSE3C", EntityUtils.toString(resEntity));
             }
             if(formKompal3c.getFormServerId()==0) {
-                new DataFetcher().fetchFormLastInsert(formKompal3c,ENDPOINT,colsName);
+                new DataFetcher().fetchFormLastInsert(formKompal3c,DataFetcher.FK3cENDPOINT,FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI_SERVER);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
@@ -655,7 +654,7 @@ public class DataPusher {
         }
     }
 
-    public void makePostRequestFK3d(FormKompal3d formKompal3d,Uri ENDPOINT,String colsName) {
+    public void makePostRequestFK3d(FormKompal3d formKompal3d) {
 
         HttpClient client = new DefaultHttpClient();
         String postURL = (urlPostFK3d);
@@ -683,7 +682,7 @@ public class DataPusher {
                 Log.i("RESPONSE3D", EntityUtils.toString(resEntity));
             }
             if(formKompal3d.getFormServerId()==0) {
-                new DataFetcher().fetchFormLastInsert(formKompal3d,ENDPOINT,colsName);
+                new DataFetcher().fetchFormLastInsert(formKompal3d,DataFetcher.FK3dENDPOINT,FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU_SERVER);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();

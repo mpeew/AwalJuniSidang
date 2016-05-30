@@ -17,14 +17,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.mpewpazi.android.awaljunisidang.ConnectionDetector;
 import com.mpewpazi.android.awaljunisidang.DataFetcher;
 import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormKompal3cPagerActivity;
+import com.mpewpazi.android.awaljunisidang.PushKompalService;
 import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
@@ -256,10 +257,12 @@ public class ListFormKompal3cFragment extends SingleFragment {
     @Override
     public void onPause() {
         super.onPause();
-        mDummyMaker=DummyMaker.get(getActivity());
-        mFormKompal3cs=mDummyMaker.getFormKompal3cs(DrawerFormActivity.kualifikasiSurveyId);
         if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2|!mMenuCheckingKompal.isVerified()){
+            if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
+                PushKompalService.setServiceAlarm(getActivity(),true);
+            }else{
             new PushTask(mFormKompal3cs,mMenuCheckingKompal).execute();
+            }
         }
     }
 
@@ -277,7 +280,7 @@ public class ListFormKompal3cFragment extends SingleFragment {
             new DataPusher().makePostRequestMenuCheckingKompal((MenuCheckingKompal) mSingleMenuChecking);
             if(mFormKompal3cs.size()>0) {
                 for (FormKompal3c formKompal3c : mFormKompal3cs) {
-                    new DataPusher().makePostRequestFK3c(formKompal3c, DataFetcher.FK3cENDPOINT, DhSchema.FK3cSistemBerproduksiTable.Cols.ID_F2_SISTEM_BERPRODUKSI_SERVER);
+                    new DataPusher().makePostRequestFK3c(formKompal3c);
                 }
             }
             return mFormKompal3cs;

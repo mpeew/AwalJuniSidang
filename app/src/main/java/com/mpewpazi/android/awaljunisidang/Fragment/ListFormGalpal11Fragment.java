@@ -18,14 +18,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.mpewpazi.android.awaljunisidang.ConnectionDetector;
 import com.mpewpazi.android.awaljunisidang.DataFetcher;
 import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal11;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormGalpal11PagerActivity;
+import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
@@ -279,7 +280,11 @@ public class ListFormGalpal11Fragment extends SingleFragment {
     public void onPause() {
         super.onPause();
         if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingGalpal.isVerified()){
-            new PushTask(mFormGalpal11s,mMenuCheckingGalpal).execute();
+            if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
+                PushGalpalService.setServiceAlarm(getActivity(),true);
+            }else {
+                new PushTask(mFormGalpal11s, mMenuCheckingGalpal).execute();
+            }
         }
     }
 
@@ -296,7 +301,7 @@ public class ListFormGalpal11Fragment extends SingleFragment {
         protected List<FormGalpal11> doInBackground(Void... params) {
             if(mFormGalpal11s.size()>0) {
                 for (FormGalpal11 formGalpal11 : mFormGalpal11s) {
-                    new DataPusher().makePostRequestFG11(formGalpal11, DataFetcher.FG11ENDPOINT, DhSchema.FG11PeralatanKerjaProduksiPengecatan.Cols.ID_F1_PERALATAN_KERJA_PRODUKSI_CAT_SERVER);
+                    new DataPusher().makePostRequestFG11(formGalpal11);
                 }
             }
             new DataPusher().makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);

@@ -158,12 +158,14 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setTahunPembuatan(11);
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if(s.toString().length()>0) {
+                    mFormGalpal6.setTahunPembuatan(Integer.parseInt(s.toString()));
+                }
             }
         });
 
@@ -194,12 +196,14 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setKapasitasTerpasang(11);
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if(s.toString().length()>0){
+                    mFormGalpal6.setKapasitasTerpasang(Integer.parseInt(s.toString()));
+                }
             }
         });
 
@@ -230,12 +234,14 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setJumlah(11);
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if(s.toString().length()>0) {
+                    mFormGalpal6.setJumlah(Integer.parseInt(s.toString()));
+                }
             }
         });
 
@@ -302,12 +308,14 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal6.setKapasitasTerpakai(11);
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if(s.toString().length()>0) {
+                    mFormGalpal6.setKapasitasTerpakai(Integer.parseInt(s.toString()));
+                }
             }
         });
 

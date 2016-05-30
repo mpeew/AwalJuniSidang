@@ -10,6 +10,7 @@ public abstract class SingleMenuChecking {
     private boolean complete;
     private boolean verified;
 
+
     public int getIdKualifikasiSurvey() {
         return idKualifikasiSurvey;
     }

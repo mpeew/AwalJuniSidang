@@ -147,7 +147,12 @@ public class FormKompal3dFragment extends SingleFragment implements Validator.Va
         return rootView;
     }
 
-
+    private int convertToInt(String stoString){
+        if(stoString.length()>0){
+            return Integer.parseInt(stoString);
+        }
+        return 0;
+    }
 
     @Override
     public void onValidationSucceeded() {

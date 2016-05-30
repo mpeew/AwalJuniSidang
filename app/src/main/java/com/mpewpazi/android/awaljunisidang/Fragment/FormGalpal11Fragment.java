@@ -156,7 +156,7 @@ public class FormGalpal11Fragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal11.setTahunPembuatan(11);
+                mFormGalpal11.setTahunPembuatan(convertToInt(s.toString()));
             }
 
             @Override
@@ -192,7 +192,7 @@ public class FormGalpal11Fragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal11.setKapasitasTerpasang(11);
+                mFormGalpal11.setKapasitasTerpasang(convertToInt(s.toString()));
             }
 
             @Override
@@ -228,7 +228,7 @@ public class FormGalpal11Fragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal11.setJumlah(11);
+                mFormGalpal11.setJumlah(convertToInt(s.toString()));
             }
 
             @Override
@@ -300,7 +300,7 @@ public class FormGalpal11Fragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal11.setKapasitasTerpakai(11);
+                mFormGalpal11.setKapasitasTerpakai(convertToInt(s.toString()));
             }
 
             @Override
@@ -329,7 +329,12 @@ public class FormGalpal11Fragment extends SingleFragment implements Validator.Va
         return rootView;
     }
 
-
+    private int convertToInt(String stoString){
+        if(stoString.length()>0){
+            return Integer.parseInt(stoString);
+        }
+        return 0;
+    }
 
 
     @Override

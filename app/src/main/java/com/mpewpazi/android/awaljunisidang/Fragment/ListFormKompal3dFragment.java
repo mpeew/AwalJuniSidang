@@ -17,14 +17,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.mpewpazi.android.awaljunisidang.ConnectionDetector;
 import com.mpewpazi.android.awaljunisidang.DataFetcher;
 import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormKompal3dPagerActivity;
+import com.mpewpazi.android.awaljunisidang.PushKompalService;
 import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
@@ -259,7 +260,11 @@ public class ListFormKompal3dFragment extends SingleFragment {
     public void onPause() {
         super.onPause();
         if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingKompal.isVerified()){
-            new PushTask(mFormKompal3ds,mMenuCheckingKompal).execute();
+            if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
+                PushKompalService.setServiceAlarm(getActivity(),true);
+            }else {
+                new PushTask(mFormKompal3ds, mMenuCheckingKompal).execute();
+            }
         }
     }
 
@@ -276,7 +281,7 @@ public class ListFormKompal3dFragment extends SingleFragment {
         protected List<FormKompal3d> doInBackground(Void... params) {
             if(mFormKompal3ds.size()>0) {
                 for (FormKompal3d formKompal3d : mFormKompal3ds) {
-                    new DataPusher().makePostRequestFK3d(formKompal3d, DataFetcher.FK3dENDPOINT, DhSchema.FK3dStandarMutuTableTable.Cols.ID_F2_STANDAR_MUTU_SERVER);
+                    new DataPusher().makePostRequestFK3d(formKompal3d);
                 }
             }
             new DataPusher().makePostRequestMenuCheckingKompal((MenuCheckingKompal) mSingleMenuChecking);

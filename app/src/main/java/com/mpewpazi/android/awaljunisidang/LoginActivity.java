@@ -88,9 +88,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
 
 
-
-new PushTask().execute();
-        //new FetchMstDataTask().execute();
+        new FetchMstDataTask().execute();
 
         mUsernameEditText=(EditText)findViewById(R.id.login_username);
         mPasswordEditText=(EditText)findViewById(R.id.login_password);
@@ -118,8 +116,7 @@ new PushTask().execute();
                     Toast.makeText(getApplicationContext(),"Salah",Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-
+                GalKomSharedPreference.setLoggedIn(getApplicationContext(),true);
             }
         });
 
@@ -393,6 +390,7 @@ new PushTask().execute();
             new FetchFormsTask(mKualifikasiSurveys).execute();
             new FetchMenuCheckingTask(mKualifikasiSurveys).execute();
             Intent intent=new Intent(LoginActivity.this,HomePageActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }
@@ -403,8 +401,7 @@ new PushTask().execute();
 
         @Override
         protected Void doInBackground(Void... params) {
-            FormKompal3c formKompal3c=new FormKompal3c();
-            new DataPusher().makePostRequestFK3c(formKompal3c,DataFetcher.FK3dENDPOINT,"a");
+
             return null;
         }
 

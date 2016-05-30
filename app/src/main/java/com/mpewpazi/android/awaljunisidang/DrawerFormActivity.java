@@ -1,5 +1,6 @@
 package com.mpewpazi.android.awaljunisidang;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
@@ -187,7 +189,14 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu_logout) {
+            GalKomSharedPreference.setLoggedIn(getApplicationContext(),false);
+            Intent i = new Intent(this, LoginActivity.class);
+            // Closing all the Activities
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            mDummyMaker.deleteGalpalFormsMenus();
+            mDummyMaker.deleteKompalFormsMenus();
             return true;
         }
 
@@ -206,6 +215,7 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
 
     private class SingleFormHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        private LinearLayout mItemLayout;
         private TextView mNoTextView;
         private TextView mTittleTextView;
         private ImageView mStatusFillTextView;
@@ -232,6 +242,7 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
                 mStatusVerifiedTextView.setImageResource(R.drawable.ok_icon);
             }
 
+
         }
 
         public SingleFormHolder(View itemView,CustomClickListener customClickListener) {
@@ -244,7 +255,7 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
             mStatusFillTextView=(ImageView) itemView.findViewById(R.id.list_item_single_form_status_fill);
             mStatusCompleteTextView=(ImageView) itemView.findViewById(R.id.list_item_single_form_status_complete);
             mStatusVerifiedTextView=(ImageView)itemView.findViewById(R.id.list_item_single_form_status_verified);
-
+            mItemLayout=(LinearLayout)itemView.findViewById(R.id.list_item_single_form_layout);
             mCustomClickListener=customClickListener;
 
 
@@ -254,8 +265,10 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
 
         @Override
         public void onClick(View v) {
+
             SingleFragment fragment=mSingleForm.getFragment();
-            fragment.setCustomClickListener(mCustomClickListener);;
+            fragment.setCustomClickListener(mCustomClickListener);
+            mItemLayout.setBackgroundColor(getResources().getColor(R.color.cardview_dark_background));
             if (fragment != null) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
@@ -264,6 +277,7 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
             } else {
                 Log.e("DrawerFormActivity", "Error in creating fragment");
             }
+
         }
     }
 

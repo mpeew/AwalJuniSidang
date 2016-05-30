@@ -128,7 +128,7 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal3b.setJumlahProdThn1(11);
+                mFormKompal3b.setJumlahProdThn1(convertToInt(s.toString()));
             }
 
             @Override
@@ -147,7 +147,7 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal3b.setJumlahProdThn2(11);
+                mFormKompal3b.setJumlahProdThn2(convertToInt(s.toString()));
             }
 
             @Override
@@ -165,7 +165,7 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal3b.setJumlahProdThn3(11);
+                mFormKompal3b.setJumlahProdThn3(convertToInt(s.toString()));
             }
 
             @Override
@@ -183,7 +183,7 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal3b.setJumlahProdThn4(11);
+                mFormKompal3b.setJumlahProdThn4(convertToInt(s.toString()));
             }
 
             @Override
@@ -201,7 +201,7 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal3b.setNilaiProduksiThn1(11);
+                mFormKompal3b.setNilaiProduksiThn1(convertToInt(s.toString()));
             }
 
             @Override
@@ -219,7 +219,7 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal3b.setNilaiProduksiThn2(11);
+                mFormKompal3b.setNilaiProduksiThn2(convertToInt(s.toString()));
             }
 
             @Override
@@ -237,7 +237,7 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal3b.setNilaiProduksiThn3(11);
+                mFormKompal3b.setNilaiProduksiThn3(convertToInt(s.toString()));
             }
 
             @Override
@@ -255,7 +255,7 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal3b.setNilaiProduksiThn4(11);
+                mFormKompal3b.setNilaiProduksiThn4(convertToInt(s.toString()));
             }
 
             @Override
@@ -307,7 +307,12 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
     }
 
 
-
+    private int convertToInt(String stoString){
+        if(stoString.length()>0){
+            return Integer.parseInt(stoString);
+        }
+        return 0;
+    }
 
     @Override
     public void onValidationSucceeded() {

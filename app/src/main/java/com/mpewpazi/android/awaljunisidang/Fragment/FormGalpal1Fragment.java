@@ -19,10 +19,12 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Domain;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mpewpazi.android.awaljunisidang.ConnectionDetector;
 import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
+import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.masterData.MstKabupaten;
@@ -108,6 +110,7 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
         mGalpalForms=mDummyMaker.getGalpalForms();
         mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
         mFormGalpal1=mDummyMaker.getFormGalpal1(DrawerFormActivity.kualifikasiSurveyId);
+        mFormGalpal1.setIdPropinsi(1);
         mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,mFormGalpal1.getKodeForm());
 
         mValidator=new Validator(this);
@@ -166,15 +169,15 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
         ArrayAdapter<String> dataAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,mPropinsiNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPropinsiSpinner.setAdapter(dataAdapter);
-       // mPropinsiSpinner.setSelection(mFormGalpal1.getIdPropinsi());
+        mPropinsiSpinner.setSelection(mFormGalpal1.getIdPropinsi());
         mPropinsiSpinner.setOnItemSelectedListener(myListener);
 
 
         /*if(mFormGalpal1.getIdPropinsi()!=0){
-            mMstKabupatens=DummyMaker.get(getActivity()).getMstKabupaten(mFormGalpal1.getIdPropinsi());
+            mMstKabupatens=DummyMaker.get(getActivity()).getMstKabupatens(1);
             mKabupatenNames=new ArrayList<>();
-            for(int a=0;a<mMstKabupatens.size();a++){
-                mKabupatenNames.add(mMstKabupatens.get(a).getNama());
+            for(MstKabupaten mstKabupaten:mMstKabupatens) {
+                mKabupatenNames.add(mstKabupaten.getNama());
             }
             ArrayAdapter<String> dataAdapter1=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,mKabupatenNames);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -503,20 +506,29 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
     @Override
     public void onPause() {
         super.onPause();
-        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2){
+        if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingGalpal.isVerified()){
             mDummyMaker.addFormGalpal1(mFormGalpal1);
-            new PushTask(mFormGalpal1,mMenuCheckingGalpal).execute();
+            if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
+                PushGalpalService.setServiceAlarm(getActivity(),true);
+            }else {
+                new PushTask(mFormGalpal1, mMenuCheckingGalpal).execute();
+            }
         }
     }
 
     OnItemSelectedListener myListener=new OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
             switch (parent.getId()) {
                 case R.id.galpal1_kabupaten_spinner:
+                    String a=parent.getItemAtPosition(position).toString();
+                    Toast.makeText(getActivity(),a, Toast.LENGTH_SHORT).show();
                     mFormGalpal1.setIdKabupaten_kota(position+1);
                     break;
                 case R.id.galpal1_propinsi_spinner:
+                    String b=parent.getItemAtPosition(position).toString();
+                    Toast.makeText(getActivity(),b, Toast.LENGTH_SHORT).show();
                     mFormGalpal1.setIdPropinsi(position+1);
                     break;
 

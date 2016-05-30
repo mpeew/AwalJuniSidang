@@ -53,6 +53,7 @@
                 <EditText
                     android:id="@+id/galpal_peralatan_tahun_pembuatan"
                     android:layout_width="match_parent"
+                    android:inputType="number"
                     android:layout_height="wrap_content"
                     android:hint="Tahun Pembuatan" />
             </android.support.design.widget.TextInputLayout>
@@ -76,6 +77,7 @@
                 <EditText
                     android:id="@+id/galpal_peralatan_kapasitas_terpasang"
                     android:layout_width="match_parent"
+                    android:inputType="number"
                     android:layout_height="wrap_content"
                     android:hint="Kapasitas Terpasang" />
             </android.support.design.widget.TextInputLayout>
@@ -87,6 +89,7 @@
                 <EditText
                     android:id="@+id/galpal_peralatan_kapasitas_terpakai"
                     android:layout_width="match_parent"
+                    android:inputType="number"
                     android:layout_height="wrap_content"
                     android:hint="Kapasitas Terpakai" />
             </android.support.design.widget.TextInputLayout>
@@ -109,6 +112,7 @@
                 <EditText
                     android:id="@+id/galpal_peralatan_jumlah"
                     android:layout_width="match_parent"
+                    android:inputType="number"
                     android:layout_height="wrap_content"
                     android:hint="Jumlah" />
             </android.support.design.widget.TextInputLayout>

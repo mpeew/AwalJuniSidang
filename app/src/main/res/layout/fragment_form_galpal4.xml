@@ -140,6 +140,7 @@
                 <EditText
                     android:id="@+id/kompal1_panjang_waterfront"
                     android:layout_width="match_parent"
+                    android:inputType="number"
                     android:layout_height="wrap_content"
                     android:hint="Panjang Waterfront" />
             </android.support.design.widget.TextInputLayout>
@@ -153,6 +154,7 @@
                 <EditText
                     android:id="@+id/kompal1_luas_lahan"
                     android:layout_width="match_parent"
+                    android:inputType="number"
                     android:layout_height="wrap_content"
                     android:hint="Luas Lahan" />
             </android.support.design.widget.TextInputLayout>

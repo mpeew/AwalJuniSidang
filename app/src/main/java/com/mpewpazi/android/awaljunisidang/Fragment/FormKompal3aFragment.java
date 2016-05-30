@@ -123,7 +123,7 @@ public class FormKompal3aFragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //mFormKompal3a.setKapasitasProduksi(s.toString());
+                mFormKompal3a.setKapasitasProduksi(convertToInt(s.toString()));
             }
 
             @Override
@@ -153,7 +153,12 @@ public class FormKompal3aFragment extends SingleFragment implements Validator.Va
         return rootView;
     }
 
-
+    private int convertToInt(String stoString){
+        if(stoString.length()>0){
+            return Integer.parseInt(stoString);
+        }
+        return 0;
+    }
 
     @Override
     public void onValidationSucceeded() {

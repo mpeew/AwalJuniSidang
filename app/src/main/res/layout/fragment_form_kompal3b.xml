@@ -63,6 +63,7 @@
                 <EditText
                     android:id="@+id/kompal3b_jumlah_prod_2011"
                     android:layout_width="match_parent"
+                    android:inputType="number"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:hint="Jumlah Produksi 2011" />
@@ -74,6 +75,7 @@
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/kompal3b_jumlah_prod_2012"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -86,6 +88,7 @@
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/kompal3b_jumlah_prod_2013"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -98,6 +101,7 @@
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/kompal3b_jumlah_prod_2014"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -132,6 +136,7 @@
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/kompal3b_nilai_prod_2011"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -144,6 +149,7 @@
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/kompal3b_nilai_prod_2012"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -156,6 +162,7 @@
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/kompal3b_nilai_prod_2013"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -168,6 +175,7 @@
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/kompal3b_nilai_prod_2014"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
