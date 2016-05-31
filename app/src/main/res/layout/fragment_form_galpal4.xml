@@ -49,7 +49,7 @@
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_jarak_kedalaman_spinner"/>
+                    android:id="@+id/galpal4_jarak_kedalaman_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -69,7 +69,7 @@
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_air_pelayaran_spinner"/>
+                    android:id="@+id/galpal4_air_pelayaran_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -86,10 +86,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
+                    android:entries="@array/ya_tidak"
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_pasang_surut_spinner"/>
+                    android:id="@+id/galpal4_pasang_surut_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -109,7 +110,7 @@
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_arus_spinner"/>
+                    android:id="@+id/galpal4_arus_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -129,7 +130,7 @@
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_gelombang_spinner"/>
+                    android:id="@+id/galpal4_gelombang_spinner"/>
             </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -138,7 +139,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/kompal1_panjang_waterfront"
+                    android:id="@+id/galpal4_panjang_waterfront"
                     android:layout_width="match_parent"
                     android:inputType="number"
                     android:layout_height="wrap_content"
@@ -152,7 +153,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/kompal1_luas_lahan"
+                    android:id="@+id/galpal4_luas_lahan"
                     android:layout_width="match_parent"
                     android:inputType="number"
                     android:layout_height="wrap_content"
@@ -173,10 +174,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
+                    android:entries="@array/cukup_kurang"
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_ketersediaan_lahan_spinner"/>
+                    android:id="@+id/galpal4_ketersediaan_lahan_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -193,10 +195,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
+                    android:entries="@array/ya_tidak"
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_lahan_produktif_spinner"/>
+                    android:id="@+id/galpal4_lahan_produktif_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -207,16 +210,19 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+
                     android:text="Lahan Pemukiman"
                     android:textSize="18dp"
                     android:layout_weight="60"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
+                    android:entries="@array/ya_tidak"
+
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_lahan_pemukiman_spinner"/>
+                    android:id="@+id/galpal4_lahan_pemukiman_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -233,10 +239,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
+                    android:entries="@array/baik_buruk"
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_daya_dukung_spinner"/>
+                    android:id="@+id/galpal4_daya_dukung_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -253,10 +260,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
+                    android:entries="@array/kelandaian"
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_kelandaian_spinner"/>
+                    android:id="@+id/galpal4_kelandaian_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -273,10 +281,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
+                    android:entries="@array/ya_tidak"
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_dekat_jalan_spinner"/>
+                    android:id="@+id/galpal4_dekat_jalan_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -293,10 +302,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
+                    android:entries="@array/dalam_luar"
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_kota_spinner"/>
+                    android:id="@+id/galpal4_kota_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -307,16 +317,18 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+
                     android:text="Interkoneksi Angkutan"
                     android:textSize="18dp"
                     android:layout_weight="60"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
+                    android:entries="@array/baik_kurang"
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_interkoneksi_angkutan_spinner"/>
+                    android:id="@+id/galpal4_interkoneksi_angkutan_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -333,10 +345,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
+                    android:entries="@array/ya_tidak"
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_nilai_ekonomi_spinner"/>
+                    android:id="@+id/galpal4_nilai_ekonomi_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -353,10 +366,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
+                    android:entries="@array/ya_tidak"
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_perkembangan_wilayah_spinner"/>
+                    android:id="@+id/galpal4_perkembangan_wilayah_spinner"/>
             </LinearLayout>
 
             <LinearLayout
@@ -373,10 +387,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
+                    android:entries="@array/rutrw"
                     android:layout_weight="40"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kompal1_rutrw_spinner"/>
+                    android:id="@+id/galpal4_rutrw_spinner"/>
             </LinearLayout>
 
 

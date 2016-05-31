@@ -14,7 +14,7 @@ public class FormKompal3d extends SingleForm {
     private int idPeriode;
     private String jenisStandarMutu;
     private String keterangan;
-    private String note;
+
 
     public static final int kode=7;
     public static final String kodeAsync="FK3d";

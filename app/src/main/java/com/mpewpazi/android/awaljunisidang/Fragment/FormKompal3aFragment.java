@@ -63,6 +63,8 @@ public class FormKompal3aFragment extends SingleFragment implements Validator.Va
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +80,8 @@ public class FormKompal3aFragment extends SingleFragment implements Validator.Va
         mValidator=new Validator(this);
         mValidator.setValidationListener(this);
 
+
+
     }
 
 
@@ -89,6 +93,9 @@ public class FormKompal3aFragment extends SingleFragment implements Validator.Va
         if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4||mMenuCheckingKompal.isVerified()){
             setViewEnabledFalse(rootView);
         }
+
+
+
 
         mJenisProduksi=(EditText)rootView.findViewById(R.id.kompal3a_jenis_produksi);
         mKapasitasProduksiEditText=(EditText)rootView.findViewById(R.id.kompal3a_kapasitas_produksi);
@@ -151,6 +158,12 @@ public class FormKompal3aFragment extends SingleFragment implements Validator.Va
 
 
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setViewNote(mKualifikasiSurvey,mFormKompal3a);
     }
 
     private int convertToInt(String stoString){

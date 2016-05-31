@@ -1,36 +1,42 @@
 package com.mpewpazi.android.awaljunisidang;
 
+import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.mpewpazi.android.awaljunisidang.model.User;
+import com.mpewpazi.android.awaljunisidang.masterData.SingleMaster;
+
+import java.util.List;
+
 
 /**
  * Created by mpewpazi on 5/30/16.
  */
-public class SpinnerAdapter extends ArrayAdapter<User> {
+public class SpinnerAdapter extends ArrayAdapter<SingleMaster> {
 
     // Your sent context
     private Context context;
-    // Your custom values for the spinner (User)
-    private User[] users;
+    // Your custom values for the spinner (SingleMaster)
+    private List<SingleMaster> singleMasters;
 
-    public SpinnerAdapter(Context context, int textViewResourceId, User[] users) {
-        super(context, textViewResourceId, users);
+
+    public SpinnerAdapter(Context context, List<? extends SingleMaster> singleMasters) {
+        super(context, android.R.layout.simple_spinner_item, (List<SingleMaster>) singleMasters);
         this.context = context;
-        this.users = users;
+        this.singleMasters = (List<SingleMaster>) singleMasters;
     }
 
     public int getCount(){
-        return users.length;
+        return singleMasters.size();
     }
 
-    public User getItem(int position){
-        return users[position];
+    public SingleMaster getItem(int position){
+        return singleMasters.get(position);
     }
 
     public long getItemId(int position){
@@ -42,15 +48,30 @@ public class SpinnerAdapter extends ArrayAdapter<User> {
     // This is for the "passive" state of the spinner
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // I created a dynamic TextView here, but you can reference your own  custom layout for each spinner item
-        TextView label = new TextView(context);
-        label.setTextColor(Color.BLACK);
-        // Then you can get the current item using the values array (Users array) and the current position
-        // You can NOW reference each method you has created in your bean object (User class)
-        label.setText(users[position].getName());
+        View row = convertView;
+        WeatherHolder holder = null;
 
-        // And finally return your dynamic (or custom) view for each spinner item
-        return label;
+        if(row == null)
+        {
+            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+            row = inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
+
+            holder = new WeatherHolder();
+
+            holder.txtTitle = (TextView)row.findViewById(android.R.id.text1);
+
+            row.setTag(holder);
+        }
+        else
+        {
+            holder = (WeatherHolder)row.getTag();
+        }
+
+
+        holder.txtTitle.setText(singleMasters.get(position).getNama());
+
+
+        return row;
     }
 
     // And here is when the "chooser" is popped up
@@ -58,10 +79,56 @@ public class SpinnerAdapter extends ArrayAdapter<User> {
     @Override
     public View getDropDownView(int position, View convertView,
                                 ViewGroup parent) {
-        TextView label = new TextView(context);
-        label.setTextColor(Color.BLACK);
-        label.setText(users[position].getName());
+        View row = convertView;
+        WeatherHolder holder = null;
 
-        return label;
+        if(row == null)
+        {
+            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+            row = inflater.inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
+
+            holder = new WeatherHolder();
+
+            holder.txtTitle = (TextView)row.findViewById(android.R.id.text1);
+
+            row.setTag(holder);
+        }
+        else
+        {
+            holder = (WeatherHolder)row.getTag();
+        }
+
+
+        holder.txtTitle.setText(singleMasters.get(position).getNama());
+
+
+        return row;
+    }
+
+    static class WeatherHolder
+    {
+        TextView txtTitle;
+    }
+
+    public int getIndex(int id) {
+        int index = 0;
+        for (int i=0;i<getCount();i++){
+            if (getItem(i).getId()==id){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    public static int getIndex(Spinner spinner, String nama) {
+        int index = 0;
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equals(nama)){
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 }

@@ -58,11 +58,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
-                    android:entries="@array/coba_spinner"
+                    android:entries="@array/status_kepemilikan_usaha"
                     android:layout_weight="35"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/status_kepemilikan_usaha_spinner"/>
+                    android:id="@+id/galpal1_status_kepemilikan_usaha_spinner"/>
 
             </LinearLayout>
 
@@ -152,19 +152,21 @@
                 <TextView
                     android:text="Propinsi"
                     android:textSize="18dp"
-                    android:layout_weight="65"
+                    android:layout_weight="50"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
-                    android:layout_weight="35"
+                    android:layout_weight="50"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:gravity="right"
                     android:id="@+id/galpal1_propinsi_spinner"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="9dp"
                 android:layout_margin="4dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -173,12 +175,13 @@
                 <TextView
                     android:text="Kabupaten/Kota"
                     android:textSize="18dp"
-                    android:layout_weight="65"
+                    android:layout_weight="50"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
-                    android:layout_weight="35"
+                    android:layout_weight="50"
                     android:layout_width="0dp"
+                    android:gravity="right"
                     android:layout_height="wrap_content"
                     android:id="@+id/galpal1_kabupaten_spinner"/>
 

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,6 +25,7 @@ import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
+import com.mpewpazi.android.awaljunisidang.SpinnerAdapter;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.masterData.MstKabupaten;
 import com.mpewpazi.android.awaljunisidang.masterData.MstPropinsi;
@@ -77,7 +77,11 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
     private EditText mWebsiteEditText;
 
     private Spinner mPropinsiSpinner;
+    private SpinnerAdapter mPropinsiSpinnerAdapter;
     private Spinner mKabupatenSpinner;
+    private SpinnerAdapter mKabupatenSpinnerAdapter;
+
+    private Spinner mStatusKepemilikanSpinner;
 
     private Button mSubmitButton;
 
@@ -110,7 +114,6 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
         mGalpalForms=mDummyMaker.getGalpalForms();
         mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
         mFormGalpal1=mDummyMaker.getFormGalpal1(DrawerFormActivity.kualifikasiSurveyId);
-        mFormGalpal1.setIdPropinsi(1);
         mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,mFormGalpal1.getKodeForm());
 
         mValidator=new Validator(this);
@@ -147,6 +150,8 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
 
 
 
+
+
         mNamaPerusahaanEditText=(EditText)rootView.findViewById(R.id.galpal1_nama_perusahaan);
         mNomorTeleponEditText=(EditText)rootView.findViewById(R.id.galpal1_nomor_telepon);
         mFaxEditText=(EditText)rootView.findViewById(R.id.galpal1_fax);
@@ -163,30 +168,16 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
         mPropinsiSpinner=(Spinner)rootView.findViewById(R.id.galpal1_propinsi_spinner);
         mWebsiteEditText=(EditText)rootView.findViewById(R.id.galpal1_website);
         mKabupatenSpinner=(Spinner)rootView.findViewById(R.id.galpal1_kabupaten_spinner);
+        mStatusKepemilikanSpinner=(Spinner)rootView.findViewById(R.id.galpal1_status_kepemilikan_usaha_spinner);
 
-        // setting spinner propinsi
-
-        ArrayAdapter<String> dataAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,mPropinsiNames);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mPropinsiSpinner.setAdapter(dataAdapter);
-        mPropinsiSpinner.setSelection(mFormGalpal1.getIdPropinsi());
+        // setting spinner
+        mPropinsiSpinnerAdapter = new SpinnerAdapter(getActivity(), mMstPropinsis);
+        mPropinsiSpinner.setAdapter(mPropinsiSpinnerAdapter);
+        mPropinsiSpinner.setSelection(mPropinsiSpinnerAdapter.getIndex(mFormGalpal1.getIdPropinsi()));
         mPropinsiSpinner.setOnItemSelectedListener(myListener);
 
-
-        /*if(mFormGalpal1.getIdPropinsi()!=0){
-            mMstKabupatens=DummyMaker.get(getActivity()).getMstKabupatens(1);
-            mKabupatenNames=new ArrayList<>();
-            for(MstKabupaten mstKabupaten:mMstKabupatens) {
-                mKabupatenNames.add(mstKabupaten.getNama());
-            }
-            ArrayAdapter<String> dataAdapter1=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,mKabupatenNames);
-            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mKabupatenSpinner.setAdapter(dataAdapter1);
-            mKabupatenSpinner.setSelection(mFormGalpal1.getIdKabupaten_kota());
-            mKabupatenSpinner.setOnItemSelectedListener(myListener);
-        }else{
-            mKabupatenSpinner.setEnabled(false);
-        }*/
+        mStatusKepemilikanSpinner.setSelection(SpinnerAdapter.getIndex(mStatusKepemilikanSpinner,mFormGalpal1.getStatusKepemilikanUsaha()));
+        mStatusKepemilikanSpinner.setOnItemSelectedListener(myListener);
 
         //nama perusahaan di lock
         mFormGalpal1.setNamaPerusahaan(mNamaPerusahaan);
@@ -522,17 +513,26 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
 
             switch (parent.getId()) {
                 case R.id.galpal1_kabupaten_spinner:
-                    String a=parent.getItemAtPosition(position).toString();
-                    Toast.makeText(getActivity(),a, Toast.LENGTH_SHORT).show();
-                    mFormGalpal1.setIdKabupaten_kota(position+1);
+                    MstKabupaten mstKabupaten= (MstKabupaten) mKabupatenSpinnerAdapter.getItem(position);
+                    mFormGalpal1.setIdKabupaten_kota(mstKabupaten.getId());
                     break;
                 case R.id.galpal1_propinsi_spinner:
-                    String b=parent.getItemAtPosition(position).toString();
-                    Toast.makeText(getActivity(),b, Toast.LENGTH_SHORT).show();
-                    mFormGalpal1.setIdPropinsi(position+1);
+                    MstPropinsi mstPropinsi=(MstPropinsi) mPropinsiSpinnerAdapter.getItem(position);
+                    mFormGalpal1.setIdPropinsi(mstPropinsi.getId());
+
+                    if(mFormGalpal1.getIdPropinsi()!=0){
+                        mMstKabupatens=DummyMaker.get(getActivity()).getMstKabupatens(mFormGalpal1.getIdPropinsi());
+                        mKabupatenSpinnerAdapter=new SpinnerAdapter(getActivity(),mMstKabupatens);
+                        mKabupatenSpinner.setAdapter(mKabupatenSpinnerAdapter);
+                        mKabupatenSpinner.setSelection(mKabupatenSpinnerAdapter.getIndex(mFormGalpal1.getIdKabupaten_kota()));
+                        mKabupatenSpinner.setOnItemSelectedListener(myListener);
+                    }else{
+                        mKabupatenSpinner.setEnabled(false);
+                    }
                     break;
-
-
+                case R.id.galpal1_status_kepemilikan_usaha_spinner:
+                    mFormGalpal1.setStatusKepemilikanUsaha(parent.getItemAtPosition(position).toString());
+                    break;
             }
         }
 
@@ -582,6 +582,8 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
             return null;
         }
     }
+
+
 
 
 }

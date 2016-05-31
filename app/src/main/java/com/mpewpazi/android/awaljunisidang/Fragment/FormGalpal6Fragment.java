@@ -112,6 +112,8 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
             setViewEnabledFalse(rootView);
         }
 
+
+
         TextView mJudulTextView=(TextView)rootView.findViewById(R.id.galpal_peralatan_judul);
         FormGalpal6 formGalpal6=new FormGalpal6();
         mJudulTextView.setText(formGalpal6.getNamaForm());
@@ -337,6 +339,12 @@ public class FormGalpal6Fragment extends SingleFragment implements Validator.Val
 
 
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setViewNote(mKualifikasiSurvey,mFormGalpal6);
     }
 
 

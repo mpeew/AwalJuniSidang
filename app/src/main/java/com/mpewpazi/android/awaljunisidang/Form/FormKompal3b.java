@@ -23,7 +23,7 @@ public class FormKompal3b extends SingleForm {
     private double nilaiProduksiThn3;
     private double nilaiProduksiThn4;
     private String keterangan;
-    private String note;
+
 
     public static final int kode=5;
     public static final String kodeAsync="FK3b";

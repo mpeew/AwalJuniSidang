@@ -11,7 +11,15 @@ public abstract class SingleForm {
     protected SingleFragment mFragment;
     protected int mKualifikasiSurveyId;
     protected int mFormServerId;
+    protected String note;
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 
     public int getFormServerId() {
         return mFormServerId;

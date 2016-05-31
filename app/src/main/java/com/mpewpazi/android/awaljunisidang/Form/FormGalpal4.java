@@ -28,7 +28,7 @@ public class FormGalpal4 extends SingleForm {
     private String nilaiEkonomi;
     private String perkembanganWilayah;
     private String rutrw;
-    private String note;
+
 
     public static final int kode=5;
     public static final String kodeAsync="FG4";

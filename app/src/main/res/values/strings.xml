@@ -8,6 +8,53 @@
         <item>Pilih 1</item>
     </string-array>
 
+    <string-array name="status_kepemilikan_usaha">
+        <item>PMA</item>
+        <item>PMDN</item>
+        <item>BUMN</item>
+        <item>SWASTA</item>
+    </string-array>
+
+    <string-array name="kategori_galangan">
+        <item>NEW</item>
+        <item>REPAIR</item>
+    </string-array>
+
+    <string-array name="cukup_kurang">
+        <item>CUKUP</item>
+        <item>KURANG</item>
+    </string-array>
+
+    <string-array name="baik_buruk">
+        <item>BAIK</item>
+        <item>BURUK</item>
+    </string-array>
+
+    <string-array name="baik_kurang">
+        <item>BAIK</item>
+        <item>KURANG</item>
+    </string-array>
+
+    <string-array name="dalam_luar">
+        <item>DALAM</item>
+        <item>LUAR</item>
+    </string-array>
+
+    <string-array name="ya_tidak">
+        <item>YA</item>
+        <item>TIDAK</item>
+    </string-array>
+
+    <string-array name="kelandaian">
+        <item>15%</item>
+        <item>15%></item>
+    </string-array>
+
+    <string-array name="rutrw">
+        <item>SELARAS</item>
+        <item>BERTENTANGAN></item>
+    </string-array>
+
     <string name="lengkap">Tandai Sebagai Sudah Lengkap</string>
     <string name="belum_lengkap">Tandai Sebagai Belum Lengkap</string>
     <string name="sign_out">Sign Out</string>

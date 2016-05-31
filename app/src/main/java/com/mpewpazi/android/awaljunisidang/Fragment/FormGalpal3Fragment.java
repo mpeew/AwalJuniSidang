@@ -15,10 +15,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -33,7 +35,10 @@ import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.PictureUtils;
 import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
+import com.mpewpazi.android.awaljunisidang.SpinnerAdapter;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.masterData.MstKabupaten;
+import com.mpewpazi.android.awaljunisidang.masterData.MstPropinsi;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
@@ -74,7 +79,9 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
     private EditText mLongitudeEditText;
     @NotEmpty
     private EditText mLatitudeEditText;
-    private EditText mKategoriGalanganEditText;
+    private Spinner mKategoriGalanganSpinner;
+    private Spinner mPropinsiSpinner;
+    private Spinner mKabupatenSpinner;
     @NotEmpty
     private EditText mContactPersonEditText;
     @NotEmpty
@@ -105,6 +112,11 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
     private KualifikasiSurvey mKualifikasiSurvey;
     private MenuCheckingGalpal mMenuCheckingGalpal;
 
+    private List<MstKabupaten> mMstKabupatens;
+    private List<MstPropinsi> mMstPropinsis;
+    private SpinnerAdapter mPropinsiSpinnerAdapter;
+    private SpinnerAdapter mKabupatenSpinnerAdapter;
+
 
 
     @Override
@@ -115,6 +127,7 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
         mKualifikasiSurvey= DummyMaker.get(getActivity()).getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
         mFormGalpal3=DummyMaker.get(getActivity()).getFormGalpal3(DrawerFormActivity.kualifikasiSurveyId);
         mGalpalForms=DummyMaker.get(getActivity()).getGalpalForms();
+        mMstPropinsis=DummyMaker.get(getActivity()).getMstPropinsis();
 
         mNamaPerusahaan=mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan();
         mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,FormGalpal3.kode);
@@ -150,7 +163,9 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
         mKodePosEditText=(EditText)rootView.findViewById(R.id.galpal3_kode_pos);
         mLongitudeEditText=(EditText)rootView.findViewById(R.id.galpal3_long3);
         mLatitudeEditText=(EditText)rootView.findViewById(R.id.galpal3_lat);
-       // mKategoriGalanganEditText=(Spinner)rootView.findViewById(R.id.galpal3_kategori_galangan_spinner);
+        mKategoriGalanganSpinner=(Spinner)rootView.findViewById(R.id.galpal3_kategori_galangan_spinner);
+        mPropinsiSpinner=(Spinner)rootView.findViewById(R.id.galpal3_propinsi_spinner);
+        mKabupatenSpinner=(Spinner)rootView.findViewById(R.id.galpal3_kabupaten_spinner);
         mContactPersonEditText=(EditText)rootView.findViewById(R.id.galpal3_contact_person);
         mNomorCpEditText=(EditText)rootView.findViewById(R.id.galpal3_contact_person_no);
         mJabatanEditText=(EditText)rootView.findViewById(R.id.galpal3_jabatan);
@@ -161,6 +176,15 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
         mCpNoEditText=(EditText)rootView.findViewById(R.id.galpal3_contact_person_no);
         mCpEmailEditText=(EditText)rootView.findViewById(R.id.galpal3_alamat_email);
         mCpJabatanEditText=(EditText)rootView.findViewById(R.id.galpal3_jabatan);
+
+
+        mPropinsiSpinnerAdapter = new SpinnerAdapter(getActivity(), mMstPropinsis);
+        mPropinsiSpinner.setAdapter(mPropinsiSpinnerAdapter);
+        mPropinsiSpinner.setSelection(mPropinsiSpinnerAdapter.getIndex(mFormGalpal3.getIdPropinsi()));
+        mPropinsiSpinner.setOnItemSelectedListener(myListener);
+
+        mKategoriGalanganSpinner.setSelection(SpinnerAdapter.getIndex(mKategoriGalanganSpinner,mFormGalpal3.getKategoriGalangan()));
+        mKategoriGalanganSpinner.setOnItemSelectedListener(myListener);
 
         mFormGalpal3.setPerusahaanId(mKualifikasiSurvey.getPerusahaanId());
 
@@ -367,23 +391,6 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
             }
         });
 
-       /*mKategoriGalanganEditText.setText(mFormGalpal3.getKategoriGalangan());
-        mKategoriGalanganEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormGalpal3.setKategoriGalangan(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
 
         mContactPersonEditText.setText(mFormGalpal3.getContactPerson());
         mContactPersonEditText.addTextChangedListener(new TextWatcher() {
@@ -703,6 +710,43 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
             return null;
         }
     }
+
+    AdapterView.OnItemSelectedListener myListener=new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            switch (parent.getId()) {
+                case R.id.galpal3_kabupaten_spinner:
+                    MstKabupaten mstKabupaten= (MstKabupaten) mKabupatenSpinnerAdapter.getItem(position);
+                    mFormGalpal3.setIdKabupaten_kota(mstKabupaten.getId());
+                    break;
+                case R.id.galpal3_propinsi_spinner:
+                    MstPropinsi mstPropinsi=(MstPropinsi) mPropinsiSpinnerAdapter.getItem(position);
+                    mFormGalpal3.setIdPropinsi(mstPropinsi.getId());
+
+                    if(mFormGalpal3.getIdPropinsi()!=0){
+                        mMstKabupatens=DummyMaker.get(getActivity()).getMstKabupatens(mFormGalpal3.getIdPropinsi());
+                        mKabupatenSpinnerAdapter=new SpinnerAdapter(getActivity(),mMstKabupatens);
+                        mKabupatenSpinner.setAdapter(mKabupatenSpinnerAdapter);
+                        mKabupatenSpinner.setSelection(mKabupatenSpinnerAdapter.getIndex(mFormGalpal3.getIdKabupaten_kota()));
+                        mKabupatenSpinner.setOnItemSelectedListener(myListener);
+                    }else{
+                        mKabupatenSpinner.setEnabled(false);
+                    }
+                    break;
+                case R.id.galpal3_kategori_galangan_spinner:
+                    mFormGalpal3.setKategoriGalangan(parent.getItemAtPosition(position).toString());
+                    break;
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+
 
 
 }

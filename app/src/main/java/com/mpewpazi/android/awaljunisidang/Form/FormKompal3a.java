@@ -14,7 +14,7 @@ public class FormKompal3a extends SingleForm {
     private String jenisProduksi;
     private int kapasitasProduksi;
     private int satuan=1;
-    private String note;
+
 
     public static final int kode=4;
     public static final String kodeAsync="FK3a";

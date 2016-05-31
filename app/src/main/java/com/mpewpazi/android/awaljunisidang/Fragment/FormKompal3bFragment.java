@@ -306,6 +306,12 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
         return rootView;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setViewNote(mKualifikasiSurvey,mFormKompal3b);
+    }
+
 
     private int convertToInt(String stoString){
         if(stoString.length()>0){

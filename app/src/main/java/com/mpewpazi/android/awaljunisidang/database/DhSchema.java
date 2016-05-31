@@ -288,6 +288,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
 
         }
@@ -321,6 +322,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -351,6 +353,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
         }
     }
 
@@ -380,6 +383,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -410,6 +414,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -440,6 +445,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -469,6 +475,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -498,6 +505,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -527,6 +535,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -556,6 +565,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -579,6 +589,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -602,6 +613,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -626,6 +638,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -649,6 +662,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -672,6 +686,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -696,6 +711,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -719,6 +735,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -742,6 +759,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -766,6 +784,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -789,6 +808,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -810,6 +830,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
         }
     }
 
@@ -837,6 +858,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -861,6 +883,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }
@@ -880,6 +903,7 @@ public class DhSchema {
             public static final String MODIFIED_DATE = "modified_date";
             public static final String MODIFIED_USER = "modified_user";
             public static final String MODIFIED_IP_ADDRESS = "modified_ip_address";
+            public static final String NOTE = "note";
 
         }
     }

@@ -247,7 +247,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <Spinner
-                    android:entries="@array/coba_spinner"
+                    android:entries="@array/kategori_galangan"
                     android:layout_weight="35"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

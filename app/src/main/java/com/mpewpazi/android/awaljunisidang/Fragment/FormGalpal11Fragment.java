@@ -329,6 +329,12 @@ public class FormGalpal11Fragment extends SingleFragment implements Validator.Va
         return rootView;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setViewNote(mKualifikasiSurvey,mFormGalpal11);
+    }
+
     private int convertToInt(String stoString){
         if(stoString.length()>0){
             return Integer.parseInt(stoString);

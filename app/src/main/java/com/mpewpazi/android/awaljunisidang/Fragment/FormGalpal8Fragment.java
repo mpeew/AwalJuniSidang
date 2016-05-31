@@ -330,6 +330,12 @@ public class FormGalpal8Fragment extends SingleFragment implements Validator.Val
         return rootView;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setViewNote(mKualifikasiSurvey,mFormGalpal8);
+    }
+
     private int convertToInt(String stoString){
         if(stoString.length()>0){
             return Integer.parseInt(stoString);

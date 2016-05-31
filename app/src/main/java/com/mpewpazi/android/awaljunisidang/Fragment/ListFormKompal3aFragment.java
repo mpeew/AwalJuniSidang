@@ -293,7 +293,7 @@ public class ListFormKompal3aFragment extends SingleFragment {
         protected void onPostExecute(List<FormKompal3a> formKompal3as) {
             for(FormKompal3a formKompal3a:formKompal3as) {
                 DummyMaker.get(getActivity()).addFormKompal3a(formKompal3a);
-                Log.i("INAZ",String.valueOf(formKompal3a.getFormServerId()));
+                Log.i("INA",String.valueOf(formKompal3a.getFormServerId()));
             }
         }
     }

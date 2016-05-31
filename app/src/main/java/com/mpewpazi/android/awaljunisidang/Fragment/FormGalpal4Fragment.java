@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -22,7 +23,12 @@ import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
+import com.mpewpazi.android.awaljunisidang.SpinnerAdapter;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.masterData.MstAirPelayaran;
+import com.mpewpazi.android.awaljunisidang.masterData.MstArus;
+import com.mpewpazi.android.awaljunisidang.masterData.MstGelombang;
+import com.mpewpazi.android.awaljunisidang.masterData.MstJarakKedalaman;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
@@ -39,10 +45,22 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
     private boolean isValidated;
 
     private Spinner mJarakKedalamanSpinner;
+    private SpinnerAdapter mJarakKedalamanAdapter;
+    private List<MstJarakKedalaman> mMstJarakKedalamans;
+
     private Spinner mAirPelayaranSpinner;
+    private SpinnerAdapter mAirPelayaranAdapter;
+    private List<MstAirPelayaran> mMstAirPelayarans;
+
     private Spinner mPasangSurutSpinner;
+
     private Spinner mArusSpinner;
+    private SpinnerAdapter mArusAdapter;
+    private List<MstArus> mMstAruss;
+
     private Spinner mGelombangSpinner;
+    private SpinnerAdapter mGelombangAdapter;
+    private List<MstGelombang> mMstGelombangs;
 
     @NotEmpty
     private EditText mPanjangWaterfrontEditText;
@@ -82,6 +100,11 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
         mGalpalForms=mDummyMaker.getGalpalForms();
         mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,FormGalpal4.kode);
 
+        mMstAirPelayarans=mDummyMaker.getMstAirPelayarans();
+        mMstAruss=mDummyMaker.getMstAruss();
+        mMstGelombangs=mDummyMaker.getMstGelombangs();
+        mMstJarakKedalamans=mDummyMaker.getMstJarakKedalamans();
+
         mValidator=new Validator(this);
         mValidator.setValidationListener(this);
 
@@ -100,25 +123,81 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
             setViewEnabledFalse(rootView);
         }
 
-        mJarakKedalamanSpinner=(Spinner)rootView.findViewById(R.id.kompal1_jarak_kedalaman_spinner);
-        mAirPelayaranSpinner=(Spinner)rootView.findViewById(R.id.kompal1_air_pelayaran_spinner);
-        mPasangSurutSpinner=(Spinner)rootView.findViewById(R.id.kompal1_pasang_surut_spinner);
-        mArusSpinner=(Spinner)rootView.findViewById(R.id.kompal1_gelombang_spinner);
-        mGelombangSpinner=(Spinner)rootView.findViewById(R.id.kompal1_gelombang_spinner);
-        mPanjangWaterfrontEditText=(EditText)rootView.findViewById(R.id.kompal1_panjang_waterfront);
-        mLuasLahanEditText=(EditText)rootView.findViewById(R.id.kompal1_luas_lahan);
-        mKetersediaanLahanSpinner=(Spinner)rootView.findViewById(R.id.kompal1_ketersediaan_lahan_spinner);
-        mLahanProduktifSpinner=(Spinner)rootView.findViewById(R.id.kompal1_lahan_produktif_spinner);
-        mLahanPemukimanSpinner=(Spinner)rootView.findViewById(R.id.kompal1_lahan_pemukiman_spinner);
-        mDayaDukungSpinner=(Spinner)rootView.findViewById(R.id.kompal1_daya_dukung_spinner);
-        mKelandaianSpinner=(Spinner)rootView.findViewById(R.id.kompal1_kelandaian_spinner);
-        mDekatJalanSpinner=(Spinner)rootView.findViewById(R.id.kompal1_dekat_jalan_spinner);
-        mKotaSpinner=(Spinner)rootView.findViewById(R.id.kompal1_kota_spinner);
-        mInterkoneksiAngkutanSpinner=(Spinner)rootView.findViewById(R.id.kompal1_interkoneksi_angkutan_spinner);
-        mNilaiEkonomiSpinner=(Spinner)rootView.findViewById(R.id.kompal1_nilai_ekonomi_spinner);
-        mPerkembanganWilayahSpinner=(Spinner)rootView.findViewById(R.id.kompal1_perkembangan_wilayah_spinner);
-        mRutrwSpinner=(Spinner)rootView.findViewById(R.id.kompal1_rutrw_spinner);
+        mJarakKedalamanSpinner=(Spinner)rootView.findViewById(R.id.galpal4_jarak_kedalaman_spinner);
+        mAirPelayaranSpinner=(Spinner)rootView.findViewById(R.id.galpal4_air_pelayaran_spinner);
+        mPasangSurutSpinner=(Spinner)rootView.findViewById(R.id.galpal4_pasang_surut_spinner);
+        mArusSpinner=(Spinner)rootView.findViewById(R.id.galpal4_arus_spinner);
+        mGelombangSpinner=(Spinner)rootView.findViewById(R.id.galpal4_gelombang_spinner);
+        mPanjangWaterfrontEditText=(EditText)rootView.findViewById(R.id.galpal4_panjang_waterfront);
+        mLuasLahanEditText=(EditText)rootView.findViewById(R.id.galpal4_luas_lahan);
+        mKetersediaanLahanSpinner=(Spinner)rootView.findViewById(R.id.galpal4_ketersediaan_lahan_spinner);
+        mLahanProduktifSpinner=(Spinner)rootView.findViewById(R.id.galpal4_lahan_produktif_spinner);
+        mLahanPemukimanSpinner=(Spinner)rootView.findViewById(R.id.galpal4_lahan_pemukiman_spinner);
+        mDayaDukungSpinner=(Spinner)rootView.findViewById(R.id.galpal4_daya_dukung_spinner);
+        mKelandaianSpinner=(Spinner)rootView.findViewById(R.id.galpal4_kelandaian_spinner);
+        mDekatJalanSpinner=(Spinner)rootView.findViewById(R.id.galpal4_dekat_jalan_spinner);
+        mKotaSpinner=(Spinner)rootView.findViewById(R.id.galpal4_kota_spinner);
+        mInterkoneksiAngkutanSpinner=(Spinner)rootView.findViewById(R.id.galpal4_interkoneksi_angkutan_spinner);
+        mNilaiEkonomiSpinner=(Spinner)rootView.findViewById(R.id.galpal4_nilai_ekonomi_spinner);
+        mPerkembanganWilayahSpinner=(Spinner)rootView.findViewById(R.id.galpal4_perkembangan_wilayah_spinner);
+        mRutrwSpinner=(Spinner)rootView.findViewById(R.id.galpal4_rutrw_spinner);
         mSubmitButton=(Button)rootView.findViewById(R.id.galpal4_btn_submit);
+
+        mJarakKedalamanAdapter=new SpinnerAdapter(getActivity(),mMstJarakKedalamans);
+        mJarakKedalamanSpinner.setAdapter(mJarakKedalamanAdapter);
+        mJarakKedalamanSpinner.setSelection(mJarakKedalamanAdapter.getIndex(mFormGalpal4.getJarakKedalaman()));
+        mJarakKedalamanSpinner.setOnItemSelectedListener(myListener);
+
+        mAirPelayaranAdapter=new SpinnerAdapter(getActivity(),mMstAirPelayarans);
+        mAirPelayaranSpinner.setAdapter(mAirPelayaranAdapter);
+        mAirPelayaranSpinner.setSelection(mAirPelayaranAdapter.getIndex(mFormGalpal4.getAirPelayaran()));
+        mAirPelayaranSpinner.setOnItemSelectedListener(myListener);
+
+        mArusAdapter=new SpinnerAdapter(getActivity(),mMstAruss);
+        mArusSpinner.setAdapter(mArusAdapter);
+        mArusSpinner.setSelection(mArusAdapter.getIndex(mFormGalpal4.getArus()));
+        mArusSpinner.setOnItemSelectedListener(myListener);
+
+        mGelombangAdapter=new SpinnerAdapter(getActivity(),mMstGelombangs);
+        mGelombangSpinner.setAdapter(mGelombangAdapter);
+        mGelombangSpinner.setSelection(mGelombangAdapter.getIndex(mFormGalpal4.getGelombang()));
+        mGelombangSpinner.setOnItemSelectedListener(myListener);
+
+        mKetersediaanLahanSpinner.setSelection(SpinnerAdapter.getIndex(mKetersediaanLahanSpinner,mFormGalpal4.getKetersediaanLahan()));
+        mKetersediaanLahanSpinner.setOnItemSelectedListener(myListener);
+
+        mLahanProduktifSpinner.setSelection(SpinnerAdapter.getIndex(mLahanProduktifSpinner,mFormGalpal4.getLahanProduktif()));
+        mLahanProduktifSpinner.setOnItemSelectedListener(myListener);
+
+        mLahanPemukimanSpinner.setSelection(SpinnerAdapter.getIndex(mLahanPemukimanSpinner,mFormGalpal4.getLahanPemukiman()));
+        mLahanPemukimanSpinner.setOnItemSelectedListener(myListener);
+
+        mPasangSurutSpinner.setSelection(SpinnerAdapter.getIndex(mPasangSurutSpinner,mFormGalpal4.getPasangSurutDaratan()));
+        mPasangSurutSpinner.setOnItemSelectedListener(myListener);
+
+        mDayaDukungSpinner.setSelection(SpinnerAdapter.getIndex(mDayaDukungSpinner,mFormGalpal4.getDayaDukung()));
+        mDayaDukungSpinner.setOnItemSelectedListener(myListener);
+
+        mKelandaianSpinner.setSelection(SpinnerAdapter.getIndex(mKelandaianSpinner,mFormGalpal4.getKelandaian()));
+        mKelandaianSpinner.setOnItemSelectedListener(myListener);
+
+        mDekatJalanSpinner.setSelection(SpinnerAdapter.getIndex(mDekatJalanSpinner,mFormGalpal4.getDekatJalan()));
+        mDekatJalanSpinner.setOnItemSelectedListener(myListener);
+
+        mKotaSpinner.setSelection(SpinnerAdapter.getIndex(mKotaSpinner,mFormGalpal4.getKota()));
+        mKotaSpinner.setOnItemSelectedListener(myListener);
+
+        mInterkoneksiAngkutanSpinner.setSelection(SpinnerAdapter.getIndex(mInterkoneksiAngkutanSpinner,mFormGalpal4.getInterkoneksiAngkutan()));
+        mInterkoneksiAngkutanSpinner.setOnItemSelectedListener(myListener);
+
+        mNilaiEkonomiSpinner.setSelection(SpinnerAdapter.getIndex(mNilaiEkonomiSpinner,mFormGalpal4.getNilaiEkonomi()));
+        mNilaiEkonomiSpinner.setOnItemSelectedListener(myListener);
+
+        mPerkembanganWilayahSpinner.setSelection(SpinnerAdapter.getIndex(mPerkembanganWilayahSpinner,mFormGalpal4.getPerkembanganWilayah()));
+        mPerkembanganWilayahSpinner.setOnItemSelectedListener(myListener);
+
+        mRutrwSpinner.setSelection(SpinnerAdapter.getIndex(mRutrwSpinner,mFormGalpal4.getRutrw()));
+        mRutrwSpinner.setOnItemSelectedListener(myListener);
 
 
         mPanjangWaterfrontEditText.setText(String.valueOf(mFormGalpal4.getPanjangWaterfront()));
@@ -256,4 +335,71 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
             return null;
         }
     }
+
+    AdapterView.OnItemSelectedListener myListener=new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            switch (parent.getId()) {
+                case R.id.galpal4_ketersediaan_lahan_spinner:
+                    mFormGalpal4.setKetersediaanLahan(parent.getItemAtPosition(position).toString());
+                    break;
+                case R.id.galpal4_lahan_produktif_spinner:
+                    mFormGalpal4.setLahanProduktif(parent.getItemAtPosition(position).toString());
+                    break;
+                case R.id.galpal4_lahan_pemukiman_spinner:
+                    mFormGalpal4.setLahanPemukiman(parent.getItemAtPosition(position).toString());
+                    break;
+                case R.id.galpal4_pasang_surut_spinner:
+                    mFormGalpal4.setPasangSurutDaratan(parent.getItemAtPosition(position).toString());
+                    break;
+                case R.id.galpal4_daya_dukung_spinner:
+                    mFormGalpal4.setDayaDukung(parent.getItemAtPosition(position).toString());
+                    break;
+                case R.id.galpal4_kelandaian_spinner:
+                    mFormGalpal4.setKelandaian(parent.getItemAtPosition(position).toString());
+                    break;
+                case R.id.galpal4_dekat_jalan_spinner:
+                    mFormGalpal4.setDekatJalan(parent.getItemAtPosition(position).toString());
+                    break;
+                case R.id.galpal4_kota_spinner:
+                    mFormGalpal4.setKota(parent.getItemAtPosition(position).toString());
+                    break;
+                case R.id.galpal4_interkoneksi_angkutan_spinner:
+                    mFormGalpal4.setInterkoneksiAngkutan(parent.getItemAtPosition(position).toString());
+                    break;
+                case R.id.galpal4_nilai_ekonomi_spinner:
+                    mFormGalpal4.setNilaiEkonomi(parent.getItemAtPosition(position).toString());
+                    break;
+                case R.id.galpal4_perkembangan_wilayah_spinner:
+                    mFormGalpal4.setPerkembanganWilayah(parent.getItemAtPosition(position).toString());
+                    break;
+                case R.id.galpal4_rutrw_spinner:
+                    mFormGalpal4.setRutrw(parent.getItemAtPosition(position).toString());
+                    break;
+                case R.id.galpal4_jarak_kedalaman_spinner:
+                    MstJarakKedalaman mst= (MstJarakKedalaman) mJarakKedalamanAdapter.getItem(position);
+                    mFormGalpal4.setJarakKedalaman(mst.getId());
+                    break;
+                case R.id.galpal4_air_pelayaran_spinner:
+                    MstAirPelayaran mst1= (MstAirPelayaran) mAirPelayaranAdapter.getItem(position);
+                    mFormGalpal4.setAirPelayaran(mst1.getId());
+                    break;
+                case R.id.galpal4_arus_spinner:
+                    MstArus mst2= (MstArus) mArusAdapter.getItem(position);
+                    mFormGalpal4.setArus(mst2.getId());
+                    break;
+                case R.id.galpal4_gelombang_spinner:
+                    MstGelombang mstGelombang= (MstGelombang) mGelombangAdapter.getItem(position);
+                    mFormGalpal4.setGelombang(mstGelombang.getId());
+                    break;
+
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
 }

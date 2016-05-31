@@ -245,6 +245,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG6PeralatanKerjaLuarCraneTable.Cols.CREATED_IP_ADDRESS +" ," +
                         FG6PeralatanKerjaLuarCraneTable.Cols.MODIFIED_DATE +" ," +
                         FG6PeralatanKerjaLuarCraneTable.Cols.MODIFIED_USER +" ," +
+                        FG6PeralatanKerjaLuarCraneTable.Cols.NOTE +" ," +
                         FG6PeralatanKerjaLuarCraneTable.Cols.MODIFIED_IP_ADDRESS +" )"
         );
 
@@ -273,6 +274,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG7PeralatanKerjaLuarTugboatTable.Cols.CREATED_IP_ADDRESS +" ," +
                         FG7PeralatanKerjaLuarTugboatTable.Cols.MODIFIED_DATE +" ," +
                         FG7PeralatanKerjaLuarTugboatTable.Cols.MODIFIED_USER +" ," +
+                        FG7PeralatanKerjaLuarTugboatTable.Cols.NOTE +" ," +
                         FG7PeralatanKerjaLuarTugboatTable.Cols.MODIFIED_IP_ADDRESS +" )"
         );
 
@@ -301,6 +303,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG8PeralatanKerjaProduksiMesinTable.Cols.CREATED_IP_ADDRESS +" ," +
                         FG8PeralatanKerjaProduksiMesinTable.Cols.MODIFIED_DATE +" ," +
                         FG8PeralatanKerjaProduksiMesinTable.Cols.MODIFIED_USER +" ," +
+                        FG8PeralatanKerjaProduksiMesinTable.Cols.NOTE +" ," +
                         FG8PeralatanKerjaProduksiMesinTable.Cols.MODIFIED_IP_ADDRESS +" )"
         );
 
@@ -328,6 +331,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG9PeralatanKerjaProduksiKontruksi.Cols.CREATED_IP_ADDRESS +" ," +
                         FG9PeralatanKerjaProduksiKontruksi.Cols.MODIFIED_DATE +" ," +
                         FG9PeralatanKerjaProduksiKontruksi.Cols.MODIFIED_USER +" ," +
+                        FG9PeralatanKerjaProduksiKontruksi.Cols.NOTE +" ," +
                         FG9PeralatanKerjaProduksiKontruksi.Cols.MODIFIED_IP_ADDRESS +" )"
         );
 
@@ -355,6 +359,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.CREATED_IP_ADDRESS +" ," +
                         FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.MODIFIED_DATE +" ," +
                         FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.MODIFIED_USER +" ," +
+                        FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.NOTE +" ," +
                         FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.MODIFIED_IP_ADDRESS +" )"
         );
 
@@ -382,6 +387,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG11PeralatanKerjaProduksiPengecatan.Cols.CREATED_IP_ADDRESS +" ," +
                         FG11PeralatanKerjaProduksiPengecatan.Cols.MODIFIED_DATE +" ," +
                         FG11PeralatanKerjaProduksiPengecatan.Cols.MODIFIED_USER +" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.NOTE +" ," +
                         FG11PeralatanKerjaProduksiPengecatan.Cols.MODIFIED_IP_ADDRESS +" )"
         );
 
@@ -407,6 +413,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FK3aJenisKapasitasProduksiTable.Cols.CREATED_IP_ADDRESS +" ," +
                         FK3aJenisKapasitasProduksiTable.Cols.MODIFIED_DATE +" ," +
                         FK3aJenisKapasitasProduksiTable.Cols.MODIFIED_USER +" ," +
+                        FK3aJenisKapasitasProduksiTable.Cols.NOTE +" ," +
                         FK3aJenisKapasitasProduksiTable.Cols.MODIFIED_IP_ADDRESS +" )"
         );
 
@@ -433,6 +440,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FK3bJumlahProduksiTable.Cols.CREATED_IP_ADDRESS +" ," +
                         FK3bJumlahProduksiTable.Cols.MODIFIED_DATE +" ," +
                         FK3bJumlahProduksiTable.Cols.MODIFIED_USER +" ," +
+                        FK3bJumlahProduksiTable.Cols.NOTE +" ," +
                         FK3bJumlahProduksiTable.Cols.MODIFIED_IP_ADDRESS +" )"
         );
 
@@ -455,6 +463,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FK3cSistemBerproduksiTable.Cols.CREATED_IP_ADDRESS +" ," +
                         FK3cSistemBerproduksiTable.Cols.MODIFIED_DATE +" ," +
                         FK3cSistemBerproduksiTable.Cols.MODIFIED_USER +" ," +
+                        FK3cSistemBerproduksiTable.Cols.NOTE +" ," +
                         FK3cSistemBerproduksiTable.Cols.MODIFIED_IP_ADDRESS +" )"
         );
 
@@ -472,6 +481,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FK3dStandarMutuTableTable.Cols.CREATED_IP_ADDRESS +" ," +
                         FK3dStandarMutuTableTable.Cols.MODIFIED_DATE +" ," +
                         FK3dStandarMutuTableTable.Cols.MODIFIED_USER +" ," +
+                        FK3dStandarMutuTableTable.Cols.NOTE +" ," +
                         FK3dStandarMutuTableTable.Cols.MODIFIED_IP_ADDRESS +" )"
         );
 

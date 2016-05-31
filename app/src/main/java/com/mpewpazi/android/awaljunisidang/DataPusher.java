@@ -142,8 +142,8 @@ public class DataPusher {
             pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.ALAMAT_GALANGAN), formGalpal3.getAlamat()));
             pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.KELURAHAN_GALANGAN), formGalpal3.getKelurahan()));
             pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.KECAMATAN_GALANGAN), formGalpal3.getKecamatan()));
-            pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.ID_PROPINSI_GALANGAN), String.valueOf(formGalpal3.getPropinsiId())));
-            pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.ID_KABUPATEN_GALANGAN), String.valueOf(formGalpal3.getKebupaten_kotaId())));
+            pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.ID_PROPINSI_GALANGAN), String.valueOf(formGalpal3.getIdPropinsi())));
+            pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.ID_KABUPATEN_GALANGAN), String.valueOf(formGalpal3.getIdKabupaten_kota())));
             pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.KODE_POS_GALANGAN), formGalpal3.getKodePos()));
             pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.LATITUDE), formGalpal3.getLatitude()));
             pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.LONGITUDE), formGalpal3.getLongitude()));

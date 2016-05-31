@@ -23,7 +23,7 @@ public class FormGalpal6  extends SingleForm {
     private String kondisi;
     private String lokasi;
     private String status;
-    private String note;
+
 
     public static final int kode=7;
     public static final String kodeAsync="FG6";

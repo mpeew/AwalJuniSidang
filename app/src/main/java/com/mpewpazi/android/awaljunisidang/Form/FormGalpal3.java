@@ -17,8 +17,8 @@ public class FormGalpal3 extends SingleForm {
     private String alamat;
     private String kelurahan;
     private String kecamatan;
-    private int propinsiId;
-    private int kebupaten_kotaId;
+    private int idPropinsi;
+    private int idKabupaten_kota;
     private String kodePos;
     private String kategoriGalangan;
     private String longitude;
@@ -123,20 +123,20 @@ public class FormGalpal3 extends SingleForm {
         this.kecamatan = kecamatan;
     }
 
-    public int getPropinsiId() {
-        return propinsiId;
+    public int getIdPropinsi() {
+        return idPropinsi;
     }
 
-    public void setPropinsiId(int propinsiId) {
-        this.propinsiId = propinsiId;
+    public void setIdPropinsi(int idPropinsi) {
+        this.idPropinsi = idPropinsi;
     }
 
-    public int getKebupaten_kotaId() {
-        return kebupaten_kotaId;
+    public int getIdKabupaten_kota() {
+        return idKabupaten_kota;
     }
 
-    public void setKebupaten_kotaId(int kebupaten_kotaId) {
-        this.kebupaten_kotaId = kebupaten_kotaId;
+    public void setIdKabupaten_kota(int idKabupaten_kota) {
+        this.idKabupaten_kota = idKabupaten_kota;
     }
 
     public String getKodePos() {
