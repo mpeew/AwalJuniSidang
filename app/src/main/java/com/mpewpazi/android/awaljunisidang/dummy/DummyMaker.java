@@ -15,15 +15,16 @@ import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal7;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal8;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal9;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpalFoto;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.MenuF1;
-import com.mpewpazi.android.awaljunisidang.MenuF2;
 import com.mpewpazi.android.awaljunisidang.database.BaseDBHelper;
 import com.mpewpazi.android.awaljunisidang.database.CursorWrapperGal;
+import com.mpewpazi.android.awaljunisidang.masterData.MenuF1;
+import com.mpewpazi.android.awaljunisidang.masterData.MenuF2;
 import com.mpewpazi.android.awaljunisidang.masterData.MstAirPelayaran;
 import com.mpewpazi.android.awaljunisidang.masterData.MstArus;
 import com.mpewpazi.android.awaljunisidang.masterData.MstGelombang;
@@ -36,6 +37,7 @@ import com.mpewpazi.android.awaljunisidang.masterData.MstSatuan;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
+import com.mpewpazi.android.awaljunisidang.model.Notification;
 import com.mpewpazi.android.awaljunisidang.model.PeriodeSurvey;
 import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
 import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
@@ -60,6 +62,7 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKap
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3cSistemBerproduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarMutuTableTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FormGalpalFotoTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingGalpalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingKompalTable;
@@ -74,6 +77,7 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstKabupaten
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstPasangSurutTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstPropinsiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MstSatuanTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.NotificationTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PeriodeSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.PerusahaanTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.SurveyAssignSurveyorTable;
@@ -98,6 +102,8 @@ public class DummyMaker {
             sDummyMaker =new DummyMaker(context);
         }
         return sDummyMaker;
+
+
     }
 
     private DummyMaker(Context context){
@@ -906,6 +912,53 @@ public class DummyMaker {
         }
     }
 
+    public List<Notification> getNotifications(){
+        List<Notification> notifications=new ArrayList<>();
+        CursorWrapperGal cursor=querya(NotificationTable.NAME,null,null,NotificationTable.Cols.NOTIF_DATE);
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                notifications.add(cursor.getNotification());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return notifications;
+    }
+
+    public List<FormGalpalFoto> getFormGalpalFotos(int idKualifikasiSurvey){
+        List<FormGalpalFoto> formGalpalFotos=new ArrayList<>();
+        CursorWrapperGal cursor=query(FormGalpalFotoTable.NAME,FormGalpalFotoTable.Cols.ID_KUALIFIKASI_SURVEY+ "=?",
+                new String[] {String.valueOf(idKualifikasiSurvey)});
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                formGalpalFotos.add(cursor.getFormGalpalFoto());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+        return formGalpalFotos;
+    }
+
+    public FormGalpalFoto getFormGalpalFoto(UUID idFormGalpalFoto){
+        CursorWrapperGal cursor=query(FormGalpalFotoTable.NAME,FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN+ "=?",
+                new String[] {idFormGalpalFoto.toString()});
+        try{
+            if(cursor.getCount()==0){
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getFormGalpalFoto();
+        }finally {
+            cursor.close();
+        }
+    }
+
+
     //form2 galpal 6 yang memiliki kualifikasi survey id tertentu
     public List<FormGalpal6> getFormGalpal6s(int idKualifikasiSurvey){
         List<FormGalpal6> formGalpal6s=new ArrayList<>();
@@ -1696,6 +1749,42 @@ public class DummyMaker {
         }
     }
 
+    public void addFormGalpalFotoServer(FormGalpalFoto formGalpalFoto){
+        ContentValues values=getContentValues(formGalpalFoto);
+        String fotoId=String.valueOf(formGalpalFoto.getFormServerId());
+
+        CursorWrapperGal cursor=query(FormGalpalFotoTable.NAME, FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN_SERVER+ "=?",
+                new String[] {fotoId});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(FormGalpalFotoTable.NAME,null,values);
+            }else{
+                mDatabase.update(FormGalpalFotoTable.NAME,values,FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN_SERVER+ "=?",
+                        new String[] {fotoId});
+            }
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addFormGalpalFoto(FormGalpalFoto formGalpalFoto){
+        ContentValues values=getContentValues(formGalpalFoto);
+        String fotoId=String.valueOf(formGalpalFoto.getIdFotoGalangan());
+
+        CursorWrapperGal cursor=query(FormGalpalFotoTable.NAME, FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN+ "=?",
+                new String[] {fotoId});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(FormGalpalFotoTable.NAME,null,values);
+            }else{
+                mDatabase.update(FormGalpalFotoTable.NAME,values,FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN+ "=?",
+                        new String[] {fotoId});
+            }
+        }finally {
+            cursor.close();
+        }
+    }
+
 
 
 
@@ -1844,6 +1933,27 @@ public class DummyMaker {
         }
     }
 
+    public void addNotification(Notification notification){
+        ContentValues values=getContentValues(notification);
+        String notificationId=String.valueOf(notification.getIdNotification());
+
+        CursorWrapperGal cursor=query(NotificationTable.NAME,NotificationTable.Cols.ID_NOTIFICATION+ "=?",
+                new String[] {notificationId});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(NotificationTable.NAME,null,values);
+            }else{
+                mDatabase.update(NotificationTable.NAME,values,NotificationTable.Cols.ID_NOTIFICATION+ "=?",
+                        new String[] {notificationId});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+
+
 
 
 
@@ -1885,6 +1995,12 @@ public class DummyMaker {
                 new String[] {formGalpal11Id});
     }
 
+    public void deleteFormGalpalFoto(FormGalpalFoto formGalpalFoto){
+        String formGalpalFotoId=String.valueOf(formGalpalFoto.getIdFotoGalangan());
+        mDatabase.delete(FormGalpalFotoTable.NAME,FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN+ "=?",
+                new String[] {formGalpalFotoId});
+    }
+
     public void deleteFormKompal3a(FormKompal3a formKompal3a){
         String formKompal3aId=formKompal3a.getIdJenisKapasitasProduksi().toString();
         mDatabase.delete(FK3aJenisKapasitasProduksiTable.NAME,FK3aJenisKapasitasProduksiTable.Cols.ID_F2_JENIS_KAPASITAS_PRODUKSI+ "=?",
@@ -1909,6 +2025,12 @@ public class DummyMaker {
                 new String[] {formKompal3dId});
     }
 
+    public void deleteNotification(Notification notification){
+        String notificationId= String.valueOf(notification.getIdNotification());
+        mDatabase.delete(NotificationTable.NAME,NotificationTable.Cols.ID_NOTIFICATION+ "=?",
+                new String[] {notificationId});
+    }
+
     public void deleteGalpalFormsMenus(){
         mDatabase.delete(FG1PerusahaanIdentitasTable.NAME,null,null);
         mDatabase.delete(FG3GalanganKapalTable.NAME,null,null);
@@ -1919,6 +2041,7 @@ public class DummyMaker {
         mDatabase.delete(FG9PeralatanKerjaProduksiKontruksi.NAME,null,null);
         mDatabase.delete(FG10PeralatanKerjaProduksiElektrikalMekanikal.NAME,null,null);
         mDatabase.delete(FG11PeralatanKerjaProduksiPengecatan.NAME,null,null);
+        mDatabase.delete(FormGalpalFotoTable.NAME,null,null);
         mDatabase.delete(MenuCheckingGalpalTable.NAME,null,null);
     }
 
@@ -2203,7 +2326,19 @@ public class DummyMaker {
     }
 
 
-
+    private static ContentValues getContentValues(FormGalpalFoto formGalpalFoto){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN, formGalpalFoto.getIdFotoGalangan().toString());
+        contentValues.put(FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN_SERVER, formGalpalFoto.getFormServerId());
+        contentValues.put(FormGalpalFotoTable.Cols.ID_KUALIFIKASI_SURVEY, formGalpalFoto.getKualifikasiSurveyId());
+        contentValues.put(FormGalpalFotoTable.Cols.ID_PERIODE, formGalpalFoto.getIdPeriode());
+        contentValues.put(FormGalpalFotoTable.Cols.NAMA_FOTO, formGalpalFoto.getNamaFoto());
+        contentValues.put(FormGalpalFotoTable.Cols.FOTO_GALANGAN, formGalpalFoto.getFotoGalangan());
+        contentValues.put(FormGalpalFotoTable.Cols.FOTO_URL,formGalpalFoto.getFotoUrl());
+        contentValues.put(FormGalpalFotoTable.Cols.IMAGE_PATH,formGalpalFoto.getImagePath());
+        contentValues.put(FormGalpalFotoTable.Cols.IS_FETCH_FROM_SERVER,formGalpalFoto.isFetchFromServer() ? 1 : 0);
+        return contentValues;
+    }
 
 
     private static ContentValues getContentValues(FormKompal3a formKompal3a){
@@ -2377,6 +2512,21 @@ public class DummyMaker {
         return contentValues;
     }
 
+    private static ContentValues getContentValues(Notification notification){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(NotificationTable.Cols.ID_NOTIFICATION,notification.getIdNotification());
+        contentValues.put(NotificationTable.Cols.USERID,notification.getUserId());
+        contentValues.put(NotificationTable.Cols.FROMUSERID,notification.getFromUserId());
+        contentValues.put(NotificationTable.Cols.NOTIF_DATE,notification.getNotifyDate().getTime());
+        contentValues.put(NotificationTable.Cols.NOTIF_MESSAGE,notification.getNotifyMessage());
+        contentValues.put(NotificationTable.Cols.NOTIF_TITLE,notification.getNotifyTitle());
+        contentValues.put(NotificationTable.Cols.NOTIF_STATUS,notification.getNotifyStatus());
+
+        return contentValues;
+    }
+
+
+
 
 
 
@@ -2429,6 +2579,15 @@ public class DummyMaker {
         }
 
         return new File(externalFilesDir,formGalpal3.getPhotoFileName());
+    }
+
+    public File getPhotoFile(FormGalpalFoto formGalpalFoto){
+        File externalFilesDir=mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        if(externalFilesDir==null){
+            return null;
+        }
+
+        return new File(externalFilesDir,formGalpalFoto.getPhotoFileName());
     }
 
 }

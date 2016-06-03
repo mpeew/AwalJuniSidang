@@ -11,13 +11,16 @@ import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal7;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal8;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal9;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpalFoto;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
+import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
+import com.mpewpazi.android.awaljunisidang.model.Notification;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -50,6 +53,7 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3cSistemBe
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarMutuTableTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingGalpalTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.NotificationTable;
 
 
 /**
@@ -65,6 +69,7 @@ public class DataPusher {
     private static final String urlPostFG9="http://192.168.1.100/galpal/f1PeralatanKerjaProdKonstruksi/postapi/";
     private static final String urlPostFG10="http://192.168.1.100/galpal/f1PeralatanKerjaProdElmek/postapi/";
     private static final String urlPostFG11="http://192.168.1.100/galpal/f1PeralatanKerjaProdCat/postapi/";
+    public static final String urlPostFGFoto="http://192.168.1.100/galpal/f1FotoGalangan/postfotoapi";
 
     private static final String urlPostFK3a="http://192.168.1.100/galpal/f2JenisKapasitasProduksi/postapi/";
     private static final String urlPostFK3b="http://192.168.1.100/galpal/f2JumlahProduksi/postapi/";
@@ -77,6 +82,8 @@ public class DataPusher {
     private static final String urlPostMenuCheckingKompal="http://192.168.1.100/galpal/menuF2EntryChecking/postapichecking/";
 
     private static final String urlPostKualifikasiSurvey="http://192.168.1.100/galpal/kualifikasiSurvey/postapi/";
+    private static final String urlPostNotification="http://192.168.1.100/galpal/notification/postapi/";
+
 
 
 
@@ -518,7 +525,46 @@ public class DataPusher {
         }
     }
 
+    public void makePostRequestFGFoto(FormGalpalFoto formGalpalFoto) {
 
+        HttpClient client = new DefaultHttpClient();
+        String postURL = (urlPostFGFoto);
+        HttpPost post = new HttpPost(postURL);
+        try {
+            // Add the data
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
+            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            if(formGalpalFoto.getFormServerId()!=0) {
+                pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpalFoto.getFormServerId())));
+            }
+            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(DhSchema.FormGalpalFotoTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpalFoto.getKualifikasiSurveyId())));
+            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(DhSchema.FormGalpalFotoTable.Cols.ID_PERIODE), String.valueOf(formGalpalFoto.getIdPeriode())));
+            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(DhSchema.FormGalpalFotoTable.Cols.NAMA_FOTO), formGalpalFoto.getNamaFoto()));
+            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(DhSchema.FormGalpalFotoTable.Cols.FOTO_GALANGAN), formGalpalFoto.getFotoGalangan()));
+            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(DhSchema.FormGalpalFotoTable.Cols.NOTE), formGalpalFoto.getNote()));
+
+
+            UrlEncodedFormEntity uefe = new UrlEncodedFormEntity(pairs);
+            post.setEntity(uefe);
+            // Execute the HTTP Post Request
+            HttpResponse response = client.execute(post);
+            // Convert the response into a String
+            HttpEntity resEntity = response.getEntity();
+            if (resEntity != null) {
+                Log.i("RESPONSEFOTO", EntityUtils.toString(resEntity));
+            }
+            if(formGalpalFoto.getFormServerId()==0) {
+                new DataFetcher().fetchFormLastInsert(formGalpalFoto,DataFetcher.FGFotoENDPOINT, DhSchema.FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN_SERVER);
+            }
+        } catch (UnsupportedEncodingException uee) {
+            uee.printStackTrace();
+        } catch (ClientProtocolException cpe) {
+            cpe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
 
     public void makePostRequestFK3a(FormKompal3a formKompal3a) {
 
@@ -796,6 +842,42 @@ public class DataPusher {
 
     }
 
+    public void makePostRequestNotification(Notification notification) {
+        HttpClient client = new DefaultHttpClient();
+        String postURL = (urlPostNotification);
+        HttpPost post = new HttpPost(postURL);
+        try {
+            // Add the data
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
+            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("id", String.valueOf(notification.getIdNotification())));
+            pairs.add(new BasicNameValuePair(encapsulateNotificationCols(NotificationTable.Cols.USERID), notification.getUserId()));
+            pairs.add(new BasicNameValuePair(encapsulateNotificationCols(NotificationTable.Cols.FROMUSERID), notification.getFromUserId()));
+            pairs.add(new BasicNameValuePair(encapsulateNotificationCols(NotificationTable.Cols.NOTIF_DATE), String.valueOf(notification.getNotifyDate().getTime())));
+            pairs.add(new BasicNameValuePair(encapsulateNotificationCols(NotificationTable.Cols.NOTIF_MESSAGE), notification.getNotifyMessage()));
+            pairs.add(new BasicNameValuePair(encapsulateNotificationCols(NotificationTable.Cols.NOTIF_TITLE), notification.getNotifyTitle()));
+            pairs.add(new BasicNameValuePair(encapsulateNotificationCols(NotificationTable.Cols.NOTIF_STATUS), notification.getNotifyStatus()));
+
+            UrlEncodedFormEntity uefe = new UrlEncodedFormEntity(pairs);
+            post.setEntity(uefe);
+            // Execute the HTTP Post Request
+            HttpResponse response = client.execute(post);
+            // Convert the response into a String
+            HttpEntity resEntity = response.getEntity();
+            if (resEntity != null) {
+                Log.i("RESPONSEPOSTNOTIF", EntityUtils.toString(resEntity));
+            }
+        } catch (UnsupportedEncodingException uee) {
+            uee.printStackTrace();
+        } catch (ClientProtocolException cpe) {
+            cpe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+    }
+
 
     private String encapsulateFG1Cols(String cols){
         return "PerusahaanIdentitas["+cols+"]";
@@ -859,6 +941,14 @@ public class DataPusher {
 
     private String encapsulateKualifikasiSurveyCols(String cols){
         return "KualifikasiSurvey["+cols+"]";
+    }
+
+    private String encapsulateNotificationCols(String cols){
+        return "Notification["+cols+"]";
+    }
+
+    private String encapsulateFGFotoCols(String cols){
+        return "F1FotoGalangan["+cols+"]";
     }
 
 }

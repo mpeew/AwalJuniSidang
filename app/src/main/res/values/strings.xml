@@ -9,6 +9,7 @@
     </string-array>
 
     <string-array name="status_kepemilikan_usaha">
+        <item>-</item>
         <item>PMA</item>
         <item>PMDN</item>
         <item>BUMN</item>
@@ -52,7 +53,7 @@
 
     <string-array name="rutrw">
         <item>SELARAS</item>
-        <item>BERTENTANGAN></item>
+        <item>BERTENTANGAN</item>
     </string-array>
 
     <string name="lengkap">Tandai Sebagai Sudah Lengkap</string>

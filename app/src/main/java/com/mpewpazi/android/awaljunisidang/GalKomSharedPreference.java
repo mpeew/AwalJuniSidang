@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 public class GalKomSharedPreference {
     private static final String PREF_STATUS_LOGIN="statusLogin";
     private static final String PREF_POSTITION_CLICKED_DRAWER="postionClickedDrawer";
+    private static final String PREF_USERID="userid";
 
 
     public static boolean isLoggedIn(Context context){
@@ -32,6 +33,18 @@ public class GalKomSharedPreference {
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit()
                 .putInt(PREF_POSTITION_CLICKED_DRAWER,position)
+                .apply();
+    }
+
+    public static String getUserId(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(PREF_USERID,null);
+    }
+
+    public static void setUserId(Context context,String userId){
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putString(PREF_USERID,userId)
                 .apply();
     }
 

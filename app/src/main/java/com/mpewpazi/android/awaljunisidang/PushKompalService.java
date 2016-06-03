@@ -23,6 +23,7 @@ import java.util.List;
 public class PushKompalService extends IntentService {
     private static final String TAG="PushKompalService";
     private static final int POLL_INTERVAL = 1000 * 60 * 1; // 15 menit
+    private static final int KOMPAL_PUSH_REQUEST_CODE=1;
 
     public static Intent newIntent(Context context){
         return new Intent(context,PushKompalService.class);
@@ -30,7 +31,7 @@ public class PushKompalService extends IntentService {
 
     public static void setServiceAlarm(Context context,boolean isOn){
         Intent i=PushKompalService.newIntent(context);
-        PendingIntent pi=PendingIntent.getService(context,0,i,0);
+        PendingIntent pi=PendingIntent.getService(context,KOMPAL_PUSH_REQUEST_CODE,i,0);
 
         AlarmManager alarmManager=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         if(isOn){
@@ -45,7 +46,7 @@ public class PushKompalService extends IntentService {
     public static boolean isServiceAlarmOn(Context context) {
         Intent i = PushKompalService.newIntent(context);
         PendingIntent pi = PendingIntent
-                .getService(context, 0, i, PendingIntent.FLAG_NO_CREATE);
+                .getService(context, KOMPAL_PUSH_REQUEST_CODE, i, PendingIntent.FLAG_NO_CREATE);
         return pi != null;
     }
 

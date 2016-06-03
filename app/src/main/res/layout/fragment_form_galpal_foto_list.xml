@@ -1,0 +1,43 @@
+<LinearLayout
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimaryDark"
+        android:text="FOTO GALANGAN KAPAL"
+        android:textSize="17dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/form_galpal_foto_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="89"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <Button android:id="@+id/galpal_foto_btn_submit"
+            android:layout_weight="11"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:text="@string/lengkap"
+            android:background="@android:color/holo_red_light"
+            android:layout_marginTop="0dp"
+            android:textColor="@android:color/white"/>
+
+</LinearLayout>

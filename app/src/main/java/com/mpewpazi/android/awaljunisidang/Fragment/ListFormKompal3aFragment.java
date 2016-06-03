@@ -106,6 +106,8 @@ public class ListFormKompal3aFragment extends SingleFragment {
                 mDummyMaker.addKualifikasiSurvey(mKualifikasiSurvey);
                 mCustomClickListener.clickListener();
 
+
+
             }
         });
 

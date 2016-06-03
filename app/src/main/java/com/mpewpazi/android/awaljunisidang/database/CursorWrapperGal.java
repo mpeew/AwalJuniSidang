@@ -16,8 +16,8 @@ import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
-import com.mpewpazi.android.awaljunisidang.MenuF1;
-import com.mpewpazi.android.awaljunisidang.MenuF2;
+import com.mpewpazi.android.awaljunisidang.masterData.MenuF1;
+import com.mpewpazi.android.awaljunisidang.masterData.MenuF2;
 import com.mpewpazi.android.awaljunisidang.masterData.MstAirPelayaran;
 import com.mpewpazi.android.awaljunisidang.masterData.MstArus;
 import com.mpewpazi.android.awaljunisidang.masterData.MstGelombang;
@@ -27,16 +27,20 @@ import com.mpewpazi.android.awaljunisidang.masterData.MstKabupaten;
 import com.mpewpazi.android.awaljunisidang.masterData.MstPasangSurut;
 import com.mpewpazi.android.awaljunisidang.masterData.MstPropinsi;
 import com.mpewpazi.android.awaljunisidang.masterData.MstSatuan;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpalFoto;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
+import com.mpewpazi.android.awaljunisidang.model.Notification;
 import com.mpewpazi.android.awaljunisidang.model.PeriodeSurvey;
 import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
 import com.mpewpazi.android.awaljunisidang.model.SurveyAssignSurveyor;
 import com.mpewpazi.android.awaljunisidang.model.User;
 
+import java.util.Date;
 import java.util.UUID;
 
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.*;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG10PeralatanKerjaProduksiElektrikalMekanikal;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG11PeralatanKerjaProduksiPengecatan;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FG1PerusahaanIdentitasTable;
@@ -352,22 +356,22 @@ public class CursorWrapperGal extends CursorWrapper{
     }
 
     public FormGalpal7 getFormGalpal7(){
-        String idPeralatanKerjaCrane=getString(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG));
-        int idServerPeralatanKerjaCrane=getInt(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG_SERVER));
-        int idKualifikasiSurvey=getInt(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.ID_KUALIFIKASI_SURVEY));
-        String jenisMesin=getString(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.JENIS_MESIN));
-        int tahunPembuatan=getInt(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.TAHUN_PEMBUATAN));
-        String merek=getString(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.MERK));
-        int kapasitasTerpasang=getInt(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.KAPASAITAS_TERPASANG));
-        String stnKapasitasTerpasang=getString(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPASANG));
-        int kapasitasTerpakai=getInt(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.KAPASITAS_TERPAKAI));
-        String stnKapasitasTerpakai=getString(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPAKAI));
-        String dimensi=getString(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.DIMENSI));
-        int jumlah=getInt(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.JUMLAH));
-        String kondisi=getString(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.KONDISI));
-        String lokasi=getString(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.LOKASI));
-        String status=getString(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.STATUS));
-        String note=getString(getColumnIndex(DhSchema.FG7PeralatanKerjaLuarTugboatTable.Cols.NOTE));
+        String idPeralatanKerjaCrane=getString(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG));
+        int idServerPeralatanKerjaCrane=getInt(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.ID_F1_PERALATAN_KERJA_LR_TUG_SERVER));
+        int idKualifikasiSurvey=getInt(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.ID_KUALIFIKASI_SURVEY));
+        String jenisMesin=getString(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.JENIS_MESIN));
+        int tahunPembuatan=getInt(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.TAHUN_PEMBUATAN));
+        String merek=getString(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.MERK));
+        int kapasitasTerpasang=getInt(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.KAPASAITAS_TERPASANG));
+        String stnKapasitasTerpasang=getString(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPASANG));
+        int kapasitasTerpakai=getInt(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.KAPASITAS_TERPAKAI));
+        String stnKapasitasTerpakai=getString(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPAKAI));
+        String dimensi=getString(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.DIMENSI));
+        int jumlah=getInt(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.JUMLAH));
+        String kondisi=getString(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.KONDISI));
+        String lokasi=getString(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.LOKASI));
+        String status=getString(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.STATUS));
+        String note=getString(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.NOTE));
 
         FormGalpal7 formGalpal7=new FormGalpal7(UUID.fromString(idPeralatanKerjaCrane));
         formGalpal7.setFormServerId(idServerPeralatanKerjaCrane);
@@ -540,6 +544,30 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal11.setNote(note);
 
         return formGalpal11;
+    }
+
+    public FormGalpalFoto getFormGalpalFoto(){
+        String id=getString(getColumnIndex(FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN));
+        int idServer=getInt(getColumnIndex(FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN_SERVER));
+        int idKualifikasiSurvey=getInt(getColumnIndex(FormGalpalFotoTable.Cols.ID_KUALIFIKASI_SURVEY));
+        int idPeriode=getInt(getColumnIndex(FormGalpalFotoTable.Cols.ID_PERIODE));
+        String namaFoto=getString(getColumnIndex(FormGalpalFotoTable.Cols.NAMA_FOTO));
+        String fotoGalangan=getString(getColumnIndex(FormGalpalFotoTable.Cols.FOTO_GALANGAN));
+        String fotoUrl=getString(getColumnIndex(FormGalpalFotoTable.Cols.FOTO_URL));
+        String imagePath=getString(getColumnIndex(FormGalpalFotoTable.Cols.IMAGE_PATH));
+        int isFetchFromServer=getInt(getColumnIndex(FormGalpalFotoTable.Cols.IS_FETCH_FROM_SERVER));
+
+        FormGalpalFoto foto=new FormGalpalFoto(UUID.fromString(id));
+        foto.setFormServerId(idServer);
+        foto.setKualifikasiSurveyId(idKualifikasiSurvey);
+        foto.setIdPeriode(idPeriode);
+        foto.setNamaFoto(namaFoto);
+        foto.setFotoGalangan(fotoGalangan);
+        foto.setFotoUrl(fotoUrl);
+        foto.setImagePath(imagePath);
+        foto.setFetchFromServer(isFetchFromServer==1);
+
+        return foto;
     }
 
     public FormKompal3a getFormKompal3a(){
@@ -824,4 +852,27 @@ public class CursorWrapperGal extends CursorWrapper{
 
         return menuF2;
     }
+
+    public Notification getNotification(){
+        int id=getInt(getColumnIndex(NotificationTable.Cols.ID_NOTIFICATION));
+        String userid=getString(getColumnIndex(NotificationTable.Cols.USERID));
+        String fromUserid=getString(getColumnIndex(NotificationTable.Cols.FROMUSERID));
+        long notifyDate=getLong(getColumnIndex(NotificationTable.Cols.NOTIF_DATE));
+        String notifyMessage=getString(getColumnIndex(NotificationTable.Cols.NOTIF_MESSAGE));
+        String notifyTitle=getString(getColumnIndex(NotificationTable.Cols.NOTIF_TITLE));
+        String notifyStatus=getString(getColumnIndex(NotificationTable.Cols.NOTIF_STATUS));
+
+        Notification notification=new Notification();
+        notification.setIdNotification(id);
+        notification.setUserId(userid);
+        notification.setFromUserId(fromUserid);
+        notification.setNotifyDate(new Date(notifyDate));
+        notification.setNotifyMessage(notifyMessage);
+        notification.setNotifyTitle(notifyTitle);
+        notification.setNotifyStatus(notifyStatus);
+
+        return notification;
+    }
+
+
 }

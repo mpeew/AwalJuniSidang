@@ -32,6 +32,7 @@ import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
+import com.mpewpazi.android.awaljunisidang.HomePageActivity;
 import com.mpewpazi.android.awaljunisidang.PictureUtils;
 import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
@@ -658,6 +659,8 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
         }
         if (requestCode==REQUEST_PHOTO){
             mFormGalpal3.setImagePath(mPhotoFile.getPath());
+            Intent intent=new Intent(getActivity(),HomePageActivity.class);
+            startActivity(intent);
             updatePhotoView();
         }else if(requestCode==REQUEST_SELECT_FILE){
             Uri selectedImageUri = data.getData();

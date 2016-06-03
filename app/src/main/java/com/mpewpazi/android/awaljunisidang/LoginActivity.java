@@ -25,12 +25,16 @@ import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal7;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal8;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal9;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpalFoto;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.masterData.Menu;
+import com.mpewpazi.android.awaljunisidang.masterData.MenuF1;
+import com.mpewpazi.android.awaljunisidang.masterData.MenuF2;
 import com.mpewpazi.android.awaljunisidang.masterData.MstAirPelayaran;
 import com.mpewpazi.android.awaljunisidang.masterData.MstArus;
 import com.mpewpazi.android.awaljunisidang.masterData.MstGelombang;
@@ -107,16 +111,19 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 mUserId=mUsernameEditText.getText().toString();
                 FetchKualifikasiSurveyTask fetchKualifikasiSurveyTask;
                 if(mUserId.equals("perinurpazri")){
-                    fetchKualifikasiSurveyTask=new FetchKualifikasiSurveyTask(20150205,20150291);
+                    fetchKualifikasiSurveyTask=new FetchKualifikasiSurveyTask(mUserId);
                     fetchKualifikasiSurveyTask.execute();
+                    GalKomSharedPreference.setUserId(getApplicationContext(),mUserId);
                 }else if(mUserId.equals("mpewpazi")){
-                    fetchKualifikasiSurveyTask=new FetchKualifikasiSurveyTask(20150101,20150102);
+                    fetchKualifikasiSurveyTask=new FetchKualifikasiSurveyTask(mUserId);
                     fetchKualifikasiSurveyTask.execute();
+                    GalKomSharedPreference.setUserId(getApplicationContext(),mUserId);
                 }else{
                     Toast.makeText(getApplicationContext(),"Salah",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 GalKomSharedPreference.setLoggedIn(getApplicationContext(),true);
+                NotificationService.setServiceAlarm(LoginActivity.this,true);
             }
         });
 
@@ -202,6 +209,9 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         break;
                     case FormGalpal11.kodeAsync:
                         DummyMaker.get(getApplicationContext()).addFormGalpal11Server((FormGalpal11)singleForm);
+                        break;
+                    case FormGalpalFoto.kodeAsync:
+                        DummyMaker.get(getApplicationContext()).addFormGalpalFotoServer((FormGalpalFoto) singleForm);
                         break;
                     case FormKompal3a.kodeAsync:
                         DummyMaker.get(getApplicationContext()).addFormKompal3aServer((FormKompal3a)singleForm);
@@ -346,13 +356,14 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
 
     private class FetchKualifikasiSurveyTask extends AsyncTask<Void,Void,List<KualifikasiSurvey>> {
-        private int mKualifikasiSurveyId1;
-        private int mKualifikasiSurveyId2;
+        private String mUserId;
         private ProgressDialog dialog=new ProgressDialog(LoginActivity.this);
 
-        public FetchKualifikasiSurveyTask(int kualifikasiSurveyId1,int kualifikasiSurveyId2){
-            mKualifikasiSurveyId1=kualifikasiSurveyId1;
-            mKualifikasiSurveyId2=kualifikasiSurveyId2;
+        private KualifikasiSurvey mKualifikasiSurveyId1;
+        private KualifikasiSurvey mKualifikasISurveyId2;
+
+        public FetchKualifikasiSurveyTask(String userId){
+            mUserId=userId;
         }
 
         @Override
@@ -366,10 +377,16 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             Log.i("a", "Received JSON ");
             List<KualifikasiSurvey> kualifikasiSurveys=new ArrayList<>();
             DataFetcher dataFetcher=new DataFetcher();
-            KualifikasiSurvey kualifikasiSurvey1=dataFetcher.fetchKualifikasiSurvey(String.valueOf(mKualifikasiSurveyId1));
-            KualifikasiSurvey kualifikasiSurvey2=dataFetcher.fetchKualifikasiSurvey(String.valueOf(mKualifikasiSurveyId2));
-            kualifikasiSurveys.add(kualifikasiSurvey1);
-            kualifikasiSurveys.add(kualifikasiSurvey2);
+            if(mUserId.equals("mpewpazi")){
+                mKualifikasiSurveyId1=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150101));
+                mKualifikasISurveyId2=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150102));
+            }else if(mUserId.equals("perinurpazri")){
+                mKualifikasiSurveyId1=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150205));
+                mKualifikasISurveyId2=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150291));
+            }
+
+            kualifikasiSurveys.add(mKualifikasiSurveyId1);
+            kualifikasiSurveys.add(mKualifikasISurveyId2);
             return kualifikasiSurveys;
         }
 

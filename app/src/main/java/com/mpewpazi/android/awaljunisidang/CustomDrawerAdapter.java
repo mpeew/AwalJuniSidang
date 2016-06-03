@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.masterData.Menu;
 import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
 import java.util.List;

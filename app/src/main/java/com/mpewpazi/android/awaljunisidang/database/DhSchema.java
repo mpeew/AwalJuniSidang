@@ -450,6 +450,23 @@ public class DhSchema {
         }
     }
 
+    public static final class FormGalpalFotoTable{
+        public static final String NAME="f1_foto_galangan";
+        public static final class Cols{
+            public static final String ID_F1_FOTO_GALANGAN_SERVER="id_f1_foto_galangan";
+            public static final String ID_F1_FOTO_GALANGAN="id_f1_foto_galangan_local";
+            public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
+            public static final String ID_PERIODE="id_periode";
+            public static final String NAMA_FOTO="nama_foto";
+            public static final String FOTO_GALANGAN="foto_galangan";
+            public static final String NOTE="note";
+            public static final String IMAGE_PATH="image_path";
+            public static final String FOTO_URL="foto";
+            public static final String IS_FETCH_FROM_SERVER="is_fetch_from_server";
+
+        }
+    }
+
     //FORM GALPAL 12
     public static final class FG12PeralatanKerjaProduksiInterior {
         public static final String NAME="f1_peralatan_kerja_produksi_interior";
@@ -1048,6 +1065,19 @@ public class DhSchema {
             public static final String ID_MENU_F2="id_menu_f2";
             public static final String NUMBER="number";
             public static final String NAMA_MENU="nama_menu";
+        }
+    }
+
+    public static final class NotificationTable{
+        public static final String NAME="notification";
+        public static final class Cols{
+            public static final String ID_NOTIFICATION="id_notification";
+            public static final String USERID="userid";
+            public static final String FROMUSERID="fromuserid";
+            public static final String NOTIF_DATE="notif_date";
+            public static final String NOTIF_MESSAGE="notif_message";
+            public static final String NOTIF_TITLE="notif_title";
+            public static final String NOTIF_STATUS="notif_status";
         }
     }
 

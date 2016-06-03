@@ -28,6 +28,7 @@ import java.util.List;
 public class PushGalpalService extends IntentService {
     private static final String TAG="PushGalpalService";
     private static final int POLL_INTERVAL = 1000 * 60 * 1; // 15 menit
+    private static final int GALPAL_PUSH_REQUEST_CODE=0;
 
     public static Intent newIntent(Context context){
         return new Intent(context,PushGalpalService.class);
@@ -35,7 +36,7 @@ public class PushGalpalService extends IntentService {
 
     public static void setServiceAlarm(Context context,boolean isOn){
         Intent i=PushGalpalService.newIntent(context);
-        PendingIntent pi=PendingIntent.getService(context,0,i,0);
+        PendingIntent pi=PendingIntent.getService(context,GALPAL_PUSH_REQUEST_CODE,i,0);
 
         AlarmManager alarmManager=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         if(isOn){
@@ -50,7 +51,7 @@ public class PushGalpalService extends IntentService {
     public static boolean isServiceAlarmOn(Context context) {
         Intent i = PushGalpalService.newIntent(context);
         PendingIntent pi = PendingIntent
-                .getService(context, 0, i, PendingIntent.FLAG_NO_CREATE);
+                .getService(context, GALPAL_PUSH_REQUEST_CODE, i, PendingIntent.FLAG_NO_CREATE);
         return pi != null;
     }
 

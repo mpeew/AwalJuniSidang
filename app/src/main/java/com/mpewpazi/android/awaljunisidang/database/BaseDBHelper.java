@@ -391,6 +391,18 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG11PeralatanKerjaProduksiPengecatan.Cols.MODIFIED_IP_ADDRESS +" )"
         );
 
+        db.execSQL(
+                "create table "+FormGalpalFotoTable.NAME+
+                        "("+FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN+" text primary key ," +
+                        FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN_SERVER+" integer ," +
+                        FormGalpalFotoTable.Cols.ID_KUALIFIKASI_SURVEY+" integer ," +
+                        FormGalpalFotoTable.Cols.ID_PERIODE+" ," +
+                        FormGalpalFotoTable.Cols.NAMA_FOTO+" ," +
+                        FormGalpalFotoTable.Cols.IMAGE_PATH+" ," +
+                        FormGalpalFotoTable.Cols.FOTO_URL+" ," +
+                        FormGalpalFotoTable.Cols.IS_FETCH_FROM_SERVER+" ," +
+                        FormGalpalFotoTable.Cols.FOTO_GALANGAN+" )"
+        );
 
 
 
@@ -582,6 +594,19 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         MenuF2Table.Cols.NUMBER+" ," +
                         MenuF2Table.Cols.NAMA_MENU+" )"
         );
+
+        db.execSQL(
+                "create table "+NotificationTable.NAME+
+                        "("+NotificationTable.Cols.ID_NOTIFICATION+" integer primary key ," +
+                        NotificationTable.Cols.USERID+" ," +
+                        NotificationTable.Cols.FROMUSERID+" ," +
+                        NotificationTable.Cols.NOTIF_DATE+" ," +
+                        NotificationTable.Cols.NOTIF_MESSAGE+" ," +
+                        NotificationTable.Cols.NOTIF_TITLE+" ," +
+                        NotificationTable.Cols.NOTIF_STATUS+" )"
+        );
+
+
 
 
 

@@ -1,6 +1,9 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -10,12 +13,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 
 import com.mpewpazi.android.awaljunisidang.CustomClickListener;
+import com.mpewpazi.android.awaljunisidang.Form.FormGalpalFoto;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
+import com.mpewpazi.android.awaljunisidang.PictureUtils;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 
 /**
@@ -24,6 +30,12 @@ import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 public class SingleFragment extends Fragment {
     protected CustomClickListener mCustomClickListener;
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     public void setCustomClickListener(CustomClickListener customClickListener){
         mCustomClickListener=customClickListener;
@@ -87,6 +99,15 @@ public class SingleFragment extends Fragment {
 
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
+        }
+    }
+
+    protected void updatePhotoView(FormGalpalFoto formGalpalFoto, ImageView mPhotoView){
+        if(formGalpalFoto.getImagePath()==null){
+            mPhotoView.setImageDrawable(null);
+        }else{
+            Bitmap bitmap= PictureUtils.getScaledBitmap(formGalpalFoto.getImagePath(),getActivity());
+            mPhotoView.setImageBitmap(bitmap);
         }
     }
 

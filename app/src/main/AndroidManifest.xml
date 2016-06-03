@@ -28,7 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".DrawerFormActivity">
+        <activity android:name=".DrawerFormActivity"
+            android:configChanges="orientation">
         </activity>
         <activity android:name=".FormGalpal6PagerActivity">
         </activity>
@@ -39,6 +40,8 @@
         <activity android:name=".FormGalpal9PagerActivity">
         </activity>
         <activity android:name=".FormGalpal10PagerActivity">
+        </activity>
+        <activity android:name=".FormGalpalFotoPagerActivity">
         </activity>
         <activity android:name=".FormGalpal11PagerActivity">
         </activity>
@@ -52,6 +55,7 @@
         </activity>
         <service android:name=".PushKompalService" />
         <service android:name=".PushGalpalService" />
+        <service android:name=".NotificationService" />
     </application>
 
 </manifest>

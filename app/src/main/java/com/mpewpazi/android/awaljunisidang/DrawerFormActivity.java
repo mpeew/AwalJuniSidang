@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal6Fragment;
 import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal7Fragment;
 import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal8Fragment;
 import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpal9Fragment;
+import com.mpewpazi.android.awaljunisidang.Fragment.ListFormGalpalFotoFragment;
 import com.mpewpazi.android.awaljunisidang.Fragment.ListFormKompal3aFragment;
 import com.mpewpazi.android.awaljunisidang.Fragment.ListFormKompal3bFragment;
 import com.mpewpazi.android.awaljunisidang.Fragment.ListFormKompal3cFragment;
@@ -67,6 +69,8 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
         setContentView(R.layout.activity_main);
 
 
+
+
         kualifikasiSurveyId=getIntent().getIntExtra(EXTRA_ID_SURVEY,0);
 
         mDummyMaker=DummyMaker.get(this);
@@ -85,13 +89,14 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
 
         //munculkan fragmen 0
        // Fragment fragment=new FormGalpal1Fragment();
-        if (savedInstanceState == null) {
+
+            Log.i("Coba","Test");
             if(isGalpalIndustri) {
                 SelectItemGalpal(0);
             }else{
                 SelectItemKompal(0);
             }
-        }
+
 
         setupDrawer();
 
@@ -211,24 +216,27 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
                 fragment= new FormGalpal3Fragment();
                 break;
             case 2:
-                fragment= new FormGalpal4Fragment();
+                fragment= new ListFormGalpalFotoFragment();
                 break;
             case 3:
-                fragment= new ListFormGalpal6Fragment();
+                fragment= new FormGalpal4Fragment();
                 break;
             case 4:
-                fragment= new ListFormGalpal7Fragment();
+                fragment= new ListFormGalpal6Fragment();
                 break;
             case 5:
-                fragment= new ListFormGalpal8Fragment();
+                fragment= new ListFormGalpal7Fragment();
                 break;
             case 6:
-                fragment= new ListFormGalpal9Fragment();
+                fragment= new ListFormGalpal8Fragment();
                 break;
             case 7:
-                fragment= new ListFormGalpal10Fragment();
+                fragment= new ListFormGalpal9Fragment();
                 break;
             case 8:
+                fragment= new ListFormGalpal10Fragment();
+                break;
+            case 9:
                 fragment= new ListFormGalpal11Fragment();
                 break;
             default:

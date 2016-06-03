@@ -170,6 +170,8 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
         mKabupatenSpinner=(Spinner)rootView.findViewById(R.id.galpal1_kabupaten_spinner);
         mStatusKepemilikanSpinner=(Spinner)rootView.findViewById(R.id.galpal1_status_kepemilikan_usaha_spinner);
 
+
+
         // setting spinner
         mPropinsiSpinnerAdapter = new SpinnerAdapter(getActivity(), mMstPropinsis);
         mPropinsiSpinner.setAdapter(mPropinsiSpinnerAdapter);

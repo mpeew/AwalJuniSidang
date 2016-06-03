@@ -8,8 +8,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.*;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,6 +21,7 @@ import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.SurveyAssignSurveyor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
@@ -34,6 +39,10 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        mRecyclerView=(RecyclerView)findViewById(R.id.surveyy_recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         if(!GalKomSharedPreference.isLoggedIn(getApplicationContext())){
             Intent i = new Intent(this, LoginActivity.class);
             // Closing all the Activities
@@ -41,17 +50,23 @@ public class HomePageActivity extends AppCompatActivity {
             // Add new Flag to start new Activity
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             // Staring Login Activity
+
             startActivity(i);
+
+
+        }else{
+            if(new ConnectionDetector(HomePageActivity.this).isConnectingToInternet()) {
+                new FetchKualifikasiSurveyTask(GalKomSharedPreference.getUserId(getApplicationContext())).execute();
+            }else{
+                updateUi();
+            }
         }
 
-        mRecyclerView=(RecyclerView)findViewById(R.id.surveyy_recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        updateUi();
 
-        //for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys){
-            //new FetchFormTask(String.valueOf(20150101)).execute();
 
-        //}
+
+
+
 
     }
 
@@ -147,23 +162,33 @@ public class HomePageActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(HomePageActivity.this);
-                    alertDialogBuilder.setMessage("Apakah Anda Yakin Akan Mengirim Kualifikasi Survey Ini");
+                    if(new ConnectionDetector(HomePageActivity.this).isConnectingToInternet()) {
+                        alertDialogBuilder.setMessage("Apakah Anda Yakin Akan Mengirim Kualifikasi Survey Ini");
+                        alertDialogBuilder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                kualifikasiSurvey.setStatus(statusClick);
+                                new PushKualifikasiSurveyTask(kualifikasiSurvey).execute();
+                                mDummyMaker.addKualifikasiSurvey(kualifikasiSurvey);
+                                updateUi();
+                            }
+                        });
+                        alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                    alertDialogBuilder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            kualifikasiSurvey.setStatus(statusClick);
-                            new PushKualifikasiSurveyTask(kualifikasiSurvey).execute();
-                            mDummyMaker.addKualifikasiSurvey(kualifikasiSurvey);
-                            updateUi();
-                        }
-                    });
-                    alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
 
-                        }
-                    });
+                    }else{
+                        alertDialogBuilder.setMessage("Koneksi Internet Tidak Tersedia, Ulangi Lain Waktu");
+                        alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                    }
 
                     alertDialogBuilder.show();
                 }
@@ -260,5 +285,47 @@ public class HomePageActivity extends AppCompatActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class FetchKualifikasiSurveyTask extends AsyncTask<Void,Void,List<KualifikasiSurvey>> {
+        private String mUserId;
+
+
+        private KualifikasiSurvey mKualifikasiSurveyId1;
+        private KualifikasiSurvey mKualifikasISurveyId2;
+
+        public FetchKualifikasiSurveyTask(String userId){
+            mUserId=userId;
+        }
+
+
+        @Override
+        protected List<KualifikasiSurvey> doInBackground(Void... params) {
+            Log.i("a", "Received JSON ");
+            List<KualifikasiSurvey> kualifikasiSurveys=new ArrayList<>();
+            DataFetcher dataFetcher=new DataFetcher();
+            if(mUserId.equals("mpewpazi")){
+                mKualifikasiSurveyId1=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150101));
+                mKualifikasISurveyId2=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150102));
+            }else if(mUserId.equals("perinurpazri")){
+                mKualifikasiSurveyId1=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150205));
+                mKualifikasISurveyId2=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150291));
+            }
+
+            kualifikasiSurveys.add(mKualifikasiSurveyId1);
+            kualifikasiSurveys.add(mKualifikasISurveyId2);
+
+            return kualifikasiSurveys;
+        }
+
+
+
+        @Override
+        protected void onPostExecute(List<KualifikasiSurvey> kualifikasiSurveys) {
+            for(KualifikasiSurvey kualifikasiSurvey:kualifikasiSurveys) {
+                DummyMaker.get(getApplicationContext()).addKualifikasiSurvey(kualifikasiSurvey);
+            }
+            updateUi();
+        }
     }
 }

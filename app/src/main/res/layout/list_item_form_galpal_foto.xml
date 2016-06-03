@@ -1,0 +1,42 @@
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="7dp"
+    android:layout_marginRight="7dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="3dp"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="4dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/list_item_galpal_foto_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:scaleType="centerInside"
+            android:background="@android:color/darker_gray"
+            android:cropToPadding="true"/>
+
+        <TextView
+            android:padding="10dp"
+            android:gravity="center"
+            android:id="@+id/list_item_galpal_foto_judul"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
