@@ -670,6 +670,7 @@ public class CursorWrapperGal extends CursorWrapper{
 
     public MenuCheckingGalpal getMenuCheckingGalpal(){
         int idMenuCheckingGalpal=getInt(getColumnIndex(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING));
+        int idMenuCheckingServer=getInt(getColumnIndex(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING_SERVER));
         int idKualifikasiSurvey=getInt(getColumnIndex(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY));
         int idMenu=getInt(getColumnIndex(MenuCheckingGalpalTable.Cols.ID_MENU_F1));
         int isFill=getInt(getColumnIndex(MenuCheckingGalpalTable.Cols.IS_FILL));
@@ -678,6 +679,7 @@ public class CursorWrapperGal extends CursorWrapper{
 
         MenuCheckingGalpal menuCheckingGalpal=new MenuCheckingGalpal();
         menuCheckingGalpal.setIdMenuCheckingGalpal(idMenuCheckingGalpal);
+        menuCheckingGalpal.setIdMenuCheckingServer(idMenuCheckingServer);
         menuCheckingGalpal.setIdKualifikasiSurvey(idKualifikasiSurvey);
         menuCheckingGalpal.setIdMenu(idMenu);
         menuCheckingGalpal.setFill(isFill==1);
@@ -689,6 +691,7 @@ public class CursorWrapperGal extends CursorWrapper{
 
     public MenuCheckingKompal getMenuCheckingKompal(){
         int idMenuCheckingKompal=getInt(getColumnIndex(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING));
+        int idMenuCheckingServer=getInt(getColumnIndex(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING_SERVER));
         int idKualifikasiSurvey=getInt(getColumnIndex(MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY));
         int idMenu=getInt(getColumnIndex(MenuCheckingKompalTable.Cols.ID_MENU_F2));
         int isFill=getInt(getColumnIndex(MenuCheckingKompalTable.Cols.IS_FILL));
@@ -697,6 +700,7 @@ public class CursorWrapperGal extends CursorWrapper{
 
         MenuCheckingKompal menuCheckingKompal=new MenuCheckingKompal();
         menuCheckingKompal.setIdMenuCheckingKompal(idMenuCheckingKompal);
+        menuCheckingKompal.setIdMenuCheckingServer(idMenuCheckingServer);
         menuCheckingKompal.setIdKualifikasiSurvey(idKualifikasiSurvey);
         menuCheckingKompal.setIdMenu(idMenu);
         menuCheckingKompal.setFill(isFill==1);

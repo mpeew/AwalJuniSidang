@@ -16,7 +16,6 @@ import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
-import com.mpewpazi.android.awaljunisidang.database.DhSchema;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
@@ -32,6 +31,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -51,8 +52,10 @@ import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3aJenisKap
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3bJumlahProduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3cSistemBerproduksiTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FK3dStandarMutuTableTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.FormGalpalFotoTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.KualifikasiSurveyTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingGalpalTable;
+import static com.mpewpazi.android.awaljunisidang.database.DhSchema.MenuCheckingKompalTable;
 import static com.mpewpazi.android.awaljunisidang.database.DhSchema.NotificationTable;
 
 
@@ -83,6 +86,7 @@ public class DataPusher {
 
     private static final String urlPostKualifikasiSurvey="http://192.168.1.100/galpal/kualifikasiSurvey/postapi/";
     private static final String urlPostNotification="http://192.168.1.100/galpal/notification/postapi/";
+    private static final String urlPostLogin="http://192.168.1.100/galpal/users/authapi/";
 
 
 
@@ -141,7 +145,7 @@ public class DataPusher {
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal3.getIdentitasUmumGalanganId())));
             pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpal3.getKualifikasiSurveyId())));
-
+            pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.ID_PERIODE), String.valueOf("0")));
             pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.NAMA_GALANGAN), formGalpal3.getNamaGalangan()));
             pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.NOMOR_DOCK), formGalpal3.getNomorDock()));
             pairs.add(new BasicNameValuePair(encapsulateFG3Cols(FG3GalanganKapalTable.Cols.TELEPON_GALANGAN), formGalpal3.getNomorTelepon()));
@@ -538,11 +542,11 @@ public class DataPusher {
             if(formGalpalFoto.getFormServerId()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpalFoto.getFormServerId())));
             }
-            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(DhSchema.FormGalpalFotoTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpalFoto.getKualifikasiSurveyId())));
-            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(DhSchema.FormGalpalFotoTable.Cols.ID_PERIODE), String.valueOf(formGalpalFoto.getIdPeriode())));
-            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(DhSchema.FormGalpalFotoTable.Cols.NAMA_FOTO), formGalpalFoto.getNamaFoto()));
-            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(DhSchema.FormGalpalFotoTable.Cols.FOTO_GALANGAN), formGalpalFoto.getFotoGalangan()));
-            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(DhSchema.FormGalpalFotoTable.Cols.NOTE), formGalpalFoto.getNote()));
+            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(FormGalpalFotoTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpalFoto.getKualifikasiSurveyId())));
+            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(FormGalpalFotoTable.Cols.ID_PERIODE), String.valueOf(formGalpalFoto.getIdPeriode())));
+            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(FormGalpalFotoTable.Cols.NAMA_FOTO), formGalpalFoto.getNamaFoto()));
+            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(FormGalpalFotoTable.Cols.FOTO_GALANGAN), formGalpalFoto.getFotoGalangan()));
+            pairs.add(new BasicNameValuePair(encapsulateFGFotoCols(FormGalpalFotoTable.Cols.NOTE), formGalpalFoto.getNote()));
 
 
             UrlEncodedFormEntity uefe = new UrlEncodedFormEntity(pairs);
@@ -555,7 +559,7 @@ public class DataPusher {
                 Log.i("RESPONSEFOTO", EntityUtils.toString(resEntity));
             }
             if(formGalpalFoto.getFormServerId()==0) {
-                new DataFetcher().fetchFormLastInsert(formGalpalFoto,DataFetcher.FGFotoENDPOINT, DhSchema.FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN_SERVER);
+                new DataFetcher().fetchFormLastInsert(formGalpalFoto,DataFetcher.FGFotoENDPOINT, FormGalpalFotoTable.Cols.ID_F1_FOTO_GALANGAN_SERVER);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
@@ -748,7 +752,9 @@ public class DataPusher {
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
             pairs.add(new BasicNameValuePair("password", "49916022Peri"));
-            pairs.add(new BasicNameValuePair("id", String.valueOf(menuCheckingGalpal.getIdMenuCheckingGalpal())));
+            if(menuCheckingGalpal.getIdMenuCheckingServer()!=0) {
+                pairs.add(new BasicNameValuePair("id", String.valueOf(menuCheckingGalpal.getIdMenuCheckingServer())));
+            }
             pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(menuCheckingGalpal.getIdKualifikasiSurvey())));
             pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.ID_MENU_F1), String.valueOf(menuCheckingGalpal.getIdMenu())));
             pairs.add(new BasicNameValuePair(encapsulateMenuCheckingGalpalCols(MenuCheckingGalpalTable.Cols.IS_FILL), String.valueOf(menuCheckingGalpal.isFill() ? 1 : 0)));
@@ -763,6 +769,9 @@ public class DataPusher {
             HttpEntity resEntity = response.getEntity();
             if (resEntity != null) {
                 Log.i("RESPONSE1", EntityUtils.toString(resEntity));
+            }
+            if(menuCheckingGalpal.getIdMenuCheckingServer()==0){
+                new DataFetcher().fetchMenuCheckingLastInsert(menuCheckingGalpal,DataFetcher.MenuCheckingGalpalENDPOINT,MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING_SERVER);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
@@ -782,12 +791,14 @@ public class DataPusher {
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
             pairs.add(new BasicNameValuePair("password", "49916022Peri"));
-            pairs.add(new BasicNameValuePair("id", String.valueOf(menuCheckingKompal.getIdMenuCheckingKompal())));
-            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(menuCheckingKompal.getIdKualifikasiSurvey())));
-            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.ID_MENU_F1), String.valueOf(menuCheckingKompal.getIdMenu())));
-            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.IS_FILL), String.valueOf(menuCheckingKompal.isFill() ? 1 : 0)));
-            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.IS_COMPLETE), String.valueOf(menuCheckingKompal.isComplete() ? 1 : 0)));
-            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingGalpalTable.Cols.IS_VERIFIED), String.valueOf(menuCheckingKompal.isVerified() ? 1 : 0)));
+            if(menuCheckingKompal.getIdMenuCheckingServer()!=0) {
+                pairs.add(new BasicNameValuePair("id", String.valueOf(menuCheckingKompal.getIdMenuCheckingServer())));
+            }
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(menuCheckingKompal.getIdKualifikasiSurvey())));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingKompalTable.Cols.ID_MENU_F2), String.valueOf(menuCheckingKompal.getIdMenu())));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingKompalTable.Cols.IS_FILL), String.valueOf(menuCheckingKompal.isFill() ? 1 : 0)));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingKompalTable.Cols.IS_COMPLETE), String.valueOf(menuCheckingKompal.isComplete() ? 1 : 0)));
+            pairs.add(new BasicNameValuePair(encapsulateMenuCheckingKompalCols(MenuCheckingKompalTable.Cols.IS_VERIFIED), String.valueOf(menuCheckingKompal.isVerified() ? 1 : 0)));
 
             UrlEncodedFormEntity uefe = new UrlEncodedFormEntity(pairs);
             post.setEntity(uefe);
@@ -797,6 +808,9 @@ public class DataPusher {
             HttpEntity resEntity = response.getEntity();
             if (resEntity != null) {
                 Log.i("RESPONSE1", EntityUtils.toString(resEntity));
+            }
+            if(menuCheckingKompal.getIdMenuCheckingServer()==0){
+                new DataFetcher().fetchMenuCheckingLastInsert(menuCheckingKompal,DataFetcher.MenuCheckingKompalENDPOINT, MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING_SERVER);
             }
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
@@ -876,6 +890,51 @@ public class DataPusher {
             ioe.printStackTrace();
         }
 
+    }
+
+    public List<KualifikasiSurvey> makePostRequestLogin(String username,String password) {
+        List<KualifikasiSurvey> mKualifikasiSurveys=new ArrayList<>();
+        HttpClient client = new DefaultHttpClient();
+        String postURL = (urlPostLogin);
+        HttpPost post = new HttpPost(postURL);
+        try {
+            // Add the data
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("userid", username));
+            pairs.add(new BasicNameValuePair("password", password));
+
+            UrlEncodedFormEntity uefe = new UrlEncodedFormEntity(pairs);
+            post.setEntity(uefe);
+            // Execute the HTTP Post Request
+            HttpResponse response = client.execute(post);
+            // Convert the response into a String
+            HttpEntity resEntity = response.getEntity();
+            String hasilLogin=EntityUtils.toString(resEntity);
+
+            if (resEntity != null) {
+                Log.i("RESPONSEPOSTNOTIF", hasilLogin);
+            }
+            if(!hasilLogin.equals("null")) {
+                JSONArray jsonKualifikasiSurveyArray = new JSONArray(hasilLogin);
+                for (int i = 0; i < jsonKualifikasiSurveyArray.length(); i++) {
+                    if(jsonKualifikasiSurveyArray.getString(i)!=null) {
+                        mKualifikasiSurveys.add(new DataFetcher().fetchKualifikasiSurvey(jsonKualifikasiSurveyArray.getString(i)));
+                    }else{
+                        mKualifikasiSurveys=new ArrayList<>();
+                    }
+                }
+                return mKualifikasiSurveys;
+            }
+        } catch (UnsupportedEncodingException uee) {
+            uee.printStackTrace();
+        } catch (ClientProtocolException cpe) {
+            cpe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

@@ -9,7 +9,15 @@ public abstract class SingleMenuChecking {
     private boolean fill;
     private boolean complete;
     private boolean verified;
+    private int idMenuCheckingServer;
 
+    public int getIdMenuCheckingServer() {
+        return idMenuCheckingServer;
+    }
+
+    public void setIdMenuCheckingServer(int idMenuCheckingServer) {
+        this.idMenuCheckingServer = idMenuCheckingServer;
+    }
 
     public int getIdKualifikasiSurvey() {
         return idKualifikasiSurvey;

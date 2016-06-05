@@ -51,6 +51,8 @@ import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
 import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
 import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +75,6 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     private EditText mPasswordEditText;
 
 
-    private String mUserId;
 
     private String buildUrl(Uri endpoint, String id) {
         Uri.Builder uriBuilder = endpoint.buildUpon().appendPath(id);
@@ -84,15 +85,18 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        Log.i("TEST",md5("49916022Peri"));
         validator=new Validator(this);
         validator.setValidationListener(this);
 
         mDummyMaker=DummyMaker.get(this);
 
 
+
         new FetchMenuTask().execute();
         new FetchMstDataTask().execute();
+
+
 
         mUsernameEditText=(EditText)findViewById(R.id.login_username);
         mPasswordEditText=(EditText)findViewById(R.id.login_password);
@@ -108,22 +112,10 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 if(!isValidated){
                     return;
                 }
-                mUserId=mUsernameEditText.getText().toString();
-                FetchKualifikasiSurveyTask fetchKualifikasiSurveyTask;
-                if(mUserId.equals("perinurpazri")){
-                    fetchKualifikasiSurveyTask=new FetchKualifikasiSurveyTask(mUserId);
-                    fetchKualifikasiSurveyTask.execute();
-                    GalKomSharedPreference.setUserId(getApplicationContext(),mUserId);
-                }else if(mUserId.equals("mpewpazi")){
-                    fetchKualifikasiSurveyTask=new FetchKualifikasiSurveyTask(mUserId);
-                    fetchKualifikasiSurveyTask.execute();
-                    GalKomSharedPreference.setUserId(getApplicationContext(),mUserId);
-                }else{
-                    Toast.makeText(getApplicationContext(),"Salah",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                GalKomSharedPreference.setLoggedIn(getApplicationContext(),true);
-                NotificationService.setServiceAlarm(LoginActivity.this,true);
+                String userid=mUsernameEditText.getText().toString();
+                String password=mPasswordEditText.getText().toString();
+                new FetchKualifikasiSurveyTask(userid,password).execute();
+
             }
         });
 
@@ -317,10 +309,10 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             for(SingleMenuChecking singleMenuChecking:singleMenuCheckings){
                 switch(singleMenuChecking.kodeAsync()){
                     case MenuCheckingGalpal.kodeAsync:
-                        DummyMaker.get(getApplicationContext()).addMenuCheckingGalpal((MenuCheckingGalpal) singleMenuChecking);
+                        DummyMaker.get(getApplicationContext()).addMenuCheckingGalpalServer((MenuCheckingGalpal) singleMenuChecking);
                         break;
                     case MenuCheckingKompal.kodeAsync:
-                        DummyMaker.get(getApplicationContext()).addMenuCheckingKompal((MenuCheckingKompal) singleMenuChecking);
+                        DummyMaker.get(getApplicationContext()).addMenuCheckingKompalServer((MenuCheckingKompal) singleMenuChecking);
                         break;
                 }
             }
@@ -357,13 +349,14 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
     private class FetchKualifikasiSurveyTask extends AsyncTask<Void,Void,List<KualifikasiSurvey>> {
         private String mUserId;
+        private String mPassword;
         private ProgressDialog dialog=new ProgressDialog(LoginActivity.this);
 
-        private KualifikasiSurvey mKualifikasiSurveyId1;
-        private KualifikasiSurvey mKualifikasISurveyId2;
 
-        public FetchKualifikasiSurveyTask(String userId){
+
+        public FetchKualifikasiSurveyTask(String userId,String password){
             mUserId=userId;
+            mPassword=md5(password);
         }
 
         @Override
@@ -374,31 +367,26 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
         @Override
         protected List<KualifikasiSurvey> doInBackground(Void... params) {
-            Log.i("a", "Received JSON ");
-            List<KualifikasiSurvey> kualifikasiSurveys=new ArrayList<>();
-            DataFetcher dataFetcher=new DataFetcher();
-            if(mUserId.equals("mpewpazi")){
-                mKualifikasiSurveyId1=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150101));
-                mKualifikasISurveyId2=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150102));
-            }else if(mUserId.equals("perinurpazri")){
-                mKualifikasiSurveyId1=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150205));
-                mKualifikasISurveyId2=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150291));
-            }
 
-            kualifikasiSurveys.add(mKualifikasiSurveyId1);
-            kualifikasiSurveys.add(mKualifikasISurveyId2);
-            return kualifikasiSurveys;
+            return new DataPusher().makePostRequestLogin(mUserId,mPassword);
         }
 
 
 
         @Override
         protected void onPostExecute(List<KualifikasiSurvey> kualifikasiSurveys) {
-            for(KualifikasiSurvey kualifikasiSurvey:kualifikasiSurveys) {
-                DummyMaker.get(getApplicationContext()).addKualifikasiSurvey(kualifikasiSurvey);
+            if(kualifikasiSurveys!=null) {
+                for (KualifikasiSurvey kualifikasiSurvey : kualifikasiSurveys) {
+                    DummyMaker.get(getApplicationContext()).addKualifikasiSurvey(kualifikasiSurvey);
+                }
+                new FetchPerusahaanTask(kualifikasiSurveys).execute();
+                GalKomSharedPreference.setLoggedIn(getApplicationContext(),true);
+                GalKomSharedPreference.setUserId(getApplicationContext(),mUserId);
+                GalKomSharedPreference.setPassword(getApplicationContext(),mPassword);
+                NotificationService.setServiceAlarm(LoginActivity.this,true);
+            }else{
+                Toast.makeText(getApplicationContext(),"Username Atau Password Salah", Toast.LENGTH_LONG).show();
             }
-
-            new FetchPerusahaanTask(kualifikasiSurveys).execute();
             dialog.dismiss();
         }
     }
@@ -444,10 +432,35 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
         @Override
         protected Void doInBackground(Void... params) {
-
+            new DataPusher().makePostRequestLogin("surveyorira","e251a0ac0aa6f4404548aac24316de31");
             return null;
         }
 
 
+    }
+
+    public static final String md5(final String s) {
+        final String MD5 = "MD5";
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest
+                    .getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

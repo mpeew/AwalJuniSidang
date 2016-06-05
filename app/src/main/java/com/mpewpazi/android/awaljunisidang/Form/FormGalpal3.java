@@ -52,11 +52,11 @@ public class FormGalpal3 extends SingleForm {
     }
 
     public int getIdentitasUmumGalanganId() {
-        return identitasUmumGalanganId;
+        return mKualifikasiSurveyId;
     }
 
     public void setIdentitasUmumGalanganId(int identitasUmumGalanganId) {
-        this.identitasUmumGalanganId = identitasUmumGalanganId;
+        this.mKualifikasiSurveyId = identitasUmumGalanganId;
     }
 
     public int getPerusahaanId() {

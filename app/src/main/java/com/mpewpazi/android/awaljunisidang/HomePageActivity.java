@@ -1,7 +1,10 @@
 package com.mpewpazi.android.awaljunisidang;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -19,26 +22,37 @@ import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
+import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 import com.mpewpazi.android.awaljunisidang.model.SurveyAssignSurveyor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePageActivity extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity{
     private static final String EXTRA_ID_USER="usr";
 
     private RecyclerView mRecyclerView;
     private KualifikasiSurveyAdapter mKualifikasiSurveyAdapter;
 
+    BroadcastReceiver clientReceiver;
+
+
     private DummyMaker mDummyMaker;
     private List<SurveyAssignSurveyor> mSurveyAssignSurveyors;
     private List<KualifikasiSurvey> mKualifikasiSurveys;
+    private NotificiationReceiver mNotificiationReceiver;
+    private List<SingleMenuChecking> mMenuCheckingGalpals;
+    private List<SingleMenuChecking> mMenuCheckingKompals;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+
 
         mRecyclerView=(RecyclerView)findViewById(R.id.surveyy_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -55,11 +69,31 @@ public class HomePageActivity extends AppCompatActivity {
 
 
         }else{
-            if(new ConnectionDetector(HomePageActivity.this).isConnectingToInternet()) {
-                new FetchKualifikasiSurveyTask(GalKomSharedPreference.getUserId(getApplicationContext())).execute();
-            }else{
+               if(new ConnectionDetector(HomePageActivity.this).isConnectingToInternet()) {
+                  new FetchKualifikasiSurveyTask().execute();
+                }else{
                 updateUi();
-            }
+                for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys) {
+                    int kualifikasiSurveyId = kualifikasiSurvey.getKualifikasiSurveyId();
+                    mMenuCheckingGalpals = mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId);
+                    if (mMenuCheckingGalpals.size() <= 0) {
+                        mMenuCheckingGalpals = mDummyMaker.createMenuCheckingGalpals(kualifikasiSurveyId);
+                        for (SingleMenuChecking singleMenuChecking : mMenuCheckingGalpals) {
+                            mDummyMaker.addMenuCheckingGalpal((MenuCheckingGalpal) singleMenuChecking);
+                        }
+                        new PushMenuCheckingGalpalTask(mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId)).execute();
+                    }
+                    mMenuCheckingKompals = mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId);
+                    if (mMenuCheckingKompals.size() <= 0) {
+                        mMenuCheckingKompals = mDummyMaker.createMenuCheckingKompals(kualifikasiSurveyId);
+                        for (SingleMenuChecking singleMenuChecking : mMenuCheckingKompals) {
+                            mDummyMaker.addMenuCheckingKompal((MenuCheckingKompal) singleMenuChecking);
+                        }
+                        new PushMenuCheckingKompalTask(mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId)).execute();
+                    }
+
+                }
+               }
         }
 
 
@@ -68,6 +102,29 @@ public class HomePageActivity extends AppCompatActivity {
 
 
 
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter intent=new IntentFilter();
+        intent.addAction("notification_intent");
+        clientReceiver=new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                new FetchKualifikasiSurveyTask().execute();
+                Log.i("BroadcastReceiver","Jalan");
+            }
+        };
+        registerReceiver(clientReceiver,intent);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(clientReceiver);
     }
 
     private void updateUi() {
@@ -288,33 +345,17 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private class FetchKualifikasiSurveyTask extends AsyncTask<Void,Void,List<KualifikasiSurvey>> {
-        private String mUserId;
 
-
-        private KualifikasiSurvey mKualifikasiSurveyId1;
-        private KualifikasiSurvey mKualifikasISurveyId2;
-
-        public FetchKualifikasiSurveyTask(String userId){
-            mUserId=userId;
-        }
 
 
         @Override
         protected List<KualifikasiSurvey> doInBackground(Void... params) {
-            Log.i("a", "Received JSON ");
-            List<KualifikasiSurvey> kualifikasiSurveys=new ArrayList<>();
-            DataFetcher dataFetcher=new DataFetcher();
-            if(mUserId.equals("mpewpazi")){
-                mKualifikasiSurveyId1=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150101));
-                mKualifikasISurveyId2=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150102));
-            }else if(mUserId.equals("perinurpazri")){
-                mKualifikasiSurveyId1=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150205));
-                mKualifikasISurveyId2=dataFetcher.fetchKualifikasiSurvey(String.valueOf(20150291));
+            List<KualifikasiSurvey> kualifikasiSurveys;
+            kualifikasiSurveys=new DataPusher().makePostRequestLogin(GalKomSharedPreference.getUserId(getApplicationContext()),
+                    GalKomSharedPreference.getPassword(getApplicationContext()));
+            if(kualifikasiSurveys==null){
+                kualifikasiSurveys=new ArrayList<>();
             }
-
-            kualifikasiSurveys.add(mKualifikasiSurveyId1);
-            kualifikasiSurveys.add(mKualifikasISurveyId2);
-
             return kualifikasiSurveys;
         }
 
@@ -326,6 +367,83 @@ public class HomePageActivity extends AppCompatActivity {
                 DummyMaker.get(getApplicationContext()).addKualifikasiSurvey(kualifikasiSurvey);
             }
             updateUi();
+            for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys) {
+                int kualifikasiSurveyId=kualifikasiSurvey.getKualifikasiSurveyId();
+                mMenuCheckingGalpals = mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId);
+                if (mMenuCheckingGalpals.size() <= 0) {
+                    mMenuCheckingGalpals = mDummyMaker.createMenuCheckingGalpals(kualifikasiSurveyId);
+                    for (SingleMenuChecking singleMenuChecking : mMenuCheckingGalpals) {
+                        mDummyMaker.addMenuCheckingGalpal((MenuCheckingGalpal) singleMenuChecking);
+                    }
+                    new PushMenuCheckingGalpalTask(mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId)).execute();
+                }
+                mMenuCheckingKompals = mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId);
+                if (mMenuCheckingKompals.size() <= 0) {
+                    mMenuCheckingKompals = mDummyMaker.createMenuCheckingKompals(kualifikasiSurveyId);
+                    for (SingleMenuChecking singleMenuChecking : mMenuCheckingKompals) {
+                        mDummyMaker.addMenuCheckingKompal((MenuCheckingKompal) singleMenuChecking);
+                    }
+                    new PushMenuCheckingKompalTask(mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId)).execute();
+                }
+            }
         }
     }
+
+    public class NotificiationReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateUi();
+            Log.i("BroadcastReceiver2","Jalan2");
+        }
+    }
+
+    private class PushMenuCheckingGalpalTask extends AsyncTask<Void,Void,List<SingleMenuChecking>> {
+        private List<SingleMenuChecking> mSingleMenuCheckings;
+
+        public PushMenuCheckingGalpalTask(List<SingleMenuChecking> singleMenuCheckings){
+            mSingleMenuCheckings=singleMenuCheckings;
+        }
+
+        @Override
+        protected List<SingleMenuChecking> doInBackground(Void... params) {
+            for(SingleMenuChecking singleMenuChecking:mSingleMenuCheckings) {
+                new DataPusher().makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) singleMenuChecking);
+            }
+            return mSingleMenuCheckings;
+        }
+
+        @Override
+        protected void onPostExecute(List<SingleMenuChecking> singleMenuCheckings) {
+            for(SingleMenuChecking singleMenuChecking:singleMenuCheckings){
+                Log.i("a",String.valueOf(singleMenuChecking.getIdMenuCheckingServer()));
+                DummyMaker.get(getApplicationContext()).addMenuCheckingGalpal((MenuCheckingGalpal) singleMenuChecking);
+            }
+        }
+    }
+
+    private class PushMenuCheckingKompalTask extends AsyncTask<Void,Void,List<SingleMenuChecking>> {
+        private List<SingleMenuChecking> mSingleMenuCheckings;
+
+        public PushMenuCheckingKompalTask(List<SingleMenuChecking> singleMenuCheckings){
+            mSingleMenuCheckings=singleMenuCheckings;
+        }
+
+        @Override
+        protected List<SingleMenuChecking> doInBackground(Void... params) {
+            for(SingleMenuChecking singleMenuChecking:mSingleMenuCheckings) {
+                new DataPusher().makePostRequestMenuCheckingKompal((MenuCheckingKompal) singleMenuChecking);
+            }
+            return mSingleMenuCheckings;
+        }
+
+        @Override
+        protected void onPostExecute(List<SingleMenuChecking> singleMenuCheckings) {
+            for(SingleMenuChecking singleMenuChecking:singleMenuCheckings){
+                DummyMaker.get(getApplicationContext()).addMenuCheckingKompal((MenuCheckingKompal) singleMenuChecking);
+            }
+
+        }
+    }
+
+
 }

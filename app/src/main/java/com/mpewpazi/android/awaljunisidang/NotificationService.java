@@ -61,6 +61,9 @@ public class NotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        Intent intentNotification=new Intent("notification_intent");
+        intentNotification.setAction("notification_intent");
+        sendBroadcast(intentNotification);
 
         Log.i(TAG,"Notification Service Is Running" );
         if(!new ConnectionDetector(this).isConnectingToInternet()){
@@ -76,6 +79,9 @@ public class NotificationService extends IntentService {
         }
         for (Notification notification:unReadNotifications){
             setNotification(notification);
+            //kirim boradcast receiver untuk merubah HomepageActivity dedicated notification
+
+            //this broadcast receiver code ended here ////
             Log.i(TAG,"ada yang error" );
         }
 

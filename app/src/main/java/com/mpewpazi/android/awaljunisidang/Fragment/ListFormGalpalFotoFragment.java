@@ -21,14 +21,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mpewpazi.android.awaljunisidang.AndroidMultiPartEntity;
+import com.mpewpazi.android.awaljunisidang.DataFetcher;
 import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal11;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpalFoto;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormGalpalFotoPagerActivity;
@@ -43,7 +43,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
@@ -96,6 +95,7 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
         mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,FormGalpalFoto.kode);
         mFormGalpalFotos=mDummyMaker.getFormGalpalFotos(DrawerFormActivity.kualifikasiSurveyId);
         new DownloadFileFromURL(mFormGalpalFotos).execute();
+
 
 
     }
@@ -174,6 +174,7 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
 
         private TextView mJudulTextView;
         private ImageView mFotoImageView;
+        private ImageButton mDeleteButton;
 
         private FormGalpalFoto mFormGalpalFoto;
 
@@ -181,6 +182,33 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
             mFormGalpalFoto = formGalpalFoto;
             mJudulTextView.setText(mFormGalpalFoto.getNamaFoto());
             updatePhotoView(mFormGalpalFoto,mFotoImageView);
+            if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+                mDeleteButton.setVisibility(View.GONE);
+            }
+            mDeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(getActivity());
+                    alertDialogBuilder.setMessage("Apakah anda yakin akan menghapus Foto Ini");
+
+                    alertDialogBuilder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DummyMaker.get(getActivity()).deleteFormGalpalFoto(formGalpalFoto);
+                            updateUI();
+                            new DeleteTask(formGalpalFoto.getFormServerId()).execute();
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+                    alertDialogBuilder.show();
+                }
+            });
         }
 
         public FormGalpalFotoHolder(View itemView) {
@@ -190,6 +218,7 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
 
             mJudulTextView=(TextView)itemView.findViewById(R.id.list_item_galpal_foto_judul);
             mFotoImageView=(ImageView)itemView.findViewById(R.id.list_item_galpal_foto_image_view);
+            mDeleteButton=(ImageButton) itemView.findViewById(R.id.list_item_galpal_foto_delete);
         }
 
 
@@ -287,7 +316,7 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
             if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
                 PushGalpalService.setServiceAlarm(getActivity(),true);
             }else {
-                new PushTask(mFormGalpal11s, mMenuCheckingGalpal).execute();
+                new PushTask(mFormGalpalFotos, mMenuCheckingGalpal).execute();
             }
         }*/
     }
@@ -303,6 +332,7 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
         }
         if (requestCode==REQUEST_PHOTO){
             mFormGalpalFoto.setImagePath(mPhotoFile.getPath());
+            mFormGalpalFoto.setFotoGalangan(mFormGalpalFoto.getPhotoFileName());
             mDummyMaker.addFormGalpalFoto(mFormGalpalFoto);
             updateUI();
             Intent intent=new Intent(getActivity(),FormGalpalFotoPagerActivity.class);
@@ -317,6 +347,8 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
             cursor.moveToFirst();
             mFormGalpalFoto.setImagePath(cursor.getString(column_index));
+            String filename=mFormGalpalFoto.getImagePath().substring(mFormGalpalFoto.getImagePath().lastIndexOf("/")+1);
+            mFormGalpalFoto.setNamaFoto(filename);
             mDummyMaker.addFormGalpalFoto(mFormGalpalFoto);
             cursor.close();
             updateUI();
@@ -369,7 +401,7 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
             try {
 
                 for(FormGalpalFoto formGalpalFoto:mFormGalpalFotos){
-                    if(formGalpalFoto.getFotoUrl()==null){
+                    if(formGalpalFoto.getImagePath()==null){
                         formGalpalFotosClean.add(formGalpalFoto);
                     }
                 }
@@ -385,6 +417,7 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
 
                     // Output stream
                     OutputStream output = new FileOutputStream("/sdcard/" + formGalpalFoto.getFotoGalangan());
+
 
                     byte data[] = new byte[1024];
 
@@ -454,7 +487,15 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
         private List<FormGalpalFoto> mFormGalpalFotoUploads;
 
         public UploadFileToServer(List<FormGalpalFoto> formGalpalFotos){
-            mFormGalpalFotoUploads=formGalpalFotos;
+            mFormGalpalFotoUploads=new ArrayList<>();
+            for(FormGalpalFoto formGalpalFoto:formGalpalFotos){
+                if(!mFormGalpalFoto.isFetchFromServer()){
+                    //biar yang sudah di upload tidak diupload kembali
+                    formGalpalFoto.setFetchFromServer(true);
+                    mFormGalpalFotoUploads.add(formGalpalFoto);
+                }
+            }
+            //mFormGalpalFotoUploads=formGalpalFotos;
         }
 
         @Override
@@ -516,9 +557,9 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
                 entity.addPart("image", new FileBody(sourceFile));
 
                 // Extra parameters if you want to pass to server
-                entity.addPart("website",
+               /* entity.addPart("website",
                         new StringBody("www.androidhive.info"));
-                entity.addPart("email", new StringBody("abc@gmail.com"));
+                entity.addPart("email", new StringBody("abc@gmail.com"));*/
 
                 //totalSize = entity.getContentLength();
                 httppost.setEntity(entity);
@@ -574,5 +615,19 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private class DeleteTask extends AsyncTask<Void,Void,Void> {
+        private int mIdForm;
+
+        public DeleteTask(int idForm){
+            mIdForm=idForm;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            new DataFetcher().deleteForm(mIdForm,DataFetcher.DELETEFGFotoENDPOINT);
+            return null;
+        }
     }
 }

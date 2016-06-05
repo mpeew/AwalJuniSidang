@@ -64,11 +64,11 @@ public class FormGalpal1 extends SingleForm {
 
 
     public int getIdentitasPerusahaanId() {
-        return identitasPerusahaanId;
+        return mKualifikasiSurveyId;
     }
 
     public void setIdentitasPerusahaanId(int identitasPerusahaanId) {
-        this.identitasPerusahaanId = identitasPerusahaanId;
+        mKualifikasiSurveyId = identitasPerusahaanId;
     }
 
     public int getPerusahaanId() {

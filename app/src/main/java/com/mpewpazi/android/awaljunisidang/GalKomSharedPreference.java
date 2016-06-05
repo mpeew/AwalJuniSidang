@@ -10,6 +10,7 @@ public class GalKomSharedPreference {
     private static final String PREF_STATUS_LOGIN="statusLogin";
     private static final String PREF_POSTITION_CLICKED_DRAWER="postionClickedDrawer";
     private static final String PREF_USERID="userid";
+    private static final String PREF_PASSWORD="password";
 
 
     public static boolean isLoggedIn(Context context){
@@ -45,6 +46,18 @@ public class GalKomSharedPreference {
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit()
                 .putString(PREF_USERID,userId)
+                .apply();
+    }
+
+    public static String getPassword(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(PREF_PASSWORD,null);
+    }
+
+    public static void setPassword(Context context,String password){
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putString(PREF_PASSWORD,password)
                 .apply();
     }
 

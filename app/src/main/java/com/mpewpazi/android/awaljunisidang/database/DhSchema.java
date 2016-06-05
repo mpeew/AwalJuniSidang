@@ -928,7 +928,8 @@ public class DhSchema {
     public static final class MenuCheckingGalpalTable{
         public static final String NAME="menu_f1_entry_checking";
         public static final class Cols{
-            public static final String ID_MENU_F1_ENTRY_CHECKING="id_menu_f1_entry_checking";
+            public static final String ID_MENU_F1_ENTRY_CHECKING="id_menu_f1_entry_checking_local";
+            public static final String ID_MENU_F1_ENTRY_CHECKING_SERVER="id_menu_f1_entry_checking";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_MENU_F1="id_menu_f1";
             public static final String IS_FILL="is_fill";
@@ -949,7 +950,8 @@ public class DhSchema {
     public static final class MenuCheckingKompalTable{
         public static final String NAME="menu_f2_entry_checking";
         public static final class Cols{
-            public static final String ID_MENU_F2_ENTRY_CHECKING="id_menu_f2_entry_checking";
+            public static final String ID_MENU_F2_ENTRY_CHECKING_SERVER="id_menu_f2_entry_checking";
+            public static final String ID_MENU_F2_ENTRY_CHECKING="id_menu_f2_entry_checking_local";
             public static final String ID_KUALIFIKASI_SURVEY="id_kualifikasi_survey";
             public static final String ID_MENU_F2="id_menu_f2";
             public static final String IS_FILL="is_fill";

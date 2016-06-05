@@ -74,6 +74,7 @@ public class ListFormGalpal6Fragment extends SingleFragment {
         mGalpalForms=mDummyMaker.getGalpalForms();
         mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,FormGalpal6.kode);
 
+
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+import android.util.Log;
 
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal10;
@@ -185,6 +186,32 @@ public class DummyMaker {
         }finally {
             cursor.close();
         }
+    }
+
+    public List<SingleMenuChecking> createMenuCheckingGalpals(int kualifikasiSurveyId){
+        List<SingleMenuChecking> menuCheckingGalpals=new ArrayList<>();
+        int []idMenuGalpal={1,3,4,5,7,8,9,10};
+        for(int a:idMenuGalpal) {
+            MenuCheckingGalpal menuCheckingGalpal=new MenuCheckingGalpal();
+            menuCheckingGalpal.setIdMenu(a);
+            Log.i("idMenu",String.valueOf(a));
+            menuCheckingGalpal.setIdKualifikasiSurvey(kualifikasiSurveyId);
+            menuCheckingGalpals.add(menuCheckingGalpal);
+        }
+        return menuCheckingGalpals;
+    }
+
+    public List<SingleMenuChecking> createMenuCheckingKompals(int kualifikasiSurveyId){
+        List<SingleMenuChecking> menuCheckingKompals=new ArrayList<>();
+        int []idMenuKompal={4,5,6,7};
+        for(int a:idMenuKompal) {
+            MenuCheckingKompal menuCheckingKompal=new MenuCheckingKompal();
+            menuCheckingKompal.setIdMenu(a);
+            Log.i("idMenu",String.valueOf(a));
+            menuCheckingKompal.setIdKualifikasiSurvey(kualifikasiSurveyId);
+            menuCheckingKompals.add(menuCheckingKompal);
+        }
+        return menuCheckingKompals;
     }
 
     public List<SurveyAssignSurveyor> getSurveyAssignSurveyors(){
@@ -1400,6 +1427,7 @@ public class DummyMaker {
     public void addMenuCheckingGalpal(MenuCheckingGalpal menuCheckingGalpal){
         ContentValues values=getContentValues(menuCheckingGalpal);
         String idMenuCheckingGalpal=String.valueOf(menuCheckingGalpal.getIdMenuCheckingGalpal());
+        Log.i("dalam add",idMenuCheckingGalpal);
 
         CursorWrapperGal cursor=query(MenuCheckingGalpalTable.NAME,MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING+ "=?",
                 new String[] {idMenuCheckingGalpal});
@@ -1408,6 +1436,24 @@ public class DummyMaker {
                 mDatabase.insert(MenuCheckingGalpalTable.NAME,null,values);
             }else{
                 mDatabase.update(MenuCheckingGalpalTable.NAME,values,MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING+" = ?",new String[]{idMenuCheckingGalpal});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addMenuCheckingGalpalServer(MenuCheckingGalpal menuCheckingGalpal){
+        ContentValues values=getContentValues(menuCheckingGalpal);
+        String idMenuCheckingGalpal=String.valueOf(menuCheckingGalpal.getIdMenuCheckingServer());
+
+        CursorWrapperGal cursor=query(MenuCheckingGalpalTable.NAME,MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING_SERVER+ "=?",
+                new String[] {idMenuCheckingGalpal});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(MenuCheckingGalpalTable.NAME,null,values);
+            }else{
+                mDatabase.update(MenuCheckingGalpalTable.NAME,values,MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING_SERVER+" = ?",new String[]{idMenuCheckingGalpal});
             }
 
         }finally {
@@ -1428,6 +1474,24 @@ public class DummyMaker {
                 mDatabase.insert(MenuCheckingKompalTable.NAME,null,values);
             }else{
                 mDatabase.update(MenuCheckingKompalTable.NAME,values,MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING+" = ?",new String[]{idMenuCheckingKompal});
+            }
+
+        }finally {
+            cursor.close();
+        }
+    }
+
+    public void addMenuCheckingKompalServer(MenuCheckingKompal menuCheckingKompal){
+        ContentValues values=getContentValues(menuCheckingKompal);
+        String idMenuCheckingKompal=String.valueOf(menuCheckingKompal.getIdMenuCheckingServer());
+
+        CursorWrapperGal cursor=query(MenuCheckingKompalTable.NAME,MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING_SERVER+ "=?",
+                new String[] {idMenuCheckingKompal});
+        try{
+            if(cursor.getCount()==0){
+                mDatabase.insert(MenuCheckingKompalTable.NAME,null,values);
+            }else{
+                mDatabase.update(MenuCheckingKompalTable.NAME,values,MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING_SERVER+" = ?",new String[]{idMenuCheckingKompal});
             }
 
         }finally {
@@ -2402,7 +2466,10 @@ public class DummyMaker {
 
     private ContentValues getContentValues(MenuCheckingGalpal menuCheckingGalpal){
         ContentValues contentValues=new ContentValues();
-        contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING,menuCheckingGalpal.getIdMenuCheckingGalpal());
+        if(menuCheckingGalpal.getIdMenuCheckingGalpal()!=0) {
+            contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING, menuCheckingGalpal.getIdMenuCheckingGalpal());
+        }
+        contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING_SERVER,menuCheckingGalpal.getIdMenuCheckingServer());
         contentValues.put(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY,menuCheckingGalpal.getIdKualifikasiSurvey());
         contentValues.put(MenuCheckingGalpalTable.Cols.ID_MENU_F1,menuCheckingGalpal.getIdMenu());
         contentValues.put(MenuCheckingGalpalTable.Cols.IS_FILL,menuCheckingGalpal.isFill() ? 1 : 0);
@@ -2413,7 +2480,10 @@ public class DummyMaker {
 
     private ContentValues getContentValues(MenuCheckingKompal menuCheckingKompal){
         ContentValues contentValues=new ContentValues();
-        contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING,menuCheckingKompal.getIdMenuCheckingKompal());
+        if(menuCheckingKompal.getIdMenuCheckingKompal()!=0) {
+            contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING, menuCheckingKompal.getIdMenuCheckingKompal());
+        }
+        contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING_SERVER,menuCheckingKompal.getIdMenuCheckingServer());
         contentValues.put(MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY,menuCheckingKompal.getIdKualifikasiSurvey());
         contentValues.put(MenuCheckingKompalTable.Cols.ID_MENU_F2,menuCheckingKompal.getIdMenu());
         contentValues.put(MenuCheckingKompalTable.Cols.IS_FILL,menuCheckingKompal.isFill() ? 1 : 0);

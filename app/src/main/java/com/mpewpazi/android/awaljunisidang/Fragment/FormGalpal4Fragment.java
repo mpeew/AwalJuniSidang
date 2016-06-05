@@ -105,6 +105,12 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
         mMstGelombangs=mDummyMaker.getMstGelombangs();
         mMstJarakKedalamans=mDummyMaker.getMstJarakKedalamans();
 
+        if(mFormGalpal4==null) {
+            mFormGalpal4 = new FormGalpal4();
+            mFormGalpal4.setKualifikasiSurveyId(DrawerFormActivity.kualifikasiSurveyId);
+        }
+
+
         mValidator=new Validator(this);
         mValidator.setValidationListener(this);
 

@@ -71,11 +71,11 @@ public class FormGalpal4 extends SingleForm {
     }
 
     public int getTinjauanWilayahMaritimId() {
-        return tinjauanWilayahMaritimId;
+        return mKualifikasiSurveyId;
     }
 
     public void setTinjauanWilayahMaritimId(int tinjauanWilayahMaritimId) {
-        this.tinjauanWilayahMaritimId = tinjauanWilayahMaritimId;
+        this.mKualifikasiSurveyId = tinjauanWilayahMaritimId;
     }
 
 

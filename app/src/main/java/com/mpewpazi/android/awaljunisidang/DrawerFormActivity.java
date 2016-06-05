@@ -34,7 +34,6 @@ import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
 import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DrawerFormActivity extends ActionBarActivity implements CustomClickListener {
@@ -89,13 +88,14 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
 
         //munculkan fragmen 0
        // Fragment fragment=new FormGalpal1Fragment();
+        Log.i("Coba","Test");
+        if(isGalpalIndustri) {
+            SelectItemGalpal(0);
+        }else{
+            SelectItemKompal(0);
+        }
 
-            Log.i("Coba","Test");
-            if(isGalpalIndustri) {
-                SelectItemGalpal(0);
-            }else{
-                SelectItemKompal(0);
-            }
+
 
 
         setupDrawer();
@@ -108,7 +108,6 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
     }
 
     private void addDrawerItems(){
-        mMenuCheckingSingles=new ArrayList<>();
         if(mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getIndustri().equals(Perusahaan.industriGalpal)){
             mMenuCheckingSingles=mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId);
             isGalpalIndustri=true;
@@ -298,6 +297,8 @@ public class DrawerFormActivity extends ActionBarActivity implements CustomClick
 
         }
     }
+
+
 
 
 

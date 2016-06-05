@@ -37,6 +37,7 @@ import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
 import com.mpewpazi.android.awaljunisidang.model.Notification;
 import com.mpewpazi.android.awaljunisidang.model.PeriodeSurvey;
 import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
+import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
 import com.mpewpazi.android.awaljunisidang.model.SurveyAssignSurveyor;
 import com.mpewpazi.android.awaljunisidang.model.User;
 
@@ -124,10 +125,12 @@ public class DataFetcher {
     public static final Uri DELETEFG9ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaProdKonstruksi/deleteapi/id");
     public static final Uri DELETEFG10ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaProdElmek/deleteapi/id");
     public static final Uri DELETEFG11ENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1PeralatanKerjaProdCat/deleteapi/id");
+    public static final Uri DELETEFGFotoENDPOINT = Uri.parse("http://192.168.1.100/galpal/f1FotoGalangan/deleteapi/id");
     public static final Uri DELETEFK3aENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2JenisKapasitasProduksi/deleteapi/id");
     public static final Uri DELETEFK3bENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2JumlahProduksi/deleteapi/id");
     public static final Uri DELETEFK3cENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2SistemBerproduksi/deleteapi/id");
     public static final Uri DELETEFK3dENDPOINT = Uri.parse("http://192.168.1.100/galpal/f2StandardMutu/deleteapi/id");
+
 
     private static final String MSTPropinsiENDPOINT="http://192.168.1.100/galpal/mstPropinsi/api";
     private static final String MSTKabupatenENDPOINT="http://192.168.1.100/galpal/mstKabupatenkota/api";
@@ -141,8 +144,8 @@ public class DataFetcher {
 
     private static final String KualifikasiSurveysENDPOINT="http://192.168.1.100/galpal/kualifikasiSurvey/api";
 
-    private static final Uri MenuCheckingGalpalENDPOINT = Uri.parse("http://192.168.1.100/galpal/menuF1EntryChecking/api/id");
-    private static final Uri MenuCheckingKompalENDPOINT = Uri.parse("http://192.168.1.100/galpal/menuF2EntryChecking/api/id");
+    public static final Uri MenuCheckingGalpalENDPOINT = Uri.parse("http://192.168.1.100/galpal/menuF1EntryChecking/api/id");
+    public static final Uri MenuCheckingKompalENDPOINT = Uri.parse("http://192.168.1.100/galpal/menuF2EntryChecking/api/id");
     private static final String MenuF1ENDPOINT="http://192.168.1.100/galpal/menuF1/api";
     private static final String MenuF2ENDPOINT="http://192.168.1.100/galpal/menuF2/api";
 
@@ -451,21 +454,20 @@ public class DataFetcher {
             String jsonFormGalpalFotoString=getUrlString(uriFormGalpalFoto);
 
 
-           Log.i(TAG, "Received JSON: " + jsonFormGalpal1String);
-           Log.i(TAG, "Received JSON: " + jsonFormGalpal3String);
-           Log.i(TAG, "Received JSON: " + jsonFormGalpal4String);
-            Log.i(TAG, "Received JSON: " + jsonFormGalpal6String);
-            Log.i(TAG, "Received JSON: " + jsonFormGalpal7String);
-            Log.i(TAG, "Received JSON: " + jsonFormGalpal8String);
-            Log.i(TAG, "Received JSON: " + jsonFormGalpal9String);
-            Log.i(TAG, "Received JSON: " + jsonFormGalpal10String);
-            Log.i(TAG, "Received JSON: " + jsonFormGalpal11String);
-            Log.i(TAG, "Received JSON: " + jsonFormGalpalFotoString);
+           Log.i(TAG, "Received JSON GP1: " + jsonFormGalpal1String);
+           Log.i(TAG, "Received JSON GP3: " + jsonFormGalpal3String);
+           Log.i(TAG, "Received JSON GP4: " + jsonFormGalpal4String);
+            Log.i(TAG, "Received JSON GP6: " + jsonFormGalpal6String);
+            Log.i(TAG, "Received JSON GP7: " + jsonFormGalpal7String);
+            Log.i(TAG, "Received JSON GP8: " + jsonFormGalpal8String);
+            Log.i(TAG, "Received JSON GP9: " + jsonFormGalpal9String);
+            Log.i(TAG, "Received JSON GP10: " + jsonFormGalpal10String);
+            Log.i(TAG, "Received JSON GP11: " + jsonFormGalpal11String);
+            Log.i(TAG, "Received JSON GPFOTO: " + jsonFormGalpalFotoString);
 
 
 
-            JSONObject jsonFormGalpal1Body = new JSONObject(jsonFormGalpal1String);
-            JSONObject jsonFormGalpal3Body = new JSONObject(jsonFormGalpal3String);
+
             JSONArray jsonFormGalpal4Body = new JSONArray(jsonFormGalpal4String);
             JSONArray jsonFormGalpal6Body = new JSONArray(jsonFormGalpal6String);
             JSONArray jsonFormGalpal7Body = new JSONArray(jsonFormGalpal7String);
@@ -475,9 +477,15 @@ public class DataFetcher {
             JSONArray jsonFormGalpal11Body = new JSONArray(jsonFormGalpal11String);
             JSONArray jsonFormGalpalFotoBody = new JSONArray(jsonFormGalpalFotoString);
 
+            if(!jsonFormGalpal1String.equals("null")) {
+                JSONObject jsonFormGalpal1Body = new JSONObject(jsonFormGalpal1String);
+                parseFormGalpal1(items, jsonFormGalpal1Body);
+            }
+            if(!jsonFormGalpal3String.equals("null")) {
+                JSONObject jsonFormGalpal3Body = new JSONObject(jsonFormGalpal3String);
+                parseFormGalpal3(items, jsonFormGalpal3Body);
+            }
 
-            parseFormGalpal3(items,jsonFormGalpal3Body);
-            parseFormGalpal1(items,jsonFormGalpal1Body);
             parseFormGalpal4(items,jsonFormGalpal4Body);
             parseFormGalpal6s(items,jsonFormGalpal6Body);
             parseFormGalpal7s(items,jsonFormGalpal7Body);
@@ -564,6 +572,31 @@ public class DataFetcher {
     private void parseFormLast(SingleForm singleForm, JSONArray jsonBody, String serverIdName) throws IOException, JSONException {
         JSONObject jsonObject = jsonBody.getJSONObject((jsonBody.length())-1);
         singleForm.setFormServerId(jsonObject.getInt(serverIdName));
+    }
+
+    public void fetchMenuCheckingLastInsert(SingleMenuChecking singleMenuChecking, Uri ENDPOINT, String formServerIdNameCols) {
+        String idKualifikasiSurvey=String.valueOf(singleMenuChecking.getIdKualifikasiSurvey());
+        String uriForm=buildUrl(ENDPOINT,idKualifikasiSurvey);
+
+        try {
+
+            String jsonFormString=getUrlString(uriForm);
+            // Log.i(TAG, "Received JSON: " + jsonFormKompal3aString);
+            JSONArray jsonFormBody=new JSONArray(jsonFormString);
+
+            parseFormLast(singleMenuChecking,jsonFormBody,formServerIdNameCols);
+
+
+        } catch (JSONException je){
+            Log.e(TAG, "Failed to parse JSON", je);
+        } catch (IOException ioe) {
+            Log.e(TAG, "Failed to fetch items", ioe);
+        }
+    }
+
+    private void parseFormLast(SingleMenuChecking singleMenuChecking, JSONArray jsonBody, String serverIdName) throws IOException, JSONException {
+        JSONObject jsonObject = jsonBody.getJSONObject((jsonBody.length())-1);
+        singleMenuChecking.setIdMenuCheckingServer(jsonObject.getInt(serverIdName));
     }
 
 
@@ -1097,7 +1130,7 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             MenuCheckingGalpal item = new MenuCheckingGalpal();
-            item.setIdMenuCheckingGalpal(jsonObject.getInt(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING));
+            item.setIdMenuCheckingServer(jsonObject.getInt(MenuCheckingGalpalTable.Cols.ID_MENU_F1_ENTRY_CHECKING_SERVER));
             item.setIdKualifikasiSurvey(jsonObject.getInt(MenuCheckingGalpalTable.Cols.ID_KUALIFIKASI_SURVEY));
             item.setIdMenu(jsonObject.getInt(MenuCheckingGalpalTable.Cols.ID_MENU_F1));
             item.setFill((jsonObject.getInt(MenuCheckingGalpalTable.Cols.IS_FILL)==1));
@@ -1112,7 +1145,7 @@ public class DataFetcher {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             MenuCheckingKompal item = new MenuCheckingKompal();
-            item.setIdMenuCheckingKompal(jsonObject.getInt(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING));
+            item.setIdMenuCheckingServer(jsonObject.getInt(MenuCheckingKompalTable.Cols.ID_MENU_F2_ENTRY_CHECKING_SERVER));
             item.setIdKualifikasiSurvey(jsonObject.getInt(MenuCheckingKompalTable.Cols.ID_KUALIFIKASI_SURVEY));
             item.setIdMenu(jsonObject.getInt(MenuCheckingKompalTable.Cols.ID_MENU_F2));
             item.setFill((jsonObject.getInt(MenuCheckingKompalTable.Cols.IS_FILL)==1));

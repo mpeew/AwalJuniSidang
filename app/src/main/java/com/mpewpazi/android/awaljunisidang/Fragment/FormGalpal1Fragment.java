@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,9 +114,13 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
         mDummyMaker=DummyMaker.get(getActivity());
         mGalpalForms=mDummyMaker.getGalpalForms();
         mKualifikasiSurvey=mDummyMaker.getKualifikasiSurvey(DrawerFormActivity.kualifikasiSurveyId);
-        mFormGalpal1=mDummyMaker.getFormGalpal1(DrawerFormActivity.kualifikasiSurveyId);
-        mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,mFormGalpal1.getKodeForm());
-
+        mFormGalpal1 = mDummyMaker.getFormGalpal1(DrawerFormActivity.kualifikasiSurveyId);
+        if(mFormGalpal1==null) {
+            mFormGalpal1 = new FormGalpal1();
+            mFormGalpal1.setKualifikasiSurveyId(DrawerFormActivity.kualifikasiSurveyId);
+        }
+        mMenuCheckingGalpal = mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId, mFormGalpal1.getKodeForm());
+        Log.i("FORM FRAGMENT GALPAL 1",String.valueOf(mMenuCheckingGalpal.getIdMenuCheckingServer()));
         mValidator=new Validator(this);
         mValidator.setValidationListener(this);
 
@@ -143,7 +148,7 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_form_galpal1, container, false);
-
+        Log.i("cepetan mana","ieuu");
         if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4|mMenuCheckingGalpal.isVerified()){
             setViewEnabledFalse(rootView);
         }

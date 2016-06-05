@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,6 +133,13 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
 
         mNamaPerusahaan=mDummyMaker.getPerusahaan(mKualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan();
         mMenuCheckingGalpal=mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId,FormGalpal3.kode);
+
+
+        if(mFormGalpal3==null) {
+            mFormGalpal3 = new FormGalpal3();
+            mFormGalpal3.setKualifikasiSurveyId(DrawerFormActivity.kualifikasiSurveyId);
+        }
+
         mPhotoFile=mDummyMaker.getPhotoFile(mFormGalpal3);
 
         mValidator=new Validator(this);
@@ -639,6 +647,10 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
                 PushGalpalService.setServiceAlarm(getActivity(),true);
             }else {
                 new PushTask(mFormGalpal3, mMenuCheckingGalpal).execute();
+                Log.i("LOGTEST",String.valueOf(mFormGalpal3.getIdentitasUmumGalanganId()));
+                Log.i("LOGTEST",String.valueOf(mFormGalpal3.getKualifikasiSurveyId()));
+                Log.i("LOGTEST",String.valueOf(mFormGalpal3.getAlamat()));
+
             }
         }
     }

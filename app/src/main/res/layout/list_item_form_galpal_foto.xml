@@ -22,16 +22,32 @@
             android:id="@+id/list_item_galpal_foto_image_view"
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:scaleType="centerInside"
+            android:scaleType="centerCrop"
             android:background="@android:color/darker_gray"
             android:cropToPadding="true"/>
 
-        <TextView
-            android:padding="10dp"
-            android:gravity="center"
-            android:id="@+id/list_item_galpal_foto_judul"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:padding="10dp"
+                android:gravity="center"
+                android:id="@+id/list_item_galpal_foto_judul"
+                android:layout_weight="85"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <ImageButton
+                android:id="@+id/list_item_galpal_foto_delete"
+                android:background="@android:color/white"
+                android:src="@drawable/delete_icon"
+                android:layout_weight="15"
+                android:layout_width="0dp"
+                android:layout_height="40dp"/>
+
+        </LinearLayout>
 
 
 
