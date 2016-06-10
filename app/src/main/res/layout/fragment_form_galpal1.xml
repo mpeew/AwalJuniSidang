@@ -302,6 +302,7 @@
         </LinearLayout>
     </ScrollView>
 
+    
 
     <Button android:id="@+id/galpal1_btn_submit"
             android:layout_weight="9"

@@ -189,6 +189,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String cpJabatan=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.CP_JABATAN));
         String cpEmail=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.CP_EMAIL));
         String website=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.WEBSITE));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
 
         FormGalpal1 formGalpal1=new FormGalpal1();
@@ -210,6 +211,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal1.setJabatan(cpJabatan);
         formGalpal1.setEmail(cpEmail);
         formGalpal1.setWebsite(website);
+        formGalpal1.setModifyDate(modifyDate);
 
 
         return formGalpal1;
@@ -237,6 +239,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String cpJabatan=getString(getColumnIndex(FG3GalanganKapalTable.Cols.CP_JABATAN));
         String cpEmail=getString(getColumnIndex(FG3GalanganKapalTable.Cols.CP_EMAIL));
         String imagePath=getString(getColumnIndex(FG3GalanganKapalTable.Cols.IMAGE_PATH));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
 
         FormGalpal3 formGalpal3=new FormGalpal3();
@@ -261,6 +264,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal3.setJabatan(cpJabatan);
         formGalpal3.setEmail(cpEmail);
         formGalpal3.setImagePath(imagePath);
+        formGalpal3.setModifyDate(modifyDate);
 
 
         return formGalpal3;
@@ -288,6 +292,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String nilaiEkonomi=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.NILAI_EKONOMI));
         String perkembanganWilayah=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.PERKEMBANGAN_WILAYAH));
         String rutrw=getString(getColumnIndex(FG4TinjauanAreaTable.Cols.RUTWR));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
 
         FormGalpal4 formGalpal4=new FormGalpal4();
@@ -312,6 +317,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal4.setNilaiEkonomi(nilaiEkonomi);
         formGalpal4.setPerkembanganWilayah(perkembanganWilayah);
         formGalpal4.setRutrw(rutrw);
+        formGalpal4.setModifyDate(modifyDate);
 
 
         return formGalpal4;
@@ -334,6 +340,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String lokasi=getString(getColumnIndex(FG6PeralatanKerjaLuarCraneTable.Cols.LOKASI));
         String status=getString(getColumnIndex(FG6PeralatanKerjaLuarCraneTable.Cols.STATUS));
         String note=getString(getColumnIndex(FG6PeralatanKerjaLuarCraneTable.Cols.NOTE));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
         FormGalpal6 formGalpal6=new FormGalpal6(UUID.fromString(idPeralatanKerjaCrane));
         formGalpal6.setFormServerId(idServerPeralatanKerjaCrane);
@@ -351,6 +358,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal6.setLokasi(lokasi);
         formGalpal6.setStatus(status);
         formGalpal6.setNote(note);
+        formGalpal6.setModifyDate(modifyDate);
 
         return formGalpal6;
     }
@@ -372,6 +380,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String lokasi=getString(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.LOKASI));
         String status=getString(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.STATUS));
         String note=getString(getColumnIndex(FG7PeralatanKerjaLuarTugboatTable.Cols.NOTE));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
         FormGalpal7 formGalpal7=new FormGalpal7(UUID.fromString(idPeralatanKerjaCrane));
         formGalpal7.setFormServerId(idServerPeralatanKerjaCrane);
@@ -389,6 +398,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal7.setLokasi(lokasi);
         formGalpal7.setStatus(status);
         formGalpal7.setNote(note);
+        formGalpal7.setModifyDate(modifyDate);
 
         return formGalpal7;
     }
@@ -411,6 +421,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String lokasi=getString(getColumnIndex(FG8PeralatanKerjaProduksiMesinTable.Cols.LOKASI));
         String status=getString(getColumnIndex(FG8PeralatanKerjaProduksiMesinTable.Cols.STATUS));
         String note=getString(getColumnIndex(FG8PeralatanKerjaProduksiMesinTable.Cols.NOTE));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
         FormGalpal8 formGalpal8=new FormGalpal8(UUID.fromString(idPeralatanKerjaCrane));
         formGalpal8.setFormServerId(idServerPeralatanKerjaCrane);
@@ -428,6 +439,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal8.setLokasi(lokasi);
         formGalpal8.setStatus(status);
         formGalpal8.setNote(note);
+        formGalpal8.setModifyDate(modifyDate);
 
         return formGalpal8;
     }
@@ -449,6 +461,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String lokasi=getString(getColumnIndex(FG9PeralatanKerjaProduksiKontruksi.Cols.LOKASI));
         String status=getString(getColumnIndex(FG9PeralatanKerjaProduksiKontruksi.Cols.STATUS));
         String note=getString(getColumnIndex(FG9PeralatanKerjaProduksiKontruksi.Cols.NOTE));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
         FormGalpal9 formGalpal9=new FormGalpal9(UUID.fromString(idPeralatanKerjaCrane));
         formGalpal9.setFormServerId(idServerPeralatanKerjaCrane);
@@ -466,6 +479,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal9.setLokasi(lokasi);
         formGalpal9.setStatus(status);
         formGalpal9.setNote(note);
+        formGalpal9.setModifyDate(modifyDate);
 
         return formGalpal9;
     }
@@ -487,6 +501,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String lokasi=getString(getColumnIndex(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.LOKASI));
         String status=getString(getColumnIndex(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.STATUS));
         String note=getString(getColumnIndex(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.NOTE));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
         FormGalpal10 formGalpal10=new FormGalpal10(UUID.fromString(idPeralatanKerjaCrane));
         formGalpal10.setFormServerId(idServerPeralatanKerjaCrane);
@@ -504,6 +519,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal10.setLokasi(lokasi);
         formGalpal10.setStatus(status);
         formGalpal10.setNote(note);
+        formGalpal10.setModifyDate(modifyDate);
 
         return formGalpal10;
     }
@@ -525,6 +541,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String lokasi=getString(getColumnIndex(FG11PeralatanKerjaProduksiPengecatan.Cols.LOKASI));
         String status=getString(getColumnIndex(FG11PeralatanKerjaProduksiPengecatan.Cols.STATUS));
         String note=getString(getColumnIndex(FG11PeralatanKerjaProduksiPengecatan.Cols.NOTE));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
         FormGalpal11 formGalpal11=new FormGalpal11(UUID.fromString(idPeralatanKerjaCrane));
         formGalpal11.setFormServerId(idServerPeralatanKerjaCrane);
@@ -542,6 +559,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formGalpal11.setLokasi(lokasi);
         formGalpal11.setStatus(status);
         formGalpal11.setNote(note);
+        formGalpal11.setModifyDate(modifyDate);
 
         return formGalpal11;
     }
@@ -556,6 +574,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String fotoUrl=getString(getColumnIndex(FormGalpalFotoTable.Cols.FOTO_URL));
         String imagePath=getString(getColumnIndex(FormGalpalFotoTable.Cols.IMAGE_PATH));
         int isFetchFromServer=getInt(getColumnIndex(FormGalpalFotoTable.Cols.IS_FETCH_FROM_SERVER));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
         FormGalpalFoto foto=new FormGalpalFoto(UUID.fromString(id));
         foto.setFormServerId(idServer);
@@ -566,6 +585,7 @@ public class CursorWrapperGal extends CursorWrapper{
         foto.setFotoUrl(fotoUrl);
         foto.setImagePath(imagePath);
         foto.setFetchFromServer(isFetchFromServer==1);
+        foto.setModifyDate(modifyDate);
 
         return foto;
     }
@@ -577,6 +597,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String jenisProduksi=getString(getColumnIndex(FK3aJenisKapasitasProduksiTable.Cols.JENIS_PRODUKSI));
         int satuan=getInt(getColumnIndex(FK3aJenisKapasitasProduksiTable.Cols.ID_MST_SATUAN));
         String note=getString(getColumnIndex(FK3aJenisKapasitasProduksiTable.Cols.NOTE));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
         FormKompal3a formKompal3a=new FormKompal3a(UUID.fromString(idJenisKapasitasProduksi));
         formKompal3a.setFormServerId(idServerJenisKapasitasProduksi);
@@ -584,6 +605,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formKompal3a.setJenisProduksi(jenisProduksi);
         formKompal3a.setSatuan(satuan);
         formKompal3a.setNote(note);
+        formKompal3a.setModifyDate(modifyDate);
 
         return formKompal3a;
     }
@@ -604,6 +626,7 @@ public class CursorWrapperGal extends CursorWrapper{
         int nilaiProduksiThn4=getInt(getColumnIndex(FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN4));
         String keterangan=getString(getColumnIndex(FK3bJumlahProduksiTable.Cols.KETERANGAN));
         String note=getString(getColumnIndex(FK3bJumlahProduksiTable.Cols.NOTE));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
         FormKompal3b formKompal3b=new FormKompal3b(UUID.fromString(idJumlahProduksi));
         formKompal3b.setFormServerId(idServerJumlahProduksi);
@@ -620,6 +643,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formKompal3b.setNilaiProduksiThn4(nilaiProduksiThn4);
         formKompal3b.setKeterangan(keterangan);
         formKompal3b.setNote(note);
+        formKompal3b.setModifyDate(modifyDate);
 
         return formKompal3b;
     }
@@ -635,6 +659,7 @@ public class CursorWrapperGal extends CursorWrapper{
         int jumlahProdthn3=getInt(getColumnIndex(FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN3));
         int jumlahProdthn4=getInt(getColumnIndex(FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN4));
         String note=getString(getColumnIndex(FK3cSistemBerproduksiTable.Cols.NOTE));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
         FormKompal3c formKompal3c=new FormKompal3c(UUID.fromString(idSistemBerproduksi));
         formKompal3c.setFormServerId(idServerSistemBerproduksi);
@@ -646,6 +671,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formKompal3c.setJumlahProduksiThn3(jumlahProdthn3);
         formKompal3c.setJumlahProduksiThn4(jumlahProdthn4);
         formKompal3c.setNote(note);
+        formKompal3c.setModifyDate(modifyDate);
 
         return formKompal3c;
     }
@@ -657,6 +683,7 @@ public class CursorWrapperGal extends CursorWrapper{
         String jenisStandarMutu=getString(getColumnIndex(FK3dStandarMutuTableTable.Cols.JENIS_STANDAR_MUTU));
         String keterangan=getString(getColumnIndex(FK3dStandarMutuTableTable.Cols.KETERANGAN));
         String note=getString(getColumnIndex(FK3dStandarMutuTableTable.Cols.NOTE));
+        String modifyDate=getString(getColumnIndex(FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE));
 
         FormKompal3d formKompal3d=new FormKompal3d(UUID.fromString(idStandarMutu));
         formKompal3d.setFormServerId(idServerStandarMutu);
@@ -664,6 +691,7 @@ public class CursorWrapperGal extends CursorWrapper{
         formKompal3d.setJenisStandarMutu(jenisStandarMutu);
         formKompal3d.setKeterangan(keterangan);
         formKompal3d.setNote(note);
+        formKompal3d.setModifyDate(modifyDate);
 
         return formKompal3d;
     }

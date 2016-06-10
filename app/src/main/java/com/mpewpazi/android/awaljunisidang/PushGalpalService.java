@@ -17,9 +17,11 @@ import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal7;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal8;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal9;
+import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -79,43 +81,79 @@ public class PushGalpalService extends IntentService {
         List<FormGalpal10> formGalpal10s=dummyMaker.getFormGalpal10s();
         List<FormGalpal11> formGalpal11s=dummyMaker.getFormGalpal11s();
         List<MenuCheckingGalpal> menuCheckingGalpals=dummyMaker.getMenuCheckingGalpals();
+        List<SingleForm> conflictForms=new ArrayList<>();
+
 
         for(FormGalpal1 formGalpal1:formGalpal1s) {
-            new DataPusher().makePostRequestFG1(formGalpal1);
+            new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()),GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestFG1(formGalpal1);
         }
         for(FormGalpal3 formGalpal3:formGalpal3s) {
-            new DataPusher().makePostRequestFG3(formGalpal3);
+            new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()),GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestFG3(formGalpal3);
         }
         for(FormGalpal4 formGalpal4:formGalpal4s) {
-            new DataPusher().makePostRequestFG4(formGalpal4);
+            new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()),GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestFG4(formGalpal4);
         }
         for(FormGalpal6 formGalpal6:formGalpal6s) {
-            new DataPusher().makePostRequestFG6(formGalpal6);
-            //update id yang dapet dari server
-            dummyMaker.addFormGalpal6(formGalpal6);
+            if(new DataPusher().isConflictRequest(formGalpal6,DataPusher.urlCheckPostFG6)){
+                conflictForms.add(formGalpal6);
+                Log.i("Sync","dalem");
+            }else {
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()), GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestFG6(formGalpal6);
+                //update id yang dapet dari server
+                dummyMaker.addFormGalpal6(formGalpal6);
+            }
+
         }
         for(FormGalpal7 formGalpal7:formGalpal7s) {
-            new DataPusher().makePostRequestFG7(formGalpal7);
-            dummyMaker.addFormGalpal7(formGalpal7);
+            if(new DataPusher().isConflictRequest(formGalpal7,DataPusher.urlCheckPostFG7)){
+                conflictForms.add(formGalpal7);
+            }else {
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()), GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestFG7(formGalpal7);
+                dummyMaker.addFormGalpal7(formGalpal7);
+            }
         }
         for(FormGalpal8 formGalpal8:formGalpal8s) {
-            new DataPusher().makePostRequestFG8(formGalpal8);
-            dummyMaker.addFormGalpal8(formGalpal8);
+            if(new DataPusher().isConflictRequest(formGalpal8,DataPusher.urlCheckPostFG8)){
+                conflictForms.add(formGalpal8);
+            }else {
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()), GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestFG8(formGalpal8);
+                dummyMaker.addFormGalpal8(formGalpal8);
+            }
         }
         for(FormGalpal9 formGalpal9:formGalpal9s) {
-            new DataPusher().makePostRequestFG9(formGalpal9);
-            dummyMaker.addFormGalpal9(formGalpal9);
+            if(new DataPusher().isConflictRequest(formGalpal9,DataPusher.urlCheckPostFG9)){
+                conflictForms.add(formGalpal9);
+            }else {
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()), GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestFG9(formGalpal9);
+                dummyMaker.addFormGalpal9(formGalpal9);
+            }
         }
         for(FormGalpal10 formGalpal10:formGalpal10s) {
-            new DataPusher().makePostRequestFG10(formGalpal10);
-            dummyMaker.addFormGalpal10(formGalpal10);
+            if(new DataPusher().isConflictRequest(formGalpal10,DataPusher.urlCheckPostFG10)){
+                conflictForms.add(formGalpal10);
+            }else {
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()), GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestFG10(formGalpal10);
+                dummyMaker.addFormGalpal10(formGalpal10);
+            }
         }
         for(FormGalpal11 formGalpal11:formGalpal11s) {
-            new DataPusher().makePostRequestFG11(formGalpal11);
-            dummyMaker.addFormGalpal11(formGalpal11);
+            if(new DataPusher().isConflictRequest(formGalpal11,DataPusher.urlCheckPostFG11)){
+                conflictForms.add(formGalpal11);
+            }else {
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()), GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestFG11(formGalpal11);
+                dummyMaker.addFormGalpal11(formGalpal11);
+            }
         }
         for(MenuCheckingGalpal menuCheckingGalpal:menuCheckingGalpals){
-            new DataPusher().makePostRequestMenuCheckingGalpal(menuCheckingGalpal);
+            if (conflictForms.size()==0) {
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()), GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestMenuCheckingGalpal(menuCheckingGalpal);
+            }
+        }
+
+        if(conflictForms.size()>0){
+            Intent intentNotification=new Intent("galpal_conflict_intent");
+            intentNotification.setAction("galpal_conflict_intent");
+            sendBroadcast(intentNotification);
         }
 
         setServiceAlarm(this,false);

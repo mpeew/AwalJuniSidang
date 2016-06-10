@@ -12,9 +12,11 @@ import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
+import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,27 +71,52 @@ public class PushKompalService extends IntentService {
         List<FormKompal3c> formKompal3cs=dummyMaker.getFormKompal3cs();
         List<FormKompal3d> formKompal3ds=dummyMaker.getFormKompal3ds();
         List<MenuCheckingKompal> menuCheckingKompals=dummyMaker.getMenuCheckingKompals();
+        List<SingleForm> conflictForms=new ArrayList<>();
 
 
         for(FormKompal3a formKompal3a:formKompal3as) {
-            new DataPusher().makePostRequestFK3a(formKompal3a);
-            //update id yang dapet dari server
-            dummyMaker.addFormKompal3a(formKompal3a);
+            if(new DataPusher().isConflictRequest(formKompal3a,DataPusher.urlCheckPostFK3a)){
+                conflictForms.add(formKompal3a);
+            }else {
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()), GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestFK3a(formKompal3a);
+                //update id yang dapet dari server
+                dummyMaker.addFormKompal3a(formKompal3a);
+            }
         }
         for(FormKompal3b formKompal3b:formKompal3bs) {
-            new DataPusher().makePostRequestFK3b(formKompal3b);
-            dummyMaker.addFormKompal3b(formKompal3b);
+            if(new DataPusher().isConflictRequest(formKompal3b,DataPusher.urlCheckPostFK3b)){
+                conflictForms.add(formKompal3b);
+            }else {
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()), GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestFK3b(formKompal3b);
+                dummyMaker.addFormKompal3b(formKompal3b);
+            }
         }
         for(FormKompal3c formKompal3c:formKompal3cs) {
-            new DataPusher().makePostRequestFK3c(formKompal3c);
-            dummyMaker.addFormKompal3c(formKompal3c);
+            if(new DataPusher().isConflictRequest(formKompal3c,DataPusher.urlCheckPostFK3c)){
+                conflictForms.add(formKompal3c);
+            }else {
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()), GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestFK3c(formKompal3c);
+                dummyMaker.addFormKompal3c(formKompal3c);
+            }
         }
         for(FormKompal3d formKompal3d:formKompal3ds) {
-            new DataPusher().makePostRequestFK3d(formKompal3d);
-            dummyMaker.addFormKompal3d(formKompal3d);
+            if(new DataPusher().isConflictRequest(formKompal3d,DataPusher.urlCheckPostFK3d)){
+                conflictForms.add(formKompal3d);
+            }else {
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()), GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestFK3d(formKompal3d);
+                dummyMaker.addFormKompal3d(formKompal3d);
+            }
         }
         for(MenuCheckingKompal menuCheckingKompal:menuCheckingKompals){
-            new DataPusher().makePostRequestMenuCheckingKompal(menuCheckingKompal);
+            if(conflictForms.size()==0){
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()),GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestMenuCheckingKompal(menuCheckingKompal);
+            }
+        }
+
+        if(conflictForms.size()>0){
+            Intent intentNotification=new Intent("kompal_conflict_intent");
+            intentNotification.setAction("kompal_conflict_intent");
+            sendBroadcast(intentNotification);
         }
 
         setServiceAlarm(this,false);

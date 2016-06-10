@@ -2206,6 +2206,7 @@ public class DummyMaker {
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.CP_JABATAN, formGalpal1.getJabatan());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.CP_EMAIL, formGalpal1.getEmail());
         contentValues.put(FG1PerusahaanIdentitasTable.Cols.WEBSITE, formGalpal1.getWebsite());
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formGalpal1.getModifyDate());
         return contentValues;
     }
 
@@ -2232,6 +2233,7 @@ public class DummyMaker {
         contentValues.put(FG3GalanganKapalTable.Cols.CP_NO, formGalpal3.getNomorCp());
         contentValues.put(FG3GalanganKapalTable.Cols.CP_JABATAN, formGalpal3.getJabatan());
         contentValues.put(FG3GalanganKapalTable.Cols.CP_EMAIL, formGalpal3.getEmail());
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formGalpal3.getModifyDate());
         return contentValues;
     }
 
@@ -2258,6 +2260,7 @@ public class DummyMaker {
         contentValues.put(FG4TinjauanAreaTable.Cols.NILAI_EKONOMI, formGalpal4.getNilaiEkonomi());
         contentValues.put(FG4TinjauanAreaTable.Cols.PERKEMBANGAN_WILAYAH, formGalpal4.getPerkembanganWilayah());
         contentValues.put(FG4TinjauanAreaTable.Cols.RUTWR, formGalpal4.getRutrw());
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formGalpal4.getModifyDate());
         return contentValues;
     }
 
@@ -2280,6 +2283,7 @@ public class DummyMaker {
         contentValues.put(FG6PeralatanKerjaLuarCraneTable.Cols.SATUAN_KAPASITAS_TERPAKAI ,formGalpal6.getSatuanKapasitasTerpakai());
         contentValues.put(FG6PeralatanKerjaLuarCraneTable.Cols.SATUAN_KAPASITAS_TERPASANG ,formGalpal6.getSatuanKapastiasTerpasang());
         contentValues.put(FG6PeralatanKerjaLuarCraneTable.Cols.NOTE ,formGalpal6.getNote());
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formGalpal6.getModifyDate());
         return contentValues;
     }
 
@@ -2301,6 +2305,7 @@ public class DummyMaker {
         contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPAKAI ,formGalpal7.getSatuanKapasitasTerpakai());
         contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.SATUAN_KAPASITAS_TERPASANG ,formGalpal7.getSatuanKapastiasTerpasang());
         contentValues.put(FG7PeralatanKerjaLuarTugboatTable.Cols.NOTE ,formGalpal7.getNote());
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formGalpal7.getModifyDate());
         return contentValues;
     }
 
@@ -2322,6 +2327,7 @@ public class DummyMaker {
         contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.SATUAN_KAPASITAS_TERPAKAI ,formGalpal8.getSatuanKapasitasTerpakai());
         contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.SATUAN_KAPASITAS_TERPASANG ,formGalpal8.getSatuanKapastiasTerpasang());
         contentValues.put(FG8PeralatanKerjaProduksiMesinTable.Cols.NOTE ,formGalpal8.getNote());
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formGalpal8.getModifyDate());
         return contentValues;
     }
 
@@ -2343,6 +2349,7 @@ public class DummyMaker {
         contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.SATUAN_KAPASITAS_TERPAKAI ,formGalpal9.getSatuanKapasitasTerpakai());
         contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.SATUAN_KAPASITAS_TERPASANG ,formGalpal9.getSatuanKapastiasTerpasang());
         contentValues.put(FG9PeralatanKerjaProduksiKontruksi.Cols.NOTE ,formGalpal9.getNote());
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formGalpal9.getModifyDate());
         return contentValues;
     }
 
@@ -2364,6 +2371,7 @@ public class DummyMaker {
         contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.SATUAN_KAPASITAS_TERPAKAI ,formGalpal10.getSatuanKapasitasTerpakai());
         contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.SATUAN_KAPASITAS_TERPASANG ,formGalpal10.getSatuanKapastiasTerpasang());
         contentValues.put(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.NOTE ,formGalpal10.getNote());
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formGalpal10.getModifyDate());
         return contentValues;
     }
 
@@ -2385,6 +2393,7 @@ public class DummyMaker {
         contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.SATUAN_KAPASITAS_TERPAKAI ,formGalpal11.getSatuanKapasitasTerpakai());
         contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.SATUAN_KAPASITAS_TERPASANG ,formGalpal11.getSatuanKapastiasTerpasang());
         contentValues.put(FG11PeralatanKerjaProduksiPengecatan.Cols.NOTE ,formGalpal11.getNote());
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formGalpal11.getModifyDate());
 
         return contentValues;
     }
@@ -2401,6 +2410,7 @@ public class DummyMaker {
         contentValues.put(FormGalpalFotoTable.Cols.FOTO_URL,formGalpalFoto.getFotoUrl());
         contentValues.put(FormGalpalFotoTable.Cols.IMAGE_PATH,formGalpalFoto.getImagePath());
         contentValues.put(FormGalpalFotoTable.Cols.IS_FETCH_FROM_SERVER,formGalpalFoto.isFetchFromServer() ? 1 : 0);
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formGalpalFoto.getModifyDate());
         return contentValues;
     }
 
@@ -2414,7 +2424,7 @@ public class DummyMaker {
         contentValues.put(FK3aJenisKapasitasProduksiTable.Cols.KAPASITAS_PRODUKSI,formKompal3a.getKapasitasProduksi());
         contentValues.put(FK3aJenisKapasitasProduksiTable.Cols.ID_MST_SATUAN,formKompal3a.getSatuan());
         contentValues.put(FK3aJenisKapasitasProduksiTable.Cols.NOTE,formKompal3a.getNote());
-
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formKompal3a.getModifyDate());
         return contentValues;
     }
 
@@ -2435,6 +2445,7 @@ public class DummyMaker {
         contentValues.put(FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN4,formKompal3b.getNilaiProduksiThn4());
         contentValues.put(FK3bJumlahProduksiTable.Cols.KETERANGAN,formKompal3b.getKeterangan());
         contentValues.put(FK3bJumlahProduksiTable.Cols.NOTE,formKompal3b.getNote());
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formKompal3b.getModifyDate());
         return contentValues;
     }
 
@@ -2450,6 +2461,7 @@ public class DummyMaker {
         contentValues.put(FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN3,formKompal3c.getJumlahProduksiThn3());
         contentValues.put(FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN4,formKompal3c.getJumlahProduksiThn4());
         contentValues.put(FK3cSistemBerproduksiTable.Cols.NOTE,formKompal3c.getNote());
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formKompal3c.getModifyDate());
         return contentValues;
     }
 
@@ -2461,6 +2473,7 @@ public class DummyMaker {
         contentValues.put(FK3dStandarMutuTableTable.Cols.JENIS_STANDAR_MUTU,formKompal3d.getJenisStandarMutu());
         contentValues.put(FK3dStandarMutuTableTable.Cols.KETERANGAN,formKompal3d.getKeterangan());
         contentValues.put(FK3dStandarMutuTableTable.Cols.NOTE,formKompal3d.getNote());
+        contentValues.put(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE, formKompal3d.getModifyDate());
         return contentValues;
     }
 

@@ -150,9 +150,14 @@ public class DataFetcher {
     private static final String MenuF2ENDPOINT="http://192.168.1.100/galpal/menuF2/api";
 
     private static final Uri NotificationENDPOINT = Uri.parse("http://192.168.1.100/galpal/notification/api/id");
+    DateFormat mDateFormat;
 
 
     //private static final String MSTENDPOINT="http://192.168.1.100/galpal/";
+
+    public DataFetcher(){
+        mDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    }
 
 
 
@@ -444,7 +449,7 @@ public class DataFetcher {
         try {
             String jsonFormGalpal1String=getUrlString(uriFormGalpal1);
             String jsonFormGalpal3String=getUrlString(uriFormGalpal3);
-            String jsonFormGalpal4String=getUrlString(uriFormGalpal4);
+            //String jsonFormGalpal4String=getUrlString(uriFormGalpal4);
             String jsonFormGalpal6String=getUrlString(uriFormGalpal6);
             String jsonFormGalpal7String=getUrlString(uriFormGalpal7);
             String jsonFormGalpal8String=getUrlString(uriFormGalpal8);
@@ -456,7 +461,7 @@ public class DataFetcher {
 
            Log.i(TAG, "Received JSON GP1: " + jsonFormGalpal1String);
            Log.i(TAG, "Received JSON GP3: " + jsonFormGalpal3String);
-           Log.i(TAG, "Received JSON GP4: " + jsonFormGalpal4String);
+           //Log.i(TAG, "Received JSON GP4: " + jsonFormGalpal4String);
             Log.i(TAG, "Received JSON GP6: " + jsonFormGalpal6String);
             Log.i(TAG, "Received JSON GP7: " + jsonFormGalpal7String);
             Log.i(TAG, "Received JSON GP8: " + jsonFormGalpal8String);
@@ -468,7 +473,7 @@ public class DataFetcher {
 
 
 
-            JSONArray jsonFormGalpal4Body = new JSONArray(jsonFormGalpal4String);
+           // JSONArray jsonFormGalpal4Body = new JSONArray(jsonFormGalpal4String);
             JSONArray jsonFormGalpal6Body = new JSONArray(jsonFormGalpal6String);
             JSONArray jsonFormGalpal7Body = new JSONArray(jsonFormGalpal7String);
             JSONArray jsonFormGalpal8Body = new JSONArray(jsonFormGalpal8String);
@@ -486,7 +491,7 @@ public class DataFetcher {
                 parseFormGalpal3(items, jsonFormGalpal3Body);
             }
 
-            parseFormGalpal4(items,jsonFormGalpal4Body);
+           // parseFormGalpal4(items,jsonFormGalpal4Body);
             parseFormGalpal6s(items,jsonFormGalpal6Body);
             parseFormGalpal7s(items,jsonFormGalpal7Body);
             parseFormGalpal8s(items,jsonFormGalpal8Body);
@@ -501,6 +506,8 @@ public class DataFetcher {
             Log.e(TAG, "Failed to parse JSON", je);
         } catch (IOException ioe) {
             Log.e(TAG, "Failed to fetch items", ioe);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         return items;
@@ -544,6 +551,8 @@ public class DataFetcher {
             Log.e(TAG, "Failed to parse JSON", je);
         } catch (IOException ioe) {
             Log.e(TAG, "Failed to fetch items", ioe);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         return items;
@@ -600,7 +609,7 @@ public class DataFetcher {
     }
 
 
-    private void parseFormGalpal1(List<SingleForm> items, JSONObject jsonObject) throws IOException, JSONException {
+    private void parseFormGalpal1(List<SingleForm> items, JSONObject jsonObject) throws IOException, JSONException, ParseException {
 
             FormGalpal1 item = new FormGalpal1();
             item.setIdentitasPerusahaanId(jsonObject.getInt(FG1PerusahaanIdentitasTable.Cols.ID_PERUSAHAAN_IDENTITAS));
@@ -621,11 +630,12 @@ public class DataFetcher {
             item.setWebsite(jsonObject.getString(FG1PerusahaanIdentitasTable.Cols.WEBSITE));
             item.setStatusKepemilikanUsaha(jsonObject.getString(FG1PerusahaanIdentitasTable.Cols.STATUS_KEPEMILIKAN_USAHA));
             item.setKecamatan(jsonObject.getString(FG1PerusahaanIdentitasTable.Cols.KECAMATAN_PERUSAHAAN));
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
 
     }
 
-    private void parseFormGalpal3(List<SingleForm> items, JSONObject jsonObject) throws IOException, JSONException {
+    private void parseFormGalpal3(List<SingleForm> items, JSONObject jsonObject) throws IOException, JSONException, ParseException {
 
             FormGalpal3 item = new FormGalpal3();
             item.setIdentitasUmumGalanganId(jsonObject.getInt(FG3GalanganKapalTable.Cols.ID_GALANGAN_KAPAL));
@@ -647,10 +657,11 @@ public class DataFetcher {
             item.setNomorCp(jsonObject.getString(FG3GalanganKapalTable.Cols.CP_NO));
             item.setJabatan(jsonObject.getString(FG3GalanganKapalTable.Cols.CP_JABATAN));
             item.setEmail(jsonObject.getString(FG3GalanganKapalTable.Cols.CP_EMAIL));
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
     }
 
-    private void parseFormGalpal4(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+    private void parseFormGalpal4(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException, ParseException {
 
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
@@ -676,13 +687,13 @@ public class DataFetcher {
             item.setNilaiEkonomi(jsonObject.getString(FG4TinjauanAreaTable.Cols.NILAI_EKONOMI));
             item.setPerkembanganWilayah(jsonObject.getString(FG4TinjauanAreaTable.Cols.PERKEMBANGAN_WILAYAH));
             item.setRutrw(jsonObject.getString(FG4TinjauanAreaTable.Cols.RUTWR));
-
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
         }
 
     }
 
-    private void parseFormGalpal6s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+    private void parseFormGalpal6s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException, ParseException {
 
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
@@ -702,11 +713,12 @@ public class DataFetcher {
             item.setLokasi(jsonObject.getString(FG6PeralatanKerjaLuarCraneTable.Cols.LOKASI));
             item.setStatus(jsonObject.getString(FG6PeralatanKerjaLuarCraneTable.Cols.STATUS));
             item.setNote(jsonObject.getString(FG6PeralatanKerjaLuarCraneTable.Cols.NOTE));
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
         }
     }
 
-    private void parseFormGalpal7s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+    private void parseFormGalpal7s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException, ParseException {
 
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
@@ -726,11 +738,12 @@ public class DataFetcher {
             item.setLokasi(jsonObject.getString(FG7PeralatanKerjaLuarTugboatTable.Cols.LOKASI));
             item.setStatus(jsonObject.getString(FG7PeralatanKerjaLuarTugboatTable.Cols.STATUS));
             item.setNote(jsonObject.getString(FG7PeralatanKerjaLuarTugboatTable.Cols.NOTE));
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
         }
     }
 
-    private void parseFormGalpal8s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+    private void parseFormGalpal8s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException, ParseException {
 
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
@@ -750,11 +763,12 @@ public class DataFetcher {
             item.setLokasi(jsonObject.getString(FG8PeralatanKerjaProduksiMesinTable.Cols.LOKASI));
             item.setStatus(jsonObject.getString(FG8PeralatanKerjaProduksiMesinTable.Cols.STATUS));
             item.setNote(jsonObject.getString(FG8PeralatanKerjaProduksiMesinTable.Cols.NOTE));
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
         }
     }
 
-    private void parseFormGalpal9s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+    private void parseFormGalpal9s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException, ParseException {
 
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
@@ -774,11 +788,12 @@ public class DataFetcher {
             item.setLokasi(jsonObject.getString(FG9PeralatanKerjaProduksiKontruksi.Cols.LOKASI));
             item.setStatus(jsonObject.getString(FG9PeralatanKerjaProduksiKontruksi.Cols.STATUS));
             item.setNote(jsonObject.getString(FG9PeralatanKerjaProduksiKontruksi.Cols.NOTE));
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
         }
     }
 
-    private void parseFormGalpal10s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+    private void parseFormGalpal10s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException, ParseException {
 
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
@@ -798,11 +813,12 @@ public class DataFetcher {
             item.setLokasi(jsonObject.getString(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.LOKASI));
             item.setStatus(jsonObject.getString(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.STATUS));
             item.setNote(jsonObject.getString(FG10PeralatanKerjaProduksiElektrikalMekanikal.Cols.NOTE));
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
         }
     }
 
-    private void parseFormGalpal11s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+    private void parseFormGalpal11s(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException, ParseException {
 
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
@@ -822,11 +838,12 @@ public class DataFetcher {
             item.setLokasi(jsonObject.getString(FG11PeralatanKerjaProduksiPengecatan.Cols.LOKASI));
             item.setStatus(jsonObject.getString(FG11PeralatanKerjaProduksiPengecatan.Cols.STATUS));
             item.setNote(jsonObject.getString(FG11PeralatanKerjaProduksiPengecatan.Cols.NOTE));
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
         }
     }
 
-    private void parseFormGalpalFotos(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+    private void parseFormGalpalFotos(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException, ParseException {
 
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
@@ -839,11 +856,12 @@ public class DataFetcher {
             item.setFotoUrl(jsonObject.getString(FormGalpalFotoTable.Cols.FOTO_URL));
             item.setNote(jsonObject.getString(FormGalpalFotoTable.Cols.NOTE));
             item.setFetchFromServer(true);
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
         }
     }
 
-    private void parseFormKompal3as(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+    private void parseFormKompal3as(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException, ParseException {
 
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
@@ -854,13 +872,14 @@ public class DataFetcher {
             item.setKapasitasProduksi(jsonObject.getInt(FK3aJenisKapasitasProduksiTable.Cols.KAPASITAS_PRODUKSI));
             item.setSatuan(jsonObject.getInt(FK3aJenisKapasitasProduksiTable.Cols.ID_MST_SATUAN));
             item.setNote(jsonObject.getString(FK3aJenisKapasitasProduksiTable.Cols.NOTE));
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
         }
     }
 
 
 
-    private void parseFormKompal3bs(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+    private void parseFormKompal3bs(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException, ParseException {
 
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
@@ -879,13 +898,14 @@ public class DataFetcher {
             item.setNilaiProduksiThn1(jsonObject.getDouble(FK3bJumlahProduksiTable.Cols.NILAI_PRODUKSI_NMIN1));
             item.setKeterangan(jsonObject.getString(FK3bJumlahProduksiTable.Cols.KETERANGAN));
             item.setNote(jsonObject.getString(FK3bJumlahProduksiTable.Cols.NOTE));
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
         }
     }
 
 
 
-    private void parseFormKompal3cs(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+    private void parseFormKompal3cs(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException, ParseException {
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
             FormKompal3c item = new FormKompal3c();
@@ -899,12 +919,13 @@ public class DataFetcher {
             item.setJumlahProduksiThn2(jsonObject.getInt(FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN2));
             item.setJumlahProduksiThn1(jsonObject.getInt(FK3cSistemBerproduksiTable.Cols.JUMLAH_PROD_NMIN1));
             item.setNote(jsonObject.getString(FK3cSistemBerproduksiTable.Cols.NOTE));
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
         }
     }
 
 
-    private void parseFormKompal3ds(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException {
+    private void parseFormKompal3ds(List<SingleForm> items, JSONArray jsonBody) throws IOException, JSONException, ParseException {
 
         for (int i = 0; i < jsonBody.length(); i++) {
             JSONObject jsonObject = jsonBody.getJSONObject(i);
@@ -914,6 +935,7 @@ public class DataFetcher {
             item.setJenisStandarMutu(jsonObject.getString(FK3dStandarMutuTableTable.Cols.JENIS_STANDAR_MUTU));
             item.setKeterangan(jsonObject.getString(FK3dStandarMutuTableTable.Cols.KETERANGAN));
             item.setNote(jsonObject.getString(FK3dStandarMutuTableTable.Cols.NOTE));
+            item.setModifyDate(jsonObject.getString(FK3dStandarMutuTableTable.Cols.MODIFIED_DATE));
             items.add(item);
         }
     }
@@ -1092,7 +1114,7 @@ public class DataFetcher {
         String uriMenuCheckingKompal=buildUrl(MenuCheckingKompalENDPOINT,idKualifikasiSurvey);
         try {
             String jsonMenuCheckingKompalString=getUrlString(uriMenuCheckingKompal);
-            Log.i(TAG, "Received JSON: " + jsonMenuCheckingKompalString);
+            Log.i(TAG, "Received JSON MenuCheckingKompal: " + jsonMenuCheckingKompalString);
 
             JSONArray jsonMenuCheckingKompalBody=new JSONArray(jsonMenuCheckingKompalString);
             parseMenuCheckingKompals(items,jsonMenuCheckingKompalBody);
@@ -1111,7 +1133,7 @@ public class DataFetcher {
         String uriMenuCheckingGalpal=buildUrl(MenuCheckingGalpalENDPOINT,idKualifikasiSurvey);
         try {
             String jsonMenuCheckingGalpalString=getUrlString(uriMenuCheckingGalpal);
-            Log.i(TAG, "Received JSON: " + jsonMenuCheckingGalpalString);
+            Log.i(TAG, "Received JSON MenuCheckingGalpal: " + jsonMenuCheckingGalpalString);
 
             JSONArray jsonMenuCheckingGalpalBody=new JSONArray(jsonMenuCheckingGalpalString);
             parseMenuCheckingGalpals(items,jsonMenuCheckingGalpalBody);
@@ -1235,8 +1257,8 @@ public class DataFetcher {
             item.setIdNotification(jsonObject.getInt(NotificationTable.Cols.ID_NOTIFICATION));
             item.setUserId(jsonObject.getString(NotificationTable.Cols.USERID));
             item.setFromUserId(jsonObject.getString(NotificationTable.Cols.FROMUSERID));
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss", Locale.ENGLISH);
-            Date date = format.parse(jsonObject.getString(NotificationTable.Cols.NOTIF_DATE));
+            //DateFormat format = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss", Locale.ENGLISH);
+            Date date = mDateFormat.parse(jsonObject.getString(NotificationTable.Cols.NOTIF_DATE));
             item.setNotifyDate(date);
             item.setNotifyMessage(jsonObject.getString(NotificationTable.Cols.NOTIF_MESSAGE));
             item.setNotifyTitle(jsonObject.getString(NotificationTable.Cols.NOTIF_TITLE));

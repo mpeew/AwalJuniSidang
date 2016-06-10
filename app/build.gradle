@@ -30,4 +30,5 @@ dependencies {
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'com.mobsandgeeks:android-saripaar:2.0.3'
     compile 'org.apache.httpcomponents:httpmime:4.3.5'
+    compile 'com.android.support:design:23.3.0'
 }

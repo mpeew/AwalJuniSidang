@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
     @Password
     private EditText mPasswordEditText;
+    private ProgressDialog mProgressDialog;
 
 
 
@@ -85,16 +86,22 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Log.i("TEST",md5("49916022Peri"));
+        mProgressDialog=new ProgressDialog(LoginActivity.this);
         validator=new Validator(this);
         validator.setValidationListener(this);
 
         mDummyMaker=DummyMaker.get(this);
 
 
+        List<MstPropinsi> mstPropinsis=mDummyMaker.getMstPropinsis();
 
-        new FetchMenuTask().execute();
-        new FetchMstDataTask().execute();
+        if(mstPropinsis.size()<=0) {
+            new FetchMenuTask().execute();
+            new FetchMstDataTask().execute();
+        }
+
+
+
 
 
 
@@ -114,7 +121,11 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 }
                 String userid=mUsernameEditText.getText().toString();
                 String password=mPasswordEditText.getText().toString();
-                new FetchKualifikasiSurveyTask(userid,password).execute();
+                if(new ConnectionDetector(getApplicationContext()).isConnectingToInternet()) {
+                    new FetchKualifikasiSurveyTask(userid, password).execute();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Koneksi Internet Tidak Tersedia", Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -185,6 +196,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         DummyMaker.get(getApplicationContext()).addFormGalpal4((FormGalpal4)singleForm);
                         break;
                     case FormGalpal6.kodeAsync:
+                        Log.i("test","kok kagak diload");
                         DummyMaker.get(getApplicationContext()).addFormGalpal6Server((FormGalpal6)singleForm);
                         break;
                     case FormGalpal7.kodeAsync:
@@ -219,18 +231,19 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         break;
                 }
             }
+            mProgressDialog.dismiss();
 
         }
     }
 
 
     private class FetchMstDataTask extends AsyncTask<Void,Void,List<SingleMaster>> {
-        ProgressDialog mProgressDialog=new ProgressDialog(LoginActivity.this);
+        ProgressDialog mProgressDialogMst=new ProgressDialog(LoginActivity.this);
 
         @Override
         protected void onPreExecute() {
-            mProgressDialog.setMessage("Please Wait..");
-            mProgressDialog.show();
+            mProgressDialogMst.setMessage("Please Wait..");
+            mProgressDialogMst.show();
         }
 
         @Override
@@ -274,11 +287,13 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         break;
                 }
             }
-            mProgressDialog.dismiss();
+            mProgressDialogMst.dismiss();
 
 
         }
     }
+
+
 
 
     private class FetchMenuCheckingTask extends AsyncTask<Void,Void,List<SingleMenuChecking>> {
@@ -316,6 +331,9 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         break;
                 }
             }
+            Intent intent=new Intent(LoginActivity.this,HomePageActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
 
         }
     }
@@ -350,7 +368,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     private class FetchKualifikasiSurveyTask extends AsyncTask<Void,Void,List<KualifikasiSurvey>> {
         private String mUserId;
         private String mPassword;
-        private ProgressDialog dialog=new ProgressDialog(LoginActivity.this);
+
 
 
 
@@ -361,8 +379,8 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
         @Override
         protected void onPreExecute() {
-            dialog.setMessage("Please Wait...");
-            dialog.show();
+            mProgressDialog.setMessage("Please Wait...");
+            mProgressDialog.show();
         }
 
         @Override
@@ -387,7 +405,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             }else{
                 Toast.makeText(getApplicationContext(),"Username Atau Password Salah", Toast.LENGTH_LONG).show();
             }
-            dialog.dismiss();
+
         }
     }
 
@@ -420,9 +438,6 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             }
             new FetchFormsTask(mKualifikasiSurveys).execute();
             new FetchMenuCheckingTask(mKualifikasiSurveys).execute();
-            Intent intent=new Intent(LoginActivity.this,HomePageActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
         }
     }
 

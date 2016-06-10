@@ -31,6 +31,8 @@
 
     </android.support.v7.widget.RecyclerView>
 
+
+
     <Button android:id="@+id/galpal_foto_btn_submit"
             android:layout_weight="11"
             android:layout_width="fill_parent"

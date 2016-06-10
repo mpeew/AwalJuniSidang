@@ -25,6 +25,7 @@ import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal9;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormGalpal9PagerActivity;
+import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
 import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
@@ -58,9 +59,11 @@ public class ListFormGalpal9Fragment extends SingleFragment {
 
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext=getActivity();
         setHasOptionsMenu(true);
 
         mDummyMaker=DummyMaker.get(getContext());
@@ -301,10 +304,10 @@ public class ListFormGalpal9Fragment extends SingleFragment {
         protected List<FormGalpal9> doInBackground(Void... params) {
             if(mFormGalpal9s.size()>0) {
                 for (FormGalpal9 formGalpal9 : mFormGalpal9s) {
-                    new DataPusher().makePostRequestFG9(formGalpal9);
+                    new DataPusher(GalKomSharedPreference.getUserId(mContext),GalKomSharedPreference.getPassword(mContext)).makePostRequestFG9(formGalpal9);
                 }
             }
-            new DataPusher().makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
+            new DataPusher(GalKomSharedPreference.getUserId(mContext),GalKomSharedPreference.getPassword(mContext)).makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
             return mFormGalpal9s;
         }
 

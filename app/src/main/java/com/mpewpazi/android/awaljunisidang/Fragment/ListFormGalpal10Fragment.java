@@ -1,5 +1,6 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -25,6 +26,7 @@ import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal10;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormGalpal10PagerActivity;
+import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
 import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
@@ -57,9 +59,11 @@ public class ListFormGalpal10Fragment extends SingleFragment {
     private Button mSubmitButton;
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext=getActivity();
         setHasOptionsMenu(true);
 
         mDummyMaker=DummyMaker.get(getContext());
@@ -300,10 +304,10 @@ public class ListFormGalpal10Fragment extends SingleFragment {
         protected List<FormGalpal10> doInBackground(Void... params) {
             if(mFormGalpal10s.size()>0) {
                 for (FormGalpal10 formGalpal10 : mFormGalpal10s) {
-                    new DataPusher().makePostRequestFG10(formGalpal10);
+                    new DataPusher(GalKomSharedPreference.getUserId(mContext),GalKomSharedPreference.getPassword(mContext)).makePostRequestFG10(formGalpal10);
                 }
             }
-            new DataPusher().makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
+            new DataPusher(GalKomSharedPreference.getUserId(mContext),GalKomSharedPreference.getPassword(mContext)).makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
             return mFormGalpal10s;
         }
 

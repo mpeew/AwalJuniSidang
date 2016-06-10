@@ -24,6 +24,7 @@ import com.mpewpazi.android.awaljunisidang.DataPusher;
 import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
+import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
 import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.SpinnerAdapter;
@@ -105,11 +106,13 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
 
 
 
+
     private String mNamaPerusahaan;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext=getActivity();
 
         mDummyMaker=DummyMaker.get(getActivity());
         mGalpalForms=mDummyMaker.getGalpalForms();
@@ -584,8 +587,8 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
 
         @Override
         protected Void doInBackground(Void... params) {
-            new DataPusher().makePostRequestFG1(mFormGalpal1);
-            new DataPusher().makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
+            new DataPusher(GalKomSharedPreference.getUserId(mContext),GalKomSharedPreference.getPassword(mContext)).makePostRequestFG1(mFormGalpal1);
+            new DataPusher(GalKomSharedPreference.getUserId(mContext),GalKomSharedPreference.getPassword(mContext)).makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
             return null;
         }
     }

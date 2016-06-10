@@ -24,6 +24,7 @@ import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormKompal3dPagerActivity;
+import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
 import com.mpewpazi.android.awaljunisidang.PushKompalService;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
@@ -282,10 +283,10 @@ public class ListFormKompal3dFragment extends SingleFragment {
         protected List<FormKompal3d> doInBackground(Void... params) {
             if(mFormKompal3ds.size()>0) {
                 for (FormKompal3d formKompal3d : mFormKompal3ds) {
-                    new DataPusher().makePostRequestFK3d(formKompal3d);
+                    new DataPusher(GalKomSharedPreference.getUserId(mContext),GalKomSharedPreference.getPassword(mContext)).makePostRequestFK3d(formKompal3d);
                 }
             }
-            new DataPusher().makePostRequestMenuCheckingKompal((MenuCheckingKompal) mSingleMenuChecking);
+            new DataPusher(GalKomSharedPreference.getUserId(mContext),GalKomSharedPreference.getPassword(mContext)).makePostRequestMenuCheckingKompal((MenuCheckingKompal) mSingleMenuChecking);
             return mFormKompal3ds;
         }
 

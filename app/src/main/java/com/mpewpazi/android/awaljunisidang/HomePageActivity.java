@@ -1,5 +1,6 @@
 package com.mpewpazi.android.awaljunisidang;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,8 +25,8 @@ import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
+import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
 import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
-import com.mpewpazi.android.awaljunisidang.model.SurveyAssignSurveyor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,16 +41,16 @@ public class HomePageActivity extends AppCompatActivity{
 
 
     private DummyMaker mDummyMaker;
-    private List<SurveyAssignSurveyor> mSurveyAssignSurveyors;
     private List<KualifikasiSurvey> mKualifikasiSurveys;
-    private NotificiationReceiver mNotificiationReceiver;
     private List<SingleMenuChecking> mMenuCheckingGalpals;
     private List<SingleMenuChecking> mMenuCheckingKompals;
+    private ProgressDialog mProgressDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mProgressDialog=new ProgressDialog(HomePageActivity.this);
         setContentView(R.layout.activity_home_page);
 
 
@@ -72,27 +73,35 @@ public class HomePageActivity extends AppCompatActivity{
                if(new ConnectionDetector(HomePageActivity.this).isConnectingToInternet()) {
                   new FetchKualifikasiSurveyTask().execute();
                 }else{
-                updateUi();
-                for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys) {
-                    int kualifikasiSurveyId = kualifikasiSurvey.getKualifikasiSurveyId();
-                    mMenuCheckingGalpals = mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId);
-                    if (mMenuCheckingGalpals.size() <= 0) {
-                        mMenuCheckingGalpals = mDummyMaker.createMenuCheckingGalpals(kualifikasiSurveyId);
-                        for (SingleMenuChecking singleMenuChecking : mMenuCheckingGalpals) {
-                            mDummyMaker.addMenuCheckingGalpal((MenuCheckingGalpal) singleMenuChecking);
-                        }
-                        new PushMenuCheckingGalpalTask(mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId)).execute();
-                    }
-                    mMenuCheckingKompals = mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId);
-                    if (mMenuCheckingKompals.size() <= 0) {
-                        mMenuCheckingKompals = mDummyMaker.createMenuCheckingKompals(kualifikasiSurveyId);
-                        for (SingleMenuChecking singleMenuChecking : mMenuCheckingKompals) {
-                            mDummyMaker.addMenuCheckingKompal((MenuCheckingKompal) singleMenuChecking);
-                        }
-                        new PushMenuCheckingKompalTask(mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId)).execute();
-                    }
+                   updateUi();
+                   for (KualifikasiSurvey kualifikasiSurvey : mKualifikasiSurveys) {
+                       int kualifikasiSurveyId = kualifikasiSurvey.getKualifikasiSurveyId();
+                       String jenisIndustri=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri();
 
-                }
+                       if(jenisIndustri.equals(Perusahaan.industriGalpal)) {
+                           mMenuCheckingGalpals = DummyMaker.get(getApplicationContext()).getMenuCheckingGalpals(kualifikasiSurveyId);
+                           if (mMenuCheckingGalpals.size() <= 0) {
+                               mMenuCheckingGalpals = mDummyMaker.createMenuCheckingGalpals(kualifikasiSurveyId);
+                               for (SingleMenuChecking singleMenuChecking : mMenuCheckingGalpals) {
+                                   mDummyMaker.addMenuCheckingGalpal((MenuCheckingGalpal) singleMenuChecking);
+                               }
+                               new PushMenuCheckingGalpalTask(mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId)).execute();
+                           } else {
+                               mProgressDialog.dismiss();
+                           }
+                       }else {
+                           mMenuCheckingKompals = mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId);
+                           if (mMenuCheckingKompals.size() <= 0) {
+                               mMenuCheckingKompals = mDummyMaker.createMenuCheckingKompals(kualifikasiSurveyId);
+                               for (SingleMenuChecking singleMenuChecking : mMenuCheckingKompals) {
+                                   mDummyMaker.addMenuCheckingKompal((MenuCheckingKompal) singleMenuChecking);
+                               }
+                               new PushMenuCheckingKompalTask(mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId)).execute();
+                           } else {
+                               mProgressDialog.dismiss();
+                           }
+                       }
+                   }
                }
         }
 
@@ -169,9 +178,23 @@ public class HomePageActivity extends AppCompatActivity{
         }
 
         public void bindSurvey(final KualifikasiSurvey kualifikasiSurvey) {
-
-            String namaPerusahaan=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getNamaPerusahaan();
+            List<SingleMenuChecking> singleMenuCheckings;
+            Perusahaan perusahaan=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId());
+            String namaPerusahaan=perusahaan.getNamaPerusahaan();
             String jeisObjek=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri();
+            if(perusahaan.getIndustri().equals(Perusahaan.industriGalpal)) {
+                singleMenuCheckings = mDummyMaker.getMenuCheckingGalpals(kualifikasiSurvey.getKualifikasiSurveyId());
+            }else{
+                singleMenuCheckings = mDummyMaker.getMenuCheckingKompals(kualifikasiSurvey.getKualifikasiSurveyId());
+            }
+            int jumlahIsComplete=0;
+            int jumlahForm=singleMenuCheckings.size();
+            for(SingleMenuChecking singleMenuChecking:singleMenuCheckings){
+                if(singleMenuChecking.isComplete()){
+                    jumlahIsComplete=jumlahIsComplete+1;
+                }
+            }
+            Log.i("tisComplete", String.valueOf(jumlahIsComplete));
             String statusKeterangan="";
             String btnText="Kirim";
             int color=0;
@@ -208,48 +231,66 @@ public class HomePageActivity extends AppCompatActivity{
                     break;
             }
 
+            int persenan=(jumlahIsComplete*100)/jumlahForm;
             mNamaPerusahaanTextView.setText(namaPerusahaan);
             mJenisObjekTextView.setText(jeisObjek);
-            mProgressTextView.setText(String.valueOf(kualifikasiSurvey.getProgress())+"%");
+            mProgressTextView.setText(String.valueOf(persenan)+"%");
             mStatusTextView.setText(statusKeterangan);
             mStatusTextView.setTextColor(color);
             mSubmitButton.setBackgroundColor(color);
             mSubmitButton.setText(btnText);
-            mSubmitButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(HomePageActivity.this);
-                    if(new ConnectionDetector(HomePageActivity.this).isConnectingToInternet()) {
-                        alertDialogBuilder.setMessage("Apakah Anda Yakin Akan Mengirim Kualifikasi Survey Ini");
-                        alertDialogBuilder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                kualifikasiSurvey.setStatus(statusClick);
-                                new PushKualifikasiSurveyTask(kualifikasiSurvey).execute();
-                                mDummyMaker.addKualifikasiSurvey(kualifikasiSurvey);
-                                updateUi();
-                            }
-                        });
-                        alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-
-                    }else{
-                        alertDialogBuilder.setMessage("Koneksi Internet Tidak Tersedia, Ulangi Lain Waktu");
+            if(persenan<75){
+                mSubmitButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(HomePageActivity.this);
+                        alertDialogBuilder.setMessage("Form Hanya Bisa Diverifikasi Oleh Verificator Jika Terisi Lebih Dari 75%");
                         alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
                             }
                         });
+                        alertDialogBuilder.show();
                     }
+                });
+            }else{
+                mSubmitButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(HomePageActivity.this);
+                        if(new ConnectionDetector(HomePageActivity.this).isConnectingToInternet()) {
+                            alertDialogBuilder.setMessage("Apakah Anda Yakin Akan Mengirim Kualifikasi Survey Ini");
+                            alertDialogBuilder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    kualifikasiSurvey.setStatus(statusClick);
+                                    new PushKualifikasiSurveyTask(kualifikasiSurvey).execute();
+                                    mDummyMaker.addKualifikasiSurvey(kualifikasiSurvey);
+                                    updateUi();
+                                }
+                            });
+                            alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                    alertDialogBuilder.show();
-                }
-            });
+                                }
+                            });
+
+                        }else{
+                            alertDialogBuilder.setMessage("Koneksi Internet Tidak Tersedia, Ulangi Lain Waktu");
+                            alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                        }
+
+                        alertDialogBuilder.show();
+                    }
+                });
+            }
         }
 
         @Override
@@ -307,7 +348,7 @@ public class HomePageActivity extends AppCompatActivity{
 
         @Override
         protected Void doInBackground(Void... params) {
-            new DataPusher().makePostRequestKualifikasiSurvey(mKualifikasiSurvey);
+            new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()),GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestKualifikasiSurvey(mKualifikasiSurvey);
             return null;
         }
     }
@@ -346,7 +387,10 @@ public class HomePageActivity extends AppCompatActivity{
 
     private class FetchKualifikasiSurveyTask extends AsyncTask<Void,Void,List<KualifikasiSurvey>> {
 
+        @Override
+        protected void onPreExecute() {
 
+        }
 
         @Override
         protected List<KualifikasiSurvey> doInBackground(Void... params) {
@@ -363,51 +407,63 @@ public class HomePageActivity extends AppCompatActivity{
 
         @Override
         protected void onPostExecute(List<KualifikasiSurvey> kualifikasiSurveys) {
+
             for(KualifikasiSurvey kualifikasiSurvey:kualifikasiSurveys) {
                 DummyMaker.get(getApplicationContext()).addKualifikasiSurvey(kualifikasiSurvey);
             }
             updateUi();
-            for(KualifikasiSurvey kualifikasiSurvey:mKualifikasiSurveys) {
-                int kualifikasiSurveyId=kualifikasiSurvey.getKualifikasiSurveyId();
-                mMenuCheckingGalpals = mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId);
-                if (mMenuCheckingGalpals.size() <= 0) {
-                    mMenuCheckingGalpals = mDummyMaker.createMenuCheckingGalpals(kualifikasiSurveyId);
-                    for (SingleMenuChecking singleMenuChecking : mMenuCheckingGalpals) {
-                        mDummyMaker.addMenuCheckingGalpal((MenuCheckingGalpal) singleMenuChecking);
+
+            if(mKualifikasiSurveys.size()>0) {
+                mProgressDialog.setMessage("Please Wait...");
+                mProgressDialog.show();
+                for (KualifikasiSurvey kualifikasiSurvey : mKualifikasiSurveys) {
+                    int kualifikasiSurveyId = kualifikasiSurvey.getKualifikasiSurveyId();
+                    String jenisIndustri=mDummyMaker.getPerusahaan(kualifikasiSurvey.getPerusahaanId()).getIndustri();
+
+                    if(jenisIndustri.equals(Perusahaan.industriGalpal)) {
+                        mMenuCheckingGalpals = DummyMaker.get(getApplicationContext()).getMenuCheckingGalpals(kualifikasiSurveyId);
+                        if (mMenuCheckingGalpals.size() <= 0) {
+                            mMenuCheckingGalpals = mDummyMaker.createMenuCheckingGalpals(kualifikasiSurveyId);
+                            for (SingleMenuChecking singleMenuChecking : mMenuCheckingGalpals) {
+                                mDummyMaker.addMenuCheckingGalpal((MenuCheckingGalpal) singleMenuChecking);
+                            }
+                            new PushMenuCheckingGalpalTask(mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId)).execute();
+                        } else {
+                            mProgressDialog.dismiss();
+                        }
+                    }else {
+                        mMenuCheckingKompals = mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId);
+                        if (mMenuCheckingKompals.size() <= 0) {
+                            mMenuCheckingKompals = mDummyMaker.createMenuCheckingKompals(kualifikasiSurveyId);
+                            for (SingleMenuChecking singleMenuChecking : mMenuCheckingKompals) {
+                                mDummyMaker.addMenuCheckingKompal((MenuCheckingKompal) singleMenuChecking);
+                            }
+                            new PushMenuCheckingKompalTask(mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId)).execute();
+                        } else {
+                            mProgressDialog.dismiss();
+                        }
                     }
-                    new PushMenuCheckingGalpalTask(mDummyMaker.getMenuCheckingGalpals(kualifikasiSurveyId)).execute();
-                }
-                mMenuCheckingKompals = mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId);
-                if (mMenuCheckingKompals.size() <= 0) {
-                    mMenuCheckingKompals = mDummyMaker.createMenuCheckingKompals(kualifikasiSurveyId);
-                    for (SingleMenuChecking singleMenuChecking : mMenuCheckingKompals) {
-                        mDummyMaker.addMenuCheckingKompal((MenuCheckingKompal) singleMenuChecking);
-                    }
-                    new PushMenuCheckingKompalTask(mDummyMaker.getMenuCheckingKompals(kualifikasiSurveyId)).execute();
                 }
             }
         }
     }
 
-    public class NotificiationReceiver extends BroadcastReceiver{
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            updateUi();
-            Log.i("BroadcastReceiver2","Jalan2");
-        }
-    }
+
 
     private class PushMenuCheckingGalpalTask extends AsyncTask<Void,Void,List<SingleMenuChecking>> {
         private List<SingleMenuChecking> mSingleMenuCheckings;
+
 
         public PushMenuCheckingGalpalTask(List<SingleMenuChecking> singleMenuCheckings){
             mSingleMenuCheckings=singleMenuCheckings;
         }
 
+
+
         @Override
         protected List<SingleMenuChecking> doInBackground(Void... params) {
             for(SingleMenuChecking singleMenuChecking:mSingleMenuCheckings) {
-                new DataPusher().makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) singleMenuChecking);
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()),GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) singleMenuChecking);
             }
             return mSingleMenuCheckings;
         }
@@ -418,6 +474,7 @@ public class HomePageActivity extends AppCompatActivity{
                 Log.i("a",String.valueOf(singleMenuChecking.getIdMenuCheckingServer()));
                 DummyMaker.get(getApplicationContext()).addMenuCheckingGalpal((MenuCheckingGalpal) singleMenuChecking);
             }
+            mProgressDialog.dismiss();
         }
     }
 
@@ -431,7 +488,7 @@ public class HomePageActivity extends AppCompatActivity{
         @Override
         protected List<SingleMenuChecking> doInBackground(Void... params) {
             for(SingleMenuChecking singleMenuChecking:mSingleMenuCheckings) {
-                new DataPusher().makePostRequestMenuCheckingKompal((MenuCheckingKompal) singleMenuChecking);
+                new DataPusher(GalKomSharedPreference.getUserId(getApplicationContext()),GalKomSharedPreference.getPassword(getApplicationContext())).makePostRequestMenuCheckingKompal((MenuCheckingKompal) singleMenuChecking);
             }
             return mSingleMenuCheckings;
         }

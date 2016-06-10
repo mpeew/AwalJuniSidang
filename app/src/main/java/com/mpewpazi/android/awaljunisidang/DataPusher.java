@@ -16,6 +16,7 @@ import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
 import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
+import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
 import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
@@ -79,6 +80,22 @@ public class DataPusher {
     private static final String urlPostFK3c="http://192.168.1.100/galpal/f2SistemBerproduksi/postapi/";
     private static final String urlPostFK3d="http://192.168.1.100/galpal/f2StandardMutu/postapi/";
 
+    public static final String urlCheckPostFG1="http://192.168.1.100/galpal/perusahaanIdentitas/postperusahaanidentitasapi/";
+    public static final String urlCheckPostFG3="http://192.168.1.100/galpal/galanganKapal/postgalangankapalapi/";
+    public static final String urlCheckPostFG4="http://192.168.1.100/galpal/f1TinjauanArea/postcheckapi/";
+    public static final String urlCheckPostFG6="http://192.168.1.100/galpal/f1PeralatanKerjaLrCrane/postcheckapi/";
+    public static final String urlCheckPostFG7="http://192.168.1.100/galpal/f1PeralatanKerjaLrTug/postcheckapi/";
+    public static final String urlCheckPostFG8="http://192.168.1.100/galpal/f1PeralatanKerjaProdMesin/postcheckapi/";
+    public static final String urlCheckPostFG9="http://192.168.1.100/galpal/f1PeralatanKerjaProdKonstruksi/postcheckapi/";
+    public static final String urlCheckPostFG10="http://192.168.1.100/galpal/f1PeralatanKerjaProdElmek/postcheckapi/";
+    public static final String urlCheckPostFG11="http://192.168.1.100/galpal/f1PeralatanKerjaProdCat/postcheckapi/";
+    public static final String urlCheckPostFGFoto="http://192.168.1.100/galpal/f1FotoGalangan/postcheckapi";
+
+    public static final String urlCheckPostFK3a="http://192.168.1.100/galpal/f2JenisKapasitasProduksi/postcheckapi/";
+    public static final String urlCheckPostFK3b="http://192.168.1.100/galpal/f2JumlahProduksi/postcheckapi/";
+    public static final String urlCheckPostFK3c="http://192.168.1.100/galpal/f2SistemBerproduksi/postcheckapi/";
+    public static final String urlCheckPostFK3d="http://192.168.1.100/galpal/f2StandardMutu/postcheckapi/";
+
 
 
     private static final String urlPostMenuCheckingGalpal="http://192.168.1.100/galpal/menuF1EntryChecking/postapichecking/";
@@ -88,8 +105,56 @@ public class DataPusher {
     private static final String urlPostNotification="http://192.168.1.100/galpal/notification/postapi/";
     private static final String urlPostLogin="http://192.168.1.100/galpal/users/authapi/";
 
+    private String mUserid,mPassword;
 
 
+    public DataPusher(String userid,String password){
+        mUserid=userid;
+        mPassword=password;
+    }
+
+    public DataPusher(){
+
+    }
+
+    public boolean isConflictRequest(SingleForm singleForm, String urlPost){
+        String isiResponse="ok";
+        HttpClient client = new DefaultHttpClient();
+        String postURL = (urlPost);
+        HttpPost post = new HttpPost(postURL);
+        try {
+            // Add the data
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("id", String.valueOf(singleForm.getKualifikasiSurveyId())));
+            pairs.add(new BasicNameValuePair("modified_date",singleForm.getModifyDate()));
+            UrlEncodedFormEntity uefe = new UrlEncodedFormEntity(pairs);
+            post.setEntity(uefe);
+            // Execute the HTTP Post Request
+            HttpResponse response = client.execute(post);
+            // Convert the response into a String
+            HttpEntity resEntity = response.getEntity();
+           //
+            if (resEntity != null) {
+                isiResponse=EntityUtils.toString(resEntity);
+                Log.i("RESPONSE1", isiResponse);
+            }
+
+
+
+        } catch (UnsupportedEncodingException uee) {
+            uee.printStackTrace();
+        } catch (ClientProtocolException cpe) {
+            cpe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+        if(isiResponse.equals("\"conflict\"")){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public void makePostRequestFG1(FormGalpal1 formGalpal1) {
         HttpClient client = new DefaultHttpClient();
@@ -192,8 +257,8 @@ public class DataPusher {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal4.getTinjauanWilayahMaritimId())));
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             pairs.add(new BasicNameValuePair(encapsulateFG4Cols(FG4TinjauanAreaTable.Cols.ID_KUALIFIKASI_SURVEY), String.valueOf(formGalpal4.getKualifikasiSurveyId())));
             pairs.add(new BasicNameValuePair(encapsulateFG4Cols(FG4TinjauanAreaTable.Cols.ID_PERIODE), String.valueOf(formGalpal4.getIdPeriode())));
             pairs.add(new BasicNameValuePair(encapsulateFG4Cols(FG4TinjauanAreaTable.Cols.ID_MST_JARAK_KEDALAMAN), String.valueOf(formGalpal4.getJarakKedalaman())));
@@ -244,8 +309,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             if(formGalpal6.getFormServerId()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal6.getFormServerId())));
             }
@@ -293,8 +358,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             if(formGalpal7.getFormServerId()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal7.getFormServerId())));
             }
@@ -342,8 +407,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             if(formGalpal8.getFormServerId()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal8.getFormServerId())));
             }
@@ -390,8 +455,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             if(formGalpal9.getFormServerId()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal9.getFormServerId())));
             }
@@ -439,8 +504,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             if(formGalpal10.getFormServerId()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal10.getFormServerId())));
             }
@@ -488,8 +553,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             if(formGalpal11.getFormServerId()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpal11.getFormServerId())));
             }
@@ -537,8 +602,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             if(formGalpalFoto.getFormServerId()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(formGalpalFoto.getFormServerId())));
             }
@@ -578,8 +643,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             if(formKompal3a.getFormServerId()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(formKompal3a.getFormServerId())));
             }
@@ -620,8 +685,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             if(formKompal3b.getFormServerId()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(formKompal3b.getFormServerId())));
             }
@@ -668,8 +733,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             if(formKompal3c.getFormServerId()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(formKompal3c.getFormServerId())));
             }
@@ -712,8 +777,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             if(formKompal3d.getFormServerId()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(formKompal3d.getFormServerId())));
             }
@@ -750,8 +815,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             if(menuCheckingGalpal.getIdMenuCheckingServer()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(menuCheckingGalpal.getIdMenuCheckingServer())));
             }
@@ -789,8 +854,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             if(menuCheckingKompal.getIdMenuCheckingServer()!=0) {
                 pairs.add(new BasicNameValuePair("id", String.valueOf(menuCheckingKompal.getIdMenuCheckingServer())));
             }
@@ -829,8 +894,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             pairs.add(new BasicNameValuePair("id", String.valueOf(kualifikasiSurvey.getKualifikasiSurveyId())));
             pairs.add(new BasicNameValuePair(encapsulateKualifikasiSurveyCols(KualifikasiSurveyTable.Cols.ID_PERUSAHAAN), String.valueOf(kualifikasiSurvey.getPerusahaanId())));
             pairs.add(new BasicNameValuePair(encapsulateKualifikasiSurveyCols(KualifikasiSurveyTable.Cols.ID_PERIODE), String.valueOf(kualifikasiSurvey.getPeriodeSurveyId())));
@@ -863,8 +928,8 @@ public class DataPusher {
         try {
             // Add the data
             List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("userid", "mpewpazi"));
-            pairs.add(new BasicNameValuePair("password", "49916022Peri"));
+            pairs.add(new BasicNameValuePair("userid", mUserid));
+            pairs.add(new BasicNameValuePair("password", mPassword));
             pairs.add(new BasicNameValuePair("id", String.valueOf(notification.getIdNotification())));
             pairs.add(new BasicNameValuePair(encapsulateNotificationCols(NotificationTable.Cols.USERID), notification.getUserId()));
             pairs.add(new BasicNameValuePair(encapsulateNotificationCols(NotificationTable.Cols.FROMUSERID), notification.getFromUserId()));

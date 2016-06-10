@@ -137,7 +137,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG1PerusahaanIdentitasTable.Cols.CREATED_DATE +" numeric," +
                         FG1PerusahaanIdentitasTable.Cols.CREATED_USER +" text," +
                         FG1PerusahaanIdentitasTable.Cols.CREATED_IP_ADDRESS +" text," +
-                        FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE +" numeric," +
+                        FG1PerusahaanIdentitasTable.Cols.MODIFIED_DATE +" ," +
                         FG1PerusahaanIdentitasTable.Cols.MODIFIED_USER +" text," +
                         FG1PerusahaanIdentitasTable.Cols.MODIFIED_IP_ADDRESS +" text)"
         );
@@ -181,7 +181,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG3GalanganKapalTable.Cols.CREATED_DATE +" numeric," +
                         FG3GalanganKapalTable.Cols.CREATED_USER +" text," +
                         FG3GalanganKapalTable.Cols.CREATED_IP_ADDRESS +" text," +
-                        FG3GalanganKapalTable.Cols.MODIFIED_DATE +" numeric," +
+                        FG3GalanganKapalTable.Cols.MODIFIED_DATE +" ," +
                         FG3GalanganKapalTable.Cols.MODIFIED_USER +" text," +
                         FG3GalanganKapalTable.Cols.MODIFIED_IP_ADDRESS +" text)"
         );
@@ -214,7 +214,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FG4TinjauanAreaTable.Cols.CREATED_DATE +" numeric," +
                         FG4TinjauanAreaTable.Cols.CREATED_USER +" text," +
                         FG4TinjauanAreaTable.Cols.CREATED_IP_ADDRESS +" text," +
-                        FG4TinjauanAreaTable.Cols.MODIFIED_DATE +" numeric," +
+                        FG4TinjauanAreaTable.Cols.MODIFIED_DATE +" ," +
                         FG4TinjauanAreaTable.Cols.MODIFIED_USER +" text," +
                         FG4TinjauanAreaTable.Cols.MODIFIED_IP_ADDRESS +" text)"
         );
@@ -400,6 +400,7 @@ public class BaseDBHelper extends SQLiteOpenHelper {
                         FormGalpalFotoTable.Cols.NAMA_FOTO+" ," +
                         FormGalpalFotoTable.Cols.IMAGE_PATH+" ," +
                         FormGalpalFotoTable.Cols.FOTO_URL+" ," +
+                        FG11PeralatanKerjaProduksiPengecatan.Cols.MODIFIED_DATE +" ," +
                         FormGalpalFotoTable.Cols.IS_FETCH_FROM_SERVER+" ," +
                         FormGalpalFotoTable.Cols.FOTO_GALANGAN+" )"
         );

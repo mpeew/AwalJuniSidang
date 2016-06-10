@@ -12,6 +12,15 @@ public abstract class SingleForm {
     protected int mKualifikasiSurveyId;
     protected int mFormServerId;
     protected String note;
+    protected String mModifyDate;
+
+    public String getModifyDate() {
+        return mModifyDate;
+    }
+
+    public void setModifyDate(String modifyDate) {
+        mModifyDate = modifyDate;
+    }
 
     public String getNote() {
         return note;

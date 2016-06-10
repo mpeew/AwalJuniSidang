@@ -2,6 +2,7 @@ package com.mpewpazi.android.awaljunisidang.Fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,6 +33,7 @@ import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpalFoto;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormGalpalFotoPagerActivity;
+import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
 import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
@@ -84,9 +86,11 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
 
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setHasOptionsMenu(true);
 
         mDummyMaker=DummyMaker.get(getContext());
@@ -527,7 +531,7 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
         protected List<FormGalpalFoto> doInBackground(Void... params) {
             if(mFormGalpalFotoUploads.size()>0) {
                 for (FormGalpalFoto formGalpalFoto : mFormGalpalFotoUploads) {
-                    new DataPusher().makePostRequestFGFoto(formGalpalFoto);
+                    new DataPusher(GalKomSharedPreference.getUserId(mContext),GalKomSharedPreference.getPassword(getActivity())).makePostRequestFGFoto(formGalpalFoto);
                     uploadFile(formGalpalFoto.getImagePath());
                 }
             }

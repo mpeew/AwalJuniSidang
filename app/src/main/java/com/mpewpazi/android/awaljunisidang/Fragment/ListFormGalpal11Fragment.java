@@ -1,5 +1,6 @@
 package com.mpewpazi.android.awaljunisidang.Fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -25,6 +26,7 @@ import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal11;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormGalpal11PagerActivity;
+import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
 import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
@@ -56,6 +58,7 @@ public class ListFormGalpal11Fragment extends SingleFragment {
 
     private Button mSubmitButton;
 
+
     public ListFormGalpal11Fragment (){
 
     }
@@ -63,6 +66,7 @@ public class ListFormGalpal11Fragment extends SingleFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext=getActivity();
         setHasOptionsMenu(true);
 
         mDummyMaker=DummyMaker.get(getContext());
@@ -301,10 +305,10 @@ public class ListFormGalpal11Fragment extends SingleFragment {
         protected List<FormGalpal11> doInBackground(Void... params) {
             if(mFormGalpal11s.size()>0) {
                 for (FormGalpal11 formGalpal11 : mFormGalpal11s) {
-                    new DataPusher().makePostRequestFG11(formGalpal11);
+                    new DataPusher(GalKomSharedPreference.getUserId(mContext),GalKomSharedPreference.getPassword(mContext)).makePostRequestFG11(formGalpal11);
                 }
             }
-            new DataPusher().makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
+            new DataPusher(GalKomSharedPreference.getUserId(mContext),GalKomSharedPreference.getPassword(mContext)).makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
             return mFormGalpal11s;
         }
 

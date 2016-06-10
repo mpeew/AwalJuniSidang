@@ -26,6 +26,7 @@ import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
 import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
 import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
 import com.mpewpazi.android.awaljunisidang.FormGalpal6PagerActivity;
+import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
 import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
 import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
@@ -67,6 +68,7 @@ public class ListFormGalpal6Fragment extends SingleFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext=getActivity();
         setHasOptionsMenu(true);
 
         mDummyMaker=DummyMaker.get(getContext());
@@ -287,6 +289,7 @@ public class ListFormGalpal6Fragment extends SingleFragment {
         super.onPause();
         if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2||!mMenuCheckingGalpal.isVerified() && !mMenuCheckingGalpal.isVerified()){
             if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
+                Log.i("jalan","jalan");
                 PushGalpalService.setServiceAlarm(getActivity(),true);
             }else {
                 new PushTask(mFormGalpal6s, mMenuCheckingGalpal).execute();
@@ -307,10 +310,10 @@ public class ListFormGalpal6Fragment extends SingleFragment {
         protected List<FormGalpal6> doInBackground(Void... params) {
             if(mFormGalpal6s.size()>0) {
                 for (FormGalpal6 formGalpal6 : mFormGalpal6s) {
-                    new DataPusher().makePostRequestFG6(formGalpal6);
+                    new DataPusher(GalKomSharedPreference.getUserId(mContext),GalKomSharedPreference.getPassword(mContext)).makePostRequestFG6(formGalpal6);
                 }
             }
-            new DataPusher().makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
+            new DataPusher(GalKomSharedPreference.getUserId(mContext),GalKomSharedPreference.getPassword(mContext)).makePostRequestMenuCheckingGalpal((MenuCheckingGalpal) mSingleMenuChecking);
             return mFormGalpal6s;
         }
 
