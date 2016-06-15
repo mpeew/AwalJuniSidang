@@ -1,8 +1,7 @@
-package com.mpewpazi.android.awaljunisidang.Fragment;
+package com.mpewpazi.android.awaljunisidang.fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -26,18 +25,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mpewpazi.android.awaljunisidang.AndroidMultiPartEntity;
-import com.mpewpazi.android.awaljunisidang.DataFetcher;
-import com.mpewpazi.android.awaljunisidang.DataPusher;
-import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpalFoto;
-import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.FormGalpalFotoPagerActivity;
-import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
+import com.mpewpazi.android.awaljunisidang.tools.AndroidMultiPartEntity;
+import com.mpewpazi.android.awaljunisidang.tools.DataFetcher;
+import com.mpewpazi.android.awaljunisidang.tools.DataPusher;
+import com.mpewpazi.android.awaljunisidang.activity.DrawerFormActivity;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpalFoto;
+import com.mpewpazi.android.awaljunisidang.formModel.SingleForm;
+import com.mpewpazi.android.awaljunisidang.activity.FormGalpalFotoPagerActivity;
+import com.mpewpazi.android.awaljunisidang.tools.GalKomSharedPreference;
 import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
-import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
-import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.database.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.modelExtras.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.modelExtras.MenuCheckingGalpal;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -107,7 +106,7 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_form_galpal_foto_list, container, false);
-        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4||mMenuCheckingGalpal.isVerified()){
             setViewEnabledFalse(view);
         }
 
@@ -186,7 +185,7 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
             mFormGalpalFoto = formGalpalFoto;
             mJudulTextView.setText(mFormGalpalFoto.getNamaFoto());
             updatePhotoView(mFormGalpalFoto,mFotoImageView);
-            if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+            if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4||mMenuCheckingGalpal.isVerified()){
                 mDeleteButton.setVisibility(View.GONE);
             }
             mDeleteButton.setOnClickListener(new View.OnClickListener() {
@@ -352,7 +351,7 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
             cursor.moveToFirst();
             mFormGalpalFoto.setImagePath(cursor.getString(column_index));
             String filename=mFormGalpalFoto.getImagePath().substring(mFormGalpalFoto.getImagePath().lastIndexOf("/")+1);
-            mFormGalpalFoto.setNamaFoto(filename);
+            mFormGalpalFoto.setFotoGalangan(filename);
             mDummyMaker.addFormGalpalFoto(mFormGalpalFoto);
             cursor.close();
             updateUI();
@@ -634,4 +633,6 @@ public class ListFormGalpalFotoFragment extends SingleFragment {
             return null;
         }
     }
+
+
 }

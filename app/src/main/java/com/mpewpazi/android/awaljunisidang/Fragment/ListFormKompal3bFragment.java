@@ -1,4 +1,4 @@
-package com.mpewpazi.android.awaljunisidang.Fragment;
+package com.mpewpazi.android.awaljunisidang.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,20 +18,20 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.mpewpazi.android.awaljunisidang.ConnectionDetector;
-import com.mpewpazi.android.awaljunisidang.DataFetcher;
-import com.mpewpazi.android.awaljunisidang.DataPusher;
-import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
-import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
-import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.FormKompal3bPagerActivity;
-import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
-import com.mpewpazi.android.awaljunisidang.PushKompalService;
+import com.mpewpazi.android.awaljunisidang.tools.ConnectionDetector;
+import com.mpewpazi.android.awaljunisidang.tools.DataFetcher;
+import com.mpewpazi.android.awaljunisidang.tools.DataPusher;
+import com.mpewpazi.android.awaljunisidang.activity.DrawerFormActivity;
+import com.mpewpazi.android.awaljunisidang.formModel.FormKompal3b;
+import com.mpewpazi.android.awaljunisidang.formModel.SingleForm;
+import com.mpewpazi.android.awaljunisidang.activity.FormKompal3bPagerActivity;
+import com.mpewpazi.android.awaljunisidang.tools.GalKomSharedPreference;
+import com.mpewpazi.android.awaljunisidang.service.PushKompalService;
 import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
-import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
-import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
-import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
+import com.mpewpazi.android.awaljunisidang.database.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.modelExtras.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.modelExtras.MenuCheckingKompal;
+import com.mpewpazi.android.awaljunisidang.modelExtras.SingleMenuChecking;
 
 import java.util.List;
 
@@ -72,7 +73,7 @@ public class ListFormKompal3bFragment extends SingleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_form_kompal3b_list, container, false);
-        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4||mMenuCheckingKompal.isVerified()){
             setViewEnabledFalse(view);
         }
 
@@ -151,7 +152,7 @@ public class ListFormKompal3bFragment extends SingleFragment {
             mJenisProdukTextView.setText(String.valueOf(mFormKompal3b.getJenisProdukId()));
             mJumlahProduk2014TextView.setText(String.valueOf(mFormKompal3b.getJumlahProdThn4()));
             mNoTextView.setText(String.valueOf(no));
-            if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+            if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4||mMenuCheckingKompal.isVerified()){
                 mDeleteButton.setVisibility(View.GONE);
             }
             mDeleteButton.setOnClickListener(new View.OnClickListener() {
@@ -266,6 +267,7 @@ public class ListFormKompal3bFragment extends SingleFragment {
         if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2 && !mMenuCheckingKompal.isVerified()){
             if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
                 PushKompalService.setServiceAlarm(getActivity(),true);
+                Log.i("NotificationService","FK3bb");
             }else {
                 new PushTask(mFormKompal3bs, mMenuCheckingKompal).execute();
             }

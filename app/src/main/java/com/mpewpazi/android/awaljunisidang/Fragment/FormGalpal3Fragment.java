@@ -1,15 +1,7 @@
-package com.mpewpazi.android.awaljunisidang.Fragment;
+package com.mpewpazi.android.awaljunisidang.fragment;
 
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -28,25 +18,22 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mpewpazi.android.awaljunisidang.ConnectionDetector;
-import com.mpewpazi.android.awaljunisidang.DataPusher;
-import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
-import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
-import com.mpewpazi.android.awaljunisidang.HomePageActivity;
-import com.mpewpazi.android.awaljunisidang.PictureUtils;
-import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.SpinnerAdapter;
-import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
-import com.mpewpazi.android.awaljunisidang.masterData.MstKabupaten;
-import com.mpewpazi.android.awaljunisidang.masterData.MstPropinsi;
-import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
-import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
-import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
+import com.mpewpazi.android.awaljunisidang.activity.DrawerFormActivity;
+import com.mpewpazi.android.awaljunisidang.adapter.SpinnerAdapter;
+import com.mpewpazi.android.awaljunisidang.database.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpal3;
+import com.mpewpazi.android.awaljunisidang.formModel.SingleForm;
+import com.mpewpazi.android.awaljunisidang.masterDataModel.MstKabupaten;
+import com.mpewpazi.android.awaljunisidang.masterDataModel.MstPropinsi;
+import com.mpewpazi.android.awaljunisidang.modelExtras.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.modelExtras.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.modelExtras.SingleMenuChecking;
+import com.mpewpazi.android.awaljunisidang.service.PushGalpalService;
+import com.mpewpazi.android.awaljunisidang.tools.ConnectionDetector;
+import com.mpewpazi.android.awaljunisidang.tools.DataPusher;
+import com.mpewpazi.android.awaljunisidang.tools.GalKomSharedPreference;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -102,12 +89,11 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
     @Email
     private EditText mCpEmailEditText;
     private Button mSubmitButton;
-    private ImageButton mCaptureButton;
-    private ImageView mPhotoView;
+
 
     private List<SingleForm> mGalpalForms;
     private FormGalpal3 mFormGalpal3;
-    private File mPhotoFile;
+
 
     private DummyMaker mDummyMaker;
 
@@ -144,7 +130,7 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
             mFormGalpal3.setKualifikasiSurveyId(DrawerFormActivity.kualifikasiSurveyId);
         }
 
-        mPhotoFile=mDummyMaker.getPhotoFile(mFormGalpal3);
+
 
         mValidator=new Validator(this);
         mValidator.setValidationListener(this);
@@ -161,7 +147,7 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_form_galpal3, container, false);
-        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4|mMenuCheckingGalpal.isVerified()){
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4||mMenuCheckingGalpal.isVerified()){
             setViewEnabledFalse(rootView);
         }
 
@@ -183,8 +169,6 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
         mNomorCpEditText=(EditText)rootView.findViewById(R.id.galpal3_contact_person_no);
         mJabatanEditText=(EditText)rootView.findViewById(R.id.galpal3_jabatan);
         mEmailEditText=(EditText)rootView.findViewById(R.id.galpal3_alamat_email);
-        mCaptureButton=(ImageButton)rootView.findViewById(R.id.galpal3_camera_button);
-        mPhotoView=(ImageView)rootView.findViewById(R.id.galpal3_image_view);
         mCpNamaEditText=(EditText)rootView.findViewById(R.id.galpal3_contact_person);
         mCpNoEditText=(EditText)rootView.findViewById(R.id.galpal3_contact_person_no);
         mCpEmailEditText=(EditText)rootView.findViewById(R.id.galpal3_alamat_email);
@@ -572,37 +556,6 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
 
 
 
-        mCaptureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final CharSequence[] items = { "Take Photo", "Choose from Library",
-                        "Cancel" };
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Add Photo!");
-                builder.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-                        if (items[item].equals("Take Photo")) {
-                            Intent captureImage=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            Uri uri=Uri.fromFile(mPhotoFile);
-                            captureImage.putExtra(MediaStore.EXTRA_OUTPUT,uri);
-                            startActivityForResult(captureImage, REQUEST_PHOTO);
-                        } else if (items[item].equals("Choose from Library")) {
-                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            intent.setType("image/*");
-
-                            startActivityForResult(Intent.createChooser(intent, "Select File"), REQUEST_SELECT_FILE);
-                        } else if (items[item].equals("Cancel")) {
-                            dialog.dismiss();
-                        }
-                    }
-                });
-                builder.show();
-            }
-        });
-
-        updatePhotoView();
 
 
         mSubmitButton=(Button)rootView.findViewById(R.id.galpal3_btn_submit);
@@ -649,46 +602,17 @@ public class FormGalpal3Fragment extends SingleFragment implements Validator.Val
             mDummyMaker.addFormGalpal3(mFormGalpal3);
             if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
                 PushGalpalService.setServiceAlarm(getActivity(),true);
+                Log.i("NotificationService","FG3");
             }else {
                 new PushTask(mFormGalpal3, mMenuCheckingGalpal).execute();
-                Log.i("LOGTEST",String.valueOf(mFormGalpal3.getIdentitasUmumGalanganId()));
-                Log.i("LOGTEST",String.valueOf(mFormGalpal3.getKualifikasiSurveyId()));
-                Log.i("LOGTEST",String.valueOf(mFormGalpal3.getAlamat()));
 
             }
         }
     }
 
-    private void updatePhotoView(){
-        if(mFormGalpal3.getImagePath()==null){
-            mPhotoView.setImageDrawable(null);
-        }else{
-            Bitmap bitmap= PictureUtils.getScaledBitmap(mFormGalpal3.getImagePath(),getActivity());
-            mPhotoView.setImageBitmap(bitmap);
-        }
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode!= Activity.RESULT_OK){
-            return;
-        }
-        if (requestCode==REQUEST_PHOTO){
-            mFormGalpal3.setImagePath(mPhotoFile.getPath());
-            Intent intent=new Intent(getActivity(),HomePageActivity.class);
-            startActivity(intent);
-            updatePhotoView();
-        }else if(requestCode==REQUEST_SELECT_FILE){
-            Uri selectedImageUri = data.getData();
-            String[] projection = { MediaStore.MediaColumns.DATA };
-            Cursor cursor = getActivity().getContentResolver().query(selectedImageUri, projection, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-            cursor.moveToFirst();
-            mFormGalpal3.setImagePath(cursor.getString(column_index));
-            cursor.close();
-            updatePhotoView();
-        }
-    }
+
+
 
 
     @Override

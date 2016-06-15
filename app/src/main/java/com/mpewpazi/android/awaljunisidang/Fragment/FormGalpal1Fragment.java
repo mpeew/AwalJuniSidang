@@ -1,4 +1,4 @@
-package com.mpewpazi.android.awaljunisidang.Fragment;
+package com.mpewpazi.android.awaljunisidang.fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,21 +19,21 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Domain;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mpewpazi.android.awaljunisidang.ConnectionDetector;
-import com.mpewpazi.android.awaljunisidang.DataPusher;
-import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
-import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
-import com.mpewpazi.android.awaljunisidang.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.SpinnerAdapter;
-import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
-import com.mpewpazi.android.awaljunisidang.masterData.MstKabupaten;
-import com.mpewpazi.android.awaljunisidang.masterData.MstPropinsi;
-import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
-import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
-import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
+import com.mpewpazi.android.awaljunisidang.activity.DrawerFormActivity;
+import com.mpewpazi.android.awaljunisidang.adapter.SpinnerAdapter;
+import com.mpewpazi.android.awaljunisidang.database.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpal1;
+import com.mpewpazi.android.awaljunisidang.formModel.SingleForm;
+import com.mpewpazi.android.awaljunisidang.masterDataModel.MstKabupaten;
+import com.mpewpazi.android.awaljunisidang.masterDataModel.MstPropinsi;
+import com.mpewpazi.android.awaljunisidang.modelExtras.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.modelExtras.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.modelExtras.SingleMenuChecking;
+import com.mpewpazi.android.awaljunisidang.service.PushGalpalService;
+import com.mpewpazi.android.awaljunisidang.tools.ConnectionDetector;
+import com.mpewpazi.android.awaljunisidang.tools.DataPusher;
+import com.mpewpazi.android.awaljunisidang.tools.GalKomSharedPreference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +123,6 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
             mFormGalpal1.setKualifikasiSurveyId(DrawerFormActivity.kualifikasiSurveyId);
         }
         mMenuCheckingGalpal = mDummyMaker.getMenuCheckingGalpal(DrawerFormActivity.kualifikasiSurveyId, mFormGalpal1.getKodeForm());
-        Log.i("FORM FRAGMENT GALPAL 1",String.valueOf(mMenuCheckingGalpal.getIdMenuCheckingServer()));
         mValidator=new Validator(this);
         mValidator.setValidationListener(this);
 
@@ -151,8 +150,7 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_form_galpal1, container, false);
-        Log.i("cepetan mana","ieuu");
-        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4|mMenuCheckingGalpal.isVerified()){
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4||mMenuCheckingGalpal.isVerified()){
             setViewEnabledFalse(rootView);
         }
 
@@ -511,6 +509,7 @@ public class FormGalpal1Fragment extends SingleFragment implements Validator.Val
             mDummyMaker.addFormGalpal1(mFormGalpal1);
             if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
                 PushGalpalService.setServiceAlarm(getActivity(),true);
+                Log.i("NotificationService","FG1");
             }else {
                 new PushTask(mFormGalpal1, mMenuCheckingGalpal).execute();
             }

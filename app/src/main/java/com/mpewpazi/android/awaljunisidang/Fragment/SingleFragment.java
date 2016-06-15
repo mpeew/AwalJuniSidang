@@ -1,4 +1,4 @@
-package com.mpewpazi.android.awaljunisidang.Fragment;
+package com.mpewpazi.android.awaljunisidang.fragment;
 
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -15,7 +15,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,32 +24,32 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 
-import com.mpewpazi.android.awaljunisidang.CustomClickListener;
-import com.mpewpazi.android.awaljunisidang.DataFetcher;
-import com.mpewpazi.android.awaljunisidang.DataPusher;
-import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal1;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal10;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal11;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal3;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal6;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal7;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal8;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal9;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpalFoto;
-import com.mpewpazi.android.awaljunisidang.Form.FormKompal3a;
-import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
-import com.mpewpazi.android.awaljunisidang.Form.FormKompal3c;
-import com.mpewpazi.android.awaljunisidang.Form.FormKompal3d;
-import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
-import com.mpewpazi.android.awaljunisidang.PictureUtils;
-import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
-import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
-import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
-import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
-import com.mpewpazi.android.awaljunisidang.model.Perusahaan;
+import com.mpewpazi.android.awaljunisidang.tools.CustomClickListener;
+import com.mpewpazi.android.awaljunisidang.tools.DataFetcher;
+import com.mpewpazi.android.awaljunisidang.tools.DataPusher;
+import com.mpewpazi.android.awaljunisidang.activity.DrawerFormActivity;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpal1;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpal10;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpal11;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpal3;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpal4;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpal6;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpal7;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpal8;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpal9;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpalFoto;
+import com.mpewpazi.android.awaljunisidang.formModel.FormKompal3a;
+import com.mpewpazi.android.awaljunisidang.formModel.FormKompal3b;
+import com.mpewpazi.android.awaljunisidang.formModel.FormKompal3c;
+import com.mpewpazi.android.awaljunisidang.formModel.FormKompal3d;
+import com.mpewpazi.android.awaljunisidang.formModel.SingleForm;
+import com.mpewpazi.android.awaljunisidang.tools.GalKomSharedPreference;
+import com.mpewpazi.android.awaljunisidang.tools.PictureUtils;
+import com.mpewpazi.android.awaljunisidang.database.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.modelExtras.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.modelExtras.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.modelExtras.MenuCheckingKompal;
+import com.mpewpazi.android.awaljunisidang.modelExtras.Perusahaan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +119,7 @@ public class SingleFragment extends Fragment {
     }
 
     protected void setViewNote(KualifikasiSurvey mKualifikasiSurvey, SingleForm singleForm){
-        if(mKualifikasiSurvey.getStatus()==2 && singleForm.getNote()!=null){
+        if(mKualifikasiSurvey.getStatus()==2 && !singleForm.getNote().equals("-")){
             AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(getActivity());
             alertDialogBuilder.setMessage("Komentar :  " +singleForm.getNote());
 

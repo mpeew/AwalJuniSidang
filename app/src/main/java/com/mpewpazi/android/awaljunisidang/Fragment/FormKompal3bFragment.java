@@ -1,4 +1,4 @@
-package com.mpewpazi.android.awaljunisidang.Fragment;
+package com.mpewpazi.android.awaljunisidang.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,11 +15,11 @@ import android.widget.Toast;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mpewpazi.android.awaljunisidang.Form.FormKompal3b;
+import com.mpewpazi.android.awaljunisidang.formModel.FormKompal3b;
 import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
-import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
-import com.mpewpazi.android.awaljunisidang.model.MenuCheckingKompal;
+import com.mpewpazi.android.awaljunisidang.database.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.modelExtras.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.modelExtras.MenuCheckingKompal;
 
 import java.util.List;
 import java.util.UUID;
@@ -201,7 +201,7 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal3b.setNilaiProduksiThn1(convertToInt(s.toString()));
+                mFormKompal3b.setNilaiProduksiThn1(convertToDouble(s.toString()));
             }
 
             @Override
@@ -219,7 +219,7 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal3b.setNilaiProduksiThn2(convertToInt(s.toString()));
+                mFormKompal3b.setNilaiProduksiThn2(convertToDouble(s.toString()));
             }
 
             @Override
@@ -237,7 +237,7 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal3b.setNilaiProduksiThn3(convertToInt(s.toString()));
+                mFormKompal3b.setNilaiProduksiThn3(convertToDouble(s.toString()));
             }
 
             @Override
@@ -255,7 +255,7 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mFormKompal3b.setNilaiProduksiThn4(convertToInt(s.toString()));
+                mFormKompal3b.setNilaiProduksiThn4(convertToDouble(s.toString()));
             }
 
             @Override
@@ -316,6 +316,13 @@ public class FormKompal3bFragment extends SingleFragment implements Validator.Va
     private int convertToInt(String stoString){
         if(stoString.length()>0){
             return Integer.parseInt(stoString);
+        }
+        return 0;
+    }
+
+    private double convertToDouble(String stoString){
+        if(stoString.length()>0){
+            return Double.parseDouble(stoString);
         }
         return 0;
     }

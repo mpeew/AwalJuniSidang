@@ -1,6 +1,5 @@
-package com.mpewpazi.android.awaljunisidang.Fragment;
+package com.mpewpazi.android.awaljunisidang.fragment;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -19,20 +18,20 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.mpewpazi.android.awaljunisidang.ConnectionDetector;
-import com.mpewpazi.android.awaljunisidang.DataFetcher;
-import com.mpewpazi.android.awaljunisidang.DataPusher;
-import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal10;
-import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.FormGalpal10PagerActivity;
-import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
-import com.mpewpazi.android.awaljunisidang.PushGalpalService;
+import com.mpewpazi.android.awaljunisidang.tools.ConnectionDetector;
+import com.mpewpazi.android.awaljunisidang.tools.DataFetcher;
+import com.mpewpazi.android.awaljunisidang.tools.DataPusher;
+import com.mpewpazi.android.awaljunisidang.activity.DrawerFormActivity;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpal10;
+import com.mpewpazi.android.awaljunisidang.formModel.SingleForm;
+import com.mpewpazi.android.awaljunisidang.activity.FormGalpal10PagerActivity;
+import com.mpewpazi.android.awaljunisidang.tools.GalKomSharedPreference;
+import com.mpewpazi.android.awaljunisidang.service.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
-import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
-import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
-import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
+import com.mpewpazi.android.awaljunisidang.database.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.modelExtras.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.modelExtras.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.modelExtras.SingleMenuChecking;
 
 import java.util.List;
 
@@ -81,7 +80,7 @@ public class ListFormGalpal10Fragment extends SingleFragment {
         FormGalpal10 formGalpal10=new FormGalpal10();
         mJudulTextView.setText(formGalpal10.getNamaForm());
 
-        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4||mMenuCheckingGalpal.isVerified()){
             setViewEnabledFalse(view);
         }
 
@@ -169,7 +168,7 @@ public class ListFormGalpal10Fragment extends SingleFragment {
             mJenisMesinTextView.setText(mFormGalpal10.getJenisMesin());
             mMerekTextView.setText(mFormGalpal10.getMerek());
             mNoTextView.setText(String.valueOf(no));
-            if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4){
+            if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4||mMenuCheckingGalpal.isVerified()){
                 mDeleteButton.setVisibility(View.GONE);
             }
             mDeleteButton.setOnClickListener(new View.OnClickListener() {
@@ -285,6 +284,7 @@ public class ListFormGalpal10Fragment extends SingleFragment {
         if(mKualifikasiSurvey.getStatus()==0||mKualifikasiSurvey.getStatus()==2 && !mMenuCheckingGalpal.isVerified()){
             if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
                 PushGalpalService.setServiceAlarm(getActivity(),true);
+                Log.i("NotificationService","FG10");
             }else {
                 new PushTask(mFormGalpal10s, mMenuCheckingGalpal).execute();
             }

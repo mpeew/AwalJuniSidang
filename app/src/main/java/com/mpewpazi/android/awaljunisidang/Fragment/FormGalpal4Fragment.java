@@ -1,10 +1,10 @@
-package com.mpewpazi.android.awaljunisidang.Fragment;
+package com.mpewpazi.android.awaljunisidang.fragment;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,23 +17,23 @@ import android.widget.Toast;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mpewpazi.android.awaljunisidang.ConnectionDetector;
-import com.mpewpazi.android.awaljunisidang.DataPusher;
-import com.mpewpazi.android.awaljunisidang.DrawerFormActivity;
-import com.mpewpazi.android.awaljunisidang.Form.FormGalpal4;
-import com.mpewpazi.android.awaljunisidang.Form.SingleForm;
-import com.mpewpazi.android.awaljunisidang.GalKomSharedPreference;
-import com.mpewpazi.android.awaljunisidang.PushGalpalService;
+import com.mpewpazi.android.awaljunisidang.tools.ConnectionDetector;
+import com.mpewpazi.android.awaljunisidang.tools.DataPusher;
+import com.mpewpazi.android.awaljunisidang.activity.DrawerFormActivity;
+import com.mpewpazi.android.awaljunisidang.formModel.FormGalpal4;
+import com.mpewpazi.android.awaljunisidang.formModel.SingleForm;
+import com.mpewpazi.android.awaljunisidang.tools.GalKomSharedPreference;
+import com.mpewpazi.android.awaljunisidang.service.PushGalpalService;
 import com.mpewpazi.android.awaljunisidang.R;
-import com.mpewpazi.android.awaljunisidang.SpinnerAdapter;
-import com.mpewpazi.android.awaljunisidang.dummy.DummyMaker;
-import com.mpewpazi.android.awaljunisidang.masterData.MstAirPelayaran;
-import com.mpewpazi.android.awaljunisidang.masterData.MstArus;
-import com.mpewpazi.android.awaljunisidang.masterData.MstGelombang;
-import com.mpewpazi.android.awaljunisidang.masterData.MstJarakKedalaman;
-import com.mpewpazi.android.awaljunisidang.model.KualifikasiSurvey;
-import com.mpewpazi.android.awaljunisidang.model.MenuCheckingGalpal;
-import com.mpewpazi.android.awaljunisidang.model.SingleMenuChecking;
+import com.mpewpazi.android.awaljunisidang.adapter.SpinnerAdapter;
+import com.mpewpazi.android.awaljunisidang.database.DummyMaker;
+import com.mpewpazi.android.awaljunisidang.masterDataModel.MstAirPelayaran;
+import com.mpewpazi.android.awaljunisidang.masterDataModel.MstArus;
+import com.mpewpazi.android.awaljunisidang.masterDataModel.MstGelombang;
+import com.mpewpazi.android.awaljunisidang.masterDataModel.MstJarakKedalaman;
+import com.mpewpazi.android.awaljunisidang.modelExtras.KualifikasiSurvey;
+import com.mpewpazi.android.awaljunisidang.modelExtras.MenuCheckingGalpal;
+import com.mpewpazi.android.awaljunisidang.modelExtras.SingleMenuChecking;
 
 import java.util.List;
 
@@ -127,7 +127,7 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
 
 
         View rootView = inflater.inflate(R.layout.fragment_form_galpal4, container, false);
-        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4|mMenuCheckingGalpal.isVerified()){
+        if(mKualifikasiSurvey.getStatus()==1||mKualifikasiSurvey.getStatus()==3||mKualifikasiSurvey.getStatus()==4||mMenuCheckingGalpal.isVerified()){
             setViewEnabledFalse(rootView);
         }
 
@@ -298,6 +298,7 @@ public class FormGalpal4Fragment extends SingleFragment implements Validator.Val
             mDummyMaker.addFormGalpal4(mFormGalpal4);
             if(!new ConnectionDetector(getActivity()).isConnectingToInternet()){
                 PushGalpalService.setServiceAlarm(getActivity(),true);
+                Log.i("NotificationService","FG4");
             }else {
                 new PushTask(mFormGalpal4, mMenuCheckingGalpal).execute();
             }
